@@ -1,0 +1,19 @@
+{
+  "name": "rsclone",
+  "version": "1.0.0",
+  "description": "game, canvas, kingdom rush, tower defence, pure JS",
+  "main": "App.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iogsotot/rsclone.git"
+  },
+  "author": "Anna Justus <ajustusa@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Iogsotot/rsclone/issues"
+  },
+  "homepage": "https://github.com/Iogsotot/rsclone#readme"
+}
