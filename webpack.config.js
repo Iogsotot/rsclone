@@ -24,7 +24,7 @@ function setDMode() {
 
 const config = {
   target: 'web',
-  entry: { index: './src/scripts/script.js' },
+  entry: { index: './src/scripts/App.js' },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
