@@ -1,4 +1,5 @@
 import createElement from './createElement';
+import { signUp } from '../backend/backend';
 
 function createSignPage() {
   // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"
@@ -45,19 +46,19 @@ function createSignPage() {
 
   document.querySelector('body').append(signPage);
 
-  const signIn = document.querySelector('.sign-info-in');
-  const signUp = document.querySelector('.sign-info-up');
+  const signInfoIn = document.querySelector('.sign-info-in');
+  const signInfoUp = document.querySelector('.sign-info-up');
   const signSubmit = document.querySelector('.sign-in-submit');
 
   function handler({ target }) {
     signSubmit.value = target.textContent;
-    signIn.classList.remove('active-sign-info');
-    signUp.classList.remove('active-sign-info');
+    signInfoIn.classList.remove('active-sign-info');
+    signInfoUp.classList.remove('active-sign-info');
     target.classList.add('active-sign-info');
   }
 
-  signIn.onclick = handler;
-  signUp.onclick = handler;
+  signInfoIn.onclick = handler;
+  signInfoUp.onclick = handler;
 
   signSubmit.onclick = (e) => {
     const { elements } = document.forms.signForm;
@@ -67,8 +68,8 @@ function createSignPage() {
 
     if (username && password) {
       e.preventDefault();
-      console.log(username, password);
-      // signUP({ email: emailValue, password: passwordValue });
+      console.log('before backand: ', username, password);
+      signUp({ login: username, password });
     }
   };
 }

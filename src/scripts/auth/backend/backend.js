@@ -15,10 +15,8 @@ async function signUp(user) {
     body: JSON.stringify(user),
   };
 
-  const request = new Request(url, options);
-
   try {
-    const response = await fetch(request);
+    const response = await fetch(url, options);
     console.log('response:', response);
     const data = await response.json();
     console.log('data:', data);
