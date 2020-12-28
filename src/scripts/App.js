@@ -1,5 +1,5 @@
 import '../styles/style.scss';
-import runAuth from './auth/run.auth'
+import runAuth from './auth/run.auth';
 
 window.onload = () => {
   runAuth();

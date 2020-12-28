@@ -1,6 +1,8 @@
 import createElement from './createElement';
 
 function createSignPage() {
+  // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"
+
   const signPage = createElement('div', {
     classList: ['sign-kingdom-rush'],
     innerHTML: `
@@ -11,10 +13,10 @@ function createSignPage() {
           <span class="sign-info-up">SIGN UP</span>
         </div>
 
-        <form class="sign-form" name="sign-form">
+        <form class="sign-form" name="signForm">
           <div class="wrapper-username">
             <label for="email">Username</label>
-            <input class="sign-username" id="email" required="">
+            <input class="sign-username" id="email" name="username" required="">
           </div>
           <div class="wrapper-password">
             <label for="password">Password</label>
@@ -24,7 +26,7 @@ function createSignPage() {
               type="password"
               autocomplete="on"
               name="password"
-              pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$" required=""
+              required=""
             >
           </div>
           <div class="keep-me">
@@ -56,6 +58,19 @@ function createSignPage() {
 
   signIn.onclick = handler;
   signUp.onclick = handler;
+
+  signSubmit.onclick = (e) => {
+    const { elements } = document.forms.signForm;
+
+    const username = elements.username.value;
+    const password = elements.password.value;
+
+    if (username && password) {
+      e.preventDefault();
+      console.log(username, password);
+      // signUP({ email: emailValue, password: passwordValue });
+    }
+  };
 }
 
 export default createSignPage;
