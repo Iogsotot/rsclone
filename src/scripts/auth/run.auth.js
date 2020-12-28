@@ -3,7 +3,7 @@ import createStartPage from './another/create.start';
 
 function runAuth() {
   // signIN({ email: 'first@user.com', password: 'Gfhjkm_123' });
-  const token: string|null = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
   if (token) {
     createStartPage();
   } else {
