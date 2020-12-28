@@ -11,17 +11,18 @@ function createSignPage() {
           <span class="sign-info-up">SIGN UP</span>
         </div>
 
-        <form class="sign-in-form" name="signUp">
+        <form class="sign-form" name="sign-form">
           <div class="wrapper-username">
             <label for="email">Username</label>
-            <input class="sign-in-email" id="email" required="">
+            <input class="sign-username" id="email" required="">
           </div>
           <div class="wrapper-password">
             <label for="password">Password</label>
             <input
-              class="sign-in-password"
+              class="sign-password"
               id="password"
               type="password"
+              autocomplete="on"
               name="password"
               pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$" required=""
             >
@@ -31,7 +32,7 @@ function createSignPage() {
                   checked>
             <label for="scales">Keep Me Signed In</label>
           </div>
-          <input class="sign-in-submit btn" type="submit" value="SIGN IN">
+          <input class="sign-in-submit" type="submit" value="SIGN IN">
         </form>
         <div class="forgot-password">
           <p>Forgot Password</p>
@@ -41,6 +42,20 @@ function createSignPage() {
   });
 
   document.querySelector('body').append(signPage);
+
+  const signIn = document.querySelector('.sign-info-in');
+  const signUp = document.querySelector('.sign-info-up');
+  const signSubmit = document.querySelector('.sign-in-submit');
+
+  function handler({ target }) {
+    signSubmit.value = target.textContent;
+    signIn.classList.remove('active-sign-info');
+    signUp.classList.remove('active-sign-info');
+    target.classList.add('active-sign-info');
+  }
+
+  signIn.onclick = handler;
+  signUp.onclick = handler;
 }
 
 export default createSignPage;
