@@ -13,7 +13,6 @@ function createStartPage() {
   const logout = createElement('div', {
     classList: ['logout-game'],
     onclick: () => {
-      console.log('click');
       localStorage.removeItem('token');
       window.location.reload();
     },
