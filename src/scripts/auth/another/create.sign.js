@@ -48,7 +48,9 @@ function createSignPage() {
     classList: ['response-info'],
   });
 
-  document.querySelector('body').append(signPage);
+  const body = document.querySelector('body');
+  body.textContent = '';
+  body.append(signPage);
 
   const signInfoIn = document.querySelector('.sign-info-in');
   const signInfoUp = document.querySelector('.sign-info-up');

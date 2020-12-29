@@ -16,6 +16,18 @@
   align-items: center;
 }
 
+.logout-game {
+  background-image: url('../assets/auth/close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  margin: 10px;
+  cursor: pointer;
+}
+
 .logo-start-page {
   background-image: url('../assets/auth/start-game.png');
   width: 724px;
