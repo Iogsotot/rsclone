@@ -21,11 +21,11 @@ async function signIn(user) {
 
     const response = await fetch(url, options);
     const {
-      data, token, id, login,
+      data, token, login, ok,
     } = await response.json();
 
-    if (!data) {
-      responseInfo.innerHTML = `${login} has sign in (${id})`;
+    if (ok) {
+      responseInfo.innerHTML = `${login} has sign in`;
 
       if (checked) {
         localStorage.setItem('token', token);
