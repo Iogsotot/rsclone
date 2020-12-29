@@ -38,7 +38,7 @@ function createSignPage() {
           <input class="sign-in-submit" type="submit" value="SIGN IN">
         </form>
         <div class="forgot-password">
-          <p>Forgot Password</p>
+          <p class="forgot-password-button">Forgot Password</p>
         </div>
       </div>
     `,
@@ -56,6 +56,13 @@ function createSignPage() {
   signInfoUp.after(responseInfo);
 
   const signSubmit = document.querySelector('.sign-in-submit');
+  const forgotPassword = document.querySelector('.forgot-password-button');
+
+  forgotPassword.onclick = () => {
+    localStorage.removeItem('token');
+    document.forms.signForm.reset();
+    responseInfo.textContent = 'Password forgot';
+  };
 
   function handler({ target }) {
     signSubmit.value = target.textContent;

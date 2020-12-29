@@ -3,6 +3,8 @@ import createStartPage from '../another/create.start';
 const SERVER = 'https://rs-clone.herokuapp.com';
 
 async function signIn(user) {
+  const responseInfo = document.querySelector('.response-info');
+
   const url = `${SERVER}/login`;
   const options = {
     method: 'POST',
@@ -13,20 +15,21 @@ async function signIn(user) {
     body: JSON.stringify(user),
   };
 
-  const responseInfo = document.querySelector('.response-info');
-
   try {
+    const { checked } = document.forms.signForm.elements.scales;
     const form = document.querySelector('.sign-form');
 
     const response = await fetch(url, options);
     const {
       data, token, id, login,
     } = await response.json();
-    console.log(data, token, id, login);
 
     if (!data) {
-      responseInfo.innerHTML = `${data.login} has sign in`;
-      localStorage.setItem('token', token);
+      responseInfo.innerHTML = `${login} has sign in (${id})`;
+
+      if (checked) {
+        localStorage.setItem('token', token);
+      }
 
       setTimeout(() => {
         createStartPage();
@@ -36,6 +39,7 @@ async function signIn(user) {
       form.reset();
     }
   } catch (err) {
+    console.log(err);
     responseInfo.textContent = err.name;
   }
 }
