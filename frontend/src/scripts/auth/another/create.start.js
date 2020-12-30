@@ -1,4 +1,5 @@
 import createElement from './createElement';
+// import createSignPage from './create.sign';
 
 function createStartPage() {
   const startPage = createElement('div', {

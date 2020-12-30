@@ -1,4 +1,4 @@
-import createStartPage from './create.start';
+import createStartPage from '../another/create.start';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -67,6 +67,7 @@ async function signUp(user) {
 
     const response = await fetch(request);
     const { data, ok } = await response.json();
+    console.log(data, ok);
 
     if (ok) {
       responseInfo.innerHTML = `${data.login} has sign up`;
