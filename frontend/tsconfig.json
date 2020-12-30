@@ -12,3 +12,29 @@
     "lib": ["dom", "es6", "esnext"]
   }
 }
+// {
+//   "compileOnSave": true,
+//   "compilerOptions": {
+//       "outDir": "./built",
+//       "allowJs": true,
+//       "target": "es6",
+//       "allowUnreachableCode": false,
+//       "noImplicitReturns": true,
+//       "noImplicitAny": true,
+//       "typeRoots": [ "./typings", "node_modules/@types"],
+//       "outFile": "./built/combined.js",
+//       "skipLibCheck": true,
+//       "strictNullChecks": true
+//   },
+//   "include": [
+//       "./**/*"
+//   ],
+//   "exclude": [
+//       "./plugins/**/*",
+//       "./typings/**/*",
+//       "./built/**/*",
+//       "./node_modules/",
+//       "node_modules",
+//       "*/node_modules/"
+//   ]
+// }

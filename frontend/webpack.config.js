@@ -31,6 +31,9 @@ const config = {
   },
   mode: setDMode(),
   devtool: setDevTool(),
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js'],
+  },
   module: {
     rules: [{
       test: /\.html$/,
@@ -41,9 +44,17 @@ const config = {
         },
       }],
     },
+    // {
+    //   test: /\.js$/,
+    //   use: ['babel-loader'/* , 'eslint-loader' */],
+    //   exclude: [
+    //     /node_modules/,
+    //   ],
+    // },
     {
-      test: /\.js$/,
-      use: ['babel-loader'/* , 'eslint-loader' */],
+      test: /\.tsx?$|\.jsx?$/,
+      loader: 'ts-loader',
+      include: path.join(__dirname, './src'),
       exclude: [
         /node_modules/,
       ],
