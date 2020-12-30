@@ -10,7 +10,7 @@
     "pure JS"
   ],
   "private": true,
-  "main": "App.js",
+  "main": "App.ts",
   "scripts": {
     "dev": "webpack-dev-server --history-api-fallback --inline --open",
     "build": "npm run clear -s && webpack --progress",
