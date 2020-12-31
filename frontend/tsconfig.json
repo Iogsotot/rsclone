@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "strict": true,
     "noImplicitAny": false,
@@ -9,8 +9,15 @@
     "sourceMap": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
-    "lib": ["dom", "es6", "esnext"]
-  }
+    "lib": ["dom", "es6", "esnext", "es2015"],
+    "outDir": "./dist/",
+    // "noImplicitAny": true,
+    // "module": "es6",
+    // "target": "es5",
+  },
+  //   "include": [
+  //     "./src/*"
+  // ],
 }
 // {
 //   "compileOnSave": true,
