@@ -32,7 +32,7 @@ const config = {
   mode: setDMode(),
   devtool: setDevTool(),
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [{
@@ -52,7 +52,7 @@ const config = {
     //   ],
     // },
     {
-      test: /\.tsx?$|\.jsx?$/,
+      test: /\.ts$|\.js$/,
       loader: 'ts-loader',
       include: path.join(__dirname, './src'),
       exclude: [
