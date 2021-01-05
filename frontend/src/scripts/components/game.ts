@@ -1,14 +1,7 @@
-import '../styles/style.scss';
-import runAuth from './auth/run.auth';
-
-window.onload = () => {
-  runAuth();
-};
-
 import 'phaser'
 import { Game } from 'phaser'
-import MainScene from './components/scenes/mainScene'
-import PreloadScene from './components/scenes/preloadScene'
+import MainScene from './scenes/mainScene'
+import PreloadScene from './scenes/preloadScene'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 720
@@ -36,3 +29,5 @@ const config: Phaser.Types.Core.GameConfig = {
 window.addEventListener('load', () => {
   const game = new Phaser.Game(config)
 })
+
+
