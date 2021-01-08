@@ -1,12 +1,23 @@
+import Phaser from 'phaser';
 import Map from './Map';
 import { map1 } from '../../constants/maps';
-import { getRandomDeviationWay } from '../../utils/getRandomDeviationWay';
+import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 
-class MapLevel1 extends Map {
+export interface MapLevel1 {
+  new(scene: any, mapData: any): Map
+}
+
+export class MapLevel1 extends Map {
   /**
-     * @param {Phaser.Scene} scene
-     */
-  constructor(scene, mapData) {
+   * @param {Phaser.Scene} scene
+   */
+  curve: any;
+  firstPointX: any;
+  firstPointY: any;
+  fourteenthPointX: any;
+  fourteenthPointY: any;
+
+  constructor(scene: any, mapData: any) {
     super(scene, mapData);
     this.curve = undefined;
     this.firstPointX = 0;
@@ -43,7 +54,7 @@ class MapLevel1 extends Map {
     const fifteenthPointX = this.getRandomPointX(map1.scaleFifteenthPointX);
     const fifteenthPointY = this.getRandomPointY(map1.scaleFifteenthPointY);
 
-    const points = [];
+    const points = [] as any;
     points.push(new Phaser.Math.Vector2(this.firstPointX, this.firstPointY));
     points.push(new Phaser.Math.Vector2(secondPointX, secondPointY));
     points.push(new Phaser.Math.Vector2(thirdPointX, thirdPointY));
@@ -62,7 +73,8 @@ class MapLevel1 extends Map {
 
     this.curve = new Phaser.Curves.Spline(points);
 
-    // код ниже рисует кривую на карте, по которой двигаюется враги. Сама отрисовка кривой нам не нужна, оставил для всевозможных корректировок.
+    // код ниже рисует кривую на карте, по которой двигаюется враги.
+    // Сама отрисовка кривой нам не нужна, оставил для всевозможных корректировок.
     // const graphics = this.scene.add.graphics();
     // graphics.lineStyle(1, 0xffffff, 1);
     // this.curve.draw(graphics, 64);
@@ -82,9 +94,7 @@ class MapLevel1 extends Map {
   getRandomPointY(scale) {
     return (this.height / scale) + getRandomDeviationWay();
   }
-}
 
-class PointsLevel1 extends MapLevel1 {
   getStartPointX() {
     return this.firstPointX;
   }
@@ -102,7 +112,25 @@ class PointsLevel1 extends MapLevel1 {
   }
 }
 
-export {
-  MapLevel1,
-  PointsLevel1,
-};
+// class PointsLevel1 extends MapLevel1 {
+  // getStartPointX() {
+  //   return this.firstPointX;
+  // }
+
+  // getStartPointY() {
+  //   return this.firstPointY;
+  // }
+
+  // getFinishPointX() {
+  //   return this.fourteenthPointX;
+  // }
+
+  // getFinishPointY() {
+  //   return this.fourteenthPointY;
+  // }
+// }
+
+// export default {
+//   MapLevel1,
+//   // PointsLevel1,
+// };

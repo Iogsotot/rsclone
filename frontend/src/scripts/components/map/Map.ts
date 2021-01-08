@@ -1,8 +1,14 @@
 export default class Map {
   /**
-     * @param {Phaser.Scene} scene
-     */
-  constructor(scene, mapData) {
+   * @param {Phaser.Scene} scene
+   */
+  scene: any;
+  mapData: any;
+  map: any;
+  width: any;
+  height: any;
+
+  constructor(scene: any, mapData: any) {
     this.scene = scene;
     this.mapData = mapData;
     this.map = undefined;
@@ -19,7 +25,7 @@ export default class Map {
     this.map.setDisplaySize(this.width, this.height);
   }
 
-  update() {
-      
-  }
+  // update() {
+
+  // }
 }

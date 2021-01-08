@@ -1,5 +1,4 @@
 import 'phaser'
-import { Game } from 'phaser'
 import MainScene from './scenes/mainScene'
 import PreloadScene from './scenes/preloadScene'
 import GameScene from './scenes/GameScene';
@@ -27,7 +26,4 @@ const config: Phaser.Types.Core.GameConfig = {
   }
 }
 
-window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
-})
-
+export default config;

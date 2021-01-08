@@ -1,13 +1,19 @@
 import { map1 } from '../../constants/maps';
-import { MapLevel1, PointsLevel1 } from '../map/MapLevel_1';
-var turrets
+import { MapLevel1 } from '../map/MapLevel_1';
+
+// var turrets
+
 export default class GameScene extends Phaser.Scene {
+  map: any;
+  points: any;
+  firstPointX: any;
+  firstPointY: any;
+
   constructor() {
     super('game-scene');
     this.map = new MapLevel1(this, map1);
-    this.points = new PointsLevel1();
-    this.firstPointX = this.points.getStartPointX();
-    this.firstPointY = this.points.getStartPointY();
+    this.firstPointX = this.map.getStartPointX();
+    this.firstPointY = this.map.getStartPointY();
   }
 
   preload() {
@@ -20,7 +26,7 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.map.create();
-  
+
     // для примера пустил врага по пути. Для каждого врага необходимо создавать свой путь, так как путь рандомный, что позволяет врагам идти немного хаотично.
     const way = this.map.createWay();
     const way2 = this.map.createWay();
