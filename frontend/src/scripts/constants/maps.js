@@ -1,5 +1,5 @@
 const map1 = {
-  url: '../assets/forest_v1_scene2-.jpg',
+  url: '../assets/forest_scene2.jpg',
   scaleFirstPointY: 3.1,
   scaleSecondPointX: 6.4,
   scaleSecondPointY: 4.65,
@@ -42,7 +42,7 @@ const map1 = {
 };
 
 const map2 = {
-  url: '../../../assets/forest_scene1-.jpg',
+  url: '../assets/forest_scene2.jpg',
   tiles: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -60,7 +60,7 @@ const map2 = {
 };
 
 const map3 = {
-  url: '../../../assets/desert_scene3.jpg',
+  url: '../assets/desert_scene3.jpg',
   tiles: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
