@@ -80,7 +80,7 @@
     "type": "git",
     "url": "git+https://github.com/Iogsotot/rsclone.git"
   },
-  "author": "Anna Justus <ajustusa@gmail.com>", 
+  "author": "Anna Justus <ajustusa@gmail.com>",
   "contributes": {
     "1": "Uladzimir Kazak <mrinex@mail.ru>",
     "2": "Anna Justus <ajustusa@gmail.com>"

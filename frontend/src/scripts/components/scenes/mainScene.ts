@@ -1,5 +1,6 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
+import PhaserLogo from '../objects/phaserLogo';
+import FpsText from '../objects/fpsText';
+
 
 export default class MainScene extends Phaser.Scene {
   fpsText: Phaser.GameObjects.Text
@@ -19,6 +20,7 @@ export default class MainScene extends Phaser.Scene {
         fontSize: '24px',
       })
       .setOrigin(1, 0)
+    this.scene.start("game-scene");
   }
 
   update() {
