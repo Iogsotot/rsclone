@@ -5,9 +5,10 @@ function runAuth() {
   const token = localStorage.getItem('token');
   if (token) {
     createStartPage();
-  } else {
-    createSignPage();
+    return true;
   }
+  createSignPage();
+  return false;
 }
 
 export default runAuth;
