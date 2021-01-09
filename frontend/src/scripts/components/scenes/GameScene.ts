@@ -3,8 +3,11 @@ import { MapLevel1 } from '../map/MapLevel_1';
 
 export default class GameScene extends Phaser.Scene {
   map: MapLevel1;
+
   points: Array<any>;
+
   firstPointX: number;
+
   firstPointY: number;
 
   constructor() {
@@ -25,11 +28,13 @@ export default class GameScene extends Phaser.Scene {
   create(): void {
     this.map.create();
 
-    // для примера пустил врага по пути. Для каждого врага необходимо создавать свой путь, так как путь рандомный, что позволяет врагам идти немного хаотично.
+    // для примера пустил врага по пути.
+    // Для каждого врага необходимо создавать свой путь, так как путь рандомный,
+    // что позволяет врагам идти немного хаотично.
     const way = this.map.createWay();
     const way2 = this.map.createWay();
     const way3 = this.map.createWay();
-    
+
     const enemy = this.add.follower(way, this.firstPointX, this.firstPointY, 'dude');
     const enemy2 = this.add.follower(way2, this.firstPointX, this.firstPointY, 'dude');
     const enemy3 = this.add.follower(way3, this.firstPointX, this.firstPointY, 'dude');
@@ -38,7 +43,7 @@ export default class GameScene extends Phaser.Scene {
     enemy3.startFollow(15000);
   }
 
-  update() {
+  // update() {
 
-  }
+  // }
 }

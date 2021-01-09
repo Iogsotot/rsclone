@@ -1,12 +1,12 @@
-export type MapType = { 
-    url: string, 
-    scalePoints: Array<object>, 
-    scaleStartPointX: number, 
-    scaleStartPointY: number, 
-    scaleFinishPointX: number, 
-    scaleFinishPointY: number,
-    tiles: Array<Array<number>>,
-}
+export type MapType = {
+  url: string,
+  scalePoints: Array<object>,
+  scaleStartPointX: number,
+  scaleStartPointY: number,
+  scaleFinishPointX: number,
+  scaleFinishPointY: number,
+  tiles: Array<Array<number>>,
+};
 
 const map1: MapType = {
   url: '../assets/forest_scene2.jpg',
