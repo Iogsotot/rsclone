@@ -1,5 +1,5 @@
 import createElement from './createElement';
-// import createSignPage from './create.sign';
+import getAttendance from '../backend/getAttendance';
 
 function createStartPage() {
   const startPage = createElement('div', {
@@ -20,14 +20,20 @@ function createStartPage() {
 
   const attendance = createElement('div', {
     classList: ['attendance-per-year-game'],
-    onclick: () => {
-      console.log('run get data url');
+    onclick: async () => {
+      const res = await getAttendance();
+      const { data } = res;
+      createPopupAttendance(data);
     },
   });
 
   const body = document.querySelector('body');
   body.innerText = '';
   body.append(logout, attendance, startPage);
+}
+
+function createPopupAttendance({ year, allAttendance }) {
+  console.log('data with createPopupAttendance', year, allAttendance);
 }
 
 export default createStartPage;
