@@ -1,8 +1,4 @@
 export default class Enemy {
-  // DEFAULT_SIZE: number;
-  // DEFAULT_SPEED: number;
-  // DEFAULT_HP: number;
-  // DEFAULT_DAMAGE: number;
   enemyType: string;
   position: {x: number, y: number};
   size: number;
@@ -21,10 +17,6 @@ export default class Enemy {
     firstPointY: number = 0, 
     enemyType = 'default'
     ) {
-    // this.DEFAULT_SIZE = 20;
-    // this.DEFAULT_SPEED = 2;
-    // this.DEFAULT_HP = 100;
-    // this.DEFAULT_DAMAGE = 5;
     
     this.enemyType = enemyType;
 
@@ -42,8 +34,5 @@ export default class Enemy {
     this.magicArmor = 5;
     this.killReward = 5;
     this.sprite = '../../assets/sprites/1_enemies_1_walk_000.png'; 
-    // frontend\src\assets\sprites\default_enemy.jpg
-    // frontend\src\scripts\components\enemies\Enemy.ts
-
   }
 }

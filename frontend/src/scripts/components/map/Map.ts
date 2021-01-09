@@ -1,15 +1,16 @@
-// import map from '../../../assets/forest_scene2.jpg'
+
+import { MapType } from "../../constants/maps";
 export default class Map {
   /**
    * @param {Phaser.Scene} scene
    */
   scene: any;
-  mapData: any;
+  mapData: MapType;
   map: any;
-  width: any;
-  height: any;
+  width: number;
+  height: number;
 
-  constructor(scene: any, mapData: any) {
+  constructor(scene: any, mapData: MapType) {
     this.scene = scene;
     this.mapData = mapData;
     this.map = undefined;
@@ -17,16 +18,12 @@ export default class Map {
     this.height = 700;
   }
 
-  preload() {
-    this.scene.load.image('map', this.mapData.url);
+  preload(): void {
+    this.scene.load.image('map', this.mapData.url); 
   }
 
-  create() {
+  create(): void {
     this.map = this.scene.add.image(0, 0, 'map').setOrigin(0, 0);
-    this.map.setDisplaySize(this.width, this.height);
+    this.map.setDisplaySize(this.width, this.height); 
   }
-
-  // update() {
-
-  // }
 }
