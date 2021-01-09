@@ -1,10 +1,6 @@
 import '../styles/style.scss';
 import runAuth from './auth/run.auth';
 
-window.onload = () => {
-  runAuth();
-};
-
 import 'phaser'
 import { Game } from 'phaser'
 import MainScene from './components/scenes/mainScene'
@@ -34,5 +30,8 @@ const config: Phaser.Types.Core.GameConfig = {
 }
 
 window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
+  const isAuthorization = runAuth();
+  if (isAuthorization) {
+    const game = new Phaser.Game(config);
+  }
 })
