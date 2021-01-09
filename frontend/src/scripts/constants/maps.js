@@ -1,5 +1,5 @@
 const map1 = {
-  url: '../assets/forest_scene2.jpg',
+  url: '../assets/imgs/forest_scene2.jpg',
   scaleFirstPointY: 3.1,
   scaleSecondPointX: 6.4,
   scaleSecondPointY: 4.65,
@@ -29,7 +29,8 @@ const map1 = {
   scaleFourteenthPointY: 2,
   scaleFifteenthPointX: 0.92,
   scaleFifteenthPointY: 1.84,
-  tiles: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  tiles: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -38,11 +39,12 @@ const map1 = {
     [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ],
 };
 
 const map2 = {
-  url: '../assets/forest_scene2.jpg',
+  url: '../assets/imgs/forest_scene2.jpg',
   tiles: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -60,7 +62,7 @@ const map2 = {
 };
 
 const map3 = {
-  url: '../assets/desert_scene3.jpg',
+  url: '../assets/imgs/desert_scene3.jpg',
   tiles: [
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

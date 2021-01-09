@@ -3,7 +3,7 @@ import runAuth from './auth/run.auth';
 
 // import 'phaser'
 import Phaser from 'phaser';
-import config from './components/game'
+import config from './components/game';
 
 
 window.onload = () => {
@@ -11,5 +11,5 @@ window.onload = () => {
 };
 
 window.addEventListener('load', () => {
-  const game = new Phaser.Game(config)
+  const game = new Phaser.Game(config);
 })

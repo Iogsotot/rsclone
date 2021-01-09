@@ -1,3 +1,4 @@
+// import map from '../../../assets/forest_scene2.jpg'
 export default class Map {
   /**
    * @param {Phaser.Scene} scene
