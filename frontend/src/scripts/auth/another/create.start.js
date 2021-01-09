@@ -33,7 +33,17 @@ function createStartPage() {
 }
 
 function createPopupAttendance({ year, allAttendance }) {
-  console.log('data with createPopupAttendance', year, allAttendance);
+  const popup = createElement('div', {
+    classList: ['popup-attendance-wrapper'],
+    innerHTML: `
+      <div class="popup-attendance-content">${allAttendance}</div>
+    `,
+    onclick: () => {
+      popup.remove();
+    }
+  })
+
+  document.querySelector('body').append(popup);
 }
 
 export default createStartPage;
