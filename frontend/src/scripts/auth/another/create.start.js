@@ -18,9 +18,16 @@ function createStartPage() {
     },
   });
 
+  const attendance = createElement('div', {
+    classList: ['attendance-per-year-game'],
+    onclick: () => {
+      console.log('run get data url');
+    },
+  });
+
   const body = document.querySelector('body');
   body.innerText = '';
-  body.append(logout, startPage);
+  body.append(logout, attendance, startPage);
 }
 
 export default createStartPage;

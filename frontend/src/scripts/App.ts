@@ -31,7 +31,7 @@ const config: Phaser.Types.Core.GameConfig = {
 
 window.addEventListener('load', () => {
   const isAuthorization = runAuth();
-  if (isAuthorization) {
-    const game = new Phaser.Game(config);
-  }
+  // if (isAuthorization) {
+  //   const game = new Phaser.Game(config);
+  // }
 })

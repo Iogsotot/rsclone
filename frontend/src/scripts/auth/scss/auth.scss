@@ -23,8 +23,21 @@
   background-position: center;
   width: 70px;
   height: 70px;
-  position: absolute;
+  position: fixed;
   margin: 10px;
+  cursor: pointer;
+}
+
+.attendance-per-year-game {
+  background-image: url('../assets/auth/bag-attendance.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  margin: 10px;
+  bottom: 0;
   cursor: pointer;
 }
 
