@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
 import Map from './Map';
 import { map1, MapType } from '../../constants/maps';
-import getRandomDeviationWay from '../../utils/getRandomDeviationWay'
-
+import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 
 export interface MapLevel1 {
   new(scene: any, mapData: MapType): Map
@@ -13,9 +12,13 @@ export class MapLevel1 extends Map {
    * @param {Phaser.Scene} scene
    */
   curve: any;
+
   startPointX: number;
+
   startPointY: number;
+
   finishPointX: number;
+
   finishPointY: number;
 
   constructor(scene: any, mapData: MapType) {
@@ -31,17 +34,17 @@ export class MapLevel1 extends Map {
     const points: Array<any> = [];
     points.push(new Phaser.Math.Vector2(this.startPointX, this.startPointY));
     map1.scalePoints.forEach((scalePoint) => {
-        this.createPoint(points, scalePoint);
-    })
+      this.createPoint(points, scalePoint);
+    });
     this.curve = new Phaser.Curves.Spline(points);
     return this.curve;
   }
 
   createPoint(points: Array<any>, scalePoint: object): void {
-    let scaleX = Object.values(scalePoint)[0];
-    let scaleY = Object.values(scalePoint)[1];
-    let pointX = this.getRandomPointX(scaleX);
-    let pointY = this.getRandomPointY(scaleY);
+    const scaleX = Object.values(scalePoint)[0];
+    const scaleY = Object.values(scalePoint)[1];
+    const pointX = this.getRandomPointX(scaleX);
+    const pointY = this.getRandomPointY(scaleY);
     points.push(new Phaser.Math.Vector2(pointX, pointY));
   }
 
@@ -69,5 +72,3 @@ export class MapLevel1 extends Map {
     return this.finishPointY;
   }
 }
-
-
