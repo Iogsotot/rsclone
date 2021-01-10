@@ -1,15 +1,15 @@
-export type MapType = { 
-    url: string, 
-    scalePoints: Array<object>, 
-    scaleStartPointX: number, 
-    scaleStartPointY: number, 
-    scaleFinishPointX: number, 
-    scaleFinishPointY: number,
-    tiles: Array<Array<number>>,
-}
+export type MapType = {
+  url: string,
+  scalePoints: Array<object>,
+  scaleStartPointX: number,
+  scaleStartPointY: number,
+  scaleFinishPointX: number,
+  scaleFinishPointY: number,
+  tiles: Array<Array<number>>,
+};
 
 const map1: MapType = {
-  url: '../assets/forest_scene2.jpg',
+  url: '../assets/imgs/forest_scene2.jpg',
   scalePoints: [
     { scaleSecondPointX: 6.4, scaleSecondPointY: 4.65 },
     { scaleThirdPointX: 3.2, scaleThirdPointY: 5.6 },
@@ -43,7 +43,7 @@ const map1: MapType = {
 };
 
 const map2: MapType = {
-  url: '../assets/forest_scene2.jpg',
+  url: '../assets/imgs/forest_scene2.jpg',
   scalePoints: [
     {},
   ],
@@ -51,7 +51,8 @@ const map2: MapType = {
   scaleStartPointY: 0,
   scaleFinishPointX: 0,
   scaleFinishPointY: 0,
-  tiles: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  tiles: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

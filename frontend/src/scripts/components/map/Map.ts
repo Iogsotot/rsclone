@@ -1,13 +1,17 @@
-import { MapType } from "../../constants/maps";
+import { MapType } from '../../constants/maps';
 
 export default class Map {
   /**
-   * @param {Phaser.Scene} scene
-   */
+  * @param {Phaser.Scene} scene
+  */
   scene: any;
+
   mapData: MapType;
+
   map: any;
+
   width: number;
+
   height: number;
 
   constructor(scene: any, mapData: MapType) {
@@ -19,11 +23,11 @@ export default class Map {
   }
 
   preload(): void {
-    this.scene.load.image('map', this.mapData.url); 
+    this.scene.load.image('map', this.mapData.url);
   }
 
   create(): void {
     this.map = this.scene.add.image(0, 0, 'map').setOrigin(0, 0);
-    this.map.setDisplaySize(this.width, this.height); 
+    this.map.setDisplaySize(this.width, this.height);
   }
 }

@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
   },
   extends: [
+    // "airbnb-typescript/base"
     'airbnb-base',
   ],
   globals: {
@@ -13,8 +14,11 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
   },
   rules: {
+    // 'exceptAfterSingleLine': 0,
     'no-console': 'off',
     'no-plusplus': ['error',
       {
