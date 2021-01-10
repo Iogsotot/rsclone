@@ -21,9 +21,12 @@
     border-radius: 5px;
     display: flex;
     cursor: auto;
+    position: relative;
+    padding: 75px;
 }
 
 .close-popup {
+    background-image: url('../assets/auth/close.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
