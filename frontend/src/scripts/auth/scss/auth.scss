@@ -18,6 +18,10 @@
   align-items: center;
 }
 
+.start-page {
+  height: 100vh;
+}
+
 .logout-game {
   background-image: url('../assets/auth/close.png');
   background-size: contain;
@@ -45,8 +49,10 @@
 
 .logo-start-page {
   background-image: url('../assets/auth/start-game.png');
-  width: 724px;
-  height: 892px;
+  // width: 724px;
+  // height: 892px;
+  width: 40vw;
+  height: 70vh;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

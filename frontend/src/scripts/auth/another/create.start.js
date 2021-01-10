@@ -36,10 +36,13 @@ function createPopupAttendance({ year, allAttendance }) {
   const popup = createElement('div', {
     classList: ['popup-attendance-wrapper'],
     innerHTML: `
+      <div class="close-popup"></div>
       <div class="popup-attendance-content">${allAttendance}</div>
     `,
-    onclick: () => {
-      popup.remove();
+    onclick: ({ target }) => {
+      if (target.classList.contains('popup-attendance-wrapper')) {
+        popup.remove();
+      }
     }
   })
 
