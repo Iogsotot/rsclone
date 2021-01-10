@@ -68,8 +68,8 @@ export class MapLevel1 extends Map {
     const scaleCoordinate: Array<Array<number>> = [[13, 8.5], [3.55, 3.4], [8, 1.78], [2.9, 1.63], [3.41, 1.16], [1.74, 1.29],
     [1.98, 2], [1.94, 4], [1.42, 1.7], [1.18, 1.86], [1.07, 2.86]];
 
-    let x: number = Math.floor( pointer.x / this.sizeCellX );
-    let y: number = Math.floor( pointer.y / this.sizeCellY );
+    let x: number = Math.floor( pointer.layerX / this.sizeCellX );
+    let y: number = Math.floor( pointer.layerY / this.sizeCellY );
     let towerPlace: number = map1.tiles[y][x];
     for (let i = 1; i <= 11; i += 1) {
         if (i === towerPlace) {

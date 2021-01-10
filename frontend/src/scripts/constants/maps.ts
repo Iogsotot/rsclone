@@ -21,7 +21,7 @@ const map1: MapType = {
     { scaleNinthPointX: 2, scaleNinthPointY: 1.43 },
     { scaleTenthPointX: 1.68, scaleTenthPointY: 1.71 },
     { scaleEleventhPointX: 1.39, scaleEleventhPointY: 2.5 },
-    { scaleTwelfthPointX: 1.27, scaleTwelfthPointY: 2.69 },
+    { scaleTwelfthPointX: 1.25, scaleTwelfthPointY: 2.69 },
     { scaleThirteenthPointX: 1.11, scaleThirteenthPointY: 2.15 },
     { scaleFourteenthPointX: 1, scaleFourteenthPointY: 2 },
     { scaleFifteenthPointX: 0.92, scaleFifteenthPointY: 1.84 },
