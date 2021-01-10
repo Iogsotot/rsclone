@@ -4,7 +4,8 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "airbnb-typescript/base"
+    // "airbnb-typescript/base"
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',
@@ -17,6 +18,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    // 'exceptAfterSingleLine': 0,
     'no-console': 'off',
     'no-plusplus': ['error',
       {

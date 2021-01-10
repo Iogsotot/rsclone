@@ -2,8 +2,8 @@ import { MapType } from '../../constants/maps';
 
 export default class Map {
   /**
-   * @param {Phaser.Scene} scene
-   */
+  * @param {Phaser.Scene} scene
+  */
   scene: any;
 
   mapData: MapType;

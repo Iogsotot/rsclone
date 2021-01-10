@@ -9,8 +9,8 @@ export interface MapLevel1 {
 
 export class MapLevel1 extends Map {
   /**
-   * @param {Phaser.Scene} scene
-   */
+  * @param {Phaser.Scene} scene
+  */
   curve: any;
 
   startPointX: number;

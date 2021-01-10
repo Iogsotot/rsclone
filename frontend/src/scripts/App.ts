@@ -1,9 +1,7 @@
 import '../styles/style.scss';
 import Phaser from 'phaser';
 import runAuth from './auth/run.auth';
-
-// import 'phaser'
-import config from './components/game';
+import config from './components/Game';
 
 window.addEventListener('load', () => {
   const isAuthorization = runAuth();
