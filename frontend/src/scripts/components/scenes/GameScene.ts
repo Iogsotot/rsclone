@@ -42,7 +42,7 @@ export default class GameScene extends Phaser.Scene {
 
   create(): void {
     this.map.create();
-    const way = this.map.createWay();
+   
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -63,6 +63,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     for (let i = 0; i < 3; i++) { 
+      const way = this.map.createWay();
       const scorpio = this.add.follower(way, this.firstPointX, this.firstPointY, 'scorpio').setScale(0.4);
       const defaultEnemy = this.add.follower(way, this.firstPointX, this.firstPointY, 'defaultEnemy');
 
