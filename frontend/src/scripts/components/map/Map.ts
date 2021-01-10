@@ -15,7 +15,7 @@ export default class Map {
     this.mapData = mapData;
     this.map = undefined;
     this.width = 1280;
-    this.height = 700;
+    this.height = 800;
   }
 
   preload(): void {
