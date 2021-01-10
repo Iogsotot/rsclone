@@ -34,11 +34,6 @@ export default class GameScene extends Phaser.Scene {
   preload(): void {
     this.map.preload();
 
-    this.load.spritesheet('dude', './assets/imgs/dude.png', {
-      frameWidth: 32,
-      frameHeight: 48
-    });
-
     this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
       frameWidth: 37,
       frameHeight: 45
@@ -53,8 +48,6 @@ export default class GameScene extends Phaser.Scene {
   create(): void {
     this.map.create();
     const way = this.map.createWay();
-    // const defaultEnemy = this.add.sprite(this.firstPointX - 50, this.firstPointY, 'defaultEnemy');
-
 
     this.anims.create({
       key: 'defaultEnemy_walk',
