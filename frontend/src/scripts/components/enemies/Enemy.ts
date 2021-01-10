@@ -1,22 +1,14 @@
 export default class Enemy {
+  Extends: Unit,
   enemyType: string;
-
   position: {x: number, y: number};
-
   size: number;
-
   speed: number;
-
   hp: number;
-
   damage: number;
-
   physicalArmor: number;
-
   magicArmor: number;
-
   killReward: number;
-
   sprite: string;
 
   constructor(

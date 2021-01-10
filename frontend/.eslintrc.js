@@ -17,6 +17,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
+    // 'exceptAfterSingleLine': 0,
     'no-console': 'off',
     'no-plusplus': ['error',
       {
