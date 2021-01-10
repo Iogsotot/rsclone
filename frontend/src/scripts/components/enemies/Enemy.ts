@@ -1,5 +1,7 @@
+import 'phaser';
+
 export default class Enemy {
-  Extends: Unit,
+  // Extends: Unit;
   enemyType: string;
   position: {x: number, y: number};
   size: number;

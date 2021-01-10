@@ -13,6 +13,8 @@ export default class GameScene extends Phaser.Scene {
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
+  gatePointX: number;
+  gatePointY: number;
   // destroyEnemy: any;
 
   constructor() {
@@ -20,6 +22,9 @@ export default class GameScene extends Phaser.Scene {
     this.map = new MapLevel1(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
+
+    this.gatePointX = this.map.getFinishPointX();
+    this.gatePointY = this.map.getFinishPointY();
   }
 
   addEnemy(way) {
@@ -48,8 +53,8 @@ export default class GameScene extends Phaser.Scene {
   create(): void {
     this.map.create();
     const way = this.map.createWay();
-    const defaultEnemy = this.add.sprite(this.firstPointX - 50, this.firstPointY, 'defaultEnemy');
-    const scorpio = this.add.sprite(this.firstPointX - 100, this.firstPointY, 'scorpio').setScale(0.4);
+    // const defaultEnemy = this.add.sprite(this.firstPointX - 50, this.firstPointY, 'defaultEnemy');
+
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -59,7 +64,7 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 18,
     });
-
+    
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
@@ -67,33 +72,18 @@ export default class GameScene extends Phaser.Scene {
         end: 20,
       }),
       frameRate: 17,
-      repeat: -1
     });
 
-    // const enemy2 = this.add.follower(way, this.firstPointX, this.firstPointY, 'defaultEnemy');
-    // enemy2.startFollow(10000);
-    
-    defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
-    scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
+    for (let i = 0; i < 3; i++) { 
+      const scorpio = this.add.follower(way, this.firstPointX, this.firstPointY, 'scorpio').setScale(0.4);
+      const defaultEnemy = this.add.follower(way, this.firstPointX, this.firstPointY, 'defaultEnemy');
 
-    scorpio.setInteractive();
+      scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
+      defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
-    this.tweens.add({
-      targets: defaultEnemy,
-      x: 1500,
-      duration: 25000,
-      ease: 'Linear'
-    });
-    
-    this.tweens.add({
-      targets: scorpio,
-      x: 1500,
-      t: 1,
-      duration: 30000,
-      ease: 'Linear',
-      delay: 1000
-    });
-
+      scorpio.startFollow({ delay: 2000 * i, duration: 20000, rotateToPath: true });
+      defaultEnemy.startFollow({ delay: 1000 * i, duration: 30000, rotateToPath: true });
+    }    
   }
 
   update() {
