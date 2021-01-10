@@ -4,7 +4,8 @@ module.exports = {
     es6: true,
   },
   extends: [
-    "airbnb-typescript/base"
+    // "airbnb-typescript/base"
+    'airbnb-base',
   ],
   globals: {
     Atomics: 'readonly',

@@ -14,8 +14,13 @@
   },
     "include": [
       "./src/**/*.ts"
-  ],
+, "src/scripts/components/enemies/Enemy.ts"  ],
 }
+
+
+
+
+
 // {
 //   "compileOnSave": true,
 //   "compilerOptions": {
