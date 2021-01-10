@@ -71,7 +71,6 @@ export class MapLevel1 extends Map {
     let x: number = Math.floor( pointer.x / this.sizeCellX );
     let y: number = Math.floor( pointer.y / this.sizeCellY );
     let towerPlace: number = map1.tiles[y][x];
-    
     for (let i = 1; i <= 11; i += 1) {
         if (i === towerPlace) {
             this.forbiddenPlaceTower(x, y);
