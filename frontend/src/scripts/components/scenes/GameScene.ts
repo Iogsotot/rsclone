@@ -1,11 +1,6 @@
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
 import Enemy from '../enemies/Enemy';
-
-var follower;
-var path;
-var graphics;
-
 export default class GameScene extends Phaser.Scene {
   enemy: any;
   animation: any;
