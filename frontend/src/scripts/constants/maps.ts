@@ -5,6 +5,7 @@ export type MapType = {
   scaleStartPointY: number,
   scaleFinishPointX: number,
   scaleFinishPointY: number,
+  scaleCoordinateTowers: Array<Array<number>>,
   tiles: Array<Array<number>>,
 };
 
@@ -30,6 +31,8 @@ const map1: MapType = {
   scaleStartPointY: 3.1,
   scaleFinishPointX: 1,
   scaleFinishPointY: 2,
+  scaleCoordinateTowers: [[13, 8.5], [3.55, 3.4], [8, 1.78], [2.9, 1.63], [3.41, 1.16], [1.74, 1.29],
+    [1.98, 2], [1.94, 4], [1.42, 1.7], [1.18, 1.86], [1.07, 2.86]],
   tiles: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 2, 2, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -51,6 +54,7 @@ const map2: MapType = {
   scaleStartPointY: 0,
   scaleFinishPointX: 0,
   scaleFinishPointY: 0,
+  scaleCoordinateTowers: [[]],
   tiles: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -73,6 +77,7 @@ const map3: MapType = {
   scaleStartPointY: 0,
   scaleFinishPointX: 0,
   scaleFinishPointY: 0,
+  scaleCoordinateTowers: [[]],
   tiles: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

@@ -4,7 +4,7 @@ export default class Map {
   /**
   * @param {Phaser.Scene} scene
   */
-  scene: any;
+  scene: Phaser.Scene;
 
   mapData: MapType;
 
@@ -14,7 +14,7 @@ export default class Map {
 
   height: number;
 
-  constructor(scene: any, mapData: MapType) {
+  constructor(scene: Phaser.Scene, mapData: MapType) {
     this.scene = scene;
     this.mapData = mapData;
     this.map = undefined;
