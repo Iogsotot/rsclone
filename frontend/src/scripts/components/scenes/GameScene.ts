@@ -12,7 +12,6 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
-  // destroyEnemy: any;
 
   constructor() {
     super('game-scene');
@@ -23,10 +22,6 @@ export default class GameScene extends Phaser.Scene {
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
   }
-
-  // addEnemy(way) {
-  //   this.enemy = new Enemy(way);
-  // }
 
   preload(): void {
     this.map.preload();
