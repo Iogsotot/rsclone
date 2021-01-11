@@ -8,6 +8,7 @@ export default class Scorpio extends Enemy {
     this.setPosition(x, y);
 
     this.alive = true;
+    this.moveSpeed = 30000;
   }
   
 }

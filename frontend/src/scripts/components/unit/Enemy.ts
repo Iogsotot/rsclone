@@ -5,7 +5,6 @@ export default class Enemy extends Unit {
   enemyType: string;
   position: {x: number, y: number};
   size: number;
-  speed: number;
   hp: number;
   damage: number;
   physicalArmor: number;
@@ -22,11 +21,8 @@ export default class Enemy extends Unit {
 
   init() {
     // задел на Advance Scope:
-    // if (this.enemyType === 'anyEnemyType') {
+    // if (this.type === 'defender') {
     // }
-    // this.position = { x: 0, y: 0 };
-    // this.size = 20;
-    this.speed = 2;
     this.hp = 100;
     this.damage = 20;
     this.physicalArmor = 10;
@@ -34,4 +30,8 @@ export default class Enemy extends Unit {
     this.killReward = 5;
     // this.sprite = '../../assets/sprites/1_enemies_1_walk_000.png';
   }
+
+  
+
+  
 }

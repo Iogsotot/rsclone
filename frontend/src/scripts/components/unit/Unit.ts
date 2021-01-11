@@ -16,20 +16,27 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, texture: string, type: string) {
     super(scene, way, x, y, texture);
-    scene.add.existing(this);
+    scene.add.existing(this); 
 
     this.hp = 100;
     this.physicalArmor = 10;
     this.magicArmor = 5;
     this.damage = 20;
     this.damageSpeed = 5;
-    this.moveSpeed = 2;
-    this.position = { x: 0, y: 0 };
-    this.size = 20;
+    this.moveSpeed = 10000;
+    // this.position = { x: 0, y: 0 };
+    // this.size = 20;
     this.killReward = 5;
-    this.type = type;
-
+    // this.type = type;
+    
+    this.setInteractive();
+    this.on("pointerdown", this.takeDamage, this)
     // hitArea
     // texture
+  }
+
+  takeDamage() {
+    this.hp -= 15;
+    console.log(this.hp)
   }
 }

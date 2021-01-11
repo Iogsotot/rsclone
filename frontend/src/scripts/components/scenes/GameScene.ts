@@ -53,7 +53,7 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 18,
     });
-    
+
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
@@ -62,21 +62,22 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 17,
     });
-    
-    
-    for (let i = 0; i < 3; i++) { 
+
+
+    for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      // console.log(Object.keys(scorpio));
+      console.log(scorpio);
       const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
 
       scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
-      scorpio.startFollow({ delay: 2000 * i, duration: 20000, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: 30000, rotateToPath: true });
-    }    
-  }
+      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
+      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
+      
+    }
+  }   
 
   update() {
   }
