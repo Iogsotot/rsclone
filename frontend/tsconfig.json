@@ -14,7 +14,7 @@
   },
     "include": [
       "./src/**/*.ts"
-, "src/scripts/components/enemies/Enemy.ts"  ],
+, "src/scripts/components/unit/Enemy.ts"  ],
 }
 
 

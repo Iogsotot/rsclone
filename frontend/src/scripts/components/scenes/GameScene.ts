@@ -1,8 +1,9 @@
+import 'phaser'
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
-import 'phaser'
+import Scorpio from '../unit/Scorpio';
+import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
-import Enemy from '../enemies/Enemy';
 
 export default class GameScene extends Phaser.Scene {
   enemy: any;
@@ -15,7 +16,6 @@ export default class GameScene extends Phaser.Scene {
   tower: any;
   gatePointX: number;
   gatePointY: number;
-  // destroyEnemy: any;
 
   constructor() {
     super('game-scene');
@@ -26,10 +26,6 @@ export default class GameScene extends Phaser.Scene {
     this.tower = undefined;
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
-  }
-
-  addEnemy(way) {
-    this.enemy = new Enemy(way);
   }
 
   preload(): void {
@@ -63,28 +59,31 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 18,
     });
-    
+
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
         start: 0,
-        end: 20,
+        end: 19,
       }),
       frameRate: 17,
     });
 
-    for (let i = 0; i < 3; i++) { 
+
+    for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
-      const scorpio = this.add.follower(way, this.firstPointX, this.firstPointY, 'scorpio').setScale(0.4);
-      const defaultEnemy = this.add.follower(way, this.firstPointX, this.firstPointY, 'defaultEnemy');
+      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
+      console.log(scorpio);
+      const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
 
       scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
-      scorpio.startFollow({ delay: 2000 * i, duration: 20000, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: 30000, rotateToPath: true });
-    }    
-  }
+      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
+      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
+      
+    }
+  }   
 
   update() {
   }
