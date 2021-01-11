@@ -1,8 +1,10 @@
+import 'phaser'
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
-// import Enemy from '../unit/Enemy';
 import Scorpio from '../unit/Scorpio';
 import Mummy from '../unit/Mummy';
+import Tower from '../tower/Tower';
+
 export default class GameScene extends Phaser.Scene {
   enemy: any;
   animation: any;
@@ -10,6 +12,8 @@ export default class GameScene extends Phaser.Scene {
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
+  towers: any;
+  tower: any;
   gatePointX: number;
   gatePointY: number;
 
@@ -18,13 +22,16 @@ export default class GameScene extends Phaser.Scene {
     this.map = new MapLevel1(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
-
+    this.towers = undefined;
+    this.tower = undefined;
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
   }
 
   preload(): void {
     this.map.preload();
+
+    this.load.image('tower', './assets/tower.jpg')
 
     this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
       frameWidth: 37,
@@ -39,6 +46,10 @@ export default class GameScene extends Phaser.Scene {
 
   create(): void {
     this.map.create();
+
+    this.tower = new Tower(this, 'tower')
+    this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
+    this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -76,4 +87,6 @@ export default class GameScene extends Phaser.Scene {
 
   update() {
   }
+
 }
+
