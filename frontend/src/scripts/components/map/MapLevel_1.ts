@@ -29,6 +29,7 @@ export class MapLevel1 extends Map {
   
   gridWidth: number;
 
+
   constructor(scene: Phaser.Scene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
@@ -37,7 +38,7 @@ export class MapLevel1 extends Map {
     this.finishPointX = this.width / map1.scaleFinishPointX;
     this.finishPointY = this.height / map1.scaleFinishPointY;
     this.gridHeight = map1.tiles.length;
-    this.gridWidth = map1.tiles[0].length
+    this.gridWidth = map1.tiles[0].length;
     this.sizeCellY = Number((this.height / this.gridHeight).toFixed(2));
     this.sizeCellX = this.width / this.gridWidth;
   }
@@ -65,9 +66,14 @@ export class MapLevel1 extends Map {
   }
 
   getCoordinateTower(pointer: any, turrets: any):number[] | void {
-    let x: number = Math.floor( pointer.layerX / this.sizeCellX );
-    let y: number = Math.floor( pointer.layerY / this.sizeCellY );
+    let scaleWindowWidth: number = Number((document.documentElement.clientWidth / this.width).toFixed(2))
+    let scaleWindowHeight: number = Number((document.documentElement.clientHeight / this.height).toFixed(2))
+    let x: number = Math.floor(( (pointer.layerX / scaleWindowWidth) / this.sizeCellX ) );
+    let y: number = Math.floor(( (pointer.layerY / scaleWindowHeight) / this.sizeCellY ) );
     let towerPlace: number = map1.tiles[y][x];
+    
+
+ 
     for (let i = 1; i <= 11; i += 1) {
         if (i === towerPlace) {
             this.forbiddenPlaceTower(x, y);
