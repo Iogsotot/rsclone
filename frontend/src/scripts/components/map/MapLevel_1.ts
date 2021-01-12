@@ -66,10 +66,10 @@ export class MapLevel1 extends Map {
   }
 
   getCoordinateTower(pointer: any, turrets: any):number[] | void {
-    let scaleWindowWidth: number = Number((document.documentElement.clientWidth / this.width).toFixed(2))
-    let scaleWindowHeight: number = Number((document.documentElement.clientHeight / this.height).toFixed(2))
-    let x: number = Math.floor(( (pointer.layerX / scaleWindowWidth) / this.sizeCellX ) );
-    let y: number = Math.floor(( (pointer.layerY / scaleWindowHeight) / this.sizeCellY ) );
+    let x: number = Math.floor(( (pointer.layerX) / this.sizeCellX ) );
+    let y: number = Math.floor(( (pointer.layerY) / this.sizeCellY ) );
+    
+    console.log(x, y)
     let towerPlace: number = map1.tiles[y][x];
     
 
