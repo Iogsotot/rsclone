@@ -4,6 +4,7 @@ import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
 import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
+import { AUTO } from 'phaser';
 
 export default class GameScene extends Phaser.Scene {
   enemy: any;
@@ -16,6 +17,8 @@ export default class GameScene extends Phaser.Scene {
   tower: any;
   gatePointX: number;
   gatePointY: number;
+  gate: any;
+  gateHealth: number;
 
   constructor() {
     super('game-scene');
@@ -42,6 +45,8 @@ export default class GameScene extends Phaser.Scene {
       frameWidth: 212,
       frameHeight: 246
     });
+
+    this.load.image('gate', './assets/imgs/gate-mini.png');
   }
 
   create(): void {
@@ -50,6 +55,8 @@ export default class GameScene extends Phaser.Scene {
     this.tower = new Tower(this, 'tower')
     this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
     this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
+
+    // this.
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -68,7 +75,8 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 17,
     });
-
+    
+    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY , 'gate').setScale(0.5);
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
@@ -91,9 +99,11 @@ export default class GameScene extends Phaser.Scene {
     // Рисуем сетку
     const graphics = this.add.graphics();    
     drawGrid(graphics);
+
   }   
 
   update() {
+    this.gate.rotation += 0.01;
   }
 
 
