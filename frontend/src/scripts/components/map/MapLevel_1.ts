@@ -78,9 +78,8 @@ export class MapLevel1 extends Map {
     
     // console.log(x, y)
     // console.log(map1);
-    let towerPlace: number = map1.tiles[y? x : 0][x? x : 0];
-    
-
+    let towerPlace: number = map1.tiles[y? y : 0][x? x : 0];
+    console.log(towerPlace)
  
     for (let i = 1; i <= 11; i += 1) {
         if (i === towerPlace) {
