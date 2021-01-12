@@ -3,17 +3,46 @@
   margin: 0;
 }
 
+body {
+  // overflow: hidden;
+}
+
+.blur-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  height: 100%;
+  width: 100%;
+
+  background-image: url('../assets/auth/kingdom-rush.png');
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+
+  filter: blur(15px);
+  -webkit-filter: blur(15px);
+  opacity: 0.8;
+}
+
 .sign-kingdom-rush,
 .start-page {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  // width: 1920px;
+
+  margin: auto;
+
   background-image: url('../assets/auth/kingdom-rush.png');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
-  height: 1080px;
-  width: 1920px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-position: top center;
 }
 
 .logout-game {
@@ -153,4 +182,8 @@
   color: #f0fbf9;
   border-bottom: 2px solid #eec110;
   cursor: default;
+}
+
+.hide {
+  display: none;
 }

@@ -12,7 +12,8 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     parent: 'phaser-game',
     mode: Phaser.Scale.NONE,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    // autoCenter: Phaser.Scale.CENTER_BOTH,
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
     width: DEFAULT_WIDTH,
     height: DEFAULT_HEIGHT,
   },
