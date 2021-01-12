@@ -18,9 +18,11 @@ function createStartPage() {
     },
   });
 
+  startPage.append(logout);
+
   const body = document.querySelector('body');
   body.innerText = '';
-  body.append(logout, startPage);
+  body.append(startPage);
 }
 
 export default createStartPage;
