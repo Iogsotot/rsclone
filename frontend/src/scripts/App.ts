@@ -7,6 +7,6 @@ window.addEventListener('load', () => {
   const isAuthorization = runAuth();
   if (isAuthorization) {
     const game = new Phaser.Game(config);
-    console.log(game);
+    // console.log(game);
   }
 });
