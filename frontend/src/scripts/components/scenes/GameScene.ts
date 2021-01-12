@@ -18,7 +18,7 @@ export default class GameScene extends Phaser.Scene {
   gatePointX: number;
   gatePointY: number;
   gate: any;
-  gateHealth: number;
+  // gateHealth: number;
 
   constructor() {
     super('game-scene');
@@ -76,7 +76,8 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 17,
     });
     
-    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY , 'gate').setScale(0.5);
+    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY , 'gate').setScale(0.5)
+    this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
@@ -103,7 +104,7 @@ export default class GameScene extends Phaser.Scene {
   }   
 
   update() {
-    this.gate.rotation += 0.01;
+    this.gate.rotation += 0.003;
   }
 
 
