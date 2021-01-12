@@ -50,11 +50,18 @@ export class MapLevel1 extends Map {
       this.createPoint(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
+
+    // надо подумать как переделать это в мягкие линии, а не ломанные, как сейчас
+    // scalePoints находятся в maps.ts (???)
+    // this.curve = new Phaser.Curves.Path(0, 0);
+    // this.curve.splineTo(points);
+
     return this.curve;
   }
 
   placeTower(pointer: any, towers: Phaser.GameObjects.Group): void {
     let coordinates: any = this.getCoordinateTower(pointer, towers);
+    console.log(pointer)
     if (coordinates) {
         let x: number = coordinates[0];
         let y: number = coordinates[1];
@@ -65,12 +72,13 @@ export class MapLevel1 extends Map {
     }
   }
 
-  getCoordinateTower(pointer: any, turrets: any):number[] | void {
+  getCoordinateTower(pointer: any, towers: any):number[] | void {
     let x: number = Math.floor(( (pointer.layerX) / this.sizeCellX ) );
     let y: number = Math.floor(( (pointer.layerY) / this.sizeCellY ) );
     
-    console.log(x, y)
-    let towerPlace: number = map1.tiles[y][x];
+    // console.log(x, y)
+    // console.log(map1);
+    let towerPlace: number = map1.tiles[y? x : 0][x? x : 0];
     
 
  

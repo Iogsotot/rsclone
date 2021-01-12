@@ -8,9 +8,7 @@ window.addEventListener('load', () => {
   const isAuthorization = runAuth();
   if (isAuthorization) {
     const startPage = document.querySelector('.start-page');
-    console.log(startPage);
     startPage?.classList.add('hide');
     const game = new Phaser.Game(config);
-    // console.log(game);
   }
 });

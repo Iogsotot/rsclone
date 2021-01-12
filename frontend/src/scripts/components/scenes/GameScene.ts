@@ -73,7 +73,7 @@ export default class GameScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      console.log(scorpio);
+      // console.log(scorpio);
       const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
 
       scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
@@ -82,11 +82,37 @@ export default class GameScene extends Phaser.Scene {
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
       
+
+      // рисуем way
+      const graphic2 = this.add.graphics();
+      way.draw(graphic2);
     }
+
+    // Рисуем сетку
+    const graphics = this.add.graphics();    
+    drawGrid(graphics);
   }   
 
   update() {
   }
 
+
+
+    
 }
 
+
+// функция отрисовки сетки
+function drawGrid(graphics) {
+  const dimension = window.innerWidth / 30;
+  graphics.lineStyle(1, 0x0000ff, 0.8);
+  for(let i = 0; i < 200; i++) {
+      graphics.moveTo(0, i * dimension);
+      graphics.lineTo(window.innerWidth, i * dimension);
+  }
+  for(let j = 0; j < 200; j++) {
+      graphics.moveTo(j * dimension, 0);
+      graphics.lineTo(j * dimension, window.innerHeight);
+  }
+  graphics.strokePath();
+}
