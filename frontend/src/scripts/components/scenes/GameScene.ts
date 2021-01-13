@@ -4,6 +4,7 @@ import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
 import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
+import Button from "../button/Button";
 
 export default class GameScene extends Phaser.Scene {
   enemy: any;
@@ -42,6 +43,8 @@ export default class GameScene extends Phaser.Scene {
       frameWidth: 212,
       frameHeight: 246
     });
+
+    this.load.image('settings-btn', './assets/interface/settings-icon.png')
   }
 
   create(): void {
@@ -50,6 +53,15 @@ export default class GameScene extends Phaser.Scene {
     this.tower = new Tower(this, 'tower')
     this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
     this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
+    
+    const button = new Button(this, 1230, 50, 'settings-btn')
+    button.setInteractive()
+			.on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        if (this.scene.isPaused()) return
+        this.scene.pause()
+        this.scene.moveAbove('game-scene', 'pause-scene')
+        this.scene.launch('pause-scene');
+      })
 
     this.anims.create({
       key: 'defaultEnemy_walk',
