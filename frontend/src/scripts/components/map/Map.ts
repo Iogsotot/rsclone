@@ -18,8 +18,8 @@ export default class Map {
     this.scene = scene;
     this.mapData = mapData;
     this.map = undefined;
-    this.width = 1280;
-    this.height = 800;
+    this.width = window.innerWidth;
+    this.height = window.innerWidth / 1.6;
   }
 
   preload(): void {
@@ -29,6 +29,5 @@ export default class Map {
   create(): void {
     this.map = this.scene.add.image(0, 0, 'map').setOrigin(0, 0);
     this.map.setDisplaySize(this.width, this.height);
-    console.log(this);
   }
 }

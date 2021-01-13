@@ -12,8 +12,6 @@ export default class GameScene extends Phaser.Scene {
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
-  towers: any;
-  tower: any;
   gatePointX: number;
   gatePointY: number;
 
@@ -22,34 +20,13 @@ export default class GameScene extends Phaser.Scene {
     this.map = new MapLevel1(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
-    this.towers = undefined;
-    this.tower = undefined;
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
   }
 
-  preload(): void {
-    this.map.preload();
-
-    this.load.image('tower', './assets/tower.jpg')
-
-    this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
-      frameWidth: 37,
-      frameHeight: 45
-    });
-
-    this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
-      frameWidth: 212,
-      frameHeight: 246
-    });
-  }
-
   create(): void {
     this.map.create();
-
-    this.tower = new Tower(this, 'tower')
-    this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
-    this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
+    this.map.addTowers();
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -80,9 +57,9 @@ export default class GameScene extends Phaser.Scene {
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
-      
+      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true }) 
     }
+
   }   
 
   update() {
