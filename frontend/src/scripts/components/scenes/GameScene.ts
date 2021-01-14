@@ -33,19 +33,19 @@ export default class GameScene extends Phaser.Scene {
   preload(): void {
     this.map.preload();
 
-    this.load.image('tower', './assets/tower.jpg');
+    this.load.image('tower', './assets/tower.jpg')
 
     this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
       frameWidth: 37,
-      frameHeight: 45,
+      frameHeight: 45
     });
 
     this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
       frameWidth: 212,
-      frameHeight: 246,
+      frameHeight: 246
     });
 
-    this.load.image('settings-btn', './assets/interface/settings-icon.png');
+    this.load.image('settings-btn', './assets/interface/settings-icon.png')
 
     
     this.load.image('modal-bg', './assets/interface/modal-bg.png');
