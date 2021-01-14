@@ -7,6 +7,8 @@ function createStartPage() {
     innerHTML: `
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
+      <div class="logo-start-button">START</div>
+      <div class="logo-credits-button">CREDITS</div>
     </div>
     `,
   }, {
@@ -41,6 +43,8 @@ function createStartPage() {
   const body = document.querySelector('body');
   body.innerText = '';
   body.append(logout, attendance, startPage);
+
+  document.querySelector('.logo-start-button').addEventListener('click', () => { body.innerText = ''; });
 }
 
 function createPopupAttendance(arr) {

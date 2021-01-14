@@ -2,6 +2,8 @@
 @import './graph.scss';
 @import './loader.scss';
 
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -53,6 +55,33 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -1;
+}
+
+.logo-start-button,
+.logo-credits-button {
+  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  background-size: cover;
+  margin: auto;
+  font-family: 'Luckiest Guy', cursive;
+  color: #fbd738;
+  text-shadow: #483312 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.logo-start-button {
+  width: 70%;
+  height: 106px;
+  font-size: xxx-large;
+  line-height: 106px;
+  margin-bottom: 10px;
+}
+
+.logo-credits-button {
+  width: 60%;
+  height: 90px;
+  font-size: xx-large;
+  line-height: 90px;
 }
 
 .logout-game {
