@@ -5,8 +5,9 @@ function createStartPage() {
   const startPage = createElement('div', {
     classList: ['start-page'],
     innerHTML: `
-      <div class="logo-start-page">
-      </div>
+    <div class="wrapper-logo-start-page">
+      <div class="logo-start-page"></div>
+    </div>
     `,
   }, {
     height: `${window.innerHeight}`,
@@ -49,7 +50,7 @@ function createPopupAttendance(arr) {
   const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
 
   const popup = createElement('div', {
-    classList: ['popup-attendance-wrapper'],
+    classList: ['popup-attendance-wrapper', 'hide'],
     innerHTML: `
       <div class="popup-attendance-content">
 
@@ -60,19 +61,19 @@ function createPopupAttendance(arr) {
           <svg class="full_graph">
               <title id="title">A bart chart showing game attendance over the year</title>
               ${arr.map(({ year, allAttendance }) => {
-                positionAttendance += 20;
-                positionText += 20;
-                const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
+    positionAttendance += 20;
+    positionText += 20;
+    const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
 
-                return (
-                  `
+    return (
+      `
                   <g class="bar">
                     <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
                     <text x="0" y="${positionText}" dy=".35em">${allAttendance} attendance [${year} year]</text>
                   </g>
                   `
-                );
-              }).join(' ')}
+    );
+  }).join(' ')}
           </svg>
         </figure>
       
@@ -88,7 +89,20 @@ function createPopupAttendance(arr) {
     },
   });
 
+  const loader = createElement('div', {
+    classList: ['loader'],
+  });
+
+  document.querySelector('.start-page').append(loader);
   document.querySelector('body').append(popup);
+
+  const preloaderImg = document.createElement('img');
+  preloaderImg.src = '../assets/auth/close.png';
+
+  preloaderImg.addEventListener('load', () => {
+    loader.remove();
+    popup.classList.remove('hide');
+  });
 }
 
 export default createStartPage;

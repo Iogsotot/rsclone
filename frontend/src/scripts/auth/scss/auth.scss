@@ -1,5 +1,6 @@
 @import './popap.scss';
 @import './graph.scss';
+@import './loader.scss';
 
 * {
   box-sizing: border-box;
@@ -79,12 +80,17 @@ body {
   cursor: pointer;
 }
 
+.wrapper-logo-start-page {
+  width: 408px;
+  height: 500px;
+}
+
 .logo-start-page {
-  background-image: url('../assets/auth/start-game.png');
+  background-image: url('../assets/auth/logo.png');
   // width: 724px;
   // height: 892px;
   width: 408px;
-  height: 498px;
+  height: 292px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
