@@ -7,7 +7,7 @@ export default class Mummy extends Enemy {
     super(scene, way, x, y, 'mummy', 'enemy');
     this.setPosition(x, y);
 
-    this.alive = true;
+    // this.alive = true;
     this.moveSpeed = 30000;
   }
   

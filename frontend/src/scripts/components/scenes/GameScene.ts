@@ -38,7 +38,6 @@ export default class GameScene extends Phaser.Scene {
     this.map.create();
     this.map.addTowers();
 
-    // this.
 
     this.anims.create({
       key: 'defaultEnemy_walk',
@@ -51,11 +50,22 @@ export default class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'scorpio_walk',
+      // key: 'scorpio',
       frames: this.anims.generateFrameNumbers('scorpio', {
+        // frames: this.anims.generateFrameNumbers('scorpio_walk', {
         start: 0,
         end: 19,
       }),
-      frameRate: 17,
+      frameRate: 70,
+    });
+
+    this.anims.create({
+      key: 'scorpio_die',
+      frames: this.anims.generateFrameNumbers('scorpio_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 70,
     });
 
     this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
@@ -64,10 +74,10 @@ export default class GameScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      // console.log(scorpio);
       const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
 
       scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
+      // scorpio.play({ key: 'scorpio', repeat: Infinity });
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
