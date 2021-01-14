@@ -73,7 +73,8 @@ function createPopupAttendance(arr) {
       `
                   <g class="bar">
                     <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
-                    <text x="0" y="${positionText}" dy=".35em">${allAttendance} attendance [${year} year]</text>
+                    <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
+                    <text x="85%" y="${positionText}" dy=".35em">${year}</text>
                   </g>
                   `
     );
