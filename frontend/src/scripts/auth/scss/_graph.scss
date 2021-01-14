@@ -6,19 +6,19 @@
 figcaption {
   font-weight: bold;
   font-size: larger;
-  color: whitesmoke;
+  color: #352824;
   margin-bottom: 20px;
 }
 
 .bar {
-  fill: #aaa;
+  fill: #a27448;
   height: 21px;
   transition: fill .3s ease;
   cursor: pointer;
   font-family: Helvetica, sans-serif;
   
   text {
-    fill: whitesmoke;
+    fill: #352824;
   }
 }
 
@@ -31,9 +31,9 @@ figcaption {
 
 .bar:hover,
 .bar:focus {
-  fill: red !important;
+  fill: #352824 !important;
   
   text {
-    fill: red;
+    fill: whitesmoke;
   }
 }
