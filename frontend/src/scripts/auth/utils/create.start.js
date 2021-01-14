@@ -8,6 +8,9 @@ function createStartPage() {
       <div class="logo-start-page">
       </div>
     `,
+  }, {
+    height: `${window.innerHeight}`,
+    width: `${window.innerWidth}`,
   });
 
   const logout = createElement('div', {
@@ -25,6 +28,13 @@ function createStartPage() {
       const { data } = res;
       createPopupAttendance(data);
     },
+  });
+
+  const blurBg = createElement('div', {
+    classList: ['blur-bg'],
+  }, {
+    height: `${window.innerHeight}`,
+    width: `${window.innerWidth}`,
   });
 
   const body = document.querySelector('body');

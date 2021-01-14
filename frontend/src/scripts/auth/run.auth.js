@@ -1,5 +1,5 @@
-import createSignPage from './another/create.sign';
-import createStartPage from './another/create.start';
+import createSignPage from './utils/create.sign';
+import createStartPage from './utils/create.start';
 import handleAttendent from './backend/handleAttendent';
 
 const url = 'https://rs-clone.herokuapp.com/';

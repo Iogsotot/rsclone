@@ -1,0 +1,3 @@
+const RANDOM_WAY_COEFFICIENT: number = 15;
+
+export default RANDOM_WAY_COEFFICIENT;
