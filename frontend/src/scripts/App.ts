@@ -5,7 +5,10 @@ import config from './components/Game';
 
 
 window.addEventListener('load', () => {
-  runAuth();
-  document.body.innerHTML = '';
-  const game = new Phaser.Game(config)
+  const isAuthorization = runAuth();
+  if (isAuthorization) {
+    const startPage = document.querySelector('.start-page');
+    startPage?.classList.add('hide');
+    const game = new Phaser.Game(config);
+  }
 });
