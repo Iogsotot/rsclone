@@ -43,8 +43,6 @@ function createStartPage() {
   const body = document.querySelector('body');
   body.innerText = '';
   body.append(logout, attendance, startPage);
-
-  document.querySelector('.logo-start-button').addEventListener('click', () => { body.innerText = ''; });
 }
 
 function createPopupAttendance(arr) {
