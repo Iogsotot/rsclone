@@ -33,7 +33,11 @@ function createStartPage() {
 }
 
 function createPopupAttendance(arr) {
-  console.log(arr);
+  let positionAttendance = 0;
+  let positionText = 8;
+
+  const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
+
   const popup = createElement('div', {
     classList: ['popup-attendance-wrapper'],
     innerHTML: `
@@ -41,23 +45,34 @@ function createPopupAttendance(arr) {
 
         <div class="close-popup"></div>
         
-        <div class="full_graph">
+        <figure>
+          <figcaption>Game attendance over the year</figcaption>
           <svg class="full_graph">
               <title id="title">A bart chart showing game attendance over the year</title>
-              ${arr.map(({ year, allAttendance }) => `
-              <g class="bar">
-                <rect width="${allAttendance}" height="19"></rect>
-                <text x="0" y="9.5" dy=".35em">${allAttendance}</text>
-                <text x="${allAttendance + 10}" y="9.5" dy=".35em">${year} year</text>
-              </g>
-              `).join(' ')}
+              ${arr.map(({ year, allAttendance }) => {
+                positionAttendance += 20;
+                positionText += 20;
+                const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
+
+                return (
+                  `
+                  <g class="bar">
+                    <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
+                    <text x="0" y="${positionText}" dy=".35em">${allAttendance} attendance [${year} year]</text>
+                  </g>
+                  `
+                );
+              }).join(' ')}
           </svg>
-        </div>
+        </figure>
       
       </div>
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-attendance-wrapper')) {
+        popup.remove();
+      }
+      if (target.classList.contains('close-popup')) {
         popup.remove();
       }
     },
