@@ -9,18 +9,25 @@
     "sourceMap": true,
     "strictPropertyInitialization": false,
     "allowJs": true,
-    "lib": ["dom", "es6", "esnext", "es2015"],
+    "lib": [
+      "dom",
+      "es6",
+      "esnext",
+      "es2015"
+    ],
     "outDir": "./dist/",
   },
-    "include": [
-      "./src/**/*.ts"
-, "src/scripts/components/unit/Enemy.ts"  ],
+  "include": [
+    "./src/**/*.ts",
+    "src/scripts/components/unit/Enemy.ts"
+  ],
+  "typeRoots": [
+    "./node_modules/phaser/types"
+  ],
+  "types": [
+    "Phaser"
+  ]
 }
-
-
-
-
-
 // {
 //   "compileOnSave": true,
 //   "compilerOptions": {
