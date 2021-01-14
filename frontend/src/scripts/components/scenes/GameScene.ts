@@ -85,14 +85,14 @@ export default class GameScene extends Phaser.Scene {
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true })
 
-      // рисуем way
-      const graphic2 = this.add.graphics();
-      way.draw(graphic2);
+      // рисуем way (отладочный код)
+      // const graphic2 = this.add.graphics();
+      // way.draw(graphic2);
     }
 
-    // Рисуем сетку
-    const graphics = this.add.graphics();
-    drawGrid(graphics);
+    // Рисуем сетку (отладочный код)
+    // const graphics = this.add.graphics();
+    // drawGrid(graphics);
   }
 
   update() {
