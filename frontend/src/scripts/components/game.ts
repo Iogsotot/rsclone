@@ -3,9 +3,6 @@ import MainScene from './scenes/MainScene';
 import PreloadScene from './scenes/PreloadScene';
 import GameScene from './scenes/GameScene';
 
-const DEFAULT_WIDTH = 1280;
-const DEFAULT_HEIGHT = 800;
-
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   backgroundColor: '#000000',

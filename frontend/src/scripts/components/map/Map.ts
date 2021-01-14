@@ -28,6 +28,8 @@ export default class Map {
 
   create(): void {
     this.map = this.scene.add.image(0, 0, 'map').setOrigin(0, 0);
+    // this.map = this.scene.add.sprite(0, 0, 'map').setOrigin(0, 0);
     this.map.setDisplaySize(this.width, this.height);
+    // console.log(this);
   }
 }
