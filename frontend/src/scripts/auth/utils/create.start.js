@@ -33,13 +33,6 @@ function createStartPage() {
     },
   });
 
-  const blurBg = createElement('div', {
-    classList: ['blur-bg'],
-  }, {
-    height: `${window.innerHeight}`,
-    width: `${window.innerWidth}`,
-  });
-
   const body = document.querySelector('body');
   body.innerText = '';
   body.append(logout, attendance, startPage);
