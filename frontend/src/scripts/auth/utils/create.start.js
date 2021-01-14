@@ -18,9 +18,17 @@ function createStartPage() {
     },
   });
 
+  // startPage.append(logout);
+
+  const blurBg = createElement('div', {
+    classList: ['blur-bg'],
+  });
+  blurBg.style.height = `${window.innerHeight}`;
+  blurBg.style.width = `${window.innerWidth}`;
+
   const body = document.querySelector('body');
   body.innerText = '';
-  body.append(logout, startPage);
+  body.append(startPage, logout, blurBg);
 }
 
 export default createStartPage;

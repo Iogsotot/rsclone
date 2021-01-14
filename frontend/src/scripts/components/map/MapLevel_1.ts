@@ -29,6 +29,7 @@ export class MapLevel1 extends Map {
   
   gridWidth: number;
 
+
   constructor(scene: Phaser.Scene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
@@ -37,7 +38,7 @@ export class MapLevel1 extends Map {
     this.finishPointX = this.width / map1.scaleFinishPointX;
     this.finishPointY = this.height / map1.scaleFinishPointY;
     this.gridHeight = map1.tiles.length;
-    this.gridWidth = map1.tiles[0].length
+    this.gridWidth = map1.tiles[0].length;
     this.sizeCellY = Number((this.height / this.gridHeight).toFixed(2));
     this.sizeCellX = this.width / this.gridWidth;
   }
@@ -49,11 +50,18 @@ export class MapLevel1 extends Map {
       this.createPoint(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
+
+    // надо подумать как переделать это в мягкие линии, а не ломанные, как сейчас
+    // scalePoints находятся в maps.ts (???)
+    // this.curve = new Phaser.Curves.Path(0, 0);
+    // this.curve.splineTo(points);
+
     return this.curve;
   }
 
   placeTower(pointer: any, towers: Phaser.GameObjects.Group): void {
     let coordinates: any = this.getCoordinateTower(pointer, towers);
+    console.log(pointer)
     if (coordinates) {
         let x: number = coordinates[0];
         let y: number = coordinates[1];
@@ -64,10 +72,15 @@ export class MapLevel1 extends Map {
     }
   }
 
-  getCoordinateTower(pointer: any, turrets: any):number[] | void {
-    let x: number = Math.floor( pointer.layerX / this.sizeCellX );
-    let y: number = Math.floor( pointer.layerY / this.sizeCellY );
-    let towerPlace: number = map1.tiles[y][x];
+  getCoordinateTower(pointer: any, towers: any):number[] | void {
+    let x: number = Math.floor(( (pointer.layerX) / this.sizeCellX ) );
+    let y: number = Math.floor(( (pointer.layerY) / this.sizeCellY ) );
+    
+    // console.log(x, y)
+    // console.log(map1);
+    let towerPlace: number = map1.tiles[y? y : 0][x? x : 0];
+    console.log(towerPlace)
+ 
     for (let i = 1; i <= 11; i += 1) {
         if (i === towerPlace) {
             this.forbiddenPlaceTower(x, y);

@@ -37,6 +37,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
 
   takeDamage() {
     this.hp -= 15;
-    console.log(this.hp)
+    // console.log(this.hp)
   }
 }
