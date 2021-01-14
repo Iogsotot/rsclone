@@ -19,7 +19,7 @@ export default class Map {
     this.mapData = mapData;
     this.map = undefined;
     this.width = window.innerWidth;
-    this.height = window.innerHeight;
+    this.height = window.innerWidth / 1.6;
   }
 
   preload(): void {

@@ -13,8 +13,6 @@ export default class GameScene extends Phaser.Scene {
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
-  towers: any;
-  tower: any;
   gatePointX: number;
   gatePointY: number;
   gate: any;
@@ -25,11 +23,10 @@ export default class GameScene extends Phaser.Scene {
     this.map = new MapLevel1(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
-    this.towers = undefined;
-    this.tower = undefined;
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
   }
+
 
   preload(): void {
     this.map.preload();
@@ -51,10 +48,7 @@ export default class GameScene extends Phaser.Scene {
 
   create(): void {
     this.map.create();
-
-    this.tower = new Tower(this, 'tower')
-    this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
-    this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
+    this.map.addTowers();
 
     // this.
 
@@ -75,8 +69,8 @@ export default class GameScene extends Phaser.Scene {
       }),
       frameRate: 17,
     });
-    
-    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY , 'gate').setScale(0.5)
+
+    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY, 'gate').setScale(0.5)
     this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
@@ -89,8 +83,7 @@ export default class GameScene extends Phaser.Scene {
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
-      
+      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true })
 
       // рисуем way
       const graphic2 = this.add.graphics();
@@ -98,18 +91,13 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Рисуем сетку
-    const graphics = this.add.graphics();    
+    const graphics = this.add.graphics();
     drawGrid(graphics);
-
-  }   
+  }
 
   update() {
     this.gate.rotation += 0.003;
   }
-
-
-
-    
 }
 
 
@@ -117,13 +105,13 @@ export default class GameScene extends Phaser.Scene {
 function drawGrid(graphics) {
   const dimension = window.innerWidth / 30;
   graphics.lineStyle(1, 0x0000ff, 0.8);
-  for(let i = 0; i < 200; i++) {
-      graphics.moveTo(0, i * dimension);
-      graphics.lineTo(window.innerWidth, i * dimension);
+  for (let i = 0; i < 200; i++) {
+    graphics.moveTo(0, i * dimension);
+    graphics.lineTo(window.innerWidth, i * dimension);
   }
-  for(let j = 0; j < 200; j++) {
-      graphics.moveTo(j * dimension, 0);
-      graphics.lineTo(j * dimension, window.innerHeight);
+  for (let j = 0; j < 200; j++) {
+    graphics.moveTo(j * dimension, 0);
+    graphics.lineTo(j * dimension, window.innerHeight);
   }
   graphics.strokePath();
 }
