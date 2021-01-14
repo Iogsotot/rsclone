@@ -1,11 +1,11 @@
-import 'phaser'
+import 'phaser';
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
 import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
 import Button from '../button/Button';
-import Modal from '../modal/Modal';
+import VictoryModal from '../modal/VictoryModal';
 
 export default class GameScene extends Phaser.Scene {
   enemy: any;
@@ -33,30 +33,41 @@ export default class GameScene extends Phaser.Scene {
   preload(): void {
     this.map.preload();
 
-    this.load.image('tower', './assets/tower.jpg')
+    this.load.image('tower', './assets/tower.jpg');
 
     this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
       frameWidth: 37,
-      frameHeight: 45
+      frameHeight: 45,
     });
 
     this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
       frameWidth: 212,
-      frameHeight: 246
+      frameHeight: 246,
     });
 
-    this.load.image('settings-btn', './assets/interface/settings-icon.png')
+    this.load.image('settings-btn', './assets/interface/settings-icon.png');
+
+    
+    this.load.image('modal-bg', './assets/interface/modal-bg.png');
+    this.load.image('title-bg', './assets/interface/title-bg.png');
+    this.load.image('modal-close-btn', './assets/interface/close-btn.png');
+    this.load.image('lose-img', './assets/interface/lose.png');
+    this.load.image('btn', './assets/interface/btn.png');
+    this.load.image('btn-pressed', './assets/interface/btn-pressed.png');
+    this.load.image('star-1', './assets/interface/star-1.png');
+    this.load.image('star-2', './assets/interface/star-2.png');
+    this.load.image('star-3', './assets/interface/star-3.png');
   }
 
   create(): void {
     this.map.create();
 
-    this.tower = new Tower(this, 'tower')
+    this.tower = new Tower(this, 'tower');
     this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
     this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
 
-    const pauseBtn = new Button(this, 1230, 50, 'settings-btn')
-    pauseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    const button = new Button(this, 1230, 50, 'settings-btn');
+    button.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
@@ -69,6 +80,16 @@ export default class GameScene extends Phaser.Scene {
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'lose-scene');
       this.scene.launch('lose-scene');
+    });
+
+    const victoryBtn = new Button(this, 1030, 50, 'settings-btn');
+    victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      if (this.scene.isPaused()) return;
+      const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg')
+      // this.scene.pause();
+      victoryModal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        this.scene.start('game-scene');
+      });
     });
 
     this.anims.create({
@@ -89,24 +110,23 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 17,
     });
 
-
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
       console.log(scorpio);
-      const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
+      const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY);
 
       scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
       defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true });
-      
+      defaultEnemy.startFollow({
+        delay: 1000 * i,
+        duration: defaultEnemy.moveSpeed,
+        rotateToPath: true,
+      });
     }
   }
 
-  update() {
-  }
-
+  update() {}
 }
-
