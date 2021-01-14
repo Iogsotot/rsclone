@@ -24,8 +24,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.damage = 20;
     this.damageSpeed = 5;
     this.moveSpeed = 10000;
-    // this.position = { x: 0, y: 0 };
-    // this.size = 20;
     this.killReward = 5;
     // this.type = type;
     
@@ -36,7 +34,11 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   takeDamage() {
-    this.hp -= 15;
-    // console.log(this.hp)
+    if(this.hp - 15 <= 15) {
+      this.hp = 0
+    } else if(this.hp >= 15) {
+      this.hp -= 15;
+    }
+    console.log(this.hp)
   }
 }

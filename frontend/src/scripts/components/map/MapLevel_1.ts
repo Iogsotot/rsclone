@@ -67,6 +67,7 @@ export class MapLevel1 extends Map {
     return tower
   }
 
+  // Денис, я не помню чей это код - если тебе он не нужен, то давай удалим?
   // placeTower(pointer: any, towers: Phaser.GameObjects.Group): void {
   //   let coordinates: any = this.getCoordinateTower(pointer, towers);
   //   console.log(pointer)

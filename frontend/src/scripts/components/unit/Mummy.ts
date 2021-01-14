@@ -1,6 +1,6 @@
 import Enemy from './Enemy';
 
-export default class Scorpio extends Enemy {
+export default class Mummy extends Enemy {
   alive: boolean;
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number) {

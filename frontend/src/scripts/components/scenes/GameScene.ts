@@ -5,6 +5,7 @@ import Scorpio from '../unit/Scorpio';
 import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
 import { AUTO } from 'phaser';
+import GameObjStats from '../interface/GameObjStats'
 
 export default class GameScene extends Phaser.Scene {
   enemy: any;
@@ -16,6 +17,7 @@ export default class GameScene extends Phaser.Scene {
   gatePointX: number;
   gatePointY: number;
   gate: any;
+  gameObjStats: any;
   // gateHealth: number;
 
   constructor() {
@@ -30,20 +32,6 @@ export default class GameScene extends Phaser.Scene {
 
   preload(): void {
     this.map.preload();
-
-    this.load.image('tower', './assets/tower.jpg')
-
-    this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
-      frameWidth: 37,
-      frameHeight: 45
-    });
-
-    this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
-      frameWidth: 212,
-      frameHeight: 246
-    });
-
-    this.load.image('gate', './assets/imgs/gate-mini.png');
   }
 
   create(): void {
@@ -70,7 +58,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 17,
     });
 
-    this.gate = this.add.sprite(this.gatePointX - 70, this.gatePointY, 'gate').setScale(0.5)
+    this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
     this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
@@ -93,6 +81,12 @@ export default class GameScene extends Phaser.Scene {
     // Рисуем сетку (отладочный код)
     // const graphics = this.add.graphics();
     // drawGrid(graphics);
+
+    // добавляем раные динамические статы на страницу
+    this.gameObjStats = new GameObjStats(this);
+    this.input.on('gameobjectdown', (pointer, gameObject, event) => { 
+      this.gameObjStats.updateText(gameObject);
+    });
   }
 
   update() {
@@ -101,17 +95,17 @@ export default class GameScene extends Phaser.Scene {
 }
 
 
-// функция отрисовки сетки
-function drawGrid(graphics) {
-  const dimension = window.innerWidth / 30;
-  graphics.lineStyle(1, 0x0000ff, 0.8);
-  for (let i = 0; i < 200; i++) {
-    graphics.moveTo(0, i * dimension);
-    graphics.lineTo(window.innerWidth, i * dimension);
-  }
-  for (let j = 0; j < 200; j++) {
-    graphics.moveTo(j * dimension, 0);
-    graphics.lineTo(j * dimension, window.innerHeight);
-  }
-  graphics.strokePath();
-}
+// функция отрисовки сетки (отладочный код)
+// function drawGrid(graphics) {
+//   const dimension = window.innerWidth / 30;
+//   graphics.lineStyle(1, 0x0000ff, 0.8);
+//   for (let i = 0; i < 200; i++) {
+//     graphics.moveTo(0, i * dimension);
+//     graphics.lineTo(window.innerWidth, i * dimension);
+//   }
+//   for (let j = 0; j < 200; j++) {
+//     graphics.moveTo(j * dimension, 0);
+//     graphics.lineTo(j * dimension, window.innerHeight);
+//   }
+//   graphics.strokePath();
+// }

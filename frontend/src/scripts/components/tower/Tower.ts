@@ -9,11 +9,14 @@ export default class Tower extends Phaser.GameObjects.Sprite {
 
     y: number;
 
+    damage: number;
+
 
     constructor(scene: Phaser.Scene, positionX: number, positionY: number) {
         super(scene, positionX, positionY, 'tower',)
         this.x = positionX;
         this.y = positionY;
+        this.damage = 20;
         this.tower = undefined;
         this.setInteractive();
     }

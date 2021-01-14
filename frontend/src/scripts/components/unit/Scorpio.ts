@@ -16,5 +16,4 @@ export default class Scorpio extends Enemy {
   // preUpdate(time, delta) {
   //   super.preUpdate(time, delta);
   // }
-  
 }
