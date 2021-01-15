@@ -1,15 +1,15 @@
 import Enemy from './Enemy';
 
-export default class Scorpio extends Enemy {
+export default class WizardBlack extends Enemy {
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number) {
-    super(scene, way, x, y, 'scorpio');
+    super(scene, way, x, y, 'wizardBlack');
     this.setPosition(x, y);
 
     // moveSpeed - За какое время будет пройден way
-    this.moveSpeed = 20000;
-    this.hp = 200;
-    this.physicalArmor = 50;
-    this.killReward = 15;
+    this.moveSpeed = 40000;
+    this.hp = 135;
+    this.magicArmor = 100;
+    this.killReward = 5;
   }
 }

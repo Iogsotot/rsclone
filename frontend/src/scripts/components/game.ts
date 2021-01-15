@@ -10,8 +10,8 @@ const config: Phaser.Types.Core.GameConfig = {
     parent: 'phaser-game',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
-    width: window.innerWidth,
-    height: window.innerWidth / 1.6,
+    width: 1280,
+    height: 800,
   },
   scene: [
     PreloadScene, 
