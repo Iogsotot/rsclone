@@ -42,10 +42,9 @@ export default class PlayerStats {
       seller: false,
       builder: false,
     };
-
-  //   this.getDataFromServer();
   }
 
-  // getDataFromServer() {
-  // }
+  getDataFromServer() {
+    // went to do backend answers
+  }
 }
