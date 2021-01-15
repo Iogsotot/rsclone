@@ -2,13 +2,12 @@ import '../styles/style.scss';
 import Phaser from 'phaser';
 import runAuth from './auth/run.auth';
 import config from './components/Game';
-
+import createBgGame from './auth/utils/create.bg';
 
 window.addEventListener('load', () => {
-  const isAuthorization = runAuth();
-  if (isAuthorization) {
-    const startPage = document.querySelector('.start-page');
-    startPage?.classList.add('hide');
+  runAuth();
+  document.querySelector('.logo-start-button')?.addEventListener('click', () => {
+    createBgGame();
     const game = new Phaser.Game(config);
-  }
+  });
 });
