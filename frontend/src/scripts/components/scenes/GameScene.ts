@@ -53,7 +53,6 @@ export default class GameScene extends Phaser.Scene {
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
-        // frames: this.anims.generateFrameNumbers('scorpio_walk', {
         start: 0,
         end: 19,
       }),
@@ -141,8 +140,6 @@ export default class GameScene extends Phaser.Scene {
       // const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
       const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
-      // scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
-      // scorpio.play({ key: 'scorpio', repeat: Infinity });
       // defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
