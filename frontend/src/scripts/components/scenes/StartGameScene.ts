@@ -6,9 +6,7 @@ export default class StartGameScene extends Phaser.Scene {
     super({ key: 'start-game-scene' });
   }
 
-  preload() {
-    this.load.image('map', map1.url);
-  }
+  preload() {}
 
   create() {
     const modal = new StartScreenModal(

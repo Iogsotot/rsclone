@@ -1,4 +1,4 @@
-import createStartPage from '../another/create.start';
+import createStartPage from '../utils/create.start';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 

@@ -10,7 +10,7 @@ const isProd = ENV === 'build';
 
 function setDevTool() {
   if (isDev) {
-    return 'cheap-module-eval-source-map';
+    return 'eval';
   }
   return 'none';
 }

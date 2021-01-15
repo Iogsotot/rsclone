@@ -2,57 +2,145 @@ import 'phaser';
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
-import Mummy from '../unit/Mummy';
+import WizardBlack from "../unit/WizardBlack";
+import LittleOrc  from "../unit/LittleOrc";
 import Tower from '../tower/Tower';
+import { AUTO } from 'phaser';
+import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
 
 export default class GameScene extends Phaser.Scene {
-  enemy: any;
-  animation: any;
   map: MapLevel1;
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
-  towers: any;
-  tower: any;
   gatePointX: number;
   gatePointY: number;
+  gate: any;
+  gameObjStats: any;
 
   constructor() {
     super('game-scene');
     this.map = new MapLevel1(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
-    this.towers = undefined;
-    this.tower = undefined;
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
   }
 
+
   preload(): void {
     this.map.preload();
-
-    this.load.image('tower', './assets/tower.jpg');
-
-    this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
-      frameWidth: 37,
-      frameHeight: 45,
-    });
-
-    this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
-      frameWidth: 212,
-      frameHeight: 246,
-    });
   }
 
   create(): void {
     this.map.create();
+    this.map.addTowers();
 
-    this.tower = new Tower(this, 'tower');
-    this.towers = this.add.group({ classType: Tower, runChildUpdate: true });
-    this.input.on('pointerdown', () => this.map.placeTower(event, this.towers));
+    this.anims.create({
+      key: 'scorpio_walk',
+      frames: this.anims.generateFrameNumbers('scorpio', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 70,
+    });
 
+    this.anims.create({
+      key: 'scorpio_die',
+      frames: this.anims.generateFrameNumbers('scorpio_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 70,
+    });
+
+    this.anims.create({
+      key: 'scorpio_hurt',
+      frames: this.anims.generateFrameNumbers('scorpio_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 70,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_walk',
+      frames: this.anims.generateFrameNumbers('wizardBlack', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_die',
+      frames: this.anims.generateFrameNumbers('wizardBlack_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_hurt',
+      frames: this.anims.generateFrameNumbers('wizardBlack_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_walk',
+      frames: this.anims.generateFrameNumbers('littleOrc', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_die',
+      frames: this.anims.generateFrameNumbers('littleOrc_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_hurt',
+      frames: this.anims.generateFrameNumbers('littleOrc_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
+    this.gate.alpha = 0.5;
+
+    for (let i = 0; i < 3; i++) {
+      const way = this.map.createWay();
+      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
+      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+
+      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
+      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
+      littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+    }
+
+
+    // добавляем раные динамические статы на страницу
+    this.gameObjStats = new GameObjStats(this);
+    this.input.on('gameobjectdown', (pointer, gameObject, event) => { 
+      this.gameObjStats.updateText(gameObject);
+    });
+
+    
     const button = new Button(this, 1230, 50, 'settings-btn');
     button.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
@@ -81,41 +169,9 @@ export default class GameScene extends Phaser.Scene {
         });
     });
 
-    this.anims.create({
-      key: 'defaultEnemy_walk',
-      frames: this.anims.generateFrameNumbers('defaultEnemy', {
-        start: 0,
-        end: 17,
-      }),
-      frameRate: 18,
-    });
-
-    this.anims.create({
-      key: 'scorpio_walk',
-      frames: this.anims.generateFrameNumbers('scorpio', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 17,
-    });
-
-    for (let i = 0; i < 3; i++) {
-      const way = this.map.createWay();
-      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      console.log(scorpio);
-      const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY);
-
-      scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
-      defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
-
-      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      defaultEnemy.startFollow({
-        delay: 1000 * i,
-        duration: defaultEnemy.moveSpeed,
-        rotateToPath: true,
-      });
-    }
   }
 
-  update() {}
+  update() {
+    this.gate.rotation += 0.003;
+  }
 }

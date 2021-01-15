@@ -1,19 +1,87 @@
+@import './popap.scss';
+@import './graph.scss';
+@import './loader.scss';
+
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
 }
 
+body {
+  // overflow: hidden;
+}
+
+.blur-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  height: 100%;
+  width: 100%;
+
+  background-image: url('../assets/auth/kingdom-rush.png');
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+
+  filter: blur(15px);
+  -webkit-filter: blur(15px);
+  opacity: 0.8;
+}
+
 .sign-kingdom-rush,
 .start-page {
-  background-image: url('../assets/auth/kingdom-rush.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 1080px;
-  width: 1920px;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
+
+  height: 100%;
+  width: 100%;
+
+  margin: auto;
+
+  background-image: url('../assets/auth/kingdom-rush.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.logo-start-button,
+.logo-credits-button {
+  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  background-size: cover;
+  margin: auto;
+  font-family: 'Luckiest Guy', cursive;
+  color: #fbd738;
+  text-shadow: #483312 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.logo-start-button {
+  width: 70%;
+  height: 106px;
+  font-size: xxx-large;
+  line-height: 106px;
+  margin-bottom: 10px;
+}
+
+.logo-credits-button {
+  width: 60%;
+  height: 90px;
+  font-size: xx-large;
+  line-height: 90px;
 }
 
 .logout-game {
@@ -23,15 +91,35 @@
   background-position: center;
   width: 70px;
   height: 70px;
-  position: absolute;
+  position: fixed;
   margin: 10px;
   cursor: pointer;
 }
 
+.attendance-per-year-game {
+  background-image: url('../assets/auth/bag-attendance.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  margin: 10px;
+  bottom: 0;
+  cursor: pointer;
+}
+
+.wrapper-logo-start-page {
+  width: 408px;
+  height: 500px;
+}
+
 .logo-start-page {
-  background-image: url('../assets/auth/start-game.png');
-  width: 724px;
-  height: 892px;
+  background-image: url('../assets/auth/logo.png');
+  // width: 724px;
+  // height: 892px;
+  width: 408px;
+  height: 292px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -151,4 +239,8 @@
   color: #f0fbf9;
   border-bottom: 2px solid #eec110;
   cursor: default;
+}
+
+.hide {
+  display: none;
 }

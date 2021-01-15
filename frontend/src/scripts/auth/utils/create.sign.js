@@ -42,6 +42,9 @@ function createSignPage() {
         </div>
       </div>
     `,
+  }, {
+    height: `${window.innerHeight}`,
+    width: `${window.innerWidth}`,
   });
 
   const responseInfo = createElement('div', {
