@@ -1,0 +1,40 @@
+.full_graph {
+  width: 300px;
+  height: 150px;
+}
+
+figcaption {
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: bold;
+  font-size: larger;
+  color: #352824;
+  margin-bottom: 20px;
+}
+
+.bar {
+  fill: #a27448;
+  height: 21px;
+  transition: fill .3s ease;
+  cursor: pointer;
+  font-family: 'Luckiest Guy', cursive;
+  
+  text {
+    fill: #352824;
+  }
+}
+
+.chart:hover,
+.chart:focus {
+  .bar {
+    fill: #aaa;
+  }
+}
+
+.bar:hover,
+.bar:focus {
+  fill: #352824 !important;
+  
+  text {
+    fill: whitesmoke;
+  }
+}
