@@ -12,15 +12,9 @@ export default class PreloadScene extends Phaser.Scene {
       frameWidth: 60,
       frameHeight: 60
     });
-    
-    // enemies
-    // this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
-    //   frameWidth: 37,
-    //   frameHeight: 45
-    // });
-    
+
+    //enemies    
     this.load.spritesheet('scorpio', './assets/sprites/scorpio_walk.png', {
-      // this.load.spritesheet('scorpio_walk', './assets/sprites/scorpio_walk.png', {
       frameWidth: 212,
       frameHeight: 246
     });

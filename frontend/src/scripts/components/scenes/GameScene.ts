@@ -4,14 +4,11 @@ import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
-// import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
 import { AUTO } from 'phaser';
 import GameObjStats from '../interface/GameObjStats'
 
 export default class GameScene extends Phaser.Scene {
-  enemy: any;
-  animation: any;
   map: MapLevel1;
   points: Array<any>;
   firstPointX: number;
@@ -20,7 +17,6 @@ export default class GameScene extends Phaser.Scene {
   gatePointY: number;
   gate: any;
   gameObjStats: any;
-  // gateHealth: number;
 
   constructor() {
     super('game-scene');
@@ -39,16 +35,6 @@ export default class GameScene extends Phaser.Scene {
   create(): void {
     this.map.create();
     this.map.addTowers();
-
-
-    // this.anims.create({
-    //   key: 'defaultEnemy_walk',
-    //   frames: this.anims.generateFrameNumbers('defaultEnemy', {
-    //     start: 0,
-    //     end: 17,
-    //   }),
-    //   frameRate: 18,
-    // });
 
     this.anims.create({
       key: 'scorpio_walk',
@@ -137,24 +123,14 @@ export default class GameScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      // const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
       const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
-      // defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
-      // defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true })
-
-      // рисуем way (отладочный код)
-      // const graphic2 = this.add.graphics();
-      // way.draw(graphic2);
     }
 
-    // Рисуем сетку (отладочный код)
-    // const graphics = this.add.graphics();
-    // drawGrid(graphics);
 
     // добавляем раные динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
@@ -167,19 +143,3 @@ export default class GameScene extends Phaser.Scene {
     this.gate.rotation += 0.003;
   }
 }
-
-
-// функция отрисовки сетки (отладочный код)
-// function drawGrid(graphics) {
-//   const dimension = window.innerWidth / 30;
-//   graphics.lineStyle(1, 0x0000ff, 0.8);
-//   for (let i = 0; i < 200; i++) {
-//     graphics.moveTo(0, i * dimension);
-//     graphics.lineTo(window.innerWidth, i * dimension);
-//   }
-//   for (let j = 0; j < 200; j++) {
-//     graphics.moveTo(j * dimension, 0);
-//     graphics.lineTo(j * dimension, window.innerHeight);
-//   }
-//   graphics.strokePath();
-// }

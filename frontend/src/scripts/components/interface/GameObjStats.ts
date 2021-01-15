@@ -24,7 +24,6 @@ export default class GameObjStats extends Phaser.Scene {
   }
 
   updateText(target) {
-    // console.log(target);
     let result;
     if (target instanceof Unit) {
       result = `${target.constructor.name} with HP: ${target.hp}`

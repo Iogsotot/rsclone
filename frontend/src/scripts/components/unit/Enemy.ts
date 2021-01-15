@@ -14,8 +14,6 @@ export default class Enemy extends Unit {
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, unitType: string) {
     super(scene, way, x, y, unitType);
-    // this.enemyType = enemyType;
-
     this.init();
   }
 
@@ -28,7 +26,6 @@ export default class Enemy extends Unit {
     this.physicalArmor = 0;
     this.magicArmor = 0;
     this.killReward = 5;
-    // this.sprite = '../../assets/sprites/1_enemies_1_walk_000.png';
   }
 
   

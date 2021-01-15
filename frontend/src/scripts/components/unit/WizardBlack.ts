@@ -4,7 +4,6 @@ export default class WizardBlack extends Enemy {
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number) {
     super(scene, way, x, y, 'wizardBlack');
-    // this.createAnimations(scene);
     this.setPosition(x, y);
 
     // moveSpeed - За какое время будет пройден way

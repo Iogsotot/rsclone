@@ -29,7 +29,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.damageSpeed = 5;
     this.moveSpeed = 10000;
     this.killReward = 5;
-    // this.type = type;
     
     // this.create(texture);
     // console.log(this);
@@ -42,34 +41,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
 
   create() {
     console.log(`${this.unitType}_walk`);
-    // this.anims.create({
-    //   key: `${texture}_walk`,
-    //   // key: 'scorpio',
-    //   frames: this.anims.generateFrameNumbers(`${texture}_walk`, {
-    //     // frames: this.anims.generateFrameNumbers('scorpio_walk', {
-    //     start: 0,
-    //     end: 19,
-    //   }),
-    //   frameRate: 70,
-    // });
-
-    // this.anims.create({
-    //   key: `${texture}_die`,
-    //   frames: this.anims.generateFrameNumbers(`${texture}_die`, {
-    //     start: 0,
-    //     end: 19,
-    //   }),
-    //   frameRate: 70,
-    // });
-
-    // this.anims.create({
-    //   key: `${texture}_hurt`,
-    //   frames: this.anims.generateFrameNumbers(`${texture}_hurt`, {
-    //     start: 0,
-    //     end: 19,
-    //   }),
-    //   frameRate: 70,
-    // });
   }
 
   takeDamage() {
