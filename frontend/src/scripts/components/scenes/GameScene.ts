@@ -33,30 +33,17 @@ export default class GameScene extends Phaser.Scene {
   preload(): void {
     this.map.preload();
 
-    this.load.image('tower', './assets/tower.jpg')
+    this.load.image('tower', './assets/tower.jpg');
 
     this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
       frameWidth: 37,
-      frameHeight: 45
+      frameHeight: 45,
     });
 
     this.load.spritesheet('scorpio', './assets/sprites/scorpio.png', {
       frameWidth: 212,
-      frameHeight: 246
+      frameHeight: 246,
     });
-
-    this.load.image('settings-btn', './assets/interface/settings-icon.png')
-
-    
-    this.load.image('modal-bg', './assets/interface/modal-bg.png');
-    this.load.image('title-bg', './assets/interface/title-bg.png');
-    this.load.image('modal-close-btn', './assets/interface/close-btn.png');
-    this.load.image('lose-img', './assets/interface/lose.png');
-    this.load.image('btn', './assets/interface/btn.png');
-    this.load.image('btn-pressed', './assets/interface/btn-pressed.png');
-    this.load.image('star-1', './assets/interface/star-1.png');
-    this.load.image('star-2', './assets/interface/star-2.png');
-    this.load.image('star-3', './assets/interface/star-3.png');
   }
 
   create(): void {
@@ -85,11 +72,13 @@ export default class GameScene extends Phaser.Scene {
     const victoryBtn = new Button(this, 1030, 50, 'settings-btn');
     victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
-      const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg')
+      const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg');
       // this.scene.pause();
-      victoryModal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start('game-scene');
-      });
+      victoryModal.startNewBtn
+        .setInteractive()
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+          this.scene.start('game-scene');
+        });
     });
 
     this.anims.create({

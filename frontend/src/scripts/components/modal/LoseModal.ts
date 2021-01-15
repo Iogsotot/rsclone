@@ -9,11 +9,9 @@ export default class LoseModal extends CustomModal {
   constructor(scene: Phaser.Scene, bgTexture: string, titleTexture: string) {
     super(scene, 'Lose', bgTexture, titleTexture);
 
-    this.sceneSize = [scene.cameras.main.centerX, scene.cameras.main.centerY];
-
     this.starsImage = scene.add.image(
-      this.sceneSize[0],
-      this.sceneSize[1] - this.bgImage.width / 10,
+      this.sceneCenter[0],
+      this.sceneCenter[1] - this.bgImage.width / 10,
       'lose-img'
     );
     this.add(this.starsImage);
@@ -22,7 +20,10 @@ export default class LoseModal extends CustomModal {
   }
 
   continueButton(scene: Phaser.Scene) {
-    const continueBtnCoordinates = [this.sceneSize[0], this.sceneSize[1] + this.bgImage.height / 4];
+    const continueBtnCoordinates = [
+      this.sceneCenter[0],
+      this.sceneCenter[1] + this.bgImage.height / 4,
+    ];
 
     this.continueBtn = new CustomButton(
       scene,
