@@ -8,6 +8,7 @@ function createBgGame() {
     width: `${window.innerWidth}`,
   });
 
+  document.body.textContent = '';
   document.body.append(blurBg);
 };
 
