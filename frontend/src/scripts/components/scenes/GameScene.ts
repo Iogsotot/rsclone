@@ -2,7 +2,9 @@ import 'phaser'
 import { map1 } from '../../constants/maps';
 import { MapLevel1 } from '../map/MapLevel_1';
 import Scorpio from '../unit/Scorpio';
-import Mummy from '../unit/Mummy';
+import WizardBlack from "../unit/WizardBlack";
+import LittleOrc  from "../unit/LittleOrc";
+// import Mummy from '../unit/Mummy';
 import Tower from '../tower/Tower';
 import { AUTO } from 'phaser';
 import GameObjStats from '../interface/GameObjStats'
@@ -39,18 +41,17 @@ export default class GameScene extends Phaser.Scene {
     this.map.addTowers();
 
 
-    this.anims.create({
-      key: 'defaultEnemy_walk',
-      frames: this.anims.generateFrameNumbers('defaultEnemy', {
-        start: 0,
-        end: 17,
-      }),
-      frameRate: 18,
-    });
+    // this.anims.create({
+    //   key: 'defaultEnemy_walk',
+    //   frames: this.anims.generateFrameNumbers('defaultEnemy', {
+    //     start: 0,
+    //     end: 17,
+    //   }),
+    //   frameRate: 18,
+    // });
 
     this.anims.create({
       key: 'scorpio_walk',
-      // key: 'scorpio',
       frames: this.anims.generateFrameNumbers('scorpio', {
         // frames: this.anims.generateFrameNumbers('scorpio_walk', {
         start: 0,
@@ -68,20 +69,86 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 70,
     });
 
+    this.anims.create({
+      key: 'scorpio_hurt',
+      frames: this.anims.generateFrameNumbers('scorpio_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 70,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_walk',
+      frames: this.anims.generateFrameNumbers('wizardBlack', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_die',
+      frames: this.anims.generateFrameNumbers('wizardBlack_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'wizardBlack_hurt',
+      frames: this.anims.generateFrameNumbers('wizardBlack_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_walk',
+      frames: this.anims.generateFrameNumbers('littleOrc', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_die',
+      frames: this.anims.generateFrameNumbers('littleOrc_die', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'littleOrc_hurt',
+      frames: this.anims.generateFrameNumbers('littleOrc_hurt', {
+        start: 0,
+        end: 19,
+      }),
+      frameRate: 15,
+    });
+
     this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
     this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
-
-      scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
+      // const defaultEnemy = new Mummy(this, way, this.firstPointX, this.firstPointY)
+      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+      // scorpio.play({ key: 'scorpio_walk', repeat: Infinity });
       // scorpio.play({ key: 'scorpio', repeat: Infinity });
-      defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
+      // defaultEnemy.play({ key: 'defaultEnemy_walk', repeat: Infinity });
 
+      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true })
+      littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+      // defaultEnemy.startFollow({ delay: 1000 * i, duration: defaultEnemy.moveSpeed, rotateToPath: true })
 
       // рисуем way (отладочный код)
       // const graphic2 = this.add.graphics();

@@ -14,11 +14,13 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   // size: number;
   killReward: number;
   alive: boolean;
+  unitType: string;
 
-  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, texture: string, type: string) {
-    super(scene, way, x, y, texture);
+  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, unitType: string) {
+    super(scene, way, x, y, unitType);
     scene.add.existing(this);
 
+    this.unitType = unitType;
     this.alive = true;
     this.hp = 100;
     this.physicalArmor = 10;
@@ -29,10 +31,45 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.killReward = 5;
     // this.type = type;
     
+    // this.create(texture);
+    // console.log(this);
+    this.play({ key: `${unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
     this.on("pointerdown", this.takeDamage, this)
     // hitArea
     // texture
+  }
+
+  create() {
+    console.log(`${this.unitType}_walk`);
+    // this.anims.create({
+    //   key: `${texture}_walk`,
+    //   // key: 'scorpio',
+    //   frames: this.anims.generateFrameNumbers(`${texture}_walk`, {
+    //     // frames: this.anims.generateFrameNumbers('scorpio_walk', {
+    //     start: 0,
+    //     end: 19,
+    //   }),
+    //   frameRate: 70,
+    // });
+
+    // this.anims.create({
+    //   key: `${texture}_die`,
+    //   frames: this.anims.generateFrameNumbers(`${texture}_die`, {
+    //     start: 0,
+    //     end: 19,
+    //   }),
+    //   frameRate: 70,
+    // });
+
+    // this.anims.create({
+    //   key: `${texture}_hurt`,
+    //   frames: this.anims.generateFrameNumbers(`${texture}_hurt`, {
+    //     start: 0,
+    //     end: 19,
+    //   }),
+    //   frameRate: 70,
+    // });
   }
 
   takeDamage() {
@@ -41,6 +78,8 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       this.die();
     } else if(this.hp >= 15) {
       this.hp -= 15;
+      this.play({ key: `${this.unitType}_hurt`, repeat: 0});
+      this.on('animationcomplete', () => {this.play({ key: `${this.unitType}_walk`, repeat:  Infinity})}, this)
     }
     console.log(this.hp)
   }
@@ -49,7 +88,8 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     if (this.alive) {
       this.alive = false;
       this.pauseFollow();
-      this.play({ key: `${this.texture.key}_die`, repeat: 0});
+      //может как-нибудь запретить другие анимации при die() ?
+      this.play({ key: `${this.unitType}_die`, repeat: 0});
       this.on('animationcomplete', this.despawn, this)
     }
   }

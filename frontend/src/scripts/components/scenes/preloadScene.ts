@@ -14,10 +14,10 @@ export default class PreloadScene extends Phaser.Scene {
     });
     
     // enemies
-    this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
-      frameWidth: 37,
-      frameHeight: 45
-    });
+    // this.load.spritesheet('defaultEnemy', './assets/sprites/mummy37x45.png', {
+    //   frameWidth: 37,
+    //   frameHeight: 45
+    // });
     
     this.load.spritesheet('scorpio', './assets/sprites/scorpio_walk.png', {
       // this.load.spritesheet('scorpio_walk', './assets/sprites/scorpio_walk.png', {
@@ -28,6 +28,42 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.spritesheet('scorpio_die', './assets/sprites/scorpio_die.png', {
       frameWidth: 212,
       frameHeight: 246
+    });
+
+    this.load.spritesheet('scorpio_hurt', './assets/sprites/scorpio_hurt.png', {
+      frameWidth: 212,
+      frameHeight: 246
+    });
+
+
+    this.load.spritesheet('wizardBlack', './assets/sprites/wizard-black_walk.png', {
+      frameWidth: 388,
+      frameHeight: 338
+    });
+
+    this.load.spritesheet('wizardBlack_die', './assets/sprites/wizard-black_die.png', {
+      frameWidth: 388,
+      frameHeight: 338
+    });
+
+    this.load.spritesheet('wizardBlack_hurt', './assets/sprites/wizard-black_hurt.png', {
+      frameWidth: 388,
+      frameHeight: 338
+    });
+
+    this.load.spritesheet('littleOrc', './assets/sprites/little-orc_walk.png', {
+      frameWidth: 331,
+      frameHeight: 299
+    });
+
+    this.load.spritesheet('littleOrc_die', './assets/sprites/little-orc_die.png', {
+      frameWidth: 331,
+      frameHeight: 299
+    });
+
+    this.load.spritesheet('littleOrc_hurt', './assets/sprites/little-orc_hurt.png', {
+      frameWidth: 331,
+      frameHeight: 299
     });
 
 
