@@ -32,7 +32,7 @@ async function signIn(user) {
         localStorage.setItem('token', token);
       }
 
-      const isStats = await checkStats({ id, token });
+      const isStats = await getCurrentPlayerStats({ id, token });
       console.log(isStats);
 
       if (!isStats.ok) {
@@ -52,7 +52,7 @@ async function signIn(user) {
   }
 }
 
-async function checkStats({ id, token }) {
+async function getCurrentPlayerStats({ id, token }) {
   const response = await fetch(`${SERVER}/users/${id}/stats/current`, {
     headers: {
       Authorization: `Bearer ${token}`,
