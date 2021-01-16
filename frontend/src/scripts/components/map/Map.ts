@@ -1,10 +1,8 @@
 import { MapType } from '../../constants/maps';
+import GameScene from '../scenes/GameScene';
 
 export default class Map {
-  /**
-  * @param {Phaser.Scene} scene
-  */
-  scene: Phaser.Scene;
+  scene: GameScene;
 
   mapData: MapType;
 
@@ -14,24 +12,15 @@ export default class Map {
 
   height: number;
 
-  constructor(scene: Phaser.Scene, mapData: MapType) {
+  constructor(scene: GameScene, mapData: MapType) {
     this.scene = scene;
     this.mapData = mapData;
-    this.map = undefined;
-    // this.width = window.innerWidth;
-    // this.height = window.innerWidth / 1.6;
-    this.width = 1280;
-    this.height = 800;
-  }
-
-  preload(): void {
-    this.scene.load.image('map', this.mapData.url);
+    this.width = +scene.game.config.width;
+    this.height = +scene.game.config.height;
   }
 
   create(): void {
-    this.map = this.scene.add.image(0, 0, 'map').setOrigin(0, 0);
-    // this.map = this.scene.add.sprite(0, 0, 'map').setOrigin(0, 0);
+    this.map = this.scene.add.image(0, 0, `map_${this.scene.state.level}`).setOrigin(0, 0);
     this.map.setDisplaySize(this.width, this.height);
-    // console.log(this);
   }
 }

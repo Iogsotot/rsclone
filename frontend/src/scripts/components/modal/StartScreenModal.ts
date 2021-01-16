@@ -2,11 +2,11 @@ import CustomModal from './CustomModal';
 
 export default class StartScreenModal extends CustomModal {
   mapImage: Phaser.GameObjects.Image;
-
   towersNumberText: Phaser.GameObjects.Text;
+  level: number;
 
-  constructor(scene: Phaser.Scene, towersNumber: number, bgTexture: string, titleTexture: string) {
-    super(scene, 'Level 1', bgTexture, titleTexture);
+  constructor(scene: Phaser.Scene, towersNumber: number, bgTexture: string, titleTexture: string, level: number) {
+    super(scene, `Level ${level}`, bgTexture, titleTexture);
 
     this.sceneCenter = [scene.cameras.main.centerX, scene.cameras.main.centerY];
 
@@ -16,7 +16,7 @@ export default class StartScreenModal extends CustomModal {
       .image(
         this.sceneCenter[0] - this.bgImage.width / 4,
         this.sceneCenter[1] - this.bgImage.width / 10,
-        'map'
+        `map_${level}`
       )
       .setScale(0.25);
 
