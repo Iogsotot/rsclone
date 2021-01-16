@@ -27,14 +27,16 @@ async function signIn(user) {
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
 
-      const isStats = await checkStats(id);
-
-      if (!isStats.ok) {
-        createStats(id);
-      }
-
+      localStorage.setItem('id', id);
       if (checked) {
         localStorage.setItem('token', token);
+      }
+
+      const isStats = await checkStats({ id, token });
+      console.log(isStats);
+
+      if (!isStats.ok) {
+        createStats({ id, token });
       }
 
       setTimeout(() => {
@@ -50,24 +52,27 @@ async function signIn(user) {
   }
 }
 
-async function checkAuth(token) {
-  
-}
-
-async function checkStats(userId) {
-  const response = await fetch(`${SERVER}/users/${userId}/stats/current`);
-  return response.json();
-}
-
-async function createStats(userId) {
-  const url = `${SERVER}/users/${userId}/stats`;
-  const options = {
-    method: 'POST',
+async function checkStats({ id, token }) {
+  const response = await fetch(`${SERVER}/users/${id}/stats/current`, {
     headers: {
+      Authorization: `Bearer ${token}`,
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId }),
+  });
+  return response.json();
+}
+
+async function createStats({ id, token }) {
+  const url = `${SERVER}/users/${id}/stats`;
+  const options = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: id }),
   };
 
   const response = await fetch(url, options);
@@ -76,7 +81,7 @@ async function createStats(userId) {
 }
 
 async function signUp(user) {
-  const url = `${SERVER}/users`;
+  const url = `${SERVER}/logup`;
   const options = {
     method: 'POST',
     headers: {
@@ -121,4 +126,5 @@ async function signUp(user) {
 export {
   signIn,
   signUp,
+  checkStats,
 };
