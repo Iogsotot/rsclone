@@ -33,11 +33,14 @@ async function signIn(user) {
       }
 
       const isStats = await getCurrentPlayerStats({ id, token });
-      console.log(isStats);
+      console.log('isStats:', isStats);
 
       if (!isStats.ok) {
         createStats({ id, token });
       }
+
+      const isUpdate = await setCurrentPlayerStat({ id, token, body: isStats });
+      console.log('isUpdate:', isUpdate);
 
       setTimeout(() => {
         createStartPage();
@@ -59,6 +62,19 @@ async function getCurrentPlayerStats({ id, token }) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
+  });
+  return response.json();
+}
+
+async function setCurrentPlayerStat({ id, token, body }) {
+  const response = await fetch(`${SERVER}/users/${id}/stats/`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
   });
   return response.json();
 }
