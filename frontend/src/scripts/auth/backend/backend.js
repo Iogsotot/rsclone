@@ -1,5 +1,4 @@
 import createStartPage from '../utils/create.start';
-import PlayerStats from '../../components/stats/PlayerStats';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -29,8 +28,6 @@ async function signIn(user) {
       responseInfo.innerHTML = `${login} has sign in`;
 
       const isStats = await checkStats(id);
-      console.log('isStats:', isStats);
-      console.log(new PlayerStats(isStats.data));
 
       if (!isStats.ok) {
         createStats(id);
@@ -51,6 +48,10 @@ async function signIn(user) {
     console.log(err);
     responseInfo.textContent = err.name;
   }
+}
+
+async function checkAuth(token) {
+  
 }
 
 async function checkStats(userId) {
