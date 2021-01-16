@@ -9,7 +9,7 @@ import { AUTO } from 'phaser';
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
-
+import State from '../../State';
 export default class GameScene extends Phaser.Scene {
   map: MapLevel1;
   points: Array<any>;
@@ -19,6 +19,7 @@ export default class GameScene extends Phaser.Scene {
   gatePointY: number;
   gate: any;
   gameObjStats: any;
+  state: any;
 
   constructor() {
     super('game-scene');
@@ -27,6 +28,7 @@ export default class GameScene extends Phaser.Scene {
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
+    this.state = new State(1, 1);
   }
 
 

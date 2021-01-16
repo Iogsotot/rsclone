@@ -16,15 +16,15 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   alive: boolean;
   unitType: string;
 
-  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, unitType: string) {
+  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, unitType: string, difficultyCoeff: number = 1) {
     super(scene, way, x, y, unitType);
     scene.add.existing(this);
 
     this.unitType = unitType;
     this.alive = true;
-    this.hp = 100;
-    this.physicalArmor = 10;
-    this.magicArmor = 5;
+    this.hp = 100 * difficultyCoeff;
+    this.physicalArmor = 10 * difficultyCoeff;
+    this.magicArmor = 5 * difficultyCoeff;
     this.damage = 20;
     this.damageSpeed = 5;
     this.moveSpeed = 10000;
