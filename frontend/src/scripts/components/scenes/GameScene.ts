@@ -69,7 +69,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 25,
     });
 
     this.anims.create({
@@ -78,7 +78,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 25,
     });
 
     this.anims.create({
@@ -87,7 +87,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 30,
     });
 
     this.anims.create({
@@ -96,7 +96,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 25,
     });
 
     this.anims.create({
@@ -105,7 +105,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 25,
     });
 
     this.anims.create({
@@ -114,7 +114,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 15,
+      frameRate: 30,
     });
 
     this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
@@ -123,8 +123,8 @@ export default class GameScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
-      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.2);
+      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.18);
 
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
@@ -132,7 +132,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
 
-    // добавляем раные динамические статы на страницу
+    // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => { 
       this.gameObjStats.updateText(gameObject);
