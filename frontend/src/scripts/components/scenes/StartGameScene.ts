@@ -17,7 +17,7 @@ export default class StartGameScene extends Phaser.Scene {
     );
 
     modal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.start('game-scene');
+      this.scene.start('game-scene', {level: 1, difficulty: 1});
     });
   }
 }

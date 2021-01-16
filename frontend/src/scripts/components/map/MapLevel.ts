@@ -4,11 +4,11 @@ import { map1, MapType } from '../../constants/maps';
 import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 import Tower from '../tower/Tower';
 
-export interface MapLevel1 {
+export interface MapLevel {
   new(scene: any, mapData: MapType): Map
 }
 
-export class MapLevel1 extends Map {
+export class MapLevel extends Map {
   /**
   * @param {Phaser.Scene} scene
   */

@@ -8,6 +8,8 @@ export default class MainScene extends Phaser.Scene {
       font: '30px Arial',
       color: 'lightblue',
     });
+    // alert('next scene?');
+    // console.log('loading...')
     this.scene.start('start-game-scene');
   }
 }

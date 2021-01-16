@@ -1,7 +1,10 @@
+import { map1, map2, map3 } from "./maps";
+
 const RANDOM_WAY_COEFFICIENT: number = 15;
 
 const levelsConfig = {
   "level_1": {
+    "map": map1,
     "startingGold": 100,
     "waves": {
       "wave_1": {
@@ -19,6 +22,7 @@ const levelsConfig = {
     }
   },
   "level_2": {
+    "map": map2,
     "startingGold": 100,
     "waves": {
       "wave_1": {
@@ -36,6 +40,7 @@ const levelsConfig = {
     }
   },
   "level_3": {
+    "map": map3,
     "startingGold": 100,
     "waves": {
       "wave_1": {

@@ -1,6 +1,6 @@
 import 'phaser';
 import { map1 } from '../../constants/maps';
-import { MapLevel1 } from '../map/MapLevel_1';
+import { MapLevel } from '../map/MapLevel';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
@@ -11,7 +11,7 @@ import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
 import State from '../../State';
 export default class GameScene extends Phaser.Scene {
-  map: MapLevel1;
+  map: MapLevel;
   points: Array<any>;
   firstPointX: number;
   firstPointY: number;
@@ -23,20 +23,32 @@ export default class GameScene extends Phaser.Scene {
 
   constructor() {
     super('game-scene');
-    this.map = new MapLevel1(this, map1);
+    // this.map = new MapLevel(this, map1);
+    // this.firstPointX = this.map.getStartPointX();
+    // this.firstPointY = this.map.getStartPointY();
+    // this.gatePointX = this.map.getFinishPointX();
+    // this.gatePointY = this.map.getFinishPointY();
+    // this.state = new State(1, 1);
+    // // console.log(this.data);
+  }
+
+  setScene(data) {
+    this.state = new State(data.level, data.difficulty);
+    this.map = new MapLevel(this, this.state.config.map);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
-    this.state = new State(1, 1);
+    // console.log(this.data);
   }
 
+  // preload(): void {
+  //   this.map.preload();
+  // }
 
-  preload(): void {
+  create(data: any): void {
+    this.setScene(data);
     this.map.preload();
-  }
-
-  create(): void {
     this.map.create();
     this.map.addTowers();
 
