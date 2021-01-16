@@ -10,8 +10,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   damage: number;
   damageSpeed: number;
   moveSpeed: number;
-  // position: {x: number, y: number};
-  // size: number;
   killReward: number;
   alive: boolean;
   unitType: string;

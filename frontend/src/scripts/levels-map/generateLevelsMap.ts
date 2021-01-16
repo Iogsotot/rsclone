@@ -17,5 +17,4 @@ export default function generateLevelsMap() {
     body?.classList.remove('map-wrapper')
     const game = new Phaser.Game(config);
   })
-
 }

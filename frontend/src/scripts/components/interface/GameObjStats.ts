@@ -4,15 +4,6 @@ import Unit from "../unit/Unit";
 export default class GameObjStats extends Phaser.Scene {
   text: Phaser.GameObjects.Text;
   gameObject: Phaser.GameObjects.GameObject;
-  // x: number;
-  // y: number;
-  // width: number;
-  // height: number;
-  // statsBar: object;
-  // value: number;
-  // p: number;
-  // data: Phaser.Data.DataManager;
-  // add :Phaser.GameObjects.GameObjectFactory;
   
   constructor(scene) {
     super(scene);

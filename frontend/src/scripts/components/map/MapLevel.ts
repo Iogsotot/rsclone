@@ -11,13 +11,9 @@ export interface MapLevel {
 
 export class MapLevel extends Map {
   curve: any;
-
   startPointX: number;
-
   startPointY: number;
-
   finishPointX: number;
-
   finishPointY: number;
 
 

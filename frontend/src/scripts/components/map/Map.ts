@@ -3,13 +3,9 @@ import GameScene from '../scenes/GameScene';
 
 export default class Map {
   scene: GameScene;
-
   mapData: MapType;
-
   map: any;
-
   width: number;
-
   height: number;
 
   constructor(scene: GameScene, mapData: MapType) {

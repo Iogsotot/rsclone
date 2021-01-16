@@ -10,13 +10,13 @@ const levelsConfig = {
       "wave_1": {
         "enemies": {
           "scorpio": 5,
-          "orc": 1
+          "littleOrc": 1
         }
       },
       "wave_2": {
         "enemies": {
           "scorpio": 5,
-          "orc": 1
+          "littleOrc": 1
         }
       }
     }
@@ -28,13 +28,13 @@ const levelsConfig = {
       "wave_1": {
         "enemies": {
           "scorpio": 10,
-          "orc": 11
+          "littleOrc": 11
         }
       },
       "wave_2": {
         "enemies": {
           "scorpio": 50,
-          "orc": 10
+          "littleOrc": 10
         }
       }
     }
@@ -46,13 +46,13 @@ const levelsConfig = {
       "wave_1": {
         "enemies": {
           "scorpio": 12,
-          "orc": 1        
+          "littleOrc": 1        
         }
       },
       "wave_2": {
         "enemies": {
           "scorpio": 53,
-          "orc": 13
+          "littleOrc": 13
         }
       }
     }

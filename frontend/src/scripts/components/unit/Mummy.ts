@@ -8,5 +8,4 @@ export default class Mummy extends Enemy {
 
     this.moveSpeed = 30000;
   }
-  
 }

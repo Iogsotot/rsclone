@@ -3,7 +3,7 @@ import { levelsConfig } from "./constants/constants"
 
 export default class State {
   level: number;
-  // мб переделать на enum
+  // мб переделать на enum ?
   gameDifficulty: number;
   config: object;
 
