@@ -4,7 +4,7 @@ import handleAttendent from './backend/handleAttendent';
 
 const url = 'https://rs-clone.herokuapp.com/';
 
-function runAuth() {
+function runAuth(fn) {
   const token = localStorage.getItem('token');
   const id = localStorage.getItem('id');
   const year = new Date().getFullYear();
@@ -23,6 +23,7 @@ function runAuth() {
     console.log('auth:', ok);
     if (ok) {
       createStartPage();
+      document.querySelector('.logo-start-button')?.addEventListener('click', fn);
     } else {
       createSignPage();
     }
