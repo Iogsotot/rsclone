@@ -21,11 +21,13 @@ async function signIn(user) {
 
     const response = await fetch(url, options);
     const {
-      data, token, login, ok,
+      data, token, login, ok, id,
     } = await response.json();
 
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
+
+      const isStats = await checkStats(id);
 
       if (checked) {
         localStorage.setItem('token', token);
@@ -42,6 +44,12 @@ async function signIn(user) {
     console.log(err);
     responseInfo.textContent = err.name;
   }
+}
+
+async function checkStats(userId) {
+  const response = await fetch(`${SERVER}/users/${userId}/stats/current`);
+  const result = await response.json();
+  console.log(result);
 }
 
 async function signUp(user) {
