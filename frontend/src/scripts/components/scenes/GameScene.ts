@@ -142,16 +142,16 @@ export default class GameScene extends Phaser.Scene {
       this.gameObjStats.updateText(gameObject);
     });
 
-    
-    const button = new Button(this, 1230, 50, 'settings-btn');
-    button.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    // переделать координаты с хардкода на динамические
+    const settingButton = new Button(this, 1990, 50, 'settings-btn');
+    settingButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.launch('pause-scene');
     });
 
-    const loseBtn = new Button(this, 1130, 50, 'settings-btn');
+    const loseBtn = new Button(this, 1890, 50, 'settings-btn');
     loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
@@ -159,11 +159,11 @@ export default class GameScene extends Phaser.Scene {
       this.scene.launch('lose-scene');
     });
 
-    const victoryBtn = new Button(this, 1030, 50, 'settings-btn');
+    const victoryBtn = new Button(this, 1790, 50, 'settings-btn');
     victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg');
-      // this.scene.pause();
+      this.scene.pause();
       victoryModal.startNewBtn
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {

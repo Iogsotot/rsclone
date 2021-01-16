@@ -66,9 +66,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.image('level1Button', './assets/level_1_title.png')
-    this.load.image('level2Button', './assets/level_2_title.png')
-    this.load.image('level3Button', './assets/level_3_title.png')
+    this.load.image('level1Button', './assets/level_1_title_mini.png')
+    this.load.image('level2Button', './assets/level_2_title_mini.png')
+    this.load.image('level3Button', './assets/level_3_title_mini.png')
 
     this.load.image('levelsMap', './assets/main-bg.jpg')
 

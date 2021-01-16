@@ -23,4 +23,7 @@ export default class LevelButton extends Button {
       this.scene.scene.start('game-scene', {level: this.level, difficulty: 1});
     });
   }
+  handleOut() {
+    this.setScale(1).setAlpha(0.8);
+  }
 }
