@@ -17,7 +17,8 @@ export default class CustomButton extends Button {
     scene.add.existing(this);
 
     this.btnDownImage = scene.add.image(0, 0, downTexture);
-    this.btnText = scene.add.text(0, 0, text, { fontSize: '30px' }).setOrigin(0.5, 0.6);
+    this.btnDownImage.setPosition(0, this.btnImage.height - this.btnDownImage.height)
+    this.btnText = scene.add.text(0, 0, text, { fontSize: '30px' }).setOrigin(0.5, 0.65);
     this.btnDownImage.setVisible(false);
 
     this.add(this.btnDownImage);
@@ -35,15 +36,19 @@ export default class CustomButton extends Button {
   }
 
   handleOver() {
-    this.btnDownImage.setVisible(true);
-    this.btnImage.setVisible(false);
+    this.btnText.setFill('black')
   }
   handleOut() {
     this.btnDownImage.setVisible(false);
     this.btnImage.setVisible(true);
+    this.btnText.setFill('white')
+    this.btnText.setPosition(0, 0)
   }
   handleDown() {
     this.handleOver();
+    this.btnDownImage.setVisible(true);
+    this.btnImage.setVisible(false);
+    this.btnText.setPosition(0, this.btnText.height / 2)
   }
   handleUp() {
     this.handleOut();
