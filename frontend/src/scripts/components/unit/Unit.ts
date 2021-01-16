@@ -30,13 +30,9 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.moveSpeed = 10000;
     this.killReward = 5;
     
-    // this.create(texture);
-    // console.log(this);
     this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
-    this.on("pointerdown", this.onEnemyClicked, this)
-    // hitArea
-    // texture
+    this.on("pointerdown", this.takeDamage, this)
   }
 
   create() {
@@ -58,7 +54,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       this.die();
     } else if(this.hp >= 15) {
       this.hp -= 15;
-      // console.log(this.anims.getName());
 
       if (this.anims.getName() === `${this.unitType}_walk`) {
         this.play(`${this.unitType}_hurt`);
