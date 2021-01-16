@@ -9,6 +9,10 @@ export default class Missile extends Phaser.GameObjects.Image {
 
     speed: any;
 
+    enemyPositionX: any;
+
+    enemyPositionY: any;
+
     constructor(scene) {
         super(scene, 0, 0, 'missile') 
         this.dx = 0;
@@ -36,9 +40,8 @@ export default class Missile extends Phaser.GameObjects.Image {
  
         this.x += this.dx * (this.speed * delta);
         this.y += this.dy * (this.speed * delta);
- 
-        if (this.lifespan <= 0)
-        {
+
+        if (this.lifespan < 0) {
             this.setActive(false);
             this.setVisible(false);
         }

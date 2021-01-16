@@ -43,16 +43,22 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     console.log(`${this.unitType}_walk`);
   }
 
-  takeDamage() {
-    if(this.hp - 15 <= 15) {
-      this.hp = 0;
-      this.die();
-    } else if(this.hp >= 15) {
-      this.hp -= 15;
-      this.play({ key: `${this.unitType}_hurt`, repeat: 0});
-      this.on('animationcomplete', () => {this.play({ key: `${this.unitType}_walk`, repeat:  Infinity})}, this)
+  takeDamage(damage) {
+    this.hp -= damage;                
+    if(this.hp <= 0) {
+        this.setActive(false);
+        this.setVisible(false);      
     }
-    console.log(this.hp)
+
+    // if(this.hp - damage <= damage) {
+    //   this.hp = 0;
+    //   this.die();
+    // } else if(this.hp >= damage) {
+    //   this.hp -= damage;
+    //   this.play({ key: `${this.unitType}_hurt`, repeat: 0});
+    //   this.on('animationcomplete', () => {this.play({ key: `${this.unitType}_walk`, repeat:  Infinity})}, this)
+    // }
+    // console.log(this.hp)
   }
 
   die() {

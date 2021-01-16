@@ -1,26 +1,37 @@
 import 'phaser'
 import { map1 } from '../../constants/maps';
-import { MapLevel1 } from '../map/MapLevel_1';
+import { MapLevel } from '../map/MapLevel';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
-import Tower from '../tower/Tower';
 import { AUTO } from 'phaser';
-import GameObjStats from '../interface/GameObjStats'
+import GameObjStats from '../interface/GameObjStats';
+
 
 export default class GameScene extends Phaser.Scene {
-  map: MapLevel1;
+  map: MapLevel;
+
   points: Array<any>;
+
   firstPointX: number;
+
   firstPointY: number;
+
   gatePointX: number;
+
   gatePointY: number;
+
   gate: any;
+
   gameObjStats: any;
+
+  towers: Array<any>
+
+  enemiesGroup: Phaser.GameObjects.Group;
 
   constructor() {
     super('game-scene');
-    this.map = new MapLevel1(this, map1);
+    this.map = new MapLevel(this, map1);
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
@@ -34,8 +45,9 @@ export default class GameScene extends Phaser.Scene {
 
   create(): void {
     this.map.create();
-    this.map.addTowers();
-
+    this.towers = this.map.addTowers();
+    this.enemiesGroup = this.physics.add.group();
+    
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
@@ -126,20 +138,34 @@ export default class GameScene extends Phaser.Scene {
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
       const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
 
-      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
+      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
-    }
 
+      this.enemiesGroup.add(scorpio);
+      this.enemiesGroup.add(wizardBlack);
+      this.enemiesGroup.add(littleOrc);
+    }
 
     // добавляем раные динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => { 
       this.gameObjStats.updateText(gameObject);
     });
+
+
+    for(let i = 0; i < this.towers.length; i += 1) {
+        this.towers[i].setEnemies(this.enemiesGroup);
+        this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].damageEnemy);
+    }
+
   }
 
-  update() {
+  update(time) {
     this.gate.rotation += 0.003;
+    this.towers.forEach((tower: any) => {
+        tower.update(time)
+    })
+    
   }
 }
