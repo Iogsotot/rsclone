@@ -29,6 +29,9 @@ async function signIn(user) {
 
       const isStats = await checkStats(id);
       console.log('isStats:', isStats);
+      if (!isStats.ok) {
+        createStats(id);
+      }
 
       if (checked) {
         localStorage.setItem('token', token);
@@ -49,8 +52,23 @@ async function signIn(user) {
 
 async function checkStats(userId) {
   const response = await fetch(`${SERVER}/users/${userId}/stats/current`);
+  return response.json();
+}
+
+async function createStats(userId) {
+  const url = `${SERVER}/users/${userId}/stats`;
+  const options = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId }),
+  };
+
+  const response = await fetch(url, options);
   const result = await response.json();
-  return result;
+  console.log('result:', result);
 }
 
 async function signUp(user) {
