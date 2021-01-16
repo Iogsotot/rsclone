@@ -30,42 +30,39 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.moveSpeed = 10000;
     this.killReward = 5;
     
-    // this.create(texture);
-    // console.log(this);
-    this.play({ key: `${unitType}_walk`, repeat:  Infinity});
+    this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
     this.on("pointerdown", this.takeDamage, this)
-    // hitArea
-    // texture
   }
 
   create() {
     console.log(`${this.unitType}_walk`);
   }
 
+  
   takeDamage(damage) {
     this.hp -= damage;                
     if(this.hp <= 0) {
         this.setActive(false);
-        this.setVisible(false);      
+        this.setVisible(false);    
     }
 
-    // if(this.hp - damage <= damage) {
+    // Денис: Аня нам тут надо будет с тобой обсудить что и как))
+    
+    // if(this.hp - 15 <= 15) {
     //   this.hp = 0;
     //   this.die();
-    // } else if(this.hp >= damage) {
-    //   this.hp -= damage;
+    // } else if(this.hp >= 15) {
+    //   this.hp -= 15;
     //   this.play({ key: `${this.unitType}_hurt`, repeat: 0});
-    //   this.on('animationcomplete', () => {this.play({ key: `${this.unitType}_walk`, repeat:  Infinity})}, this)
+    //   this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
     // }
-    // console.log(this.hp)
   }
 
   die() {
     if (this.alive) {
       this.alive = false;
       this.pauseFollow();
-      //может как-нибудь запретить другие анимации при die() ?
       this.play({ key: `${this.unitType}_die`, repeat: 0});
       this.on('animationcomplete', this.despawn, this)
     }
