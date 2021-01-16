@@ -8,7 +8,6 @@ type AchievStats = {
   seller: boolean,
   builder: boolean
 };
-
 export default class PlayerStats {
   gameProgress: number;
 
@@ -44,7 +43,7 @@ export default class PlayerStats {
     };
   }
 
-  getDataFromServer() {
+  getStat() {
     // went to do backend answers
   }
 }
