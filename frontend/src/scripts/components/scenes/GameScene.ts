@@ -10,6 +10,7 @@ import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
 import State from '../../State';
+
 export default class GameScene extends Phaser.Scene {
   map: MapLevel;
   points: Array<any>;
@@ -23,13 +24,6 @@ export default class GameScene extends Phaser.Scene {
 
   constructor() {
     super('game-scene');
-    // this.map = new MapLevel(this, map1);
-    // this.firstPointX = this.map.getStartPointX();
-    // this.firstPointY = this.map.getStartPointY();
-    // this.gatePointX = this.map.getFinishPointX();
-    // this.gatePointY = this.map.getFinishPointY();
-    // this.state = new State(1, 1);
-    // // console.log(this.data);
   }
 
   setScene(data) {
@@ -39,16 +33,10 @@ export default class GameScene extends Phaser.Scene {
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
-    // console.log(this.data);
   }
-
-  // preload(): void {
-  //   this.map.preload();
-  // }
 
   create(data: any): void {
     this.setScene(data);
-    this.map.preload();
     this.map.create();
     this.map.addTowers();
 

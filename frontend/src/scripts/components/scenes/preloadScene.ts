@@ -1,4 +1,4 @@
-import { map1 } from '../../constants/maps';
+import { map1, map2, map3 } from '../../constants/maps';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
@@ -63,7 +63,14 @@ export default class PreloadScene extends Phaser.Scene {
     
     //other
     this.load.image('gate', './assets/imgs/gate-mini.png');
-    this.load.image('map', map1.url);
+    this.load.image('map_1', map1.url);
+    this.load.image('map_2', map2.url);
+    this.load.image('map_3', map3.url);
+    this.load.image('level1Button', './assets/level_1_title.png')
+    this.load.image('level2Button', './assets/level_2_title.png')
+    this.load.image('level3Button', './assets/level_3_title.png')
+
+    this.load.image('levelsMap', './assets/main-bg.jpg')
 
     this.load.image('settings-btn', './assets/interface/settings-icon.png');
 
@@ -81,6 +88,6 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.add.text(20, 20, 'Loading game...');
     // console.log('loading...');
-    this.scene.start('MainScene');
+    this.scene.start('LevelsScene');
   }
 }
