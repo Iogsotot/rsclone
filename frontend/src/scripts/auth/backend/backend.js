@@ -28,6 +28,7 @@ async function signIn(user) {
       responseInfo.innerHTML = `${login} has sign in`;
 
       const isStats = await checkStats(id);
+      console.log('isStats:', isStats);
 
       if (checked) {
         localStorage.setItem('token', token);
@@ -49,7 +50,7 @@ async function signIn(user) {
 async function checkStats(userId) {
   const response = await fetch(`${SERVER}/users/${userId}/stats/current`);
   const result = await response.json();
-  console.log(result);
+  return result;
 }
 
 async function signUp(user) {
