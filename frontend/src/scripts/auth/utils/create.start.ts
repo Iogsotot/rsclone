@@ -2,19 +2,23 @@ import createElement from './createElement';
 import getAttendance from '../backend/getAttendance';
 
 function createStartPage() {
-  const startPage = createElement('div', {
-    classList: ['start-page'],
-    innerHTML: `
+  const startPage = createElement(
+    'div',
+    {
+      classList: ['start-page'],
+      innerHTML: `
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
       <div class="logo-start-button">START</div>
       <div class="logo-credits-button">CREDITS</div>
     </div>
     `,
-  }, {
-    height: `${window.innerHeight}`,
-    width: `${window.innerWidth}`,
-  });
+    },
+    {
+      height: `${window.innerHeight}`,
+      width: `${window.innerWidth}`,
+    }
+  );
 
   const logout = createElement('div', {
     classList: ['logout-game'],
@@ -33,7 +37,7 @@ function createStartPage() {
     },
   });
 
-  const body = document.querySelector('body');
+  const body = document.querySelector('body') as HTMLBodyElement;
   body.innerText = '';
   body.append(logout, attendance, startPage);
 }
@@ -55,21 +59,21 @@ function createPopupAttendance(arr) {
           <figcaption>Game attendance over the year</figcaption>
           <svg class="full_graph">
               <title id="title">A bart chart showing game attendance over the year</title>
-              ${arr.map(({ year, allAttendance }) => {
-    positionAttendance += 20;
-    positionText += 20;
-    const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
+              ${arr
+                .map(({ year, allAttendance }) => {
+                  positionAttendance += 20;
+                  positionText += 20;
+                  const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
 
-    return (
-      `
+                  return `
                   <g class="bar">
                     <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
                     <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
                     <text x="85%" y="${positionText}" dy=".35em">${year}</text>
                   </g>
-                  `
-    );
-  }).join(' ')}
+                  `;
+                })
+                .join(' ')}
           </svg>
         </figure>
       
@@ -89,8 +93,8 @@ function createPopupAttendance(arr) {
     classList: ['loader'],
   });
 
-  document.querySelector('.start-page').append(loader);
-  document.querySelector('body').append(popup);
+  document.querySelector('.start-page')?.append(loader);
+  document.querySelector('body')?.append(popup);
 
   const preloaderImg = document.createElement('img');
   preloaderImg.src = '../assets/auth/close.png';

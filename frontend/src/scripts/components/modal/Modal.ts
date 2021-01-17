@@ -17,9 +17,13 @@ export default class Modal extends Phaser.GameObjects.Container {
 
     this.bgImage = scene.add.image(this.sceneCenter[0], this.sceneCenter[1], bgTexture);
 
-    this.title = new Phaser.GameObjects.Container(scene, scene.cameras.main.centerX, 120);
+    const titleCoordinates = [
+      this.sceneCenter[0],
+      this.sceneCenter[1] - this.bgImage.height / 2,
+    ];
     this.titleBg = scene.add.image(0, 0, titleTexture);
     this.titleText = scene.add.text(0, 0, titleText, { fontSize: '30px' }).setOrigin(0.5);
+    this.title = new Phaser.GameObjects.Container(scene, titleCoordinates[0], titleCoordinates[1]);
 
     this.init();
   }
