@@ -7,29 +7,39 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     // towers
-    this.load.spritesheet('arrow', './assets/tower-WIP/arrow.png', {
+    this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
       frameHeight: 104
     });
 
-    this.load.spritesheet('bomb', './assets/tower-WIP/bomb.png', {
+    this.load.spritesheet('bomb', './assets/towers/bomb.png', {
         frameWidth: 108,
         frameHeight: 104
       });
 
-    this.load.spritesheet('magic', './assets/tower-WIP/magic.png', {
+    this.load.spritesheet('magic', './assets/towers/magic.png', {
     frameWidth: 108,
     frameHeight: 104
     });
 
-    this.load.spritesheet('tower', './assets/tower-WIP/tower.png', {
+    this.load.spritesheet('tower', './assets/towers/tower.png', {
     frameWidth: 120,
     frameHeight: 80
     });
 
-    this.load.spritesheet('missile', './assets/tower-WIP/missile.png', {
-      frameWidth: 10,
-      frameHeight: 10
+    this.load.spritesheet('missile-arrow', './assets/towers/missile-arrow.png', {
+        frameWidth: 30,
+        frameHeight: 30
+      });
+
+    this.load.spritesheet('missile-magic', './assets/towers/missile-magic.png', {
+        frameWidth: 30,
+        frameHeight: 30
+      });
+
+    this.load.spritesheet('missile-bomb', './assets/towers/missile-bomb.png', {
+      frameWidth: 30,
+      frameHeight: 30
     });
 
     //enemies    

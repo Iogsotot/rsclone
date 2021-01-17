@@ -1,5 +1,8 @@
 import 'phaser';
-import Missile from '../missile/Missile';
+import MissileBomb from '../missile/MissileBomb';
+import MissileArrow from '../missile/MissileArrow';
+import MissileMagic from '../missile/MissileMagic';
+
 
 export default class Tower extends Phaser.GameObjects.Sprite {
     scene: Phaser.Scene;
@@ -25,7 +28,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.setInteractive();
         this.isTowerBuilt = false;
         this.timeShot = 0;
-        this.missiles = this.scene.physics.add.group({ classType: Missile, runChildUpdate: true });
+        
         this.isEnemyAlive;
         this.timeForNextShot = 1000
     }
@@ -36,16 +39,18 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.tower.setScale(1.2)
     }
 
-    public choiceTower(): void {  
-        this.arrow = this.scene.add.sprite(this.x - 58, this.y - 50, 'arrow');
-        this.bomb = this.scene.add.sprite(this.x + 50, this.y + 50, 'bomb');
-        this.magic = this.scene.add.sprite(this.x - 58, this.y + 50, 'magic');
-        this.arrow.setInteractive();
-        this.bomb.setInteractive();
-        this.magic.setInteractive();
-        this.arrow.on('pointerdown', () => this.placeTowerArrow());
-        this.bomb.on('pointerdown', () => this.placeTowerBomb());
-        this.magic.on('pointerdown', () => this.placeTowerMagic());
+    public choiceTower(): void { 
+        if(!this.isTowerBuilt) {
+            this.arrow = this.scene.add.sprite(this.x - 58, this.y - 50, 'arrow');
+            this.bomb = this.scene.add.sprite(this.x + 50, this.y + 50, 'bomb');
+            this.magic = this.scene.add.sprite(this.x - 58, this.y + 50, 'magic');
+            this.arrow.setInteractive();
+            this.bomb.setInteractive();
+            this.magic.setInteractive();
+            this.arrow.on('pointerdown', () => this.placeTowerArrow());
+            this.bomb.on('pointerdown', () => this.placeTowerBomb());
+            this.magic.on('pointerdown', () => this.placeTowerMagic());
+        } 
     }
 
     protected placeTowerArrow(): void {
@@ -61,6 +66,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.isTowerBuilt = true;
         this.hideChoiceTower();
         this.createStatsTower(15, 1000, 300);
+        this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
     }
 
     protected placeTowerBomb(): void {
@@ -76,6 +82,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.isTowerBuilt = true;
         this.hideChoiceTower();
         this.createStatsTower(25, 2500, 500);
+        this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
     }
 
     protected placeTowerMagic(): void {
@@ -92,6 +99,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.isTowerBuilt = true;
         this.hideChoiceTower();
         this.createStatsTower(20, 1500, 350);
+        this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
     }
 
     protected hideChoiceTower(): void {
@@ -103,7 +111,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.magic.setActive(false);
     }
 
-    protected createStatsTower(damage, speedFire, attackArea) {
+    protected createStatsTower(damage: number, speedFire: number, attackArea: number): void {
         this.damage = damage;
         this.timeForNextShot = speedFire;
         this.attackArea = attackArea;
@@ -145,6 +153,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     public fire() {
+        console.log(this.missiles)
         if (this.isTowerBuilt) {
             const enemy = this.getEnemy(this.x, this.y, this.attackArea);
             if (enemy) {
@@ -152,15 +161,12 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 const enemyPositionY = enemy.y
                 const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
                 this.addMissile(this.x, this.y, angle);
-                console.log(this.timeForNextShot, this.damage, this.attackArea)
                 enemy.takeDamage(this.damage);
-                // this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
             }
         } 
     }
 
     update(time: number) {
-        
         if(time > this.timeShot) {
             this.fire();
             this.timeShot = time + this.timeForNextShot;
