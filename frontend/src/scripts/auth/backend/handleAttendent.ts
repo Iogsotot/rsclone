@@ -1,7 +1,7 @@
 const url = 'https://rs-clone.herokuapp.com/';
 const year = new Date().getFullYear();
 
-const handlerAttendance = async (dataObj) => {
+export default async function handlerAttendance(dataObj) {
   try {
     const { data } = dataObj;
 
@@ -29,6 +29,4 @@ const handlerAttendance = async (dataObj) => {
   } catch (e) {
     console.log(e);
   }
-};
-
-module.exports = handlerAttendance;
+}

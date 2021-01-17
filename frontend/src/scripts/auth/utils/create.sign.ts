@@ -4,9 +4,11 @@ import { signUp, signIn } from '../backend/backend';
 function createSignPage() {
   // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"
 
-  const signPage = createElement('div', {
-    classList: ['sign-kingdom-rush'],
-    innerHTML: `
+  const signPage = createElement(
+    'div',
+    {
+      classList: ['sign-kingdom-rush'],
+      innerHTML: `
       <div class="sign-window">
 
         <div class="sign-info">
@@ -42,30 +44,32 @@ function createSignPage() {
         </div>
       </div>
     `,
-  }, {
-    height: `${window.innerHeight}`,
-    width: `${window.innerWidth}`,
-  });
+    },
+    {
+      height: `${window.innerHeight}`,
+      width: `${window.innerWidth}`,
+    }
+  );
 
   const responseInfo = createElement('div', {
     classList: ['response-info'],
   });
 
-  const body = document.querySelector('body');
+  const body = document.querySelector('body') as HTMLBodyElement;
   body.textContent = '';
   body.append(signPage);
 
-  const signInfoIn = document.querySelector('.sign-info-in');
-  const signInfoUp = document.querySelector('.sign-info-up');
+  const signInfoIn = document.querySelector('.sign-info-in') as HTMLElement;
+  const signInfoUp = document.querySelector('.sign-info-up') as HTMLElement;
 
-  signInfoUp.after(responseInfo);
+  signInfoUp?.after(responseInfo);
 
-  const signSubmit = document.querySelector('.sign-in-submit');
-  const forgotPassword = document.querySelector('.forgot-password-button');
+  const signSubmit = document.querySelector('.sign-in-submit') as HTMLInputElement;
+  const forgotPassword = document.querySelector('.forgot-password-button') as HTMLElement;
 
   forgotPassword.onclick = () => {
     localStorage.removeItem('token');
-    document.forms.signForm.reset();
+    document.forms.namedItem('signForm')?.reset();
     responseInfo.textContent = 'Password forgot';
   };
 
@@ -80,11 +84,11 @@ function createSignPage() {
   signInfoUp.onclick = handler;
 
   signSubmit.onclick = (e) => {
-    const { elements } = document.forms.signForm;
-    const { value } = e.target;
+    const { elements } = document.forms.namedItem('signForm') as HTMLFormElement;
+    const { value } = e.target as HTMLInputElement;
 
-    const username = elements.username.value;
-    const password = elements.password.value;
+    const username = (elements.namedItem('username') as HTMLInputElement).value;
+    const password = (elements.namedItem('password') as HTMLInputElement).value;
 
     if (username && password) {
       e.preventDefault();
