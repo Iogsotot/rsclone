@@ -1,6 +1,9 @@
 // IMPORTANT TO IMPLEMENT
 export default function getPlayerStatsFromServer(userId) {
   // await fetch bla bla
+  // getStat() {
+  //   // went to do backend answers
+  // }
   return {
     gameProgress: 0,
     gameLogInCount: 0,
