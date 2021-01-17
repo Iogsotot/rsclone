@@ -46,7 +46,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 70,
+      frameRate: 80,
     });
 
     this.anims.create({
@@ -55,7 +55,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 70,
+      frameRate: 60,
     });
 
     this.anims.create({
@@ -64,7 +64,7 @@ export default class GameScene extends Phaser.Scene {
         start: 0,
         end: 19,
       }),
-      frameRate: 70,
+      frameRate: 80,
     });
 
     this.anims.create({
@@ -121,14 +121,14 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 30,
     });
 
-    this.gate = this.add.sprite(this.gatePointX - 45, this.gatePointY, 'gate').setScale(0.35)
+    this.gate = this.add.sprite(this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5)
     this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
-      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.4);
-      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.2);
-      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.18);
+      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.75);
+      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.25);
 
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
