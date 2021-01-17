@@ -46,7 +46,7 @@ const map1: MapType = {
 };
 
 const map2: MapType = {
-  url: '../assets/imgs/forest_scene2.jpg',
+  url: '../assets/imgs/forest_scene1.jpg',
   scalePointsWay: [
     {},
   ],
@@ -58,7 +58,7 @@ const map2: MapType = {
 };
 
 const map3: MapType = {
-  url: '../assets/desert_scene3.jpg',
+  url: '../assets/imgs/desert_scene3.jpg',
   scalePointsWay: [
     {},
   ],

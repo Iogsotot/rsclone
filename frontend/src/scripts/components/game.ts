@@ -1,10 +1,9 @@
 import 'phaser';
-import MainScene from './scenes/MainScene';
+import LevelsScene from './scenes/LevelsScene';
 import PreloadScene from './scenes/PreloadScene';
 import GameScene from './scenes/GameScene';
 import PauseScene from './scenes/PauseScene';
 import LoseScene from './scenes/LoseScene';
-import StartGameScene from './scenes/StartGameScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -13,13 +12,12 @@ const config: Phaser.Types.Core.GameConfig = {
     parent: 'phaser-game',
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
-    width: 1280,
-    height: 800,
+    width: 2048,
+    height: 1210,
   },
   scene: [
     PreloadScene, 
-    MainScene,
-    StartGameScene,
+    LevelsScene,
     PauseScene, 
     LoseScene, 
     GameScene
@@ -34,7 +32,5 @@ const config: Phaser.Types.Core.GameConfig = {
     },
   },
 };
-
-
 
 export default config;

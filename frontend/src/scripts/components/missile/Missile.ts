@@ -2,16 +2,9 @@ import 'phaser';
 
 export default class Missile extends Phaser.GameObjects.Image {
     dx: number;
-
     dy: number;
-
     lifespan: number;
-
     speed: any;
-
-    enemyPositionX: any;
-
-    enemyPositionY: any;
 
     constructor(scene) {
         super(scene, 0, 0, 'missile') 

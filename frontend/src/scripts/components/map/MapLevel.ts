@@ -3,6 +3,7 @@ import Map from './Map';
 import { map1, MapType } from '../../constants/maps';
 import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 import Tower from '../tower/Tower';
+import GameScene from '../scenes/GameScene';
 
 
 export interface MapLevel {
@@ -10,25 +11,16 @@ export interface MapLevel {
 }
 
 export class MapLevel extends Map {
-  /**
-  * @param {Phaser.Scene} scene
-  */
   curve: any;
-
   startPointX: number;
-
   startPointY: number;
-
   finishPointX: number;
-
   finishPointY: number;
-
   scalePointsWay: Array<object>;
-
   scaleCoordinateTowers: Array<object>;
 
 
-  constructor(scene: Phaser.Scene, mapData: MapType) {
+  constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
     this.startPointX = 0 / map1.scaleStartPointX;
@@ -75,7 +67,7 @@ export class MapLevel extends Map {
     const tower = new Tower(this.scene, x, y);
     return tower
   }
- 
+
   createPointWay(points: Array<any>, scalePoint: object): void {
     const scaleX: number = Object.values(scalePoint)[0];
     const scaleY: number = Object.values(scalePoint)[1];
