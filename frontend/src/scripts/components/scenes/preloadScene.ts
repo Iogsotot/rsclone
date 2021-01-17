@@ -7,9 +7,24 @@ export default class PreloadScene extends Phaser.Scene {
 
   preload() {
     // towers
+    this.load.spritesheet('arrow', './assets/tower-WIP/arrow.png', {
+      frameWidth: 108,
+      frameHeight: 104
+    });
+
+    this.load.spritesheet('bomb', './assets/tower-WIP/bomb.png', {
+        frameWidth: 108,
+        frameHeight: 104
+      });
+
+    this.load.spritesheet('magic', './assets/tower-WIP/magic.png', {
+    frameWidth: 108,
+    frameHeight: 104
+    });
+
     this.load.spritesheet('tower', './assets/tower-WIP/tower.png', {
-      frameWidth: 120,
-      frameHeight: 80
+    frameWidth: 120,
+    frameHeight: 80
     });
 
     this.load.spritesheet('missile', './assets/tower-WIP/missile.png', {

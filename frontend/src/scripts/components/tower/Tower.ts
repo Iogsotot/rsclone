@@ -1,9 +1,9 @@
 import 'phaser';
-import Missile from '../missile/Missile'
+import Missile from '../missile/Missile';
 
 export default class Tower extends Phaser.GameObjects.Sprite {
-    scene: any;
-    tower: any;
+    scene: Phaser.Scene;
+    tower: Phaser.GameObjects.Sprite;
     x: number;
     y: number;
     damage: number;
@@ -14,20 +14,20 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     timeShot: number
     timeForNextShot: number;
     isEnemyAlive: boolean;
+    arrow: Phaser.GameObjects.Sprite;
+    magic: Phaser.GameObjects.Sprite;
+    bomb: Phaser.GameObjects.Sprite;
 
     constructor(scene: Phaser.Scene, positionX: number, positionY: number) {
         super(scene, positionX, positionY, 'tower')
         this.x = positionX;
         this.y = positionY;
-        this.damage = 25;
-        this.tower = undefined;
         this.setInteractive();
         this.isTowerBuilt = false;
-        this.attackArea = 300;
         this.timeShot = 0;
-        this.timeForNextShot = 1000;
         this.missiles = this.scene.physics.add.group({ classType: Missile, runChildUpdate: true });
-        this.isEnemyAlive
+        this.isEnemyAlive;
+        this.timeForNextShot = 1000
     }
 
     public placeField(): void {
@@ -37,32 +37,76 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     public choiceTower(): void {  
+        this.arrow = this.scene.add.sprite(this.x - 58, this.y - 50, 'arrow');
+        this.bomb = this.scene.add.sprite(this.x + 50, this.y + 50, 'bomb');
+        this.magic = this.scene.add.sprite(this.x - 58, this.y + 50, 'magic');
+        this.arrow.setInteractive();
+        this.bomb.setInteractive();
+        this.magic.setInteractive();
+        this.arrow.on('pointerdown', () => this.placeTowerArrow());
+        this.bomb.on('pointerdown', () => this.placeTowerBomb());
+        this.magic.on('pointerdown', () => this.placeTowerMagic());
+    }
+
+    protected placeTowerArrow(): void {
         this.scene.anims.create({
-            key: 'tower_choice_anim',
+            key: 'tower_array_anim',
             frames: this.scene.anims.generateFrameNumbers('tower', {
                 start: 1,
                 end: 1}),
             frameRate: 0,
             repeat: -1
         });
-        this.tower.setScale(1.5)
-        this.tower.play('tower_choice_anim');
-        this.on('pointerdown', () => this.placeTower(), this)
+        this.tower.play('tower_array_anim');
+        this.isTowerBuilt = true;
+        this.hideChoiceTower();
+        this.createStatsTower(15, 1000, 300);
     }
 
-    protected placeTower(): void {
-        // console.log(pointer)
+    protected placeTowerBomb(): void {
         this.scene.anims.create({
-            key: 'tower_anim',
+            key: 'tower_bomb_anim',
             frames: this.scene.anims.generateFrameNumbers('tower', {
-                start: 1,
-                end: 1}),
+                start: 3,
+                end: 3}),
+            frameRate: 0,
+            repeat: -1
+        });
+        this.tower.play('tower_bomb_anim');
+        this.isTowerBuilt = true;
+        this.hideChoiceTower();
+        this.createStatsTower(25, 2500, 500);
+    }
+
+    protected placeTowerMagic(): void {
+        this.scene.anims.create({
+            key: 'tower_magic_anim',
+            frames: this.scene.anims.generateFrameNumbers('tower', {
+                start: 2,
+                end: 2}),
             frameRate: 0,
             repeat: -1
         });
         this.tower.setScale(1.2);
-        this.tower.play('tower_anim');
+        this.tower.play('tower_magic_anim');
         this.isTowerBuilt = true;
+        this.hideChoiceTower();
+        this.createStatsTower(20, 1500, 350);
+    }
+
+    protected hideChoiceTower(): void {
+        this.arrow.setVisible(false);
+        this.arrow.setActive(false);
+        this.bomb.setVisible(false);
+        this.bomb.setActive(false);
+        this.magic.setVisible(false);
+        this.magic.setActive(false);
+    }
+
+    protected createStatsTower(damage, speedFire, attackArea) {
+        this.damage = damage;
+        this.timeForNextShot = speedFire;
+        this.attackArea = attackArea;
     }
 
     public setEnemies(enemies: any) {
@@ -108,6 +152,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 const enemyPositionY = enemy.y
                 const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
                 this.addMissile(this.x, this.y, angle);
+                console.log(this.timeForNextShot, this.damage, this.attackArea)
                 enemy.takeDamage(this.damage);
                 // this.angle = (angle + Math.PI/2) * Phaser.Math.RAD_TO_DEG;
             }
@@ -115,6 +160,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     update(time: number) {
+        
         if(time > this.timeShot) {
             this.fire();
             this.timeShot = time + this.timeForNextShot;
