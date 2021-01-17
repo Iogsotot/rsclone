@@ -24,7 +24,7 @@ export default class StartScreenModal extends CustomModal {
       this.sceneCenter[0] - this.bgImage.width / 10,
       this.sceneCenter[1] - this.bgImage.width / 10,
       `Possible towers number: ${towersNumber}`,
-      { fontSize: '30px' }
+      { fontSize: '30px', fontFamily: 'Dimbo' }
     );
 
     this.add(this.mapImage);
