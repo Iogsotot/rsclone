@@ -52,6 +52,7 @@ export class MapLevel extends Map {
       this.mapData.scaleCoordinateTowers.forEach((coordinate) => {
         const tower = this.createTower(coordinate)
         tower.placeField();
+        towers.push(tower);
         tower.on('pointerdown',() => tower.choiceTower(), this);
         tower.setActive(false);
       })
