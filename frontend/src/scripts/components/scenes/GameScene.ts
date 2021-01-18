@@ -9,6 +9,8 @@ import { AUTO } from 'phaser';
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
+import Gate from '../Gate';
+import createAnims from '../unit/createAnims';
 import State from '../../State';
 
 export default class GameScene extends Phaser.Scene {
@@ -18,9 +20,11 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
-  gate: any;
+  gate: Phaser.GameObjects.Sprite;
+  // gate2: Phaser.GameObjects.Sprite;
   gameObjStats: any;
   state: any;
+  enemiesGroup: Phaser.GameObjects.Group;
 
   constructor() {
     super('game-scene');
@@ -33,96 +37,17 @@ export default class GameScene extends Phaser.Scene {
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
+    // console.log(this.state);
   }
 
   create(data: any): void {
     this.setScene(data);
     this.map.create();
     this.map.addTowers();
+    createAnims(this);
+    this.createGate();
 
-    this.anims.create({
-      key: 'scorpio_walk',
-      frames: this.anims.generateFrameNumbers('scorpio', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 80,
-    });
 
-    this.anims.create({
-      key: 'scorpio_die',
-      frames: this.anims.generateFrameNumbers('scorpio_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 60,
-    });
-
-    this.anims.create({
-      key: 'scorpio_hurt',
-      frames: this.anims.generateFrameNumbers('scorpio_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 80,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_walk',
-      frames: this.anims.generateFrameNumbers('wizardBlack', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_die',
-      frames: this.anims.generateFrameNumbers('wizardBlack_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_hurt',
-      frames: this.anims.generateFrameNumbers('wizardBlack_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 30,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_walk',
-      frames: this.anims.generateFrameNumbers('littleOrc', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_die',
-      frames: this.anims.generateFrameNumbers('littleOrc_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_hurt',
-      frames: this.anims.generateFrameNumbers('littleOrc_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 30,
-    });
-
-    this.gate = this.add.sprite(this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5)
-    this.gate.alpha = 0.5;
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
@@ -133,7 +58,12 @@ export default class GameScene extends Phaser.Scene {
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+    
+      this.enemiesGroup = this.physics.add.group([scorpio, wizardBlack, littleOrc]);
+      this.physics.add.overlap(this.gate, this.enemiesGroup, this.loseEvent, undefined, this);
+      this.enemiesGroup.createCallback = () => {console.log('piy!')};
     }
+    console.log(this.enemiesGroup);
 
 
     // добавляем динамические статы на страницу
@@ -171,6 +101,20 @@ export default class GameScene extends Phaser.Scene {
         });
     });
 
+    // console.log(this.physics.add.overlap);
+    // this.physics.add.overlap(this.gate, this.enemiesGroup, this.loseEvent, undefined, this);
+    // this.physics.add.overlap(this.enemiesGroup, this.gate, this.loseEvent);
+
+  }
+
+  loseEvent() { 
+    console.log('lose');
+  }
+
+  createGate() {
+    this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
+    // console.log(this.gate);
+    this.gate.alpha = 0.6;
   }
 
   update() {

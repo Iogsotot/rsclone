@@ -58,7 +58,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
         this.chain([{ key: `${this.unitType}_walk`, repeat:  Infinity}]);
       }
     }
-    console.log(this.scene.registry.get('stats'));
+    // console.log(this.scene.registry.get('stats'));
   }
 
   die() {

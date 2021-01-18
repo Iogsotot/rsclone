@@ -37,7 +37,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         });
         this.tower.setScale(1.5)
         this.tower.play('tower_choice_anim');
-        console.log(this)
+        // console.log(this)
         this.on('pointerdown', () => this.placeTower(), this)
     }
 
