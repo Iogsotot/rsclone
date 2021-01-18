@@ -1,38 +1,18 @@
-type AchievStats = {
-  firstAsterisk: boolean,
-  completeVictory: boolean,
-  firstBlood: boolean,
-  GreatDefender: boolean,
-  IronDefender: boolean,
-  killer: boolean,
-  seller: boolean,
-  builder: boolean
-};
+// IMPORTANT TO IMPLEMENT
+export default function getPlayerStatsFromServer(userId) {
+  // await fetch bla bla
+  // getStat() {
+  //   // went to do backend answers
+  // }
+  return {
+    gameProgress: 0,
+    gameLogInCount: 0,
+    killedEnemies: 0,
+    builtTowers: 0,
+    soldTowers: 0,
+    ironModeProgress: 0,
 
-export default class PlayerStats {
-  gameProgress: number;
-
-  gameLogInCount: number;
-
-  killedEnemies: number;
-
-  builtTowers: number;
-
-  soldTowers: number;
-
-  ironModeProgress: number;
-
-  achievements: AchievStats;
-
-  constructor() {
-    this.gameProgress = 0;
-    this.gameLogInCount = 0;
-    this.killedEnemies = 0;
-    this.builtTowers = 0;
-    this.soldTowers = 0;
-    this.ironModeProgress = 0;
-
-    this.achievements = {
+    achievements: {
       firstAsterisk: false,
       completeVictory: false,
       firstBlood: false,
@@ -41,11 +21,6 @@ export default class PlayerStats {
       killer: false,
       seller: false,
       builder: false,
-    };
-
-  //   this.getDataFromServer();
+    }
   }
-
-  // getDataFromServer() {
-  // }
 }
