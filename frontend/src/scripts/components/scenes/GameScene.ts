@@ -5,8 +5,8 @@ import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
 
-// import Tower from '../tower/Tower';
-// import { AUTO, GameObjects } from 'phaser';
+import Tower from '../tower/Tower';
+import { AUTO, GameObjects } from 'phaser';
 
 // import { AUTO } from 'phaser';
 
@@ -26,7 +26,6 @@ export default class GameScene extends Phaser.Scene {
   gatePointX: number;
   gatePointY: number;
   gate: Gate;
-  // gate2: Phaser.GameObjects.Sprite;
   gameObjStats: any;
   state: any;
   towers: Array<any>
@@ -49,6 +48,9 @@ export default class GameScene extends Phaser.Scene {
   create(data: any): void {
     this.setScene(data);
     this.map.create();
+    this.towers = this.map.addTowers();
+    this.enemiesGroup = this.physics.add.group();
+
     this.map.addTowers();
     createAnims(this);
     this.createGate();
@@ -73,9 +75,9 @@ export default class GameScene extends Phaser.Scene {
       this.physics.add.overlap(wizardBlack, this.gate, this.gate.onEnemyCrossing);
       this.physics.add.overlap(littleOrc, this.gate, this.gate.onEnemyCrossing);
 
-      this.enemiesGroup.add(scorpio);
-      this.enemiesGroup.add(wizardBlack);
-      this.enemiesGroup.add(littleOrc);
+      // this.enemiesGroup.add(scorpio);
+      // this.enemiesGroup.add(wizardBlack);
+      // this.enemiesGroup.add(littleOrc);
     }
 
     // добавляем динамические статы на страницу
@@ -113,7 +115,11 @@ export default class GameScene extends Phaser.Scene {
         });
     });
 
-
+    // устанавливает взаимодействие пуль и мобов
+    for(let i = 0; i < this.towers.length; i += 1) {
+        this.towers[i].setEnemies(this.enemiesGroup);
+        this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
+    }
     const gateGroup = this.physics.add.existing(this.gate);
   }
 
@@ -121,15 +127,6 @@ export default class GameScene extends Phaser.Scene {
     this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
     // console.log(this.gate);
     this.gate.alpha = 0.6;
-
-    // устанавливает взаимодействие пуль и мобов
-    for(let i = 0; i < this.towers.length; i += 1) {
-        this.towers[i].setEnemies(this.enemiesGroup);
-        this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
-
-    }
-
-
   }
 
   update(time) {
