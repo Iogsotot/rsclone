@@ -104,20 +104,7 @@ export default class GameScene extends Phaser.Scene {
     });
 
     const gateGroup = this.physics.add.existing(this.gate);
-
-    // console.log(this.physics.add.overlap);
-    // this.physics.add.overlap(this.gate, this.enemiesGroup, this.loseEvent, undefined, this);
-    // this.physics.add.overlap(this.enemiesGroup, this.gate, this.loseEvent);
-    // console.log(this.gate, this.enemiesGroup, this.loseEvent());
-    // this.physics.add.overlap(this.gate, this.enemiesGroup, this.gate.onEnemyCrossing);
-    // Array(this.enemiesGroup).forEach(enemy => {
-    //     this.physics.add.overlap(this.gate, enemy, this.gate.onEnemyCrossing, undefined, enemy);
-    // });
   }
-
-  // loseEvent(): void { 
-  //   return console.log('lose');
-  // }
 
   createGate() {
     this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
