@@ -18,7 +18,7 @@ export default class CustomButton extends Button {
 
     this.btnDownImage = scene.add.image(0, 0, downTexture);
     this.btnDownImage.setPosition(0, this.btnImage.height - this.btnDownImage.height)
-    this.btnText = scene.add.text(0, 0, text, { fontSize: '30px' }).setOrigin(0.5, 0.65);
+    this.btnText = scene.add.text(0, 0, text, { fontSize: '30px', fontFamily: 'Dimbo'}).setOrigin(0.5, 0.65);
     this.btnDownImage.setVisible(false);
 
     this.add(this.btnDownImage);
