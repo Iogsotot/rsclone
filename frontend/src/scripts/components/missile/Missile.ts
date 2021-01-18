@@ -2,15 +2,12 @@ import 'phaser';
 
 export default class Missile extends Phaser.GameObjects.Image {
     dx: number;
-
     dy: number;
-
     lifespan: number;
-
     speed: any;
 
-    constructor(scene) {
-        super(scene, 0, 0, 'missile') 
+    constructor(scene: Phaser.Scene, x: number, y: number, type: string) {
+        super(scene, 0, 0, type) 
         this.dx = 0;
         this.dy = 0;
         this.lifespan = 0;
@@ -21,10 +18,8 @@ export default class Missile extends Phaser.GameObjects.Image {
         this.setActive(true);
         this.setVisible(true);
         this.setPosition(x, y);
+        this.setRotation(angle);
 
-        // вращение пуль
-        // this.setRotation(angle);
- 
         this.dx = Math.cos(angle);
         this.dy = Math.sin(angle);
 
@@ -36,9 +31,8 @@ export default class Missile extends Phaser.GameObjects.Image {
  
         this.x += this.dx * (this.speed * delta);
         this.y += this.dy * (this.speed * delta);
- 
-        if (this.lifespan <= 0)
-        {
+
+        if (this.lifespan < 0) {
             this.setActive(false);
             this.setVisible(false);
         }
