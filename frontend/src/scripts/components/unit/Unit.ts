@@ -37,26 +37,25 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     console.log(`${this.unitType}_walk`);
   }
 
-  onEnemyClicked() {
-    if(this.alive === false) {
-      return false;
-    }
-    else if(this.alive === true) {
-      this.takeDamage();
-    } 
-  }
+// Этот метод вообще не нужен, как я понимаю. У меня все проверка происходит в tower.
+//   onEnemyClicked(damage) {
+//     if(this.alive === false) {
+//       return false;
+//     }
+//     else if(this.alive === true) {
+//       this.takeDamage(damage);
+//     } 
+//   }
 
-  takeDamage() {
-    if(this.hp - 15 <= 15) {
+  takeDamage(damage) {
+    if(this.hp - damage < damage) {
       this.hp = 0;
       this.die();
-    } else if(this.hp >= 15) {
-      this.hp -= 15;
-
-      if (this.anims.getName() === `${this.unitType}_walk`) {
-        this.play(`${this.unitType}_hurt`);
-        this.chain([{ key: `${this.unitType}_walk`, repeat:  Infinity}]);
-      }
+    } else if(this.hp >= damage) {
+      this.hp -= damage; 
+      this.play({ key: `${this.unitType}_hurt`, repeat: 0})
+      this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
+      
     }
     // console.log(this.scene.registry.get('stats'));
   }
@@ -75,5 +74,11 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     stats.killedEnemies += 1;
     this.scene.registry.set('stats', stats)
     this.scene.time.delayedCall(5000, this.destroy, [], this)
+  }
+
+
+  // этот метод нужен чтобы утаскивать состояние enemy в tower. 
+  getAlive() {
+      return this.alive
   }
 }

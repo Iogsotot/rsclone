@@ -10,9 +10,39 @@ export default class PreloadScene extends Phaser.Scene {
     const userId = localStorage.getItem("userId");
     this.registry.set("stats", getPlayerStatsFromServer(userId));
     // towers
-    this.load.spritesheet('tower', './assets/tower-WIP/tower.png', {
-      frameWidth: 60,
-      frameHeight: 60
+    this.load.spritesheet('arrow', './assets/towers/arrow.png', {
+      frameWidth: 108,
+      frameHeight: 104
+    });
+
+    this.load.spritesheet('bomb', './assets/towers/bomb.png', {
+        frameWidth: 108,
+        frameHeight: 104
+      });
+
+    this.load.spritesheet('magic', './assets/towers/magic.png', {
+    frameWidth: 108,
+    frameHeight: 104
+    });
+
+    this.load.spritesheet('tower', './assets/towers/tower.png', {
+    frameWidth: 120,
+    frameHeight: 80
+    });
+
+    this.load.spritesheet('missile-arrow', './assets/towers/missile-arrow.png', {
+        frameWidth: 30,
+        frameHeight: 10
+      });
+
+    this.load.spritesheet('missile-magic', './assets/towers/missile-magic.png', {
+        frameWidth: 30,
+        frameHeight: 30
+      });
+
+    this.load.spritesheet('missile-bomb', './assets/towers/missile-bomb.png', {
+      frameWidth: 30,
+      frameHeight: 30
     });
 
     //enemies    
@@ -89,7 +119,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(20, 20, 'Loading game...');
+    this.add.text(20, 20, 'Loading game...', {fontFamily: 'Dimbo'});
     // console.log('loading...');
     this.scene.start('LevelsScene');
   }
