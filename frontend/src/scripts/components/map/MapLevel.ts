@@ -23,7 +23,7 @@ export class MapLevel extends Map {
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.startPointX = 0 / map1.scaleStartPointX;
+    this.startPointX = map1.scaleStartPointX;
     this.startPointY = this.height / map1.scaleStartPointY;
     this.finishPointX = this.width / map1.scaleFinishPointX;
     this.finishPointY = this.height / map1.scaleFinishPointY;
@@ -38,7 +38,6 @@ export class MapLevel extends Map {
       this.createPointWay(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
-
     // надо подумать как переделать это в мягкие линии, а не ломанные, как сейчас
     // scalePoints находятся в maps.ts (???)
     // this.curve = new Phaser.Curves.Path(0, 0);
@@ -54,7 +53,8 @@ export class MapLevel extends Map {
         const tower = this.createTower(coordinate);
         towers.push(tower)
         tower.placeField();
-        tower.on('pointerdown',() => tower.choiceTower(), this)
+        tower.on('pointerdown',() => tower.choiceTower(), this);
+        tower.setActive(false);
       })
       return towers
   }

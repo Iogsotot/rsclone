@@ -29,7 +29,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.spritesheet('missile-arrow', './assets/towers/missile-arrow.png', {
         frameWidth: 30,
-        frameHeight: 30
+        frameHeight: 10
       });
 
     this.load.spritesheet('missile-magic', './assets/towers/missile-magic.png', {

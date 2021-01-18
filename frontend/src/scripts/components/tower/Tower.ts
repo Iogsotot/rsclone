@@ -47,13 +47,15 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             this.arrow.setInteractive();
             this.bomb.setInteractive();
             this.magic.setInteractive();
-            this.arrow.on('pointerdown', () => this.placeTowerArrow());
-            this.bomb.on('pointerdown', () => this.placeTowerBomb());
-            this.magic.on('pointerdown', () => this.placeTowerMagic());
+            this.arrow.on('pointerdown', () => this.placeTowerArrow(), this.arrow);
+            this.bomb.on('pointerdown', () => this.placeTowerBomb(), this.bomb);
+            this.magic.on('pointerdown', () => this.placeTowerMagic(), this.magic);
+            this.isTowerBuilt = true;
         } 
     }
 
     protected placeTowerArrow(): void {
+        this.hideChoiceTower();
         this.scene.anims.create({
             key: 'tower_array_anim',
             frames: this.scene.anims.generateFrameNumbers('tower', {
@@ -63,13 +65,12 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
         this.tower.play('tower_array_anim');
-        this.isTowerBuilt = true;
-        this.hideChoiceTower();
         this.createStatsTower(15, 1000, 300);
         this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
     }
 
     protected placeTowerBomb(): void {
+        this.hideChoiceTower();
         this.scene.anims.create({
             key: 'tower_bomb_anim',
             frames: this.scene.anims.generateFrameNumbers('tower', {
@@ -79,13 +80,12 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
         this.tower.play('tower_bomb_anim');
-        this.isTowerBuilt = true;
-        this.hideChoiceTower();
         this.createStatsTower(25, 2500, 500);
         this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
     }
 
     protected placeTowerMagic(): void {
+        this.hideChoiceTower();
         this.scene.anims.create({
             key: 'tower_magic_anim',
             frames: this.scene.anims.generateFrameNumbers('tower', {
@@ -96,19 +96,14 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         });
         this.tower.setScale(1.2);
         this.tower.play('tower_magic_anim');
-        this.isTowerBuilt = true;
-        this.hideChoiceTower();
         this.createStatsTower(20, 1500, 350);
         this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
     }
 
     protected hideChoiceTower(): void {
-        this.arrow.setVisible(false);
-        this.arrow.setActive(false);
-        this.bomb.setVisible(false);
-        this.bomb.setActive(false);
-        this.magic.setVisible(false);
-        this.magic.setActive(false);
+        this.arrow.destroy();
+        this.bomb.destroy();
+        this.magic.destroy();
     }
 
     protected createStatsTower(damage: number, speedFire: number, attackArea: number): void {
@@ -153,7 +148,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     public fire() {
-        console.log(this.missiles)
         if (this.isTowerBuilt) {
             const enemy = this.getEnemy(this.x, this.y, this.attackArea);
             if (enemy) {

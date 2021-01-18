@@ -52,9 +52,10 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       this.hp = 0;
       this.die();
     } else if(this.hp >= damage) {
-      this.hp -= damage;
-      this.play({ key: `${this.unitType}_hurt`, repeat: 0});
+      this.hp -= damage; 
+      this.play({ key: `${this.unitType}_hurt`, repeat: 0})
       this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
+      
     }
   }
 
