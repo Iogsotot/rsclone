@@ -168,7 +168,7 @@ export default class GameScene extends Phaser.Scene {
     victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg');
-      this.scene.pause();
+      // this.scene.pause();
       victoryModal.startNewBtn
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
