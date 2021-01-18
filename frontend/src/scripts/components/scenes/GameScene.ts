@@ -73,9 +73,9 @@ export default class GameScene extends Phaser.Scene {
       this.physics.add.overlap(wizardBlack, this.gate, this.gate.onEnemyCrossing);
       this.physics.add.overlap(littleOrc, this.gate, this.gate.onEnemyCrossing);
 
-      this.enemiesGroup.add(scorpio);
-      this.enemiesGroup.add(wizardBlack);
-      this.enemiesGroup.add(littleOrc);
+      // this.enemiesGroup.add(scorpio);
+      // this.enemiesGroup.add(wizardBlack);
+      // this.enemiesGroup.add(littleOrc);
     }
 
     // добавляем динамические статы на страницу
