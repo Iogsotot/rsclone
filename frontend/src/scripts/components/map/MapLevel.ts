@@ -11,6 +11,7 @@ export interface MapLevel {
 
 export class MapLevel extends Map {
   curve: any;
+  mapData: any;
   startPointX: number;
   startPointY: number;
   finishPointX: number;
@@ -20,16 +21,17 @@ export class MapLevel extends Map {
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.startPointX = 0 / map1.scaleStartPointX;
-    this.startPointY = this.height / map1.scaleStartPointY;
-    this.finishPointX = this.width / map1.scaleFinishPointX;
-    this.finishPointY = this.height / map1.scaleFinishPointY;
+    this.mapData = mapData;
+    this.startPointX = 0 / this.mapData.scaleStartPointX;
+    this.startPointY = this.height / this.mapData.scaleStartPointY;
+    this.finishPointX = this.width / this.mapData.scaleFinishPointX;
+    this.finishPointY = this.height / this.mapData.scaleFinishPointY;
   }
 
   createWay(): any {
     const points: Array<any> = [];
     points.push(new Phaser.Math.Vector2(this.startPointX, this.startPointY));
-    map1.scalePointsWay.forEach((scalePoint) => {
+    this.mapData.scalePointsWay.forEach((scalePoint) => {
       this.createPointWay(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
@@ -44,7 +46,7 @@ export class MapLevel extends Map {
 
 
   addTowers(): void {
-      map1.scaleCoordinateTowers.forEach((coordinate) => {
+      this.mapData.scaleCoordinateTowers.forEach((coordinate) => {
         const tower = this.createTower(coordinate)
         tower.placeField();
         tower.on('pointerdown',() => tower.choiceTower(), this)

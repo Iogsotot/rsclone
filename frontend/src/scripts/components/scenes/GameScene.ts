@@ -5,13 +5,14 @@ import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
 import Tower from '../tower/Tower';
-import { AUTO } from 'phaser';
+import { AUTO, GameObjects } from 'phaser';
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
+import Enemy from '../unit/Enemy';
 
 export default class GameScene extends Phaser.Scene {
   map: MapLevel;
@@ -20,7 +21,7 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
-  gate: Phaser.GameObjects.Sprite;
+  gate: Gate;
   // gate2: Phaser.GameObjects.Sprite;
   gameObjStats: any;
   state: any;
@@ -47,7 +48,7 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
 
-
+    let enemies: Enemy[] = [];
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
@@ -58,13 +59,14 @@ export default class GameScene extends Phaser.Scene {
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true })
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
-    
-      this.enemiesGroup = this.physics.add.group([scorpio, wizardBlack, littleOrc]);
-      this.physics.add.overlap(this.gate, this.enemiesGroup, this.loseEvent, undefined, this);
-      this.enemiesGroup.createCallback = () => {console.log('piy!')};
+      // enemies.push(scorpio, wizardBlack, littleOrc)
+      this.physics.add.existing(scorpio);
+      this.physics.add.existing(wizardBlack);
+      this.physics.add.existing(littleOrc);
+      this.physics.add.overlap(scorpio, this.gate, this.gate.onEnemyCrossing);
+      this.physics.add.overlap(wizardBlack, this.gate, this.gate.onEnemyCrossing);
+      this.physics.add.overlap(littleOrc, this.gate, this.gate.onEnemyCrossing);
     }
-    console.log(this.enemiesGroup);
-
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
@@ -101,15 +103,21 @@ export default class GameScene extends Phaser.Scene {
         });
     });
 
+    const gateGroup = this.physics.add.existing(this.gate);
+
     // console.log(this.physics.add.overlap);
     // this.physics.add.overlap(this.gate, this.enemiesGroup, this.loseEvent, undefined, this);
     // this.physics.add.overlap(this.enemiesGroup, this.gate, this.loseEvent);
-
+    // console.log(this.gate, this.enemiesGroup, this.loseEvent());
+    // this.physics.add.overlap(this.gate, this.enemiesGroup, this.gate.onEnemyCrossing);
+    // Array(this.enemiesGroup).forEach(enemy => {
+    //     this.physics.add.overlap(this.gate, enemy, this.gate.onEnemyCrossing, undefined, enemy);
+    // });
   }
 
-  loseEvent() { 
-    console.log('lose');
-  }
+  // loseEvent(): void { 
+  //   return console.log('lose');
+  // }
 
   createGate() {
     this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
