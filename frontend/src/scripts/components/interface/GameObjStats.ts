@@ -7,7 +7,7 @@ export default class GameObjStats extends Phaser.Scene {
   
   constructor(scene) {
     super(scene);
-    this.text = scene.add.text(0, 0, '', {
+    this.text = scene.add.text(50, 50, '', {
       fontFamily: 'Dimbo',
       fontSize: '34px',
       color: 'black',
