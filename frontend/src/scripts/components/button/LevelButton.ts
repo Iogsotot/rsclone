@@ -18,8 +18,10 @@ export default class LevelButton extends Button {
     );
 
     modal.startBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      // get difficulty
+      const diff = modal.difficultyBtn.getDifficulty() 
       this.scene.scene.stop()
-      this.scene.scene.start('game-scene', {level: this.level, difficulty: 1});
+      this.scene.scene.start('game-scene', {level: this.level, difficulty: diff});
     });
   }
   handleOut() {

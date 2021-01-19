@@ -28,13 +28,14 @@ export default class DiffButton extends Button {
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, this.handleClick, this)
   }
 
-  handleClick(): string {
+  handleClick() {
     const visibleBtnIndex = this.diffImages.findIndex((el) => el.visible)
     this.diffImages.map((el) => el.setVisible(false))
     const index = (visibleBtnIndex + 1) % this.diffImages.length
     this.diffImages[index].setVisible(true)
-    
-    // returning values type 'easy' | 'normal' | 'hard'
-    return this.diffImages[index].texture.key.slice(0, -4)
+  }
+
+  getDifficulty() {
+    return this.diffImages.findIndex((el) => el.visible) + 1;
   }
 }
