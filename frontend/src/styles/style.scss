@@ -1,1 +1,12 @@
-@import '../scripts/auth/scss/auth.scss'
+@import '../scripts/auth/scss/auth.scss';
+
+@font-face {
+  font-family: "Dimbo";
+  src: url("../assets/fonts/Dimbo-ru-en.otf") format("opentype");
+}
+.fontPrelod {
+  font-family: "Dimbo";
+  position: absolute;
+  left:  -300px;
+}
+// @import './levels-map.scss';

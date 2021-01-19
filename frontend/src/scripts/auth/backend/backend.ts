@@ -3,7 +3,7 @@ import createStartPage from '../utils/create.start';
 const SERVER = 'https://rs-clone.herokuapp.com';
 
 async function signIn(user) {
-  const responseInfo = document.querySelector('.response-info');
+  const responseInfo = document.querySelector('.response-info') as HTMLElement;
 
   const url = `${SERVER}/login`;
   const options = {
@@ -16,13 +16,15 @@ async function signIn(user) {
   };
 
   try {
-    const { checked } = document.forms.signForm.elements.scales;
-    const form = document.querySelector('.sign-form');
+    const { checked } = document.forms
+      .namedItem('signForm')
+      ?.elements.namedItem('scales') as HTMLInputElement;
+
+    const form = document.querySelector('.sign-form') as HTMLFormElement;
 
     const response = await fetch(url, options);
-    const {
-      data, token, login, ok, id,
-    } = await response.json();
+
+    const { data, token, login, ok, id } = await response.json();
 
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
@@ -112,15 +114,15 @@ async function signUp(user) {
     body: JSON.stringify(user),
   };
 
-  const responseInfo = document.querySelector('.response-info');
+  const responseInfo = document.querySelector('.response-info') as HTMLElement;
 
   const request = new Request(url, options);
 
   try {
     const signInfoIn = document.querySelector('.sign-info-in');
     const signInfoUp = document.querySelector('.sign-info-up');
-    const signSubmit = document.querySelector('.sign-in-submit');
-    const form = document.querySelector('.sign-form');
+    const signSubmit = document.querySelector('.sign-in-submit') as HTMLInputElement;
+    const form = document.querySelector('.sign-form') as HTMLFormElement;
 
     const response = await fetch(request);
     const { data, ok } = await response.json();
@@ -131,8 +133,8 @@ async function signUp(user) {
       form.reset();
 
       setTimeout(() => {
-        signInfoIn.classList.add('active-sign-info');
-        signInfoUp.classList.remove('active-sign-info');
+        signInfoIn?.classList.add('active-sign-info');
+        signInfoUp?.classList.remove('active-sign-info');
         signSubmit.value = 'SIGN IN';
       }, 300);
     } else {
@@ -144,7 +146,4 @@ async function signUp(user) {
   }
 }
 
-export {
-  signIn,
-  signUp,
-};
+export { signIn, signUp };
