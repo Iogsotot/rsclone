@@ -1,3 +1,4 @@
+import { startApp } from '../../App';
 import createStartPage from '../utils/create.start';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
@@ -50,6 +51,7 @@ async function signIn(user) {
 
       setTimeout(() => {
         createStartPage();
+        document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
       }, 300);
     } else {
       responseInfo.textContent = data;
