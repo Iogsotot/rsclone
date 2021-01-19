@@ -1,5 +1,5 @@
 // IMPORTANT TO IMPLEMENT
-export function getPlayerStatsFromServer(userId) {
+function getPlayerStatsFromServer(userId) {
   // await fetch bla bla
   // getStat() {
   //   // went to do backend answers
@@ -25,6 +25,8 @@ export function getPlayerStatsFromServer(userId) {
   }
 }
 
+export default getPlayerStatsFromServer;
+
 type AchievStats = {
   firstAsterisk: boolean,
   completeVictory: boolean,
@@ -36,7 +38,7 @@ type AchievStats = {
   builder: boolean
 };
 
-export default class PlayerStats {
+class PlayerStats {
   userId: string;
 
   gameProgress: number;
