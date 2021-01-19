@@ -1,77 +1,15 @@
-// IMPORTANT TO IMPLEMENT
-function getPlayerStatsFromServer(userId) {
-  // await fetch bla bla
-  // getStat() {
-  //   // went to do backend answers
-  // }
-  return {
-    gameProgress: 0,
-    gameLogInCount: 0,
-    killedEnemies: 0,
-    builtTowers: 0,
-    soldTowers: 0,
-    ironModeProgress: 0,
+import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend'
 
-    achievements: {
-      firstAsterisk: false,
-      completeWin: false,
-      firstBlood: false,
-      GreatDefender: false,
-      IronDefender: false,
-      killer: false,
-      seller: false,
-      builder: false,
-    }
-  }
+async function getPlayerStatsFromServer(userId): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await getCurrentPlayerStats({ id: userId, token });
+  return response
 }
 
-export default getPlayerStatsFromServer;
-
-type AchievStats = {
-  firstAsterisk: boolean,
-  completeVictory: boolean,
-  firstBlood: boolean,
-  GreatDefender: boolean,
-  IronDefender: boolean,
-  killer: boolean,
-  seller: boolean,
-  builder: boolean
-};
-
-class PlayerStats {
-  userId: string;
-
-  gameProgress: number;
-
-  gameLogInCount: number;
-
-  killedEnemies: number;
-
-  builtTowers: number;
-
-  soldTowers: number;
-
-  ironModeProgress: number;
-
-  achievements: AchievStats;
-
-  constructor({
-    userId,
-    gameProgress,
-    gameLogInCount,
-    killedEnemies,
-    builtTowers,
-    soldTowers,
-    ironModeProgress,
-    achievements
-  }) {
-    this.userId = userId,
-    this.gameProgress = gameProgress;
-    this.gameLogInCount = gameLogInCount;
-    this.killedEnemies = killedEnemies;
-    this.builtTowers = builtTowers;
-    this.soldTowers = soldTowers;
-    this.ironModeProgress = ironModeProgress;
-    this.achievements = achievements;
-  }
+async function sendPlayerStatsToServer(userId, data): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await setCurrentPlayerStats({ id: userId, token, body: data });
+  return response
 }
+
+export {getPlayerStatsFromServer, sendPlayerStatsToServer};

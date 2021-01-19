@@ -1,5 +1,5 @@
-import { startApp } from '../../App';
-import createStartPage from '../utils/create.start';
+import { startApp } from './App';
+import createStartPage from './auth/utils/create.start';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -41,7 +41,7 @@ async function signIn(user) {
       if (!isStats.ok) {
         createStats({ id, token });
       } else {
-        const isUpdate = await setCurrentPlayerStat({
+        const isUpdate = await setCurrentPlayerStats({
           id,
           token,
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
@@ -71,11 +71,11 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return response.json();
+  return await response.json();
 }
 
 // main function for update stat
-async function setCurrentPlayerStat({ id, token, body }) {
+async function setCurrentPlayerStats({ id, token, body }) {
   const response = await fetch(`${SERVER}/users/${id}/stats/`, {
     method: 'PUT',
     headers: {
@@ -201,3 +201,5 @@ async function postStats(userId, userStats) {
     responseInfo.textContent = err.name;
   }
 }
+
+export {getCurrentPlayerStats, setCurrentPlayerStats}

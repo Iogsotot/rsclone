@@ -1,5 +1,5 @@
 import createElement from './createElement';
-import { signUp, signIn } from '../backend/backend';
+import { signUp, signIn } from '../../backend';
 
 function createSignPage() {
   // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"

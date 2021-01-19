@@ -1,4 +1,6 @@
 // import { GameObjects } from "phaser";
+import { use } from "matter";
+import { sendPlayerStatsToServer } from "./components/stats/PlayerStats";
 import { levelsConfig, LOCAL_STORAGE_KEY } from "./constants/constants"
 
 export default class State {
@@ -40,8 +42,8 @@ export default class State {
     currentPlayerStats.builtTowers += this.currentGameStats['builtTowers'];
     currentPlayerStats.soldTowers += this.currentGameStats['soldTowers'];
     currentPlayerStats.killedEnemies += this.currentGameStats['killedEnemies'];
-    currentPlayerStats.gameLogInCount += this.currentGameStats['gameLogInCount'];
-    currentPlayerStats.achievements = this.getAchievements();
+    currentPlayerStats.gameLogInCount = currentPlayerStats['gameLogInCount'];
+    currentPlayerStats.achievements =  currentPlayerStats.achievements || this.getAchievements();
     return currentPlayerStats;
   }
 
@@ -49,8 +51,19 @@ export default class State {
     // TODO
   }
 
-  saveToLocalStorage() {
-    const data = this.preparePlayerStatsForBackend();
+  async sendDataToBackend() {
+    // TODO вызвать sendPlayerStatsToServer из PlayerStats
+    const data = this.preparePlayerStatsForBackend()
+    const userId = localStorage.getItem("id");
+    await sendPlayerStatsToServer(userId, data)
+  }
+
+  // должен отправлять на backend эту же информацию (+ инфу по ачивкав из state)
+
+  saveToLocalStorage(data: any = null) {
+    if (!data) {
+      data = this.preparePlayerStatsForBackend();
+    }
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data))
   }
 

@@ -1,14 +1,12 @@
 import { map1, map2, map3 } from '../../constants/maps';
-import getPlayerStatsFromServer from '../stats/PlayerStats';
+import { getPlayerStatsFromServer } from '../stats/PlayerStats';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' });
   }
-  
-  preload() {
-    const userId = localStorage.getItem("userId");
-    this.registry.set("stats", getPlayerStatsFromServer(userId));
+
+  async preload() {
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
@@ -16,29 +14,29 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.spritesheet('bomb', './assets/towers/bomb.png', {
-        frameWidth: 108,
-        frameHeight: 104
-      });
+      frameWidth: 108,
+      frameHeight: 104
+    });
 
     this.load.spritesheet('magic', './assets/towers/magic.png', {
-    frameWidth: 108,
-    frameHeight: 104
+      frameWidth: 108,
+      frameHeight: 104
     });
 
     this.load.spritesheet('tower', './assets/towers/tower.png', {
-    frameWidth: 120,
-    frameHeight: 80
+      frameWidth: 120,
+      frameHeight: 80
     });
 
     this.load.spritesheet('missile-arrow', './assets/towers/missile-arrow.png', {
-        frameWidth: 30,
-        frameHeight: 10
-      });
+      frameWidth: 30,
+      frameHeight: 10
+    });
 
     this.load.spritesheet('missile-magic', './assets/towers/missile-magic.png', {
-        frameWidth: 30,
-        frameHeight: 30
-      });
+      frameWidth: 30,
+      frameHeight: 30
+    });
 
     this.load.spritesheet('missile-bomb', './assets/towers/missile-bomb.png', {
       frameWidth: 30,
@@ -93,7 +91,7 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
 
-    
+
     //other
     this.load.image('gate', './assets/imgs/gate-mini.png');
     this.load.image('map_1', map1.url);
@@ -106,7 +104,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('levelsMap', './assets/main-bg.jpg')
 
     this.load.image('settings-btn', './assets/interface/settings-icon.png');
-    
+
     // modal headers
     this.load.image('level1-title', './assets/modal-headers/level1-header.png');
     this.load.image('level2-title', './assets/modal-headers/level2-header.png');
@@ -138,10 +136,17 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('easy-btn', './assets/interface/easy_btn.png');
     this.load.image('normal-btn', './assets/interface/normal_btn.png');
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
+    
+    try  {
+      const userId = localStorage.getItem("id");
+      this.registry.set("stats", await getPlayerStatsFromServer(userId));
+    } catch {
+      console.log("Something gone wrong with getting stats from backend")
+    }
   }
 
   create() {
-    this.add.text(20, 20, 'Loading game...', {fontFamily: 'Dimbo'});
+    this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
     // console.log('loading...');
     this.scene.start('LevelsScene');
   }

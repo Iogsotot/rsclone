@@ -40,6 +40,7 @@ export default class GameScene extends Phaser.Scene {
 
   setScene(data) {
     this.state = new State(data.level, data.difficulty);
+    this.state.saveToLocalStorage(this.registry.get("stats").data)
     this.map = new MapLevel(this, this.state.config.map);
     this.passedEnemies = [];
     this.firstPointX = this.map.getStartPointX();
@@ -88,16 +89,13 @@ export default class GameScene extends Phaser.Scene {
   }
 
   defeat() {
-    // вызывает анимацию defeat модалки
-    // записывает в state (внутри gameScene) "this.level.result = "defeat"" + уровень сложности
-    // записывает в LocalStorage Тоже самое
-    // отправляет на backend эту же информацию (+ инфу по ачивкав из state)
-
     this.updateGameStatsInLocalStorage("lose");
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
     this.scene.launch('lose-scene');
+    // TODO нужно зарезолвить промис
+    // await this.state.sendDataToBackend()
   }
 
   win() {
@@ -105,6 +103,8 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene');
+    // TODO нужно зарезолвить промис
+    // await this.state.sendDataToBackend()
   }
 
   calculateLevelStars() {
