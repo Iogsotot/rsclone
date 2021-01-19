@@ -1,8 +1,7 @@
 import Enemy from './Enemy';
 
 export default class LittleOrc extends Enemy {
-
-  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, difficultyCoeff: number = 1) {
+  constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, difficultyCoeff = 1) {
     super(scene, way, x, y, 'littleOrc');
     this.setPosition(x, y);
 

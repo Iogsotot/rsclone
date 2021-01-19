@@ -1,33 +1,77 @@
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "module": "commonjs",
+//     "strict": true,
+//     "noImplicitAny": false,
+//     "esModuleInterop": true,
+//     "allowUnreachableCode": false,
+//     "sourceMap": true,
+//     "strictPropertyInitialization": false,
+//     "allowJs": true,
+//     "lib": [
+//       "dom",
+//       "es6",
+//       "esnext",
+//       "es2015"
+//     ],
+//     "outDir": "./dist/",
+//   },
+//   "include": [
+//     "./src/**/*.ts",
+//     "src/scripts/components/unit/Enemy.ts"
+//   ],
+//   "typeRoots": [
+//     "./node_modules/phaser/types"
+//   ],
+//   "types": [
+//     "Phaser"
+//   ]
+// }
+
+
 {
+	// "compilerOptions": {
+	// 	"target": "es2016",
+	// 	"module": "es6",
+	// 	"strict": true,
+	// 	"noImplicitAny": false,
+	// 	"noEmit": true,
+	// 	"allowJs": true,
+	// 	// "jsx": "preserve",
+	// 	"importHelpers": true,
+	// 	"moduleResolution": "node",
+	// 	"experimentalDecorators": true,
+	// 	"esModuleInterop": true,
+	// 	"allowSyntheticDefaultImports": true,
+	// 	"sourceMap": true,
+  //   "baseUrl": "./src",
+  //   "outDir": "./dist/",
+	// 	"paths": {
+	// 	  "~/*": ["./*"]
+  // 	},
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true,
-    "noImplicitAny": false,
-    "esModuleInterop": true,
-    "allowUnreachableCode": false,
+    "target": "es6",
+    "removeComments": true,
     "sourceMap": true,
-    "strictPropertyInitialization": false,
-    "allowJs": true,
-    "lib": [
-      "dom",
-      "es6",
-      "esnext",
-      "es2015"
-    ],
-    "outDir": "./dist/",
+    "moduleResolution": "node",
   },
-  "include": [
-    "./src/**/*.ts",
-    "src/scripts/components/unit/Enemy.ts"
-  ],
-  "typeRoots": [
-    "./node_modules/phaser/types"
-  ],
-  "types": [
-    "Phaser"
-  ]
+		"typeRoots": [
+			"node_modules/@types",
+      "node_module/phaser/types",
+      "./node_modules/phaser/types"
+		],
+		"types": [
+      "phaser",
+      // "Phaser"
+		]
+	},
+	"include": [
+		"src/**/*"
+	]
 }
+
+
 // {
 //   "compileOnSave": true,
 //   "compilerOptions": {

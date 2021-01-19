@@ -23,7 +23,9 @@ async function signIn(user) {
     const form = document.querySelector('.sign-form') as HTMLFormElement;
 
     const response = await fetch(url, options);
-    const { data, token, login, ok } = await response.json();
+    const {
+      data, token, login, ok,
+    } = await response.json();
 
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;

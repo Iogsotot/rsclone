@@ -1,8 +1,12 @@
 class HealthBar {
   bar: any;
+
   x: number;
+
   y: number;
+
   value: number;
+
   p: number;
 
   constructor(scene, x, y) {

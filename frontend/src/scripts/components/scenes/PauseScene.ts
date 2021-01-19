@@ -23,7 +23,6 @@ export default class PauseScene extends Phaser.Scene {
     });
 
     modal.quitBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      
       this.scene.stop();
       this.scene.start('game-scene');
     });

@@ -1,5 +1,5 @@
 import generateLevelsMap from '../../levels-map/generateLevelsMap';
-import LevelButton from '../../components/button/LevelButton';
+import LevelButton from '../button/LevelButton';
 
 export default class LevelsScene extends Phaser.Scene {
   constructor() {

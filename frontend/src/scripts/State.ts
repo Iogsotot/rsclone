@@ -1,10 +1,12 @@
-import { GameObjects } from "phaser";
-import { levelsConfig } from "./constants/constants"
+import { GameObjects } from 'phaser';
+import { levelsConfig } from './constants/constants';
 
 export default class State {
   level: number;
+
   // мб переделать на enum ?
   gameDifficulty: number;
+
   config: object;
 
   constructor(level: number, gameDifficulty: number) {
