@@ -101,7 +101,7 @@ export { signIn, signUp };
 
 //     "achievements": {
 //       "firstAsterisk": false,
-//       "completeVictory": false,
+//       "completeWin": false,
 //       "firstBlood": false,
 //       "GreatDefender": false,
 //       "IronDefender": false,

@@ -14,7 +14,7 @@ export default function getPlayerStatsFromServer(userId) {
 
     achievements: {
       firstAsterisk: false,
-      completeVictory: false,
+      completeWin: false,
       firstBlood: false,
       GreatDefender: false,
       IronDefender: false,

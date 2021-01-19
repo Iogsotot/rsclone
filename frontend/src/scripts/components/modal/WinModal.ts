@@ -1,7 +1,7 @@
 import Modal from './Modal';
 import Button from '../button/Button';
 
-export default class VictoryModal extends Modal {
+export default class WinModal extends Modal {
   continueBtn: Button
   
   restartBtn: Button

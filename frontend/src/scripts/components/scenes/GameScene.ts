@@ -3,16 +3,16 @@ import { map1 } from '../../constants/maps';
 import { MapLevel } from '../map/MapLevel';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
-import LittleOrc  from "../unit/LittleOrc";
+import LittleOrc from "../unit/LittleOrc";
 
 import Tower from '../tower/Tower';
-import { AUTO, GameObjects } from 'phaser';
+import { AUTO, GameObjects, NONE } from 'phaser';
 
 // import { AUTO } from 'phaser';
 
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
-import VictoryModal from '../modal/VictoryModal';
+import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
@@ -32,6 +32,7 @@ export default class GameScene extends Phaser.Scene {
   enemiesGroup: Phaser.GameObjects.Group;
   gold: number;
   playerLives: number;
+  passedEnemies: GameObjects.Group[];
 
   constructor() {
     super('game-scene');
@@ -40,6 +41,7 @@ export default class GameScene extends Phaser.Scene {
   setScene(data) {
     this.state = new State(data.level, data.difficulty);
     this.map = new MapLevel(this, this.state.config.map);
+    this.passedEnemies = [];
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
@@ -51,7 +53,7 @@ export default class GameScene extends Phaser.Scene {
     // this.playerLives 
     // console.log(this.gold);
 
-    this.setGameRoundStatsText();
+    this.setLevelStateText();
   }
 
   setPlayersLives() {
@@ -71,8 +73,59 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  setGameRoundStatsText() {
+  onEnemyCrossing(enemy) {
+    if (!this.passedEnemies.includes(enemy)) {
+      this.passedEnemies.push(enemy);
+      this.playerLives -= 1;
+      if (this.playerLives <= 0) {
+        this.defeat()
+      }
+    }
+  }
 
+  setLevelStateText() {
+
+  }
+
+  defeat() {
+    // вызывает анимацию defeat модалки
+    // записывает в state (внутри gameScene) "this.level.result = "defeat"" + уровень сложности
+    // записывает в LocalStorage Тоже самое
+    // отправляет на backend эту же информацию (+ инфу по ачивкав из state)
+
+    this.updateGameStatsInLocalStorage("lose");
+
+    this.scene.pause();
+    this.scene.moveAbove('game-scene', 'lose-scene');
+    this.scene.launch('lose-scene');
+  }
+
+  win() {
+    this.updateGameStatsInLocalStorage("win");
+    this.scene.pause();
+    this.scene.moveAbove('game-scene', 'win-scene');
+    this.scene.launch('win-scene');
+  }
+
+  calculateLevelStars() {
+    const playerLivesPercent = this.playerLives * 100 / 20;
+    if (playerLivesPercent == 100) {
+      return 3;
+    } else if (playerLivesPercent >= 50) {
+      return 2;
+    }
+    return 1;
+  }
+
+  updateGameStatsInLocalStorage(result = "playing") {
+    this.state.updateCurrentGameStats({ 
+      levelResult: result, 
+      levelProgress: result == 'win' ? this.calculateLevelStars() : 0, 
+      builtTowers: 0,  // сюда должно передаваться кол-во построенных башен 
+      soldTowers: 0,  // сюда должно передаваться кол-во проданных башен
+      killedEnemies: 0,  // сюда должно передаваться кол-во убитых врагов
+    })
+    this.state.saveToLocalStorage();
   }
 
   create(data: any): void {
@@ -99,9 +152,9 @@ export default class GameScene extends Phaser.Scene {
       this.physics.add.existing(scorpio);
       this.physics.add.existing(wizardBlack);
       this.physics.add.existing(littleOrc);
-      this.physics.add.overlap(scorpio, this.gate, this.gate.onEnemyCrossing);
-      this.physics.add.overlap(wizardBlack, this.gate, this.gate.onEnemyCrossing);
-      this.physics.add.overlap(littleOrc, this.gate, this.gate.onEnemyCrossing);
+      this.physics.add.overlap(scorpio, this.gate, this.onEnemyCrossing, undefined, this);
+      this.physics.add.overlap(wizardBlack, this.gate, this.onEnemyCrossing, undefined, this);
+      this.physics.add.overlap(littleOrc, this.gate, this.onEnemyCrossing, undefined, this);
 
       this.enemiesGroup.add(scorpio);
       this.enemiesGroup.add(wizardBlack);
@@ -116,7 +169,7 @@ export default class GameScene extends Phaser.Scene {
 
     // переделать координаты с хардкода на динамические
     const sceneCenter = [this.cameras.main.centerX, this.cameras.main.centerY];
-    
+
     const pauseButton = new Button(this, 0, 0, 'pause-btn')
     const pauseBtnCoordinates = [
       sceneCenter[0] * 2 - pauseButton.width / 2,
@@ -130,32 +183,22 @@ export default class GameScene extends Phaser.Scene {
       this.scene.launch('pause-scene');
     });
 
-    const loseBtn = new Button(this, pauseBtnCoordinates[0]*0.9, pauseBtnCoordinates[1], 'pause-btn');
+    const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
     loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
-      this.scene.pause();
-      this.scene.moveAbove('game-scene', 'lose-scene');
-      this.scene.launch('lose-scene');
+      this.defeat();
     });
 
-    const victoryBtn = new Button(this, pauseBtnCoordinates[0]*0.8, pauseBtnCoordinates[1], 'pause-btn');
-    victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    const winBtn = new Button(this, pauseBtnCoordinates[0] * 0.8, pauseBtnCoordinates[1], 'pause-btn');
+    winBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
-      const victoryModal = new VictoryModal(this, 2);
-      victoryModal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.stop('game-scene');
-        this.scene.start('LevelsScene');
-      });
-  
-      victoryModal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.start('game-scene');
-      });
+      this.win()
     });
 
     // устанавливает взаимодействие пуль и мобов
-    for(let i = 0; i < this.towers.length; i += 1) {
-        this.towers[i].setEnemies(this.enemiesGroup);
-        this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
+    for (let i = 0; i < this.towers.length; i += 1) {
+      this.towers[i].setEnemies(this.enemiesGroup);
+      this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
     }
     const gateGroup = this.physics.add.existing(this.gate);
   }

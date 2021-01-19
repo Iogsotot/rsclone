@@ -1,15 +1,15 @@
 {
   "PlayerName1": {
-    "gameProgress": 0,
+    "gameProgress": {"level_1": 2, "level_2": 3},
+    "ironModeProgress": {"level_1": 1, "level_2": 1},
     "gameLogInCount": 0,
     "killedEnemies": 0,
     "builtTowers": 0,
     "soldTowers": 0,
-    "ironModeProgress": 0,
 
     "achievements": {
       "firstAsterisk": false,
-      "completeVictory": false,
+      "completeWin": false,
       "firstBlood": false,
       "GreatDefender": false,
       "IronDefender": false,
@@ -19,16 +19,16 @@
     }
   },
   "PlayerName2": {
-    "gameProgress": 0,
+    "gameProgress": {"level_1": 2, "level_2": 3},
+    "ironModeProgress": {"level_1": 1, "level_2": 1},
     "gameLogInCount": 0,
     "killedEnemies": 0,
     "builtTowers": 0,
     "soldTowers": 0,
-    "ironModeProgress": 0,
 
     "achievements": {
       "firstAsterisk": false,
-      "completeVictory": false,
+      "completeWin": false,
       "firstBlood": false,
       "GreatDefender": false,
       "IronDefender": false,
