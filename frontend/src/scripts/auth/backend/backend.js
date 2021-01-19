@@ -37,10 +37,14 @@ async function signIn(user) {
 
       if (!isStats.ok) {
         createStats({ id, token });
+      } else {
+        const isUpdate = await setCurrentPlayerStat({
+          id,
+          token,
+          body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
+        });
+        console.log('isUpdate:', isUpdate);
       }
-
-      const isUpdate = await setCurrentPlayerStat({ id, token, body: isStats });
-      console.log('isUpdate:', isUpdate);
 
       setTimeout(() => {
         createStartPage();
@@ -66,6 +70,7 @@ async function getCurrentPlayerStats({ id, token }) {
   return response.json();
 }
 
+// main function for update stat
 async function setCurrentPlayerStat({ id, token, body }) {
   const response = await fetch(`${SERVER}/users/${id}/stats/`, {
     method: 'PUT',
@@ -93,7 +98,7 @@ async function createStats({ id, token }) {
 
   const response = await fetch(url, options);
   const result = await response.json();
-  console.log('result:', result);
+  console.log('result createStats():', result);
 }
 
 async function signUp(user) {
@@ -142,5 +147,4 @@ async function signUp(user) {
 export {
   signIn,
   signUp,
-  checkStats,
 };
