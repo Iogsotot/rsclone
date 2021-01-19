@@ -10,7 +10,7 @@ const isProd = ENV === 'build';
 
 function setDevTool() {
   if (isDev) {
-    return 'eval';
+    return 'source-map';
   }
   return 'none';
 }
