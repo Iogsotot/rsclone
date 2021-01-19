@@ -1,37 +1,41 @@
-import CustomModal from './CustomModal';
-import CustomButton from '../button/CustomButton';
+import Modal from './Modal';
+import Button from '../button/Button';
 
-export default class LoseModal extends CustomModal {
-  continueBtn: CustomButton;
-
+export default class LoseModal extends Modal {
   starsImage: Phaser.GameObjects.Image;
 
-  constructor(scene: Phaser.Scene, bgTexture: string, titleTexture: string) {
-    super(scene, 'Lose', bgTexture, titleTexture);
+  restartBtn: Button
+
+  cancelBtn: Button
+
+  constructor(scene: Phaser.Scene) {
+    super(scene, 'failed-modal-bg', 'failed-header');
+
+    this.header.setY(this.sceneCenter[1] - this.bgImage.height / 2 + this.header.height / 2)
 
     this.starsImage = scene.add.image(
       this.sceneCenter[0],
-      this.sceneCenter[1] - this.bgImage.width / 10,
-      'lose-img'
+      this.sceneCenter[1] - this.bgImage.width / 6,
+      'star-grey'
     );
     this.add(this.starsImage);
 
-    this.continueButton(scene);
+    this.initializeButtons(scene)
   }
 
-  continueButton(scene: Phaser.Scene) {
-    const continueBtnCoordinates = [
-      this.sceneCenter[0],
-      this.sceneCenter[1] + this.bgImage.height / 4,
+  initializeButtons(scene: Phaser.Scene) {
+    this.cancelBtn = new Button(scene, 0, 0, 'button-left');
+    const cancelBtnCoordinates = [
+      this.sceneCenter[0] - this.bgImage.width / 2 + this.cancelBtn.width,
+      this.sceneCenter[1] + this.bgImage.height / 2 - this.cancelBtn.width / 4,
     ];
+    this.cancelBtn.setPosition(cancelBtnCoordinates[0], cancelBtnCoordinates[1]);
 
-    this.continueBtn = new CustomButton(
-      scene,
-      continueBtnCoordinates[0],
-      continueBtnCoordinates[1],
-      'Continue',
-      'btn',
-      'btn-pressed'
-    );
+    this.restartBtn = new Button(scene, 0, 0, 'button-restart');
+    const restartBtnCoordinates = [
+      this.sceneCenter[0] + this.bgImage.width / 2 - this.restartBtn.width,
+      this.sceneCenter[1] + this.bgImage.height / 2 - this.restartBtn.width / 4,
+    ];
+    this.restartBtn.setPosition(restartBtnCoordinates[0], restartBtnCoordinates[1]);
   }
 }

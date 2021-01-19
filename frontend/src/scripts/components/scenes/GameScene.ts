@@ -115,15 +115,22 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // переделать координаты с хардкода на динамические
-    const settingButton = new Button(this, 1990, 50, 'settings-btn');
-    settingButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    const sceneCenter = [this.cameras.main.centerX, this.cameras.main.centerY];
+    
+    const pauseButton = new Button(this, 0, 0, 'pause-btn')
+    const pauseBtnCoordinates = [
+      sceneCenter[0] * 2 - pauseButton.width / 2,
+      pauseButton.height / 2,
+    ]
+    pauseButton.setPosition(pauseBtnCoordinates[0], pauseBtnCoordinates[1])
+    pauseButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.launch('pause-scene');
     });
 
-    const loseBtn = new Button(this, 1890, 50, 'settings-btn');
+    const loseBtn = new Button(this, pauseBtnCoordinates[0]*0.9, pauseBtnCoordinates[1], 'pause-btn');
     loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
@@ -131,18 +138,18 @@ export default class GameScene extends Phaser.Scene {
       this.scene.launch('lose-scene');
     });
 
-    const victoryBtn = new Button(this, 1790, 50, 'settings-btn');
+    const victoryBtn = new Button(this, pauseBtnCoordinates[0]*0.8, pauseBtnCoordinates[1], 'pause-btn');
     victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) {
-        return;
-      }
-      const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg');
-      // this.scene.pause();
-      victoryModal.startNewBtn
-        .setInteractive()
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-          this.scene.start('game-scene');
-        });
+      if (this.scene.isPaused()) return;
+      const victoryModal = new VictoryModal(this, 2);
+      victoryModal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        this.scene.stop('game-scene');
+        this.scene.start('LevelsScene');
+      });
+  
+      victoryModal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        this.scene.start('game-scene');
+      });
     });
 
     // устанавливает взаимодействие пуль и мобов

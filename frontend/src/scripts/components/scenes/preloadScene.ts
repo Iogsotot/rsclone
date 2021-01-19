@@ -106,16 +106,38 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('levelsMap', './assets/main-bg.jpg')
 
     this.load.image('settings-btn', './assets/interface/settings-icon.png');
-
-    this.load.image('modal-bg', './assets/interface/modal-bg.png');
-    this.load.image('title-bg', './assets/interface/title-bg.png');
-    this.load.image('modal-close-btn', './assets/interface/close-btn.png');
-    this.load.image('lose-img', './assets/interface/lose.png');
-    this.load.image('btn', './assets/interface/btn.png');
-    this.load.image('btn-pressed', './assets/interface/btn-pressed.png');
+    
+    // modal headers
+    this.load.image('level1-title', './assets/modal-headers/level1-header.png');
+    this.load.image('level2-title', './assets/modal-headers/level2-header.png');
+    this.load.image('level3-title', './assets/modal-headers/level3-header.png');
+    this.load.image('settings-header', './assets/modal-headers/header_settings.png');
+    this.load.image('failed-header', './assets/modal-headers/header_failed.png');
+    this.load.image('win-header', './assets/modal-headers/header_win.png');
+    // star rewards
+    this.load.image('star-grey', './assets/interface/star-grey.png');
     this.load.image('star-1', './assets/interface/star-1.png');
     this.load.image('star-2', './assets/interface/star-2.png');
     this.load.image('star-3', './assets/interface/star-3.png');
+    // modal backgrounds
+    this.load.image('start-modal-bg', './assets/modal-bg/start-modal-bg.png');
+    this.load.image('failed-modal-bg', './assets/modal-bg/failed-modal-bg.png');
+    this.load.image('win-modal-bg', './assets/modal-bg/win-modal-bg.png');
+    this.load.image('settings-modal-bg', './assets/modal-bg/settings-modal-bg.png');
+    // ropes
+    this.load.image('rope-small', './assets/interface/rope_small.png');
+    this.load.image('rope-big', './assets/interface/rope_big.png');
+    // buttons
+    this.load.image('modal-close-btn', './assets/interface/button_close.png');
+    this.load.image('button-start', './assets/interface/button_start.png');
+    this.load.image('button-menu', './assets/interface/button_menu.png');
+    this.load.image('button-restart', './assets/interface/button_restart.png');
+    this.load.image('button-right', './assets/interface/button_right.png');
+    this.load.image('button-left', './assets/interface/button_left.png');
+    this.load.image('pause-btn', './assets/interface/button_pause.png');
+    this.load.image('easy-btn', './assets/interface/easy_btn.png');
+    this.load.image('normal-btn', './assets/interface/normal_btn.png');
+    this.load.image('hard-btn', './assets/interface/hard_btn.png');
   }
 
   create() {
