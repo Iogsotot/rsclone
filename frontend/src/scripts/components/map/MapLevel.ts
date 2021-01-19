@@ -12,6 +12,7 @@ export interface MapLevel {
 
 export class MapLevel extends Map {
   curve: any;
+  mapData: any;
   startPointX: number;
   startPointY: number;
   finishPointX: number;
@@ -23,18 +24,17 @@ export class MapLevel extends Map {
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.startPointX = map1.scaleStartPointX;
-    this.startPointY = this.height / map1.scaleStartPointY;
-    this.finishPointX = this.width / map1.scaleFinishPointX;
-    this.finishPointY = this.height / map1.scaleFinishPointY;
-    this.scalePointsWay = map1.scalePointsWay;
-    this.scaleCoordinateTowers = map1.scaleCoordinateTowers;
+    this.mapData = mapData;
+    this.startPointX = this.mapData.scaleStartPointX;
+    this.startPointY = this.height / this.mapData.scaleStartPointY;
+    this.finishPointX = this.width / this.mapData.scaleFinishPointX;
+    this.finishPointY = this.height / this.mapData.scaleFinishPointY;
   }
 
   createWay(): any {
     const points: Array<any> = [];
     points.push(new Phaser.Math.Vector2(this.startPointX, this.startPointY));
-    this.scalePointsWay.forEach((scalePoint) => {
+    this.mapData.scalePointsWay.forEach((scalePoint) => {
       this.createPointWay(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
@@ -48,15 +48,15 @@ export class MapLevel extends Map {
 
 
   addTowers(): Array<any> {
-      const towers: Array<any> = []
-      this.scaleCoordinateTowers.forEach((coordinate) => {
-        const tower = this.createTower(coordinate);
-        towers.push(tower)
+    const towers: Array<any> = [];
+      this.mapData.scaleCoordinateTowers.forEach((coordinate) => {
+        const tower = this.createTower(coordinate)
         tower.placeField();
+        towers.push(tower);
         tower.on('pointerdown',() => tower.choiceTower(), this);
         tower.setActive(false);
       })
-      return towers
+      return towers;
   }
 
   createTower(coordinate: object): any {
@@ -65,7 +65,7 @@ export class MapLevel extends Map {
     const x = this.width / scaleCoordinateX;
     const y = this.height / scaleCoordinateY;
     const tower = new Tower(this.scene, x, y);
-    return tower
+    return tower;
   }
 
   createPointWay(points: Array<any>, scalePoint: object): void {

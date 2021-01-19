@@ -11,7 +11,7 @@ export default class Gate extends Phaser.GameObjects.Sprite {
     this.setInteractive();
     // this.loseCount = 0;
   }
-
+  
   onEnemyCrossing(enemy, gate) {
     if (!gate.passedEnemies.includes(enemy)) {
       gate.passedEnemies.push(enemy);
