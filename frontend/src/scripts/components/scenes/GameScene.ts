@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     // console.log(this.state);
     this.gold = this.state.config.startingGold;
     this.setPlayersLives();
-    // console.log(this.playerLives);
+    console.log(this.playerLives);
     // this.playerLives 
     // console.log(this.gold);
 
@@ -55,7 +55,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   setPlayersLives() {
-    this.playerLives = 0;
     switch (this.state.difficulty) {
       case 1:
         this.playerLives = 20;
@@ -86,7 +85,7 @@ export default class GameScene extends Phaser.Scene {
 
     let enemies: Enemy[] = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 20; i++) {
       const way = this.map.createWay();
       const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.75);
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
@@ -134,7 +133,9 @@ export default class GameScene extends Phaser.Scene {
 
     const victoryBtn = new Button(this, 1790, 50, 'settings-btn');
     victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
+      if (this.scene.isPaused()) {
+        return;
+      }
       const victoryModal = new VictoryModal(this, 2, 'modal-bg', 'title-bg');
       // this.scene.pause();
       victoryModal.startNewBtn
@@ -154,7 +155,6 @@ export default class GameScene extends Phaser.Scene {
 
   createGate() {
     this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
-    // console.log(this.gate);
     this.gate.alpha = 0.6;
   }
 

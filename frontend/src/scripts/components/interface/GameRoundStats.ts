@@ -2,9 +2,11 @@
 
 export default class GameObjStats extends Phaser.Scene {
   text: Phaser.GameObjects.Text;
-  
-  constructor(scene) {
+  state: any;
+
+  constructor(scene, state) {
     super(scene);
+    this.state = state;
     this.text = scene.add.text(50, 150, '', {
       fontFamily: 'Dimbo',
       fontSize: '34px',
@@ -13,4 +15,8 @@ export default class GameObjStats extends Phaser.Scene {
     });
   }
 
+  updateText() {
+    console.log(this.state);
+    // this.text.setText(`Lives ${state.lives} gold ${state.gold}`);
+  }
 }
