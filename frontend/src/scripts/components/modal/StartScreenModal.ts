@@ -1,6 +1,7 @@
 import CustomModal from './CustomModal';
 import { levelsConfig } from '../../constants/constants';
 import Button from '../button/Button';
+import DiffButton from '../button/DiffButton';
 
 export default class StartScreenModal extends CustomModal {
   mapImage: Phaser.GameObjects.Image;
@@ -10,6 +11,8 @@ export default class StartScreenModal extends CustomModal {
   towersNumberText: Phaser.GameObjects.Text;
   
   level: number;
+
+  difficultyBtn: DiffButton
   
   difficultyImage: Phaser.GameObjects.Image;
   
@@ -97,9 +100,10 @@ export default class StartScreenModal extends CustomModal {
       this.sceneCenter[0] - this.bgImage.width / 4,
       this.sceneCenter[1] + this.bgImage.width / 4,
     ];
-    this.difficultyImage = scene.add
-      .image(difficultyImageCoordinates[0], difficultyImageCoordinates[1], `button-${difficulty}`)
-      .setScale(0.8);
+    this.difficultyBtn = new DiffButton(scene, difficultyImageCoordinates[0], difficultyImageCoordinates[1])
+    // this.difficultyImage = scene.add
+    //   .image(difficultyImageCoordinates[0], difficultyImageCoordinates[1], `button-${difficulty}`)
+    //   .setScale(0.8);
   }
 
   addStartButton(scene: Phaser.Scene) {

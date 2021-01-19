@@ -95,9 +95,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
     // buttons
-    this.load.image('button-easy', './assets/interface/button_easy.png');
-    this.load.image('button-normal', './assets/interface/button_normal.png');
-    this.load.image('button-hard', './assets/interface/button_hard.png');
     this.load.image('modal-close-btn', './assets/interface/button_close.png');
     this.load.image('button-start', './assets/interface/button_start.png');
     this.load.image('button-menu', './assets/interface/button_menu.png');
@@ -105,6 +102,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
+    this.load.image('easy-btn', './assets/interface/easy_btn.png');
+    this.load.image('normal-btn', './assets/interface/normal_btn.png');
+    this.load.image('hard-btn', './assets/interface/hard_btn.png');
   }
 
   create() {
