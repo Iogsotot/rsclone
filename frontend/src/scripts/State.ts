@@ -1,4 +1,4 @@
-import { GameObjects } from "phaser";
+// import { GameObjects } from "phaser";
 import { levelsConfig } from "./constants/constants"
 
 export default class State {

@@ -4,11 +4,19 @@ import { MapLevel } from '../map/MapLevel';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc  from "../unit/LittleOrc";
-import { AUTO } from 'phaser';
+
+import Tower from '../tower/Tower';
+import { AUTO, GameObjects } from 'phaser';
+
+// import { AUTO } from 'phaser';
+
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
 import VictoryModal from '../modal/VictoryModal';
+import Gate from '../Gate';
+import createAnims from '../unit/createAnims';
 import State from '../../State';
+import Enemy from '../unit/Enemy';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -17,7 +25,7 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
-  gate: any;
+  gate: Gate;
   gameObjStats: any;
   state: any;
   towers: Array<any>
@@ -34,6 +42,7 @@ export default class GameScene extends Phaser.Scene {
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
+    // console.log(this.state);
   }
 
   create(data: any): void {
@@ -41,90 +50,10 @@ export default class GameScene extends Phaser.Scene {
     this.map.create();
     this.towers = this.map.addTowers();
     this.enemiesGroup = this.physics.add.group();
-    
-    this.anims.create({
-      key: 'scorpio_walk',
-      frames: this.anims.generateFrameNumbers('scorpio', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 80,
-    });
+    createAnims(this);
+    this.createGate();
 
-    this.anims.create({
-      key: 'scorpio_die',
-      frames: this.anims.generateFrameNumbers('scorpio_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 60,
-    });
-
-    this.anims.create({
-      key: 'scorpio_hurt',
-      frames: this.anims.generateFrameNumbers('scorpio_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 80,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_walk',
-      frames: this.anims.generateFrameNumbers('wizardBlack', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_die',
-      frames: this.anims.generateFrameNumbers('wizardBlack_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'wizardBlack_hurt',
-      frames: this.anims.generateFrameNumbers('wizardBlack_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 30,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_walk',
-      frames: this.anims.generateFrameNumbers('littleOrc', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_die',
-      frames: this.anims.generateFrameNumbers('littleOrc_die', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 25,
-    });
-
-    this.anims.create({
-      key: 'littleOrc_hurt',
-      frames: this.anims.generateFrameNumbers('littleOrc_hurt', {
-        start: 0,
-        end: 19,
-      }),
-      frameRate: 30,
-    });
-
-    this.gate = this.add.sprite(this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5)
-    this.gate.alpha = 0.5;
+    let enemies: Enemy[] = [];
 
     for (let i = 0; i < 3; i++) {
       const way = this.map.createWay();
@@ -135,6 +64,14 @@ export default class GameScene extends Phaser.Scene {
       wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+
+      // enemies.push(scorpio, wizardBlack, littleOrc)
+      this.physics.add.existing(scorpio);
+      this.physics.add.existing(wizardBlack);
+      this.physics.add.existing(littleOrc);
+      this.physics.add.overlap(scorpio, this.gate, this.gate.onEnemyCrossing);
+      this.physics.add.overlap(wizardBlack, this.gate, this.gate.onEnemyCrossing);
+      this.physics.add.overlap(littleOrc, this.gate, this.gate.onEnemyCrossing);
 
       this.enemiesGroup.add(scorpio);
       this.enemiesGroup.add(wizardBlack);
@@ -176,14 +113,18 @@ export default class GameScene extends Phaser.Scene {
         });
     });
 
-
     // устанавливает взаимодействие пуль и мобов
     for(let i = 0; i < this.towers.length; i += 1) {
         this.towers[i].setEnemies(this.enemiesGroup);
         this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
-
     }
+    const gateGroup = this.physics.add.existing(this.gate);
+  }
 
+  createGate() {
+    this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
+    // console.log(this.gate);
+    this.gate.alpha = 0.6;
   }
 
   update(time) {
@@ -191,6 +132,5 @@ export default class GameScene extends Phaser.Scene {
     this.towers.forEach((tower: any) => {
         tower.update(time)
     })
-    
   }
 }

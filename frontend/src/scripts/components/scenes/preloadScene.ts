@@ -1,11 +1,14 @@
 import { map1, map2, map3 } from '../../constants/maps';
+import getPlayerStatsFromServer from '../stats/PlayerStats';
 
 export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' });
   }
-
+  
   preload() {
+    const userId = localStorage.getItem("userId");
+    // this.registry.set("stats", getPlayerStatsFromServer(userId));
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,

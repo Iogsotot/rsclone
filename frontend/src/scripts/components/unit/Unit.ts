@@ -57,6 +57,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
       
     }
+    // console.log(this.scene.registry.get('stats'));
   }
 
   die() {
@@ -69,6 +70,9 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   despawn() {
+    let stats = this.scene.registry.get("stats");
+    stats.killedEnemies += 1;
+    this.scene.registry.set('stats', stats)
     this.scene.time.delayedCall(5000, this.destroy, [], this)
   }
 
