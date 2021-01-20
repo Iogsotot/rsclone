@@ -2,6 +2,8 @@ import { map1, map2, map3 } from "./maps";
 
 const RANDOM_WAY_COEFFICIENT: number = 15;
 
+const LOCAL_STORAGE_KEY: string = "KingdomRushCloneStateKey";
+
 const levelsConfig = {
   "level_1": {
     "map": map1,
@@ -19,7 +21,8 @@ const levelsConfig = {
           "littleOrc": 1
         }
       }
-    }
+    },
+    "theme": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra urna quis tristique posuere. Curabitur iaculis nulla porta dui maximus porta. Mauris vehicula facilisis sapien in hendrerit. Etiam a leo ac eros accumsan placerat. Praesent vestibulum rutrum magna non tristique. Maecenas sem massa, pretium ac ante nec, volutpat luctus nibh. Maecenas vulputate fringilla porta. Sed et justo non erat laoreet semper."
   },
   "level_2": {
     "map": map2,
@@ -37,7 +40,8 @@ const levelsConfig = {
           "littleOrc": 10
         }
       }
-    }
+    },
+    "theme": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra urna quis tristique posuere. Curabitur iaculis nulla porta dui maximus porta. Mauris vehicula facilisis sapien in hendrerit. Etiam a leo ac eros accumsan placerat. Praesent vestibulum rutrum magna non tristique. Maecenas sem massa, pretium ac ante nec, volutpat luctus nibh. Maecenas vulputate fringilla porta. Sed et justo non erat laoreet semper."
   },
   "level_3": {
     "map": map3,
@@ -55,9 +59,10 @@ const levelsConfig = {
           "littleOrc": 13
         }
       }
-    }
+    },
+    "theme": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus pharetra urna quis tristique posuere. Curabitur iaculis nulla porta dui maximus porta. Mauris vehicula facilisis sapien in hendrerit. Etiam a leo ac eros accumsan placerat. Praesent vestibulum rutrum magna non tristique. Maecenas sem massa, pretium ac ante nec, volutpat luctus nibh. Maecenas vulputate fringilla porta. Sed et justo non erat laoreet semper."
   },
 }
 
 
-export { RANDOM_WAY_COEFFICIENT, levelsConfig };
+export { RANDOM_WAY_COEFFICIENT, LOCAL_STORAGE_KEY, levelsConfig };

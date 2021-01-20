@@ -1,4 +1,5 @@
-import createStartPage from '../utils/create.start';
+import { startApp } from './App';
+import createStartPage from './auth/utils/create.start';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -40,7 +41,7 @@ async function signIn(user) {
       if (!isStats.ok) {
         createStats({ id, token });
       } else {
-        const isUpdate = await setCurrentPlayerStat({
+        const isUpdate = await setCurrentPlayerStats({
           id,
           token,
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
@@ -50,6 +51,7 @@ async function signIn(user) {
 
       setTimeout(() => {
         createStartPage();
+        document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
       }, 300);
     } else {
       responseInfo.textContent = data;
@@ -69,11 +71,11 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return response.json();
+  return await response.json();
 }
 
 // main function for update stat
-async function setCurrentPlayerStat({ id, token, body }) {
+async function setCurrentPlayerStats({ id, token, body }) {
   const response = await fetch(`${SERVER}/users/${id}/stats/`, {
     method: 'PUT',
     headers: {
@@ -159,7 +161,7 @@ export { signIn, signUp };
 
 //     "achievements": {
 //       "firstAsterisk": false,
-//       "completeVictory": false,
+//       "completeWin": false,
 //       "firstBlood": false,
 //       "GreatDefender": false,
 //       "IronDefender": false,
@@ -170,32 +172,5 @@ export { signIn, signUp };
 //   }
 // }
 
-async function postStats(userId, userStats) {
-  const url = `${SERVER}/${userId}/stats`;
-  const options = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userStats),
-  };
 
-  const responseInfo = document.querySelector('.response-info') as HTMLElement;
-
-  const request = new Request(url, options);
-
-  try {
-    const response = await fetch(request);
-    const { data, ok } = await response.json();
-    console.log(data, ok);
-
-    if (ok) {
-      responseInfo.innerHTML = `${data.login} has sign up`;
-    } else {
-      responseInfo.textContent = data;;
-    }
-  } catch (err) {
-    responseInfo.textContent = err.name;
-  }
-}
+export {getCurrentPlayerStats, setCurrentPlayerStats}
