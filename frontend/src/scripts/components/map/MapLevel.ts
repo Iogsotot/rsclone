@@ -5,6 +5,7 @@ import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 import Tower from '../tower/Tower';
 import GameScene from '../scenes/GameScene';
 
+
 export interface MapLevel {
   new(scene: any, mapData: MapType): Map
 }
@@ -15,25 +16,28 @@ export class MapLevel extends Map {
   startPointY: number;
   finishPointX: number;
   finishPointY: number;
+  scalePointsWay: Array<object>;
+  scaleCoordinateTowers: Array<object>;
 
 
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.startPointX = 0 / map1.scaleStartPointX;
+    this.startPointX = map1.scaleStartPointX;
     this.startPointY = this.height / map1.scaleStartPointY;
     this.finishPointX = this.width / map1.scaleFinishPointX;
     this.finishPointY = this.height / map1.scaleFinishPointY;
+    this.scalePointsWay = map1.scalePointsWay;
+    this.scaleCoordinateTowers = map1.scaleCoordinateTowers;
   }
 
   createWay(): any {
     const points: Array<any> = [];
     points.push(new Phaser.Math.Vector2(this.startPointX, this.startPointY));
-    map1.scalePointsWay.forEach((scalePoint) => {
+    this.scalePointsWay.forEach((scalePoint) => {
       this.createPointWay(points, scalePoint);
     });
     this.curve = new Phaser.Curves.Spline(points);
-
     // надо подумать как переделать это в мягкие линии, а не ломанные, как сейчас
     // scalePoints находятся в maps.ts (???)
     // this.curve = new Phaser.Curves.Path(0, 0);
@@ -43,13 +47,16 @@ export class MapLevel extends Map {
   }
 
 
-  addTowers(): void {
-      map1.scaleCoordinateTowers.forEach((coordinate) => {
-        const tower = this.createTower(coordinate)
+  addTowers(): Array<any> {
+      const towers: Array<any> = []
+      this.scaleCoordinateTowers.forEach((coordinate) => {
+        const tower = this.createTower(coordinate);
+        towers.push(tower)
         tower.placeField();
-        tower.on('pointerdown',() => tower.choiceTower(), this)
+        tower.on('pointerdown',() => tower.choiceTower(), this);
+        tower.setActive(false);
       })
-      
+      return towers
   }
 
   createTower(coordinate: object): any {

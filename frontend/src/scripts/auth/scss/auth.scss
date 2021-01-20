@@ -2,7 +2,7 @@
 @import './graph.scss';
 @import './loader.scss';
 
-@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
 * {
   box-sizing: border-box;
@@ -62,10 +62,12 @@ body {
   background-image: url('../assets/auth/UI_board_Small_parchment.png');
   background-size: cover;
   margin: auto;
-  font-family: 'Luckiest Guy', cursive;
+
+  font-family: 'Dimbo', cursive;
   color: #fbd738;
   text-shadow: #483312 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px;
   text-align: center;
+
   cursor: pointer;
 }
 

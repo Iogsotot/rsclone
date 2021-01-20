@@ -36,7 +36,7 @@ export default class StartScreenModal extends CustomModal {
       this.sceneCenter[0] + this.bgImage.width / 5,
       this.sceneCenter[1] + this.bgImage.width / 5,
       `Possible towers number: ${towersNumber}`,
-      { fontSize: '30px', color: '#c0c0c0' }
+      { fontSize: '30px', fontFamily: 'Dimbo', color: '#c0c0c0' }
     ).setOrigin(0.5)
 
     this.add(this.mapImage);
@@ -54,7 +54,7 @@ export default class StartScreenModal extends CustomModal {
       .image(mapImageCoordinates[0], mapImageCoordinates[1], `map_${level}`)
       .setScale(mapScale);
 
-    // просто жесть
+
     const graphics = scene.add.graphics();
     graphics.lineStyle(4, 0x000000, 1);
     graphics.strokeRect(
@@ -101,9 +101,6 @@ export default class StartScreenModal extends CustomModal {
       this.sceneCenter[1] + this.bgImage.width / 4,
     ];
     this.difficultyBtn = new DiffButton(scene, difficultyImageCoordinates[0], difficultyImageCoordinates[1])
-    // this.difficultyImage = scene.add
-    //   .image(difficultyImageCoordinates[0], difficultyImageCoordinates[1], `button-${difficulty}`)
-    //   .setScale(0.8);
   }
 
   addStartButton(scene: Phaser.Scene) {
