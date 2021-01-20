@@ -8,7 +8,8 @@ export default class GameObjStats extends Phaser.Scene {
   constructor(scene) {
     super(scene);
     this.text = scene.add.text(0, 0, '', {
-      font: '34px Courier',
+      fontFamily: 'Dimbo',
+      fontSize: '34px',
       color: 'black',
       weight: 'bold',
     });

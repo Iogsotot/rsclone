@@ -25,7 +25,9 @@ const config: Phaser.Types.Core.GameConfig = {
   physics: {
     default: 'arcade',
     arcade: {
-      debug: true,
+        // Денис: я не знаю что это, но если это включить, элементы, которые стали физическими,
+        // будут обведены прямоугольником.
+    //   debug: true,
       gravity: { y: 0 },
     },
   },

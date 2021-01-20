@@ -23,13 +23,29 @@ async function signIn(user) {
     const form = document.querySelector('.sign-form') as HTMLFormElement;
 
     const response = await fetch(url, options);
-    const { data, token, login, ok } = await response.json();
+
+    const { data, token, login, ok, id } = await response.json();
 
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
 
+      localStorage.setItem('id', id);
       if (checked) {
         localStorage.setItem('token', token);
+      }
+
+      const isStats = await getCurrentPlayerStats({ id, token });
+      console.log('isStats:', isStats);
+
+      if (!isStats.ok) {
+        createStats({ id, token });
+      } else {
+        const isUpdate = await setCurrentPlayerStat({
+          id,
+          token,
+          body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
+        });
+        console.log('isUpdate:', isUpdate);
       }
 
       setTimeout(() => {
@@ -45,8 +61,50 @@ async function signIn(user) {
   }
 }
 
+async function getCurrentPlayerStats({ id, token }) {
+  const response = await fetch(`${SERVER}/users/${id}/stats/current`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
+
+// main function for update stat
+async function setCurrentPlayerStat({ id, token, body }) {
+  const response = await fetch(`${SERVER}/users/${id}/stats/`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+  return response.json();
+}
+
+async function createStats({ id, token }) {
+  const url = `${SERVER}/users/${id}/stats`;
+  const options = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ userId: id }),
+  };
+
+  const response = await fetch(url, options);
+  const result = await response.json();
+  console.log('result createStats():', result);
+}
+
 async function signUp(user) {
-  const url = `${SERVER}/users`;
+  const url = `${SERVER}/logup`;
   const options = {
     method: 'POST',
     headers: {
@@ -89,3 +147,55 @@ async function signUp(user) {
 }
 
 export { signIn, signUp };
+
+// {
+//   "UserID": {
+//     "gameProgress": 0,
+//     "gameLogInCount": 0,
+//     "killedEnemies": 0,
+//     "builtTowers": 0,
+//     "soldTowers": 0,
+//     "ironModeProgress": 0,
+
+//     "achievements": {
+//       "firstAsterisk": false,
+//       "completeVictory": false,
+//       "firstBlood": false,
+//       "GreatDefender": false,
+//       "IronDefender": false,
+//       "killer": false,
+//       "seller": false,
+//       "builder": false
+//     }
+//   }
+// }
+
+async function postStats(userId, userStats) {
+  const url = `${SERVER}/${userId}/stats`;
+  const options = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userStats),
+  };
+
+  const responseInfo = document.querySelector('.response-info') as HTMLElement;
+
+  const request = new Request(url, options);
+
+  try {
+    const response = await fetch(request);
+    const { data, ok } = await response.json();
+    console.log(data, ok);
+
+    if (ok) {
+      responseInfo.innerHTML = `${data.login} has sign up`;
+    } else {
+      responseInfo.textContent = data;;
+    }
+  } catch (err) {
+    responseInfo.textContent = err.name;
+  }
+}

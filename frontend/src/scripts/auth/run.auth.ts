@@ -4,20 +4,30 @@ import handleAttendent from './backend/handleAttendent';
 
 const url = 'https://rs-clone.herokuapp.com/';
 
-function runAuth() {
+function runAuth(fn) {
   const token = localStorage.getItem('token');
+  const id = localStorage.getItem('id');
   const year = new Date().getFullYear();
 
   fetch(`${url}chart/${year}`)
     .then((res) => res.json())
     .then(handleAttendent);
 
-  if (token) {
-    createStartPage();
-    return true;
-  }
-  createSignPage();
-  return false;
+  fetch(`${url}users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then(({ ok }) => {
+    console.log('auth:', ok);
+    if (ok) {
+      createStartPage();
+      document.querySelector('.logo-start-button')?.addEventListener('click', fn);
+    } else {
+      createSignPage();
+    }
+  });
 }
 
 export default runAuth;
