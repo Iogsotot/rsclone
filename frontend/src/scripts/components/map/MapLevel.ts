@@ -19,33 +19,33 @@ export class MapLevel extends Map {
   scalePointsWay: Array<object>;
   scaleCoordinateTowers: Array<object>;
 
-
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.startPointX = map1.scaleStartPointX;
-    this.startPointY = this.height / map1.scaleStartPointY;
-    this.finishPointX = this.width / map1.scaleFinishPointX;
-    this.finishPointY = this.height / map1.scaleFinishPointY;
-    this.scalePointsWay = map1.scalePointsWay;
-    this.scaleCoordinateTowers = map1.scaleCoordinateTowers;
+    this.mapData = mapData
+    this.startPointX = this.mapData.scaleStartPointX;
+    this.startPointY = this.height / this.mapData.scaleStartPointY;
+    this.finishPointX = this.width / this.mapData.scaleFinishPointX;
+    this.finishPointY = this.height / this.mapData.scaleFinishPointY;
+    this.scalePointsWay = this.mapData.scalePointsWay;
+    this.scaleCoordinateTowers = this.mapData.scaleCoordinateTowers;
   }
 
   createWay(): any {
     const points: Array<any> = [];
-    points.push(new Phaser.Math.Vector2(this.startPointX, this.startPointY));
-    this.scalePointsWay.forEach((scalePoint) => {
-      this.createPointWay(points, scalePoint);
+    const randomWay = Math.round(Math.random());
+    this.scalePointsWay.forEach((scalePoint: any) => {
+      if(scalePoint instanceof Array) {
+        this.createPointWay(points, scalePoint[randomWay]);
+      } else {
+        this.createPointWay(points, scalePoint);
+      }
+      
     });
-    this.curve = new Phaser.Curves.Spline(points);
-    // надо подумать как переделать это в мягкие линии, а не ломанные, как сейчас
-    // scalePoints находятся в maps.ts (???)
-    // this.curve = new Phaser.Curves.Path(0, 0);
-    // this.curve.splineTo(points);
-
+    this.curve = new Phaser.Curves.Path(this.startPointX, this.startPointY);
+    this.curve.splineTo(points);
     return this.curve;
   }
-
 
   addTowers(): Array<any> {
       const towers: Array<any> = []
@@ -58,22 +58,21 @@ export class MapLevel extends Map {
       })
       return towers
   }
-
   createTower(coordinate: object): any {
     const scaleCoordinateX: number = Object.values(coordinate)[0];
     const scaleCoordinateY: number = Object.values(coordinate)[1];
     const x = this.width / scaleCoordinateX;
     const y = this.height / scaleCoordinateY;
-    const tower = new Tower(this.scene, x, y);
+    const tower = new Tower(this.scene, x, y, this.mapData);
     return tower
   }
-
   createPointWay(points: Array<any>, scalePoint: object): void {
     const scaleX: number = Object.values(scalePoint)[0];
     const scaleY: number = Object.values(scalePoint)[1];
     const pointX: number = this.getRandomPointX(scaleX);
     const pointY: number = this.getRandomPointY(scaleY);
     points.push(new Phaser.Math.Vector2(pointX, pointY));
+    // points.push(new Phaser.Math.Vector2(scaleX, scaleY));
   }
 
   getRandomPointX(scale: number): number {

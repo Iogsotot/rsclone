@@ -41,7 +41,6 @@ export default class GameScene extends Phaser.Scene {
     this.map.create();
     this.towers = this.map.addTowers();
     this.enemiesGroup = this.physics.add.group();
-    
     this.anims.create({
       key: 'scorpio_walk',
       frames: this.anims.generateFrameNumbers('scorpio', {
@@ -132,7 +131,7 @@ export default class GameScene extends Phaser.Scene {
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
       const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.25);
 
-      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
+      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true});
       scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
       littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
 

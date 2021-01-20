@@ -2,6 +2,7 @@ import 'phaser';
 import MissileBomb from '../missile/MissileBomb';
 import MissileArrow from '../missile/MissileArrow';
 import MissileMagic from '../missile/MissileMagic';
+import { MapType } from '../../constants/maps';
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -20,23 +21,35 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     arrow: Phaser.GameObjects.Sprite;
     magic: Phaser.GameObjects.Sprite;
     bomb: Phaser.GameObjects.Sprite;
+    mapData: MapType;
 
-    constructor(scene: Phaser.Scene, positionX: number, positionY: number) {
+    constructor(scene: Phaser.Scene, positionX: number, positionY: number, mapData: MapType) {
         super(scene, positionX, positionY, 'tower')
         this.x = positionX;
         this.y = positionY;
         this.setInteractive();
         this.isTowerBuilt = false;
         this.timeShot = 0;
-        
         this.isEnemyAlive;
-        this.timeForNextShot = 1000
+        this.timeForNextShot = 1000;
+        this.mapData = mapData
     }
 
     public placeField(): void {
         this.tower = this.scene.add.sprite(this.x, this.y, 'tower');
-        this.tower.setOrigin(0.5, 0.5)
-        this.tower.setScale(1.2)
+        this.tower.setOrigin(0.5, 0.5);
+        this.tower.setScale(1.2);
+        if (this.mapData.level === 3) {
+            this.scene.anims.create({
+                key: 'tower_place_desert',
+                frames: this.scene.anims.generateFrameNumbers('tower', {
+                    start: 4,
+                    end: 4}),
+                frameRate: 0,
+                repeat: -1
+            });
+            this.tower.play('tower_place_desert');
+        }
     }
 
     public choiceTower(): void { 
