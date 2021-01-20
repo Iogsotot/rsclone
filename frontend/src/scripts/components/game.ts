@@ -4,6 +4,7 @@ import PreloadScene from './scenes/PreloadScene';
 import GameScene from './scenes/GameScene';
 import PauseScene from './scenes/PauseScene';
 import LoseScene from './scenes/LoseScene';
+import WinScene from './scenes/WinScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -19,6 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
     PreloadScene, 
     LevelsScene,
     PauseScene, 
+    WinScene, 
     LoseScene, 
     GameScene
   ],

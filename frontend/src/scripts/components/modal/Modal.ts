@@ -1,15 +1,11 @@
 export default class Modal extends Phaser.GameObjects.Container {
   bgImage: Phaser.GameObjects.Image;
 
-  titleBg: Phaser.GameObjects.Image;
-
-  titleText: Phaser.GameObjects.Text;
-
-  title: Phaser.GameObjects.Container;
+  header: Phaser.GameObjects.Image;
 
   sceneCenter: number[];
 
-  constructor(scene: Phaser.Scene, titleText: string, bgTexture: string, titleTexture: string) {
+  constructor(scene: Phaser.Scene, bgTexture: string, headerTexture: string) {
     super(scene, 0, 0);
     scene.add.existing(this);
 
@@ -17,24 +13,20 @@ export default class Modal extends Phaser.GameObjects.Container {
 
     this.bgImage = scene.add.image(this.sceneCenter[0], this.sceneCenter[1], bgTexture);
 
-    const titleCoordinates = [
-      this.sceneCenter[0],
-      this.sceneCenter[1] - this.bgImage.height / 2,
-    ];
-    this.titleBg = scene.add.image(0, 0, titleTexture);
-    this.titleText = scene.add.text(0, 0, titleText, { fontSize: '30px', fontFamily: 'Dimbo' }).setOrigin(0.5);
-    this.title = new Phaser.GameObjects.Container(scene, titleCoordinates[0], titleCoordinates[1]);
+    this.header = scene.add.image(0, 0, headerTexture);
 
     this.init();
   }
 
   init() {
-    this.title.add(this.titleBg);
-    this.title.add(this.titleText);
-    this.title.setSize(this.titleBg.width, this.titleBg.height);
-
+    const headerCoordinates = [
+      this.sceneCenter[0],
+      this.sceneCenter[1] - this.bgImage.height / 2 + (2 * this.header.height) / 5,
+    ];
+    this.header.setPosition(headerCoordinates[0], headerCoordinates[1]);
+    
     this.add(this.bgImage);
-    this.add(this.title);
+    this.add(this.header);
 
     this.setSize(this.bgImage.width, this.bgImage.height);
   }

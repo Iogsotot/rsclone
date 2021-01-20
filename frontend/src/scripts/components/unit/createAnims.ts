@@ -80,4 +80,4 @@ export default function createAnims(context) {
     frameRate: 30,
   });
 
-}
+} 

@@ -2,20 +2,45 @@ import CustomModal from './CustomModal';
 import Button from '../button/Button';
 
 export default class PauseModal extends CustomModal {
-  closeBtn: Button;
+  menuBtn: Button;
 
-  constructor(scene: Phaser.Scene, bgTexture: string, titleTexture: string) {
-    super(scene, 'Paused', bgTexture, titleTexture);
+  restartBtn: Button;
 
-    this.closeButton(scene);
+  resumeBtn: Button;
+
+  constructor(scene: Phaser.Scene) {
+    super(scene, 'settings-modal-bg', 'settings-header');
+
+    this.initializeButtons(scene);
   }
 
-  closeButton(scene: Phaser.Scene) {
-    this.closeBtn = new Button(scene, 0, 0, 'modal-close-btn');
-    const closeBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 2 - this.closeBtn.btnImage.width / 2,
-      this.sceneCenter[1] - this.bgImage.height / 2 + this.closeBtn.btnImage.height / 2,
+  initializeButtons(scene: Phaser.Scene) {
+    const menuBtnCoordinates = [
+      this.sceneCenter[0] - this.bgImage.width / 3,
+      this.sceneCenter[1] + this.bgImage.height / 2,
     ];
-    this.closeBtn.setPosition(closeBtnCoordinates[0], closeBtnCoordinates[1]);
+    this.menuBtn = new Button(scene, menuBtnCoordinates[0], menuBtnCoordinates[1], 'button-menu');
+
+    const restartBtnCoordinates = [
+      this.sceneCenter[0],
+      this.sceneCenter[1] + this.bgImage.height / 2,
+    ];
+    this.restartBtn = new Button(
+      scene,
+      restartBtnCoordinates[0],
+      restartBtnCoordinates[1],
+      'button-restart'
+    );
+
+    const resumeBtnCoordinates = [
+      this.sceneCenter[0] + this.bgImage.width / 3,
+      this.sceneCenter[1] + this.bgImage.height / 2,
+    ];
+    this.resumeBtn = new Button(
+      scene,
+      resumeBtnCoordinates[0],
+      resumeBtnCoordinates[1],
+      'button-right'
+    );
   }
 }

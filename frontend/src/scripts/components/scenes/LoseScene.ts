@@ -9,15 +9,15 @@ export default class LoseScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    const modal = new LoseModal(this, 'modal-bg', 'title-bg');
+    const modal = new LoseModal(this);
 
-    modal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.start('game-scene');
+    modal.cancelBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      this.scene.stop('game-scene');
+      this.scene.start('LevelsScene');
     });
 
-    modal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop();
-      this.scene.resume('game-scene');
+    modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      this.scene.start('game-scene');
     });
   }
 }

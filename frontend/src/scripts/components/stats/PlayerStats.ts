@@ -22,6 +22,7 @@
 //       seller: false,
 //       builder: false,
 //     }
+
 type AchievStats = {
   firstAsterisk: boolean,
   completeVictory: boolean,
@@ -49,7 +50,6 @@ export default class PlayerStats {
   ironModeProgress: number;
 
   achievements: AchievStats;
-
   constructor({
     userId,
     gameProgress,
@@ -70,3 +70,21 @@ export default class PlayerStats {
     this.achievements = achievements;
   }
 }
+
+import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend'
+
+async function getPlayerStatsFromServer(userId): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await getCurrentPlayerStats({ id: userId, token });
+  return response
+}
+
+async function sendPlayerStatsToServer(userId, data): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await setCurrentPlayerStats({ id: userId, token, body: data });
+  return response
+}
+
+export {getPlayerStatsFromServer, sendPlayerStatsToServer};
+
+
