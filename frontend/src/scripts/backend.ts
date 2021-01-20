@@ -172,34 +172,3 @@ export { signIn, signUp };
 //   }
 // }
 
-async function postStats(userId, userStats) {
-  const url = `${SERVER}/${userId}/stats`;
-  const options = {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userStats),
-  };
-
-  const responseInfo = document.querySelector('.response-info') as HTMLElement;
-
-  const request = new Request(url, options);
-
-  try {
-    const response = await fetch(request);
-    const { data, ok } = await response.json();
-    console.log(data, ok);
-
-    if (ok) {
-      responseInfo.innerHTML = `${data.login} has sign up`;
-    } else {
-      responseInfo.textContent = data;;
-    }
-  } catch (err) {
-    responseInfo.textContent = err.name;
-  }
-}
-
-export {getCurrentPlayerStats, setCurrentPlayerStats}
