@@ -71,7 +71,7 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return await response.json();
+  return response.json();
 }
 
 // main function for update stat
