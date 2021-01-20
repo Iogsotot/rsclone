@@ -9,9 +9,9 @@
   margin: 0;
 }
 
-body {
-  // overflow: hidden;
-}
+// body {
+//   overflow: hidden;
+// }
 
 .blur-bg {
   position: absolute;
@@ -59,7 +59,7 @@ body {
 
 .logo-start-button,
 .logo-credits-button {
-  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  background-image: url('../assets/auth/btn.png');
   background-size: cover;
   margin: auto;
 
@@ -72,7 +72,7 @@ body {
 }
 
 .logo-start-button {
-  width: 70%;
+  width: 50%;
   height: 106px;
   font-size: xxx-large;
   line-height: 106px;
@@ -80,14 +80,14 @@ body {
 }
 
 .logo-credits-button {
-  width: 60%;
+  width: 40%;
   height: 90px;
   font-size: xx-large;
   line-height: 90px;
 }
 
 .logout-game {
-  background-image: url('../assets/auth/close.png');
+  background-image: url('../assets/interface/button_close.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -99,7 +99,7 @@ body {
 }
 
 .attendance-per-year-game {
-  background-image: url('../assets/auth/bag-attendance.png');
+  background-image: url('../assets/interface/button_menu.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

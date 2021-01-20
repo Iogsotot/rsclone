@@ -1,6 +1,7 @@
 import createSignPage from './utils/create.sign';
 import createStartPage from './utils/create.start';
 import handleAttendent from './backend/handleAttendent';
+import achievementsCreate from '../achievements/create.achievements';
 
 const url = 'https://rs-clone.herokuapp.com/';
 
@@ -21,8 +22,10 @@ function runAuth(fn) {
     },
   }).then(({ ok }) => {
     console.log('auth:', ok);
+
     if (ok) {
       createStartPage();
+      achievementsCreate();
       document.querySelector('.logo-start-button')?.addEventListener('click', fn);
     } else {
       createSignPage();
