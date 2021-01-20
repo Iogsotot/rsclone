@@ -1,3 +1,28 @@
+// IMPORTANT TO IMPLEMENT
+// export default function getPlayerStatsFromServer(userId) {
+//   // await fetch bla bla
+//   // getStat() {
+//   //   // went to do backend answers
+//   // }
+//   return {
+//     gameProgress: 0,
+//     gameLogInCount: 0,
+//     killedEnemies: 0,
+//     builtTowers: 0,
+//     soldTowers: 0,
+//     ironModeProgress: 0,
+
+//     achievements: {
+//       firstAsterisk: false,
+//       completeVictory: false,
+//       firstBlood: false,
+//       GreatDefender: false,
+//       IronDefender: false,
+//       killer: false,
+//       seller: false,
+//       builder: false,
+//     }
+
 type AchievStats = {
   firstAsterisk: boolean,
   completeVictory: boolean,
@@ -46,20 +71,20 @@ export default class PlayerStats {
   }
 }
 
-// import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend'
+import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend'
 
-// async function getPlayerStatsFromServer(userId): Promise<object> {
-//   const token = localStorage.getItem('token');
-//   const response = await getCurrentPlayerStats({ id: userId, token });
-//   return response
-// }
+async function getPlayerStatsFromServer(userId): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await getCurrentPlayerStats({ id: userId, token });
+  return response
+}
 
-// async function sendPlayerStatsToServer(userId, data): Promise<object> {
-//   const token = localStorage.getItem('token');
-//   const response = await setCurrentPlayerStats({ id: userId, token, body: data });
-//   return response
-// }
+async function sendPlayerStatsToServer(userId, data): Promise<object> {
+  const token = localStorage.getItem('token');
+  const response = await setCurrentPlayerStats({ id: userId, token, body: data });
+  return response
+}
 
-// export {getPlayerStatsFromServer, sendPlayerStatsToServer};
+export {getPlayerStatsFromServer, sendPlayerStatsToServer};
 
 

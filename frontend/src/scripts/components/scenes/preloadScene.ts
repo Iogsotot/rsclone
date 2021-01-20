@@ -7,6 +7,9 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   async preload() {
+
+    const userId = localStorage.getItem("id");
+    this.registry.set("stats", getPlayerStatsFromServer(userId));
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
@@ -136,8 +139,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('easy-btn', './assets/interface/easy_btn.png');
     this.load.image('normal-btn', './assets/interface/normal_btn.png');
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
-    
-    try  {
+
+    try {
       const userId = localStorage.getItem("id");
       this.registry.set("stats", await getPlayerStatsFromServer(userId));
     } catch {

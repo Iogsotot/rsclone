@@ -71,7 +71,7 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return response.json();
+  return await response.json();
 }
 
 // main function for update stat
@@ -172,3 +172,5 @@ export { signIn, signUp };
 //   }
 // }
 
+
+export {getCurrentPlayerStats, setCurrentPlayerStats}
