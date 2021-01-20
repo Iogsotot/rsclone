@@ -8,7 +8,7 @@ export default class PreloadScene extends Phaser.Scene {
   
   preload() {
     const userId = localStorage.getItem("userId");
-    this.registry.set("stats", getPlayerStatsFromServer(userId));
+    // this.registry.set("stats", getPlayerStatsFromServer(userId));
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,

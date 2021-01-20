@@ -5,9 +5,8 @@ import config from './components/Game';
 import createBgGame from './auth/utils/create.bg';
 
 window.addEventListener('load', () => {
-  runAuth();
-  document.querySelector('.logo-start-button')?.addEventListener('click', () => {
+  runAuth(() => {
     createBgGame();
-    const game = new Phaser.Game(config);
+    new Phaser.Game(config);
   });
 });
