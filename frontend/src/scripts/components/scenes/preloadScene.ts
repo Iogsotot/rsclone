@@ -91,6 +91,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('failed-modal-bg', './assets/modal-bg/failed-modal-bg.png');
     this.load.image('win-modal-bg', './assets/modal-bg/win-modal-bg.png');
     this.load.image('settings-modal-bg', './assets/modal-bg/settings-modal-bg.png');
+    this.load.image('audio-set-bg', './assets/modal-bg/audio-set-bg.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -105,6 +106,20 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('easy-btn', './assets/interface/easy_btn.png');
     this.load.image('normal-btn', './assets/interface/normal_btn.png');
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
+    this.load.image('on', './assets/interface/on.png');
+    this.load.image('off', './assets/interface/off.png');
+    this.load.image('plus', './assets/interface/plus.png');
+    this.load.image('minus', './assets/interface/minus.png');
+    // text
+    this.load.image('music-text', './assets/interface/music_text.png');
+    this.load.image('sound-text', './assets/interface/sound_text.png');
+    
+    
+    this.load.image('load-bar1', './assets/interface/load_bar_1.png');
+    this.load.image('load-bar2', './assets/interface/load_bar_2.png');
+
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
+  
   }
 
   create() {

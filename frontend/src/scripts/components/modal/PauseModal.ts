@@ -1,5 +1,6 @@
 import CustomModal from './CustomModal';
 import Button from '../button/Button';
+import AudioSlider from '../interface/AudioSlider';
 
 export default class PauseModal extends CustomModal {
   menuBtn: Button;
@@ -8,10 +9,13 @@ export default class PauseModal extends CustomModal {
 
   resumeBtn: Button;
 
+  options: Phaser.GameObjects.Container;
+
   constructor(scene: Phaser.Scene) {
     super(scene, 'settings-modal-bg', 'settings-header');
 
     this.initializeButtons(scene);
+    this.initOptionsContainer(scene);
   }
 
   initializeButtons(scene: Phaser.Scene) {
@@ -42,5 +46,35 @@ export default class PauseModal extends CustomModal {
       resumeBtnCoordinates[1],
       'button-right'
     );
+  }
+
+  initOptionsContainer(scene: Phaser.Scene) {
+    this.options = new Phaser.GameObjects.Container(
+      scene,
+      this.sceneCenter[0],
+      this.sceneCenter[1]
+    );
+
+    const bgImage = scene.add.image(0, 0, 'audio-set-bg');
+    this.options.add(bgImage);
+    this.options.setSize(bgImage.width, bgImage.height);
+
+    const musicSlider = new AudioSlider(
+      scene,
+      -bgImage.width / 3,
+      -bgImage.height / 3,
+      'music-text'
+    );
+
+    const soundSlider = new AudioSlider(
+      scene,
+      -bgImage.width / 3,
+      bgImage.height / 9,
+      'sound-text'
+    );
+
+    this.options.add(musicSlider);
+    this.options.add(soundSlider);
+    this.add(this.options);
   }
 }
