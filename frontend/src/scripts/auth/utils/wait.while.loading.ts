@@ -5,7 +5,7 @@ function whileLoad(element, imgUrl) {
     classList: ['loader'],
   });
 
-  document.querySelector('.start-page')?.append(loader);
+  element.append(loader);
   document.querySelector('body')?.append(element);
 
   const preloaderImg = document.createElement('img');
