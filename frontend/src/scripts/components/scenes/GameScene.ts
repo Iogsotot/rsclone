@@ -156,15 +156,15 @@ export default class GameScene extends Phaser.Scene {
       pauseButton.height / 2,
     ]
     pauseButton.setPosition(pauseBtnCoordinates[0], pauseBtnCoordinates[1])
-    pauseButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
+    pauseButton.setInteractive().on('pointerup', () => {
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
-      this.scene.launch('pause-scene');
+      this.scene.run('pause-scene');
+      
     });
 
     const loseBtn = new Button(this, pauseBtnCoordinates[0]*0.9, pauseBtnCoordinates[1], 'pause-btn');
-    loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    loseBtn.setInteractive().on('pointerup', () => {
       if (this.scene.isPaused()) return;
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'lose-scene');
@@ -172,16 +172,22 @@ export default class GameScene extends Phaser.Scene {
     });
 
     const victoryBtn = new Button(this, pauseBtnCoordinates[0]*0.8, pauseBtnCoordinates[1], 'pause-btn');
-    victoryBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    victoryBtn.setInteractive().on('pointerup', () => {
       if (this.scene.isPaused()) return;
 
       const victoryModal = new VictoryModal(this, 2);
-      victoryModal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-        this.scene.stop('game-scene');
+      this.tweens.add({
+        targets: victoryModal,
+        scale: { start: 0.3, to: 1 },
+        ease: 'Elastic.Out',
+        repeat: 0,
+        duration: 1000,
+      });
+      victoryModal.continueBtn.setInteractive().on('pointerup', () => {
         this.scene.start('LevelsScene');
       });
   
-      victoryModal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      victoryModal.restartBtn.setInteractive().on('pointerup', () => {
         this.scene.start('game-scene');
       });
     });

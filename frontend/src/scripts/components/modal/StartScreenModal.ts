@@ -25,16 +25,14 @@ export default class StartScreenModal extends CustomModal {
   ) {
     super(scene, 'start-modal-bg', `level${level}-title`);
 
-    this.sceneCenter = [scene.cameras.main.centerX, scene.cameras.main.centerY];
-
     this.drawMapImage(scene, level);
     this.addText(scene, level);
     this.gameDifficulty(scene, 'easy');
     this.addStartButton(scene)
     
     this.towersNumberText = scene.add.text(
-      this.sceneCenter[0] + this.bgImage.width / 5,
-      this.sceneCenter[1] + this.bgImage.width / 5,
+      this.bgImage.width / 5,
+      this.bgImage.width / 5,
       `Possible towers number: ${towersNumber}`,
       { fontSize: '30px', fontFamily: 'Dimbo', color: '#c0c0c0' }
     ).setOrigin(0.5)
@@ -47,8 +45,8 @@ export default class StartScreenModal extends CustomModal {
   drawMapImage(scene: Phaser.Scene, level: number) {
     const mapScale = 0.33;
     const mapImageCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 4,
-      this.sceneCenter[1] - this.bgImage.width / 15,
+      -this.bgImage.width / 4,
+      -this.bgImage.width / 15,
     ];
     this.mapImage = scene.add
       .image(mapImageCoordinates[0], mapImageCoordinates[1], `map_${level}`)
@@ -71,12 +69,13 @@ export default class StartScreenModal extends CustomModal {
       this.mapImage.height * mapScale + 14,
       10
     );
+    this.add(graphics)
   }
 
   addText(scene: Phaser.Scene, level: number) {
     const levelTextCoordinates = [
-      this.sceneCenter[0] - 30,
-      this.sceneCenter[1] - this.bgImage.width / 24,
+      -30,
+      -this.bgImage.width / 24,
     ];
     this.levelText = new Phaser.GameObjects.Container(
       scene,
@@ -97,18 +96,20 @@ export default class StartScreenModal extends CustomModal {
 
   gameDifficulty(scene: Phaser.Scene, difficulty: string) {
     const difficultyImageCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 4,
-      this.sceneCenter[1] + this.bgImage.width / 4,
+      -this.bgImage.width / 4,
+      this.bgImage.width / 4,
     ];
     this.difficultyBtn = new DiffButton(scene, difficultyImageCoordinates[0], difficultyImageCoordinates[1])
+    this.add(this.difficultyBtn)
   }
-
+  
   addStartButton(scene: Phaser.Scene) {
     this.startBtn = new Button(scene, 0, 0, 'button-start')
     const startBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 2 - this.startBtn.btnImage.width,
-      this.sceneCenter[1] + this.bgImage.height / 2 - this.startBtn.btnImage.height / 5,
+      this.bgImage.width / 2 - this.startBtn.btnImage.width,
+      this.bgImage.height / 2 - this.startBtn.btnImage.height / 5,
     ]
     this.startBtn.setPosition(startBtnCoordinates[0], startBtnCoordinates[1])
+    this.add(this.startBtn)
   }
 }

@@ -20,14 +20,14 @@ export default class PauseModal extends CustomModal {
 
   initializeButtons(scene: Phaser.Scene) {
     const menuBtnCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 3,
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      -this.bgImage.width / 3,
+      this.bgImage.height / 2,
     ];
     this.menuBtn = new Button(scene, menuBtnCoordinates[0], menuBtnCoordinates[1], 'button-menu');
 
     const restartBtnCoordinates = [
-      this.sceneCenter[0],
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      0,
+      this.bgImage.height / 2,
     ];
     this.restartBtn = new Button(
       scene,
@@ -37,8 +37,8 @@ export default class PauseModal extends CustomModal {
     );
 
     const resumeBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 3,
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      this.bgImage.width / 3,
+      this.bgImage.height / 2,
     ];
     this.resumeBtn = new Button(
       scene,
@@ -46,13 +46,17 @@ export default class PauseModal extends CustomModal {
       resumeBtnCoordinates[1],
       'button-right'
     );
+
+    this.add(this.restartBtn)
+    this.add(this.resumeBtn)
+    this.add(this.menuBtn)
   }
 
   initOptionsContainer(scene: Phaser.Scene) {
     this.options = new Phaser.GameObjects.Container(
       scene,
-      this.sceneCenter[0],
-      this.sceneCenter[1]
+      0,
+      0
     );
 
     const bgImage = scene.add.image(0, 0, 'audio-set-bg');

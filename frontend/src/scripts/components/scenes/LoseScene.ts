@@ -1,5 +1,4 @@
 import LoseModal from '../modal/LoseModal';
-import CustomModal from '../modal/CustomModal';
 
 export default class LoseScene extends Phaser.Scene {
   constructor() {
@@ -10,13 +9,20 @@ export default class LoseScene extends Phaser.Scene {
 
   create() {
     const modal = new LoseModal(this);
+    
+    this.tweens.add({
+      targets: modal,
+      scale: { start: 0.3, to: 1 },
+      ease: 'Elastic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
 
-    modal.cancelBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop('game-scene');
+    modal.cancelBtn.setInteractive().on('pointerup', () => {
       this.scene.start('LevelsScene');
     });
 
-    modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    modal.restartBtn.setInteractive().on('pointerup', () => {
       this.scene.start('game-scene');
     });
   }

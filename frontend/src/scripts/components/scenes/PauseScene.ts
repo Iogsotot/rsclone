@@ -2,6 +2,8 @@ import PauseModal from '../modal/PauseModal';
 import Modal from '../modal/Modal';
 
 export default class PauseScene extends Phaser.Scene {
+  modal: PauseModal
+
   constructor() {
     super({ key: 'pause-scene' });
   }
@@ -9,25 +11,38 @@ export default class PauseScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    const modal = new PauseModal(this);
+    this.modal = new PauseModal(this);
+    this.modal.slideIn(this)
 
-    modal.closeModalBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop();
-      this.scene.resume('game-scene');
+    this.events.on('resume', () => {
+      this.modal.slideIn(this)
+    })
+
+    this.modal.closeModalBtn.setInteractive().on('pointerup', () => {
+      this.modal.slideOut(this)
+      setTimeout(() => {
+        this.scene.pause();
+        this.scene.run('game-scene');
+        this.scene.moveBelow('game-scene')
+      }, 400);
     });
-    
-    modal.menuBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+
+    this.modal.menuBtn.setInteractive().on('pointerup', () => {
       this.scene.stop('game-scene');
       this.scene.start('LevelsScene');
     });
 
-    modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    this.modal.restartBtn.setInteractive().on('pointerup', () => {
       this.scene.start('game-scene');
     });
-    
-    modal.resumeBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop();
-      this.scene.resume('game-scene');
+
+    this.modal.resumeBtn.setInteractive().on('pointerup', () => {
+      this.modal.slideOut(this)
+      setTimeout(() => {
+        this.scene.pause();
+        this.scene.run('game-scene');
+        this.scene.moveBelow('game-scene')
+      }, 400);
     });
   }
 }

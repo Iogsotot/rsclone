@@ -11,11 +11,11 @@ export default class LoseModal extends Modal {
   constructor(scene: Phaser.Scene) {
     super(scene, 'failed-modal-bg', 'failed-header');
 
-    this.header.setY(this.sceneCenter[1] - this.bgImage.height / 2 + this.header.height / 2)
+    this.header.setY(-this.bgImage.height / 2 + this.header.height / 2)
 
     this.starsImage = scene.add.image(
-      this.sceneCenter[0],
-      this.sceneCenter[1] - this.bgImage.width / 6,
+      0,
+      -this.bgImage.width / 6,
       'star-grey'
     );
     this.add(this.starsImage);
@@ -26,16 +26,19 @@ export default class LoseModal extends Modal {
   initializeButtons(scene: Phaser.Scene) {
     this.cancelBtn = new Button(scene, 0, 0, 'button-left');
     const cancelBtnCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 2 + this.cancelBtn.width,
-      this.sceneCenter[1] + this.bgImage.height / 2 - this.cancelBtn.width / 4,
+      -this.bgImage.width / 2 + this.cancelBtn.width,
+      this.bgImage.height / 2 - this.cancelBtn.width / 4,
     ];
     this.cancelBtn.setPosition(cancelBtnCoordinates[0], cancelBtnCoordinates[1]);
 
     this.restartBtn = new Button(scene, 0, 0, 'button-restart');
     const restartBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 2 - this.restartBtn.width,
-      this.sceneCenter[1] + this.bgImage.height / 2 - this.restartBtn.width / 4,
+      this.bgImage.width / 2 - this.restartBtn.width,
+      this.bgImage.height / 2 - this.restartBtn.width / 4,
     ];
     this.restartBtn.setPosition(restartBtnCoordinates[0], restartBtnCoordinates[1]);
+  
+    this.add(this.cancelBtn)
+    this.add(this.restartBtn)
   }
 }
