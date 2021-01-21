@@ -63,12 +63,15 @@ body {
   background-size: cover;
   margin: auto;
 
-  font-family: 'Dimbo', cursive;
+  font-family: "Dimbo";
+  letter-spacing: 1px;
   color: #fbd738;
-  text-shadow: #483312 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px;
   text-align: center;
 
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .logo-start-button {
@@ -96,6 +99,9 @@ body {
   position: fixed;
   margin: 10px;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .attendance-per-year-game {
@@ -109,6 +115,9 @@ body {
   margin: 10px;
   bottom: 0;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .wrapper-logo-start-page {
@@ -139,11 +148,11 @@ body {
 
     & .response-info {
       font-family: "Dimbo";
-      font-weight: 600;
+      color: #e6e152;
+      font-size: x-large;
       letter-spacing: 0.8px;
-      color: whitesmoke;
       position: absolute;
-      bottom: 0;
+      bottom: -10px;
       margin: 0 20px;
     }
   }

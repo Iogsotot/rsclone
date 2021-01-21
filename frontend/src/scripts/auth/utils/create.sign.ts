@@ -18,7 +18,13 @@ function createSignPage() {
 
         <form class="sign-form" name="signForm">
           <div class="wrapper-username">
-            <input placeholder="Name" class="sign-username" id="email" name="username" required="">
+            <input
+              placeholder="Name"
+              class="sign-username"
+              id="email" name="username"
+              required=""
+              autocomplete="off"
+            >
           </div>
           <div class="wrapper-password">
             <input
