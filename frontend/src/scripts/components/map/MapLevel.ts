@@ -12,6 +12,7 @@ export interface MapLevel {
 
 export class MapLevel extends Map {
   curve: any;
+  mapData: any;
   startPointX: number;
   startPointY: number;
   finishPointX: number;
@@ -22,7 +23,7 @@ export class MapLevel extends Map {
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
     this.curve = undefined;
-    this.mapData = mapData
+    this.mapData = mapData;
     this.startPointX = this.mapData.scaleStartPointX;
     this.startPointY = this.height / this.mapData.scaleStartPointY;
     this.finishPointX = this.width / this.mapData.scaleFinishPointX;
@@ -40,7 +41,6 @@ export class MapLevel extends Map {
       } else {
         this.createPointWay(points, scalePoint);
       }
-      
     });
     this.curve = new Phaser.Curves.Path(this.startPointX, this.startPointY);
     this.curve.splineTo(points);
@@ -48,15 +48,15 @@ export class MapLevel extends Map {
   }
 
   addTowers(): Array<any> {
-      const towers: Array<any> = []
-      this.scaleCoordinateTowers.forEach((coordinate) => {
-        const tower = this.createTower(coordinate);
-        towers.push(tower)
+    const towers: Array<any> = [];
+      this.mapData.scaleCoordinateTowers.forEach((coordinate) => {
+        const tower = this.createTower(coordinate)
         tower.placeField();
+        towers.push(tower);
         tower.on('pointerdown',() => tower.choiceTower(), this);
         tower.setActive(false);
       })
-      return towers
+      return towers;
   }
   createTower(coordinate: object): any {
     const scaleCoordinateX: number = Object.values(coordinate)[0];
@@ -72,7 +72,6 @@ export class MapLevel extends Map {
     const pointX: number = this.getRandomPointX(scaleX);
     const pointY: number = this.getRandomPointY(scaleY);
     points.push(new Phaser.Math.Vector2(pointX, pointY));
-    // points.push(new Phaser.Math.Vector2(scaleX, scaleY));
   }
 
   getRandomPointX(scale: number): number {

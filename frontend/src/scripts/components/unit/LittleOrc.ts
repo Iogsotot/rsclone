@@ -7,7 +7,7 @@ export default class LittleOrc extends Enemy {
     this.setPosition(x, y);
 
     // moveSpeed - За какое время будет пройден way
-    this.moveSpeed = 25000;
+    this.moveSpeed = 2500;
     this.hp = 50 * difficultyCoeff;
     this.physicalArmor = 5 * difficultyCoeff;
     this.killReward = 5;

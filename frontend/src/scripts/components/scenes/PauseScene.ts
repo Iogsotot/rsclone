@@ -9,23 +9,25 @@ export default class PauseScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    const modal = new PauseModal(this, 'modal-bg', 'title-bg');
+    const modal = new PauseModal(this);
 
-    modal.closeBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    modal.closeModalBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       this.scene.stop();
       this.scene.resume('game-scene');
-      console.log('close');
+    });
+    
+    modal.menuBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      this.scene.stop('game-scene');
+      this.scene.start('LevelsScene');
     });
 
-    modal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop();
+    modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       this.scene.start('game-scene');
     });
-
-    modal.quitBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      
+    
+    modal.resumeBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       this.scene.stop();
-      this.scene.start('game-scene');
+      this.scene.resume('game-scene');
     });
   }
 }

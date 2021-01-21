@@ -14,13 +14,14 @@ export default class LevelButton extends Button {
     const modal = new StartScreenModal(
       this.scene,
       levelsConfig[`level_${this.level}`].map.scaleCoordinateTowers.length,
-      'modal-bg',
-      'title-bg',
       this.level
     );
 
-    modal.startNewBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.scene.start('game-scene', {level: this.level, difficulty: 1});
+    modal.startBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      // get difficulty
+      const diff = modal.difficultyBtn.getDifficulty() 
+      this.scene.scene.stop()
+      this.scene.scene.start('game-scene', {level: this.level, difficulty: diff});
     });
   }
   handleOut() {
