@@ -15,7 +15,7 @@ async function getCurrentPlayerStats({ id, token }) {
 
 async function achievementsCreate({ id, token }) {
   const stats = await getCurrentPlayerStats({ id, token });
-  console.log('stats:', stats);
+  console.log('stats all:', stats);
 
   const achievementsIcon = createElement('div', {
     classList: ['achievements-icon'],

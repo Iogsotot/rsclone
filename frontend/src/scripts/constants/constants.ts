@@ -1,7 +1,8 @@
 import { map1, map2, map3 } from "./maps";
 
 const RANDOM_WAY_COEFFICIENT: number = 15;
-
+const KEY_TOKEN = 'token-KR-clone';
+const KEY_ID = 'id-KR-clone';
 const LOCAL_STORAGE_KEY: string = "KingdomRushCloneStateKey";
 
 const levelsConfig = {
@@ -65,4 +66,4 @@ const levelsConfig = {
 }
 
 
-export { RANDOM_WAY_COEFFICIENT, LOCAL_STORAGE_KEY, levelsConfig };
+export { RANDOM_WAY_COEFFICIENT, LOCAL_STORAGE_KEY, levelsConfig, KEY_TOKEN, KEY_ID };

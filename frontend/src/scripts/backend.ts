@@ -1,5 +1,6 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
+import { KEY_TOKEN, KEY_ID } from './constants/constants';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -30,9 +31,9 @@ async function signIn(user) {
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
 
-      localStorage.setItem('id', id);
+      localStorage.setItem(KEY_ID, id);
       if (checked) {
-        localStorage.setItem('token', token);
+        localStorage.setItem(KEY_TOKEN, token);
       }
 
       const isStats = await getCurrentPlayerStats({ id, token });
@@ -49,10 +50,8 @@ async function signIn(user) {
         console.log('isUpdate:', isUpdate);
       }
 
-      setTimeout(() => {
-        createStartPage();
-        document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
-      }, 300);
+      createStartPage();
+      document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;
       form.reset();
