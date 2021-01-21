@@ -25,7 +25,7 @@ function runAuth(fn) {
 
     if (ok) {
       createStartPage();
-      achievementsCreate();
+      achievementsCreate({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', fn);
     } else {
       createSignPage();

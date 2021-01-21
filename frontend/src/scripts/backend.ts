@@ -39,7 +39,7 @@ async function signIn(user) {
       console.log('isStats:', isStats);
 
       if (!isStats.ok) {
-        createStats({ id, token });
+        createStats({ id, token, login });
       } else {
         const isUpdate = await setCurrentPlayerStats({
           id,
@@ -71,7 +71,7 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return await response.json();
+  return response.json();
 }
 
 // main function for update stat
@@ -88,7 +88,7 @@ async function setCurrentPlayerStats({ id, token, body }) {
   return response.json();
 }
 
-async function createStats({ id, token }) {
+async function createStats({ id, token, login }) {
   const url = `${SERVER}/users/${id}/stats`;
   const options = {
     method: 'POST',
@@ -97,7 +97,7 @@ async function createStats({ id, token }) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: id }),
+    body: JSON.stringify({ userId: id, login }),
   };
 
   const response = await fetch(url, options);
