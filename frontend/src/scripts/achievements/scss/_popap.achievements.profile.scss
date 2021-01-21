@@ -1,4 +1,4 @@
-.popup-achievements-wrapper {
+.popup-profile-wrapper {
   position: fixed;
   z-index: 15;
   top: 0;
@@ -12,14 +12,13 @@
   cursor: pointer;
 }
 
-.popup-achievements-content {
-  background-image: url('../assets/auth/achievement_board.png');
-  width: 557px;
-  height: 250px;
+.popup-profile-content {
+  background-image: url('../assets/modal-bg/start-modal-bg.png');
+  width: 600px;
+  height: 423px;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
-  display: flex;
   cursor: auto;
   position: relative;
   display: flex;
@@ -27,9 +26,13 @@
   align-items: center;
   bottom: 100%;
   transition: all .5s ease-out;
+  font-family: "Dimbo";
+  color: #e6e152;
+  font-size: x-large;
+  letter-spacing: 0.8px;
 }
 
-.close-achievements-popup {
+.close-profile-popup {
   background-image: url('../assets/interface/button_close.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -46,23 +49,32 @@
   }
 }
 
-.achievements-content-profile-button,
-.achievements-content-rating-button {
-  background-image: url('../assets/auth/btn.png');
-  width: 158px;
-  height: 84px;
-  background-size: cover;
-  margin: 0 40px;
-  font-family: "Dimbo";
-  color: #e6e152;
-  font-size: x-large;
-  letter-spacing: 0.8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.title-profile {
+  color:  rgb(230, 225, 82);
   cursor: pointer;
-  &:hover {
-    transform: scale(1.1);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  display: block;
+  width: 320px;
+  height: 132px;
+  text-align: center;
+  line-height: 97px;
+  font-size: xxx-large;
+  position: absolute;
+  top: -20px;
+}
+
+.progress-profile-achievements {
+  display: flex;
+
+  & .star-progress-profile {
+    background-image: url('../assets/interface/star-3.png');
+    width: 158px;
+    height: 84px;
+    background-size: cover;
   }
 }
 

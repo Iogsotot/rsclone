@@ -4,12 +4,16 @@ function whileLoad(element, imgUrl) {
   const loader = createElement('div', {
     classList: ['loader'],
   });
+
+  document.querySelector('.start-page')?.append(loader);
+  document.querySelector('body')?.append(element);
+
   const preloaderImg = document.createElement('img');
   preloaderImg.src = imgUrl;
 
   preloaderImg.addEventListener('load', () => {
     loader.remove();
-    element.classList.remove('hide');
+    element.children[0].classList.add('show-top');
   });
 }
 

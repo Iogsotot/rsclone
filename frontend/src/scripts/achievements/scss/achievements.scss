@@ -1,4 +1,6 @@
-@import '../scss/popap.achievements';
+@import './popap.achievements';
+@import './popap.achievements.rating';
+@import './popap.achievements.profile';
 
 .achievements-icon {
   background-image: url('../assets/achievements/achievements_icon.jpg.png');
