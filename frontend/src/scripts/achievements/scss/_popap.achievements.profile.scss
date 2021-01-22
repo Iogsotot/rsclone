@@ -22,14 +22,16 @@
   cursor: auto;
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  bottom: 100%;
+  padding: 112px 30px 20px 30px;
   transition: all .5s ease-out;
   font-family: "Dimbo";
   color: #e6e152;
   font-size: x-large;
   letter-spacing: 0.8px;
+  bottom: 100%;
 }
 
 .close-profile-popup {
@@ -69,12 +71,68 @@
 
 .progress-profile-achievements {
   display: flex;
+  width: 100%;
+  justify-content: space-between;
 
   & .star-progress-profile {
     background-image: url('../assets/interface/star-3.png');
-    width: 158px;
-    height: 84px;
+    width: 90px;
+    height: 50px;
     background-size: cover;
+    align-self: center;
+  }
+
+  & .info-progress-profile {
+    & .progress-profile-bar {
+      background-image: url('../assets/auth/progress-bar.png');
+      width: 425px;
+      height: 36px;
+      background-size: contain;
+      padding: 7px;
+      border-radius: 18px;
+
+      & .progress-profile-line {
+          fill: #FFC107;
+          transition: fill .3s ease;
+          border-radius: 15px;
+          
+          text {
+            fill: #352824;
+          }
+      }
+    }
+  }
+}
+
+.icons-profile-achievements {
+  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  width: 540px;
+  height: 204px;
+  background-size: contain;
+  padding: 35px 30px;
+  display: flex;
+
+  & .icons-profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+
+    & .icon-achievements {
+      width: 60px;
+      height: 60px;
+      padding: 3px;
+      box-sizing: border-box;
+      background-image: url('../assets/auth/achievements-btn.png');
+      background-size: 500px;
+    }
+  
+    & .completeWin { background-position-x: 438px; }
+    & .firstBlood { background-position-x: calc(500px - 125px); }
+    & .GreatDefender { background-position-x: 312px; }
+    & .IronDefender { background-position-x: 249px; }
+    & .killer { background-position-x: 186px; }
+    & .seller { background-position-x: 124px; }
+    & .builder { background-position-x: 63px; }
   }
 }
 

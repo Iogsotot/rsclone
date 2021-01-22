@@ -7,6 +7,7 @@ function popapProfileCreate(stats) {
   const arrayStats = Object.entries(stats.achievements);
   const allStats = Object.values(stats.achievements);
   const gotStats = allStats.filter((property) => property);
+  const percent = ((allStats.length - gotStats.length) / allStats.length) * 100;
 
   const popup = createElement('div', {
     classList: ['popup-profile-wrapper'],
@@ -16,18 +17,28 @@ function popapProfileCreate(stats) {
         <div class="close-profile-popup"></div>
         <div class="progress-profile-achievements">
           <div class="star-progress-profile"></div>
-          <div>
+          <div class="info-progress-profile">
             <div class="progress-profile-text">
-              You got ${gotStats.length} achievements out of ${allStats.length}.
+              You got ${gotStats.length} achievements out of ${allStats.length}! (${100 - percent}%)
             </div>
-            <div class="progress-profile-bar">
-              <progress
-                max="${allStats.length}"
-                value="${gotStats.length}"
-              >
-              </progress>
-            </div>
+            <svg class="progress-profile-bar">
+              <g class="progress-profile-line">
+                <rect width="${100 - percent}%" height="100%"></rect>
+              </g>
+            </svg>
           </div>
+        </div>
+        <div class="icons-profile-achievements">
+          <div class="icons-profile">
+          ${arrayStats
+            .map(([key, value]) => {
+              const opacity = value ? 1 : .4;
+
+              return `
+                <div class="icon-achievements ${key}" style="opacity: ${opacity};"></div>
+              `;
+            }).join(' ')}
+          <div>
         </div>
       </div>
     `,
