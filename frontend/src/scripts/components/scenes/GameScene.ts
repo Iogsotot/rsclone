@@ -1,19 +1,15 @@
 import 'phaser';
-import { map1 } from '../../constants/maps';
 import { MapLevel } from '../map/MapLevel';
-import Scorpio from '../unit/Scorpio';
-import WizardBlack from "../unit/WizardBlack";
-import LittleOrc from "../unit/LittleOrc";
 import EnemyFactory from '../unit/EnemyFactory';
+import { levelsConfig } from '../../constants/constants'
 
-import Tower from '../tower/Tower';
+// import Tower from '../tower/Tower';
 import { AUTO, GameObjects, NONE } from 'phaser';
 
-// import { AUTO } from 'phaser';
 
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
-import WinModal from '../modal/WinModal';
+// import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
@@ -138,6 +134,39 @@ export default class GameScene extends Phaser.Scene {
     this.state.saveToLocalStorage();
   }
 
+  produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
+    let enemiesProduced: number = 0;
+    let currentWaveEnemies: {string, number} = levelsConfig[`level_${this.state.level}`].waves[`wave_${currentWave}`].enemies;
+    for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
+      for (let i = 0; i < enemiesNumber; i++) {
+        const enemy = factory.create(enemyType, this.map.createWay());
+        const delay = i*300;
+        enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
+        console.log(enemy.pathConfig);
+        this.physics.add.existing(enemy);
+        this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
+        this.enemiesGroup.add(enemy);
+      }
+      enemiesProduced += enemiesNumber;
+    }
+    return enemiesProduced;
+  }
+
+  createWaveTimer(factory: EnemyFactory, wavesCount: number) {
+    let currentWave = 1;
+    this.time.addEvent({
+      delay: 3000,
+      callback: () => {
+        currentWave += 1;
+        if (currentWave <= wavesCount) {
+          this.produceWaveEnemies(factory, currentWave);
+        }
+      },
+      repeat: wavesCount - 1,
+      callbackScope: this,
+    })
+  }
+
   create(data: any): void {
     this.setScene(data);
     this.map.create();
@@ -146,32 +175,15 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
 
-    let enemies: Enemy[] = [];
+    // объявляю массив Enemy
+    // let enemies: Enemy[] = [];
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
-    const firstWave = [
-      factory.create('scorpio',
-        this.map.createWay()).setScale(0.75).startFollow(
-          { delay: 0, duration: 55000, rotateToPath: true }),
-      factory.create('littleOrc',
-        this.map.createWay()).setScale(0.25).startFollow({
-          delay: 0, duration: 70000, rotateToPath: true
-        }),
-      factory.create('wizardBlack',
-        this.map.createWay()).setScale(0.3).startFollow({
-          delay: 0, duration: 65000, rotateToPath: true
-        }),
-      factory.create('scorpio',
-        this.map.createWay()).setScale(0.75).startFollow({
-          delay: 5, duration: 55000, rotateToPath: true
-        }),
-    ]
+    this.produceWaveEnemies(factory, 1);
+    const wavesCount = Object.keys(levelsConfig[`level_${this.state.level}`].waves).length;
+    console.log(wavesCount);
+    this.createWaveTimer(factory, wavesCount);
 
-    firstWave.forEach(enemy => {
-      this.physics.add.existing(enemy);
-      this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
-      this.enemiesGroup.add(enemy);
-    });
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
