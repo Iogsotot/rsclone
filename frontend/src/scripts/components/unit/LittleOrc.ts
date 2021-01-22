@@ -11,5 +11,6 @@ export default class LittleOrc extends Enemy {
     this.hp = 50 * difficultyCoeff;
     this.physicalArmor = 5 * difficultyCoeff;
     this.killReward = 5;
+    this.setScale(0.25);
   }
 }

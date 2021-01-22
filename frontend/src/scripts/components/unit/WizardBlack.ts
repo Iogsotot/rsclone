@@ -11,5 +11,6 @@ export default class WizardBlack extends Enemy {
     this.hp = 135 * difficultyCoeff;
     this.magicArmor = 100 * difficultyCoeff;
     this.killReward = 5;
+    this.setScale(0.3);
   }
 }

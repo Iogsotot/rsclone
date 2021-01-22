@@ -11,5 +11,6 @@ export default class Scorpio extends Enemy {
     this.hp = 200 * difficultyCoeff;
     this.physicalArmor = 50 * difficultyCoeff;
     this.killReward = 15;
+    this.setScale(0.75);
   }
 }
