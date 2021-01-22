@@ -53,7 +53,6 @@
 
 .title-profile {
   color:  rgb(230, 225, 82);
-  cursor: pointer;
   font-family: "Dimbo";
   letter-spacing: 1px;
   margin: 0 20px;
@@ -111,11 +110,20 @@
   background-size: contain;
   padding: 35px 30px;
   display: flex;
+  flex-direction: column;
+
+  & .completeWin { background-position-x: 438px; }
+  & .firstBlood { background-position-x: calc(500px - 125px); }
+  & .GreatDefender { background-position-x: 312px; }
+  & .IronDefender { background-position-x: 249px; }
+  & .killer { background-position-x: 186px; }
+  & .seller { background-position-x: 124px; }
+  & .builder { background-position-x: 63px; }
 
   & .icons-profile {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-end;
+    height: 60px;
 
     & .icon-achievements {
       width: 60px;
@@ -124,20 +132,57 @@
       box-sizing: border-box;
       background-image: url('../assets/auth/achievements-btn.png');
       background-size: 500px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+      }
     }
-  
-    & .completeWin { background-position-x: 438px; }
-    & .firstBlood { background-position-x: calc(500px - 125px); }
-    & .GreatDefender { background-position-x: 312px; }
-    & .IronDefender { background-position-x: 249px; }
-    & .killer { background-position-x: 186px; }
-    & .seller { background-position-x: 124px; }
-    & .builder { background-position-x: 63px; }
+  }
+
+  & .icon-profile-info {
+    background-image: url('../assets/auth/field.png');
+    width: 100%;
+    height: 65px;
+    background-size: contain;
+    margin-top: 7px;
+    padding: 2px;
+
+    & .wrapper-icon-achievements-info {
+      position: absolute;
+      align-items: center;
+
+      & .icon-achievements-info {
+        width: 60px;
+        height: 60px;
+        padding: 3px;
+        box-sizing: border-box;
+        background-image: url('../assets/auth/achievements-btn.png');
+        background-size: 500px;
+      }
+
+      & .icon-achievements-info-descriptions {
+        padding: 0 0 0 20px;
+      }
+    }
   }
 }
 
-.hide {
-  display: none;
+.all-achievements-button {
+  background-image: url('../assets/auth/btn.png');
+  width: 140px;
+  height: 70px;
+  background-size: cover;
+  position: absolute;
+  bottom: -36px;
+  right: 36px;
+  text-align: center;
+  line-height: 70px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .show-top {

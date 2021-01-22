@@ -1,5 +1,6 @@
 import createElement from '../auth/utils/createElement';
 import whileLoad from '../auth/utils/wait.while.loading';
+import popapProfileAllCreate from './create.popap.profile.all';
 
 function popapProfileCreate(stats) {
   console.log('stat user:', stats);
@@ -8,6 +9,7 @@ function popapProfileCreate(stats) {
   const allStats = Object.values(stats.achievements);
   const gotStats = allStats.filter((property) => property);
   const percent = ((allStats.length - gotStats.length) / allStats.length) * 100;
+  const achievement: Array<string> = [];
 
   const popup = createElement('div', {
     classList: ['popup-profile-wrapper'],
@@ -32,14 +34,29 @@ function popapProfileCreate(stats) {
           <div class="icons-profile">
           ${arrayStats
             .map(([key, value]) => {
-              const opacity = value ? 1 : .4;
-
-              return `
-                <div class="icon-achievements ${key}" style="opacity: ${opacity};"></div>
-              `;
+              if (!value) {
+                achievement.push(
+                  `
+                  <div class="wrapper-icon-achievements-info hide">
+                    <div class="icon-achievements-info ${key}"></div>
+                    <div class='icon-achievements-info-descriptions'>${key}</div>
+                  </div>
+                  `
+                );
+  
+                return `
+                  <div class="icon-achievements ${key}"></div>
+                `;
+              } else {
+                return '';
+              }
             }).join(' ')}
-          <div>
+          </div>
+          <div class="icon-profile-info">
+            ${achievement.join(' ')}
+          </div>
         </div>
+        <div class="all-achievements-button">all</div>
       </div>
     `,
     onclick: ({ target }) => {
@@ -48,6 +65,25 @@ function popapProfileCreate(stats) {
       }
       if (target.classList.contains('close-profile-popup')) {
         popup.remove();
+      }
+      if (target.classList.contains('icon-achievements')) {
+        const [ , need] = target.classList;
+        const iconsInfo = document.querySelectorAll('.wrapper-icon-achievements-info');
+
+        iconsInfo.forEach((el) => {
+          const needInfo = el.children[0].classList[1];
+          if (need === needInfo) {
+            el.classList.remove('hide');
+            el.classList.add('flex-for-achevements');
+          } else {
+            el.classList.add('hide');
+            el.classList.remove('flex-for-achevements');
+          }
+        });
+      }
+      if (target.classList.contains('all-achievements-button')) {
+        popup.remove();
+        popapProfileAllCreate(arrayStats);
       }
     },
   });

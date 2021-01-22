@@ -3,7 +3,7 @@ import whileLoad from '../auth/utils/wait.while.loading';
 
 function popapRatingCreate(stats) {
   const popup = createElement('div', {
-    classList: ['popup-rating-wrapper', 'hide'],
+    classList: ['popup-rating-wrapper'],
     innerHTML: `
       <div class="popup-rating-content">
         <div class="close-rating-popup"></div>
@@ -13,7 +13,7 @@ function popapRatingCreate(stats) {
       if (target.classList.contains('popup-rating-wrapper')) {
         popup.remove();
       }
-      if (target.classList.contains('popup-rating-wrapper')) {
+      if (target.classList.contains('close-rating-popup')) {
         popup.remove();
       }
     },
