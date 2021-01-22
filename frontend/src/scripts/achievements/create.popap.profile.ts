@@ -34,7 +34,7 @@ function popapProfileCreate(stats) {
           <div class="icons-profile">
           ${arrayStats
             .map(([key, value]) => {
-              if (!value) {
+              if (value) {
                 achievement.push(
                   `
                   <div class="wrapper-icon-achievements-info hide">

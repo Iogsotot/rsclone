@@ -6,6 +6,7 @@ function popapRatingCreate(stats) {
     classList: ['popup-rating-wrapper'],
     innerHTML: `
       <div class="popup-rating-content">
+        <div class="title-rating">Overall rating</div>
         <div class="close-rating-popup"></div>
       </div>
     `,
