@@ -136,6 +136,7 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
 
+
     let enemies: Enemy[] = [];
 
     for (let i = 0; i < 20; i++) {
@@ -196,10 +197,11 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // устанавливает взаимодействие пуль и мобов
-    for (let i = 0; i < this.towers.length; i += 1) {
-      this.towers[i].setEnemies(this.enemiesGroup);
-      this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
-    }
+    this.towers.forEach((tower: Tower) => {
+        tower.setEnemies(this.enemiesGroup);
+        this.physics.add.overlap(this.enemiesGroup, tower.getMissiles(), tower.fire);
+        
+    })
     const gateGroup = this.physics.add.existing(this.gate);
   }
 
@@ -211,7 +213,10 @@ export default class GameScene extends Phaser.Scene {
   update(time) {
     this.gate.rotation += 0.003;
     this.towers.forEach((tower: any) => {
-      tower.update(time)
+      tower.update(time);
+      tower.setGold(this.gold);
+      this.gold = tower.getGold();
     })
+    console.log(this.gold)
   }
 }

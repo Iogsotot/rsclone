@@ -54,7 +54,7 @@ export class MapLevel extends Map {
         tower.placeField();
         towers.push(tower);
         tower.on('pointerdown',() => tower.choiceTower(), this);
-        tower.setActive(false);
+        // tower.setActive(false);
       })
       return towers;
   }
