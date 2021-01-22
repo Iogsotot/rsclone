@@ -21,6 +21,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   async preload() {
+    this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
+    
     this.barContainer = this.add.graphics();
     this.progressBar = this.add.graphics();
     this.preloader()
@@ -28,8 +30,6 @@ export default class PreloadScene extends Phaser.Scene {
     const userId = localStorage.getItem('id');
     this.registry.set('stats', getPlayerStatsFromServer(userId));
     
-    // const asd = await this.load.image('load-bar-bg', './assets/interface/load_bar_bg.png');
-    // const qwe = await this.add.image(0, 0, 'load-bar-bg').setOrigin(0.5, 0.5)
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
@@ -172,7 +172,7 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preloader() {
-    const containerCoordinates = [this.cameras.main.centerX / 4, this.cameras.main.centerY]
+    const containerCoordinates = [this.cameras.main.centerX / 4, this.cameras.main.centerY * 1.7]
     const barCoordinates = [containerCoordinates[0] + 10, containerCoordinates[1] + 10]
     const containerSizes = [this.cameras.main.centerX * 1.5, 60]
     const barSizes = [containerSizes[0] - 20, containerSizes[1] - 20]
@@ -188,9 +188,9 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.loaderText = this.add.text(
       this.cameras.main.centerX,
-      containerCoordinates[1] * 1.5,
+      containerCoordinates[1] - containerSizes[1],
       'Loading 0%',
-      { fontFamily: 'Dimbo', fontSize: '150px', color: 'red' }
+      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
 
@@ -212,6 +212,13 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.containerSizes[1],
       barConfig.containerBorderRadius
     )
+
+    this.load.on('filecomplete-image-kingdom-rush-bg', () => {
+      const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'kingdom-rush-bg')
+      bg.displayHeight = +this.sys.game.config.height  
+      bg.scaleX = bg.scaleY
+      bg.depth = -10
+    });
 
     this.load.on('progress', (value: number) => this.drawProgressBar(barConfig, value));
   }
@@ -246,7 +253,7 @@ export default class PreloadScene extends Phaser.Scene {
       }
     )
     
-    this.loaderText.setColor(`#${color.toString(16)}`)
-    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
+    // this.loaderText.setColor(`#${color.toString(16)}`)
+    this.loaderText.setText(`Загрузка ${(coefficient * 100).toFixed()}%`)
   }
 }
