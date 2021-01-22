@@ -1,5 +1,6 @@
 import createElement from './createElement';
 import getAttendance from '../backend/getAttendance';
+import { KEY_TOKEN } from '../../constants/constants';
 
 function createStartPage() {
   const startPage = createElement(
@@ -23,7 +24,7 @@ function createStartPage() {
   const logout = createElement('div', {
     classList: ['logout-game'],
     onclick: () => {
-      localStorage.removeItem('token');
+      localStorage.removeItem(KEY_TOKEN);
       window.location.reload();
     },
   });

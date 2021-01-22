@@ -1,0 +1,190 @@
+.popup-profile-wrapper {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.popup-profile-content {
+  background-image: url('../assets/modal-bg/start-modal-bg.png');
+  width: 600px;
+  height: 423px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  cursor: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 112px 30px 20px 30px;
+  transition: all .5s ease-out;
+  font-family: "Dimbo";
+  color: #e6e152;
+  font-size: x-large;
+  letter-spacing: 0.8px;
+  bottom: 100%;
+}
+
+.close-profile-popup {
+  background-image: url('../assets/interface/button_close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.title-profile {
+  color:  rgb(230, 225, 82);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  display: block;
+  width: 320px;
+  height: 132px;
+  text-align: center;
+  line-height: 97px;
+  font-size: xxx-large;
+  position: absolute;
+  top: -20px;
+}
+
+.progress-profile-achievements {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+
+  & .star-progress-profile {
+    background-image: url('../assets/interface/star-3.png');
+    width: 90px;
+    height: 50px;
+    background-size: cover;
+    align-self: center;
+  }
+
+  & .info-progress-profile {
+    & .progress-profile-bar {
+      background-image: url('../assets/auth/progress-bar.png');
+      width: 425px;
+      height: 36px;
+      background-size: contain;
+      padding: 7px;
+      border-radius: 18px;
+
+      & .progress-profile-line {
+          fill: #FFC107;
+          transition: fill .3s ease;
+          border-radius: 15px;
+          
+          text {
+            fill: #352824;
+          }
+      }
+    }
+  }
+}
+
+.icons-profile-achievements {
+  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  width: 540px;
+  height: 204px;
+  background-size: contain;
+  padding: 35px 30px;
+  display: flex;
+  flex-direction: column;
+
+  & .completeWin { background-position-x: 438px; }
+  & .firstBlood { background-position-x: calc(500px - 125px); }
+  & .GreatDefender { background-position-x: 312px; }
+  & .IronDefender { background-position-x: 249px; }
+  & .killer { background-position-x: 186px; }
+  & .seller { background-position-x: 124px; }
+  & .builder { background-position-x: 63px; }
+
+  & .icons-profile {
+    display: flex;
+    flex-wrap: wrap;
+    height: 60px;
+
+    & .icon-achievements {
+      width: 60px;
+      height: 60px;
+      padding: 3px;
+      box-sizing: border-box;
+      background-image: url('../assets/auth/achievements-btn.png');
+      background-size: 500px;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  & .icon-profile-info {
+    background-image: url('../assets/auth/field.png');
+    width: 100%;
+    height: 65px;
+    background-size: contain;
+    margin-top: 7px;
+    padding: 2px;
+
+    & .wrapper-icon-achievements-info {
+      position: absolute;
+      align-items: center;
+
+      & .icon-achievements-info {
+        width: 60px;
+        height: 60px;
+        padding: 3px;
+        box-sizing: border-box;
+        background-image: url('../assets/auth/achievements-btn.png');
+        background-size: 500px;
+      }
+
+      & .icon-achievements-info-descriptions {
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+}
+
+.all-achievements-button {
+  background-image: url('../assets/auth/btn.png');
+  width: 140px;
+  height: 70px;
+  background-size: cover;
+  position: absolute;
+  bottom: -36px;
+  right: 36px;
+  text-align: center;
+  line-height: 70px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.show-top {
+  bottom: 0;
+}

@@ -1,0 +1,68 @@
+.popup-rating-wrapper {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.popup-rating-content {
+  background-image: url('../assets/modal-bg/start-modal-bg.png');
+  width: 557px;
+  height: 394px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  cursor: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 112px 30px 50px 30px;
+  transition: all .5s ease-out;
+  font-family: "Dimbo";
+  color: #FFC107;
+  font-size: x-large;
+  letter-spacing: 0.8px;
+  bottom: 100%;
+}
+
+.close-rating-popup {
+  background-image: url('../assets/interface/button_close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.title-rating {
+  color:  rgb(230, 225, 82);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  width: 207px;
+  height: 85px;
+  text-align: center;
+  line-height: 59px;
+  font-size: xx-large;
+  position: absolute;
+  top: -20px;
+}

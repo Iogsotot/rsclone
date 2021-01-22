@@ -1,0 +1,71 @@
+.popup-achievements-wrapper {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.popup-achievements-content {
+  background-image: url('../assets/auth/achievement_board.png');
+  width: 557px;
+  height: 250px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  display: flex;
+  cursor: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 100%;
+  transition: all .5s ease-out;
+}
+
+.close-achievements-popup {
+  background-image: url('../assets/interface/button_close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.achievements-content-profile-button,
+.achievements-content-rating-button {
+  background-image: url('../assets/auth/btn.png');
+  width: 158px;
+  height: 84px;
+  background-size: cover;
+  margin: 0 40px;
+  font-family: "Dimbo";
+  color: #e6e152;
+  font-size: x-large;
+  letter-spacing: 0.8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.show-top {
+  bottom: 0;
+}
