@@ -4,14 +4,14 @@ import LittleOrc from "./LittleOrc";
 
 export default class EnemyFactory {
   context: any;
-  path: any;
+  // path: any;
   x: number;
   y: number;
   props: object;
 
-  constructor(context, path, x, y) {
+  constructor(context, x, y) {
     this.context = context; 
-    this.path = path;
+    // this.path = path;
     this.x = x;
     this.y = y;
   }
@@ -21,9 +21,9 @@ export default class EnemyFactory {
     littleOrc: LittleOrc,
   }
 
-  create(type = 'littleOrc') {
+  create(type = 'littleOrc', path) {
     const EnemyUnit = EnemyFactory.list[type];
-    const enemy = new EnemyUnit(this.context, this.path, this.x, this.y);
+    const enemy = new EnemyUnit(this.context, path, this.x, this.y);
     // console.log(enemy);
     return enemy;
   }
