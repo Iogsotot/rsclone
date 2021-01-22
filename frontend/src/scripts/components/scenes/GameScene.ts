@@ -4,6 +4,7 @@ import { MapLevel } from '../map/MapLevel';
 import Scorpio from '../unit/Scorpio';
 import WizardBlack from "../unit/WizardBlack";
 import LittleOrc from "../unit/LittleOrc";
+import EnemyFactory from '../unit/EnemyFactory';
 
 import Tower from '../tower/Tower';
 import { AUTO, GameObjects, NONE } from 'phaser';
@@ -50,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
     // console.log(this.state);
     this.gold = this.state.config.startingGold;
     this.setPlayersLives();
-    console.log(this.playerLives);
+    // console.log(this.playerLives);
     // this.playerLives 
     // console.log(this.gold);
 
@@ -75,9 +76,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onEnemyCrossing(enemy) {
+    //destroy enemy
+    // console.log(enemy instanceof Enemy)
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
+      // this.passedEnemies - количество врагов, прошедших через ворота
+      console.log(this.passedEnemies);
       this.playerLives -= 1;
+      console.log(this.playerLives);
+      setTimeout(() => {
+        enemy.destroy();
+      }, 3000);
       if (this.playerLives <= 0) {
         this.defeat()
       }
@@ -90,6 +99,7 @@ export default class GameScene extends Phaser.Scene {
 
   defeat() {
     this.updateGameStatsInLocalStorage("lose");
+    // console.log(Enemy);
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
@@ -118,9 +128,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   updateGameStatsInLocalStorage(result = "playing") {
-    this.state.updateCurrentGameStats({ 
-      levelResult: result, 
-      levelProgress: result == 'win' ? this.calculateLevelStars() : 0, 
+    this.state.updateCurrentGameStats({
+      levelResult: result,
+      levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
       builtTowers: 0,  // сюда должно передаваться кол-во построенных башен 
       soldTowers: 0,  // сюда должно передаваться кол-во проданных башен
       killedEnemies: 0,  // сюда должно передаваться кол-во убитых врагов
@@ -137,29 +147,74 @@ export default class GameScene extends Phaser.Scene {
     this.createGate();
 
     let enemies: Enemy[] = [];
+    // const way = this.map.createWay();
+    // поправить way - он должен заного вызываться для каждого инстанса врага
+    // починить добавлнеие в группу
+    const factory = new EnemyFactory(this, this.map.createWay(), this.firstPointX, this.firstPointY);
 
-    for (let i = 0; i < 20; i++) {
-      const way = this.map.createWay();
-      const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.75);
-      const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
-      const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.25);
+    const firstWave = [
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 0, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 0, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 0, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 5, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 50, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 50, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 100, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 100, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 100, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 150, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 150, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 150, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 200, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 200, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 200, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 250, duration: 55000, rotateToPath: true }),
+      factory.create('littleOrc').setScale(0.25).startFollow({ delay: 250, duration: 70000, rotateToPath: true }),
+      factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 250, duration: 65000, rotateToPath: true }),
+      factory.create('scorpio').setScale(0.75).startFollow({ delay: 300, duration: 55000, rotateToPath: true }),
+      // factory.create('littleOrc').setScale(0.25).startFollow({ delay: 0, duration: 70000, rotateToPath: true }),
+      // factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 4000, duration: 65000, rotateToPath: true }),
+      // factory.create('scorpio').setScale(0.75).startFollow({ delay: 1000, duration: 55000, rotateToPath: true }),
+      // factory.create('littleOrc').setScale(0.25).startFollow({ delay: 2000, duration: 70000, rotateToPath: true }),
+      // factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 4000, duration: 65000, rotateToPath: true }),
+      // factory.create('scorpio').setScale(0.75).startFollow({ delay: 1000, duration: 55000, rotateToPath: true }),
+      // factory.create('littleOrc').setScale(0.25).startFollow({ delay: 2000, duration: 70000, rotateToPath: true }),
+      // factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 4000, duration: 65000, rotateToPath: true }),
+      // factory.create('scorpio').setScale(0.75).startFollow({ delay: 1000, duration: 55000, rotateToPath: true }),
+      // factory.create('littleOrc').setScale(0.25).startFollow({ delay: 2000, duration: 70000, rotateToPath: true }),
+      // factory.create('wizardBlack').setScale(0.3).startFollow({ delay: 4000, duration: 65000, rotateToPath: true }),
+    ]
 
-      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
-      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+    firstWave.forEach(enemy => {
+      // console.log(enemy);
+      this.physics.add.existing(enemy);
+      this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
+      this.enemiesGroup.add(enemy);
+      // console.log(this.enemiesGroup);
+    });
 
-      // enemies.push(scorpio, wizardBlack, littleOrc)
-      this.physics.add.existing(scorpio);
-      this.physics.add.existing(wizardBlack);
-      this.physics.add.existing(littleOrc);
-      this.physics.add.overlap(scorpio, this.gate, this.onEnemyCrossing, undefined, this);
-      this.physics.add.overlap(wizardBlack, this.gate, this.onEnemyCrossing, undefined, this);
-      this.physics.add.overlap(littleOrc, this.gate, this.onEnemyCrossing, undefined, this);
+    // for (let i = 0; i < 20; i++) {
+    // const way = this.map.createWay();
+    // const scorpio = new Scorpio(this, way, this.firstPointX, this.firstPointY).setScale(0.75);
+    // const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
+    // const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.25);
 
-      this.enemiesGroup.add(scorpio);
-      this.enemiesGroup.add(wizardBlack);
-      this.enemiesGroup.add(littleOrc);
-    }
+    // wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
+    // scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
+    // littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+
+
+    // this.physics.add.existing(scorpio);
+    // this.physics.add.existing(wizardBlack);
+    // this.physics.add.existing(littleOrc);
+    // this.physics.add.overlap(scorpio, this.gate, this.onEnemyCrossing, undefined, this);
+    // this.physics.add.overlap(wizardBlack, this.gate, this.onEnemyCrossing, undefined, this);
+    // this.physics.add.overlap(littleOrc, this.gate, this.onEnemyCrossing, undefined, this);
+
+    // this.enemiesGroup.add(scorpio);
+    // this.enemiesGroup.add(wizardBlack);
+    // this.enemiesGroup.add(littleOrc);
+    // }
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
