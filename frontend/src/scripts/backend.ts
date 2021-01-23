@@ -1,5 +1,6 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
+import { KEY_TOKEN, KEY_ID } from './constants/constants';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -30,16 +31,16 @@ async function signIn(user) {
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
 
-      localStorage.setItem('id', id);
+      localStorage.setItem(KEY_ID, id);
       if (checked) {
-        localStorage.setItem('token', token);
+        localStorage.setItem(KEY_TOKEN, token);
       }
 
       const isStats = await getCurrentPlayerStats({ id, token });
       console.log('isStats:', isStats);
 
       if (!isStats.ok) {
-        createStats({ id, token });
+        createStats({ id, token, login });
       } else {
         const isUpdate = await setCurrentPlayerStats({
           id,
@@ -49,10 +50,8 @@ async function signIn(user) {
         console.log('isUpdate:', isUpdate);
       }
 
-      setTimeout(() => {
-        createStartPage();
-        document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
-      }, 300);
+      createStartPage();
+      document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;
       form.reset();
@@ -71,7 +70,7 @@ async function getCurrentPlayerStats({ id, token }) {
       'Content-Type': 'application/json',
     },
   });
-  return await response.json();
+  return response.json();
 }
 
 // main function for update stat
@@ -88,7 +87,7 @@ async function setCurrentPlayerStats({ id, token, body }) {
   return response.json();
 }
 
-async function createStats({ id, token }) {
+async function createStats({ id, token, login }) {
   const url = `${SERVER}/users/${id}/stats`;
   const options = {
     method: 'POST',
@@ -97,7 +96,7 @@ async function createStats({ id, token }) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: id }),
+    body: JSON.stringify({ userId: id, login }),
   };
 
   const response = await fetch(url, options);

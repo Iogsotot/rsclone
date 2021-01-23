@@ -1,0 +1,21 @@
+@import './popap.achievements';
+@import './popap.achievements.rating';
+@import './popap.achievements.profile';
+@import './popap.achievements.profile.all';
+
+.achievements-icon {
+  background-image: url('../assets/achievements/achievements_icon.jpg.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 70px;
+  height: 70px;
+  position: fixed;
+  margin: 10px;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
