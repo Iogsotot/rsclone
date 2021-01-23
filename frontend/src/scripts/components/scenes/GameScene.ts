@@ -57,8 +57,6 @@ export default class GameScene extends Phaser.Scene {
     // console.log(this.playerLives);
     // this.playerLives 
     // console.log(this.gold);
-
-    this.setLevelStateText();
   }
 
   setPlayersLives() {
@@ -96,10 +94,6 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  setLevelStateText() {
-
-  }
-
   defeat() {
     this.isDefeat = true;
     this.updateGameStatsInLocalStorage("lose");
@@ -117,17 +111,18 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene');
-    // TODO нужно зарезолвить промис
-    // await this.state.sendDataToBackend()
   }
 
   calculateLevelStars() {
     const playerLivesPercent = this.playerLives * 100 / 20;
     if (playerLivesPercent == 100) {
+      console.log('stars = 3');
       return 3;
     } else if (playerLivesPercent >= 50) {
+      console.log('stars = 2');
       return 2;
     }
+    console.log('stars = 1');
     return 1;
   }
 
@@ -137,7 +132,7 @@ export default class GameScene extends Phaser.Scene {
       levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
       builtTowers: 0,  // сюда должно передаваться кол-во построенных башен 
       soldTowers: 0,  // сюда должно передаваться кол-во проданных башен
-      killedEnemies: 0,  // сюда должно передаваться кол-во убитых врагов
+      killedEnemies: this.scene.scene.registry.list["deathCounter"],
     })
     this.state.saveToLocalStorage();
   }

@@ -1,3 +1,4 @@
+import { KEY_ID } from '../../constants/constants';
 import { map1, map2, map3 } from '../../constants/maps';
 import { getPlayerStatsFromServer } from '../stats/PlayerStats';
 
@@ -8,7 +9,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   async preload() {
 
-    const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem(KEY_ID);
     this.registry.set("stats", getPlayerStatsFromServer(userId));
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
@@ -141,7 +142,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
 
     try {
-      const userId = localStorage.getItem("id");
+      const userId = localStorage.getItem(KEY_ID);
       this.registry.set("stats", await getPlayerStatsFromServer(userId));
     } catch {
       console.log("Something gone wrong with getting stats from backend")
