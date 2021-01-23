@@ -13,7 +13,7 @@ import Button from '../button/Button';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
-import Enemy from '../unit/Enemy';
+// import Enemy from '../unit/Enemy';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -28,8 +28,11 @@ export default class GameScene extends Phaser.Scene {
   towers: Array<any>
   enemiesGroup: Phaser.GameObjects.Group;
   gold: number;
-  playerLives: number;
+  playerLives: number; 
   passedEnemies: GameObjects.Group[];
+  isDefeat: boolean;
+  enemiesProducedCounter: number;
+  deathCounter: number;
 
   constructor() {
     super('game-scene');
@@ -37,13 +40,17 @@ export default class GameScene extends Phaser.Scene {
 
   setScene(data) {
     this.state = new State(data.level, data.difficulty);
-    this.state.saveToLocalStorage(this.registry.get("stats").data)
+    this.state.saveToLocalStorage(this.registry.get("stats").data);
+    
     this.map = new MapLevel(this, this.state.config.map);
     this.passedEnemies = [];
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
     this.gatePointX = this.map.getFinishPointX();
     this.gatePointY = this.map.getFinishPointY();
+
+    this.isDefeat = false;
+    this.deathCounter = 0;
     // console.log(this.state);
     this.gold = this.state.config.startingGold;
     this.setPlayersLives();
@@ -94,6 +101,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   defeat() {
+    this.isDefeat = true;
     this.updateGameStatsInLocalStorage("lose");
     // console.log(Enemy);
 
@@ -142,7 +150,7 @@ export default class GameScene extends Phaser.Scene {
         const enemy = factory.create(enemyType, this.map.createWay());
         const delay = i*300;
         enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
-        console.log(enemy.pathConfig);
+        // console.log(enemy.pathConfig);
         this.physics.add.existing(enemy);
         this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
         this.enemiesGroup.add(enemy);
@@ -152,14 +160,37 @@ export default class GameScene extends Phaser.Scene {
     return enemiesProduced;
   }
 
+
+
+  createWinTimerChecker() {
+    this.time.addEvent({
+      delay: 1000,
+      callback: () => {
+        if (this.scene.scene.registry.list["deathCounter"] === this.enemiesProducedCounter - this.passedEnemies.length) {
+          this.win();
+        }
+        // console.log('tic');
+        // console.log("врагов прошло ворота: " + this.passedEnemies.length);
+        // console.log('врагов понаделано: ' +  this.enemiesProducedCounter);
+        // console.log('врагов убито: ' + this.scene.scene.registry.list["deathCounter"]);
+      },
+      loop: true,
+      callbackScope: this,
+    })
+  }
+
   createWaveTimer(factory: EnemyFactory, wavesCount: number) {
     let currentWave = 1;
     this.time.addEvent({
-      delay: 3000,
+      delay: 10000,
       callback: () => {
         currentWave += 1;
         if (currentWave <= wavesCount) {
-          this.produceWaveEnemies(factory, currentWave);
+          this.enemiesProducedCounter += this.produceWaveEnemies(factory, currentWave);
+        }
+        if (currentWave === wavesCount) {
+          // add new timer
+          this.createWinTimerChecker();
         }
       },
       repeat: wavesCount - 1,
@@ -168,6 +199,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
+    this.scene.scene.registry.set("deathCounter", 0);
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
@@ -179,9 +211,11 @@ export default class GameScene extends Phaser.Scene {
     // let enemies: Enemy[] = [];
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
-    this.produceWaveEnemies(factory, 1);
+    // запуск первой волны (надо сделать кнопку-триггер)
+    this.enemiesProducedCounter = 0;
+    this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
     const wavesCount = Object.keys(levelsConfig[`level_${this.state.level}`].waves).length;
-    console.log(wavesCount);
+    // console.log(wavesCount);
     this.createWaveTimer(factory, wavesCount);
 
 
