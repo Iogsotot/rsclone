@@ -11,7 +11,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   damageSpeed: number;
   moveSpeed: number;
   killReward: number;
-  alive: boolean;
+  isAlive: boolean;
   unitType: string;
 
   constructor(scene: Phaser.Scene, way: Phaser.Curves.Path, x: number, y: number, unitType: string, difficultyCoeff: number = 1) {
@@ -19,7 +19,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     scene.add.existing(this);
 
     this.unitType = unitType;
-    this.alive = true;
+    this.isAlive = true;
     this.hp = 100 * difficultyCoeff;
     this.physicalArmor = 10 * difficultyCoeff;
     this.magicArmor = 5 * difficultyCoeff;
@@ -39,10 +39,10 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
 
 // Этот метод вообще не нужен, как я понимаю. У меня все проверка происходит в tower.
 //   onEnemyClicked(damage) {
-//     if(this.alive === false) {
+//     if(this.isAlive === false) {
 //       return false;
 //     }
-//     else if(this.alive === true) {
+//     else if(this.isAlive === true) {
 //       this.takeDamage(damage);
 //     } 
 //   }
@@ -61,8 +61,11 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   die() {
-    if (this.alive) {
-      this.alive = false;
+    if (this.isAlive) {
+      let deathCounter = this.scene.registry.get("deathCounter");
+      deathCounter += 1;
+      this.scene.registry.set("deathCounter", deathCounter);
+      this.isAlive = false;
       this.pauseFollow();
       this.play({ key: `${this.unitType}_die`, repeat: 0});
       this.on('animationcomplete', this.despawn, this)
@@ -72,13 +75,13 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   despawn() {
     let stats = this.scene.registry.get("stats");
     stats.killedEnemies += 1;
-    this.scene.registry.set('stats', stats)
+    this.scene.registry.set('stats', stats);
     this.scene.time.delayedCall(5000, this.destroy, [], this)
   }
 
 
   // этот метод нужен чтобы утаскивать состояние enemy в tower. 
   getAlive() {
-      return this.alive
+      return this.isAlive
   }
 }
