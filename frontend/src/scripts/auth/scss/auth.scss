@@ -234,6 +234,12 @@ body {
       &:checked + label > .checkbox-image {
         background-image: url('../assets/auth/on.png');
       }
+      &:checked + label > .checkbox-text {
+        transform: scale(1.1);
+      }
+      &:checked + label > .checkbox-text:hover {
+        transform: scale(1);
+      }
     }
 
     & label {
@@ -247,8 +253,15 @@ body {
         height: 40px;
         background-image: url('../assets/auth/off.png');
         background-size: cover;
-        margin-right: 10px;
+        margin-right: 20px;
 
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+
+      & .checkbox-text {
+        transform: scale(1);
         &:hover {
           transform: scale(1.1);
         }
