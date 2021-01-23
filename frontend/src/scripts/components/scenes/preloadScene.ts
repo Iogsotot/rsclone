@@ -1,5 +1,6 @@
 import { map1, map2, map3 } from '../../constants/maps';
 import { getPlayerStatsFromServer } from '../stats/PlayerStats';
+import { KEY_ID } from '../../constants/constants';
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -26,9 +27,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.barContainer = this.add.graphics();
     this.progressBar = this.add.graphics();
     this.preloader()
-
-    const userId = localStorage.getItem('id');
-    this.registry.set('stats', getPlayerStatsFromServer(userId));
     
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
@@ -158,7 +156,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
 
     try {
-      const userId = localStorage.getItem('id');
+      const userId = localStorage.getItem(KEY_ID);
       this.registry.set('stats', await getPlayerStatsFromServer(userId));
     } catch {
       console.log('Something gone wrong with getting stats from backend');
@@ -167,7 +165,7 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
-    console.log('loading...');
+    // console.log('loading...');
     this.scene.start('LevelsScene');
   }
 
@@ -224,10 +222,13 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   drawProgressBar(barConfig: BarConfigs, value: number) {
-    // yellow 0xf4d133 0xde9b26
-    // red 0xe65540 0xc63f31
+    const yellowLight = 0xf4d133
+    const yellowDark = 0xde9b26
+    const redLight = 0xe65540
+    const redDark = 0xc63f31
+    
     const coefficient = value < 0.03 ? 0.03 : value
-    let color = coefficient > 0.85 ? 0xe65540 : 0xf4d133; 
+    let color = coefficient > 0.85 ? redLight : yellowLight; 
     this.progressBar.clear()
     this.progressBar.fillStyle(color)
     this.progressBar.fillRoundedRect(
@@ -238,7 +239,7 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.barBorderRadius,
     )
 
-    color = coefficient > 0.85 ? 0xc63f31 : 0xde9b26;
+    color = coefficient > 0.85 ? redDark : yellowDark;
     this.progressBar.fillStyle(color)
     this.progressBar.fillRoundedRect(
       barConfig.barCoordinates[0],
@@ -253,7 +254,6 @@ export default class PreloadScene extends Phaser.Scene {
       }
     )
     
-    // this.loaderText.setColor(`#${color.toString(16)}`)
-    this.loaderText.setText(`Загрузка ${(coefficient * 100).toFixed()}%`)
+    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
   }
 }
