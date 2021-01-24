@@ -72,15 +72,16 @@ export default class PlayerStats {
 }
 
 import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend'
+import { KEY_TOKEN } from '../../constants/constants';
 
 async function getPlayerStatsFromServer(userId): Promise<object> {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(KEY_TOKEN);
   const response = await getCurrentPlayerStats({ id: userId, token });
   return response
 }
 
 async function sendPlayerStatsToServer(userId, data): Promise<object> {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(KEY_TOKEN);
   const response = await setCurrentPlayerStats({ id: userId, token, body: data });
   return response
 }

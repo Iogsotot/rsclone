@@ -1,15 +1,16 @@
 import WinModal from '../modal/WinModal';
 
 export default class WinScene extends Phaser.Scene {
-  constructor() {
+  starsNumber: any;
+  constructor(starsNumber) {
     super({ key: 'win-scene' });
+    this.starsNumber = starsNumber;
   }
 
   preload() {}
 
-  create() {
-    const modal = new WinModal(this, 2);
-
+  create(data: any) {
+    const modal = new WinModal(this, data.starsNumber);
     modal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       this.scene.stop('game-scene');
       this.scene.start('LevelsScene');
