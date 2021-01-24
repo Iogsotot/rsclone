@@ -37,16 +37,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     console.log(`${this.unitType}_walk`);
   }
 
-// Этот метод вообще не нужен, как я понимаю. У меня все проверка происходит в tower.
-//   onEnemyClicked(damage) {
-//     if(this.isAlive === false) {
-//       return false;
-//     }
-//     else if(this.isAlive === true) {
-//       this.takeDamage(damage);
-//     } 
-//   }
-
   takeDamage(damage) {
     if(this.hp - damage < damage) {
       this.hp = 0;
@@ -57,7 +47,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
       
     }
-    // console.log(this.scene.registry.get('stats'));
   }
 
   die() {

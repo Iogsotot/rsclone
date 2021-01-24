@@ -151,7 +151,6 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
-    // console.log('loading...');
     this.scene.start('LevelsScene');
   }
 }

@@ -13,7 +13,6 @@ import Button from '../button/Button';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
-// import Enemy from '../unit/Enemy';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -51,12 +50,8 @@ export default class GameScene extends Phaser.Scene {
 
     this.isDefeat = false;
     this.deathCounter = 0;
-    // console.log(this.state);
     this.gold = this.state.config.startingGold;
     this.setPlayersLives();
-    // console.log(this.playerLives);
-    // this.playerLives 
-    // console.log(this.gold);
   }
 
   setPlayersLives() {
@@ -77,14 +72,10 @@ export default class GameScene extends Phaser.Scene {
   }
 
   onEnemyCrossing(enemy) {
-    //destroy enemy
-    // console.log(enemy instanceof Enemy)
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       // this.passedEnemies - количество врагов, прошедших через ворота
-      console.log(this.passedEnemies);
       this.playerLives -= 1;
-      console.log(this.playerLives);
       setTimeout(() => {
         enemy.destroy();
       }, 3000);
@@ -97,32 +88,26 @@ export default class GameScene extends Phaser.Scene {
   defeat() {
     this.isDefeat = true;
     this.updateGameStatsInLocalStorage("lose");
-    // console.log(Enemy);
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
     this.scene.launch('lose-scene');
-    // TODO нужно зарезолвить промис
-    // await this.state.sendDataToBackend()
   }
 
   win() {
     this.updateGameStatsInLocalStorage("win");
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
-    this.scene.launch('win-scene');
+    this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars()});
   }
 
   calculateLevelStars() {
     const playerLivesPercent = this.playerLives * 100 / 20;
     if (playerLivesPercent == 100) {
-      console.log('stars = 3');
       return 3;
     } else if (playerLivesPercent >= 50) {
-      console.log('stars = 2');
       return 2;
     }
-    console.log('stars = 1');
     return 1;
   }
 
@@ -145,7 +130,6 @@ export default class GameScene extends Phaser.Scene {
         const enemy = factory.create(enemyType, this.map.createWay());
         const delay = i*300;
         enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
-        // console.log(enemy.pathConfig);
         this.physics.add.existing(enemy);
         this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
         this.enemiesGroup.add(enemy);
@@ -164,10 +148,6 @@ export default class GameScene extends Phaser.Scene {
         if (this.scene.scene.registry.list["deathCounter"] === this.enemiesProducedCounter - this.passedEnemies.length) {
           this.win();
         }
-        // console.log('tic');
-        // console.log("врагов прошло ворота: " + this.passedEnemies.length);
-        // console.log('врагов понаделано: ' +  this.enemiesProducedCounter);
-        // console.log('врагов убито: ' + this.scene.scene.registry.list["deathCounter"]);
       },
       loop: true,
       callbackScope: this,
@@ -184,7 +164,6 @@ export default class GameScene extends Phaser.Scene {
           this.enemiesProducedCounter += this.produceWaveEnemies(factory, currentWave);
         }
         if (currentWave === wavesCount) {
-          // add new timer
           this.createWinTimerChecker();
         }
       },
@@ -202,8 +181,6 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
 
-    // объявляю массив Enemy
-    // let enemies: Enemy[] = [];
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
     // запуск первой волны (надо сделать кнопку-триггер)
@@ -220,7 +197,6 @@ export default class GameScene extends Phaser.Scene {
       this.gameObjStats.updateText(gameObject);
     });
 
-    // переделать координаты с хардкода на динамические
     const sceneCenter = [this.cameras.main.centerX, this.cameras.main.centerY];
 
     const pauseButton = new Button(this, 0, 0, 'pause-btn')
