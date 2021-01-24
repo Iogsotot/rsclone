@@ -20,6 +20,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     arrow: Phaser.GameObjects.Sprite;
     magic: Phaser.GameObjects.Sprite;
     bomb: Phaser.GameObjects.Sprite;
+    type: string;
 
     constructor(scene: Phaser.Scene, positionX: number, positionY: number) {
         super(scene, positionX, positionY, 'tower')
@@ -28,6 +29,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.setInteractive();
         this.isTowerBuilt = false;
         this.timeShot = 0;
+        this.type = ''
         
         this.isEnemyAlive;
         this.timeForNextShot = 1000
@@ -65,6 +67,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
         this.tower.play('tower_array_anim');
+        this.type = 'arrow';
         this.createStatsTower(15, 1000, 300);
         this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
     }
@@ -80,6 +83,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             repeat: -1
         });
         this.tower.play('tower_bomb_anim');
+        this.type = 'bomb';
         this.createStatsTower(25, 2500, 500);
         this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
     }
@@ -96,8 +100,13 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         });
         this.tower.setScale(1.2);
         this.tower.play('tower_magic_anim');
+        this.type = 'magic';
         this.createStatsTower(20, 1500, 350);
         this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
+    }
+
+    public getType() {
+        return this.type;
     }
 
     protected hideChoiceTower(): void {
