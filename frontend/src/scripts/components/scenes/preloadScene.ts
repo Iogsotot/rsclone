@@ -139,6 +139,15 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('easy-btn', './assets/interface/easy_btn.png');
     this.load.image('normal-btn', './assets/interface/normal_btn.png');
     this.load.image('hard-btn', './assets/interface/hard_btn.png');
+    // icons    
+    this.load.image('armor-icon', './assets/icons/armor.png');
+    this.load.image('arrow-icon', './assets/icons/arrows.png');
+    this.load.image('bomb-icon', './assets/icons/bomb.png');
+    this.load.image('damage-icon', './assets/icons/damage.png');
+    this.load.image('heart-icon', './assets/icons/heart.png');
+    this.load.image('magic-icon', './assets/icons/magic.png');
+    this.load.image('speed-icon', './assets/icons/speed.png');
+    this.load.image('speed2-icon', './assets/icons/speed2.png');
 
     try {
       const userId = localStorage.getItem("id");
