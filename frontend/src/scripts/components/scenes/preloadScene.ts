@@ -22,6 +22,8 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   async preload() {
+    const userId = localStorage.getItem(KEY_ID);
+    this.registry.set("stats", getPlayerStatsFromServer(userId));
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
     
     this.barContainer = this.add.graphics();
@@ -157,7 +159,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     try {
       const userId = localStorage.getItem(KEY_ID);
-      this.registry.set('stats', await getPlayerStatsFromServer(userId));
+      this.registry.set("stats", await getPlayerStatsFromServer(userId));
     } catch {
       console.log('Something gone wrong with getting stats from backend');
     }
@@ -165,7 +167,6 @@ export default class PreloadScene extends Phaser.Scene {
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
-    // console.log('loading...');
     this.scene.start('LevelsScene');
   }
 
