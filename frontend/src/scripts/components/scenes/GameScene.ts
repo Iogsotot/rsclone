@@ -17,6 +17,7 @@ import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
 import Enemy from '../unit/Enemy';
+import ObjStats from '../interface/ObjStats';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -165,6 +166,11 @@ export default class GameScene extends Phaser.Scene {
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
       this.gameObjStats.updateText(gameObject);
+    });
+
+    const stats = new ObjStats(this)
+    this.input.on('gameobjectdown', (pointer, gameObject, event) => {
+      stats.updateStats(gameObject);
     });
 
     // переделать координаты с хардкода на динамические
