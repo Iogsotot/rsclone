@@ -76,7 +76,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
   generate() {
     const fontStyles = { fontFamily: 'Dimbo', fontSize: '40px' };
 
-    this.objImg = this.scene.add.image(0, 0, '', 1).setOrigin(0.5);
+    this.objImg = this.scene.add.image(0, 0, '').setOrigin(0.5);
     this.nameText = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0.5);
 
     this.infoImg_1 = this.scene.add.image(0, 0, '').setOrigin(0.5, 0.5);
