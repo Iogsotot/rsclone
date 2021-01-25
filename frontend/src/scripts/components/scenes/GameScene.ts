@@ -173,6 +173,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
+    this.cameras.main.fadeIn(750, 0, 0, 0)
     this.scene.scene.registry.set("deathCounter", 0);
     this.setScene(data);
     this.map.create();

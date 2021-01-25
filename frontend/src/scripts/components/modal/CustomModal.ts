@@ -43,20 +43,20 @@ export default class CustomModal extends Modal {
       .setOrigin(0, 1);
   }
 
-  slideIn(scene: Phaser.Scene) {
-    scene.tweens.add({
+  slideIn() {
+    this.scene.tweens.add({
       targets: this,
-      y: { start: -scene.cameras.main.centerY, to: +scene.cameras.main.centerY },
+      y: { start: -this.scene.cameras.main.centerY, to: +this.scene.cameras.main.centerY },
       ease: 'Cubic.Out',
       repeat: 0,
       duration: 500,
     });
   }
   
-  slideOut(scene: Phaser.Scene) {
-    scene.tweens.add({
+  slideOut() {
+    this.scene.tweens.add({
       targets: this,
-      y: { start: scene.cameras.main.centerY, to: -scene.cameras.main.centerY },
+      y: { start: this.scene.cameras.main.centerY, to: -this.scene.cameras.main.centerY },
       ease: 'Expo.Out',
       repeat: 0,
       duration: 500,

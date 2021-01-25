@@ -41,5 +41,14 @@ export default class WinModal extends Modal {
     this.add(this.restartBtn)
     this.add(this.continueBtn)
   }
-
+  
+  disappearance() {
+    this.scene.tweens.add({
+      targets: this,
+      scale: { start: this.scale, to: 0 },
+      ease: 'Cubic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
+  }
 }

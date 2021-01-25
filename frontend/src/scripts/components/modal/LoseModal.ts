@@ -41,4 +41,14 @@ export default class LoseModal extends Modal {
     this.add(this.cancelBtn)
     this.add(this.restartBtn)
   }
+
+  disappearance() {
+    this.scene.tweens.add({
+      targets: this,
+      scale: { start: this.scale, to: 0 },
+      ease: 'Cubic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
+  }
 }
