@@ -115,8 +115,8 @@ export default class GameScene extends Phaser.Scene {
     this.state.updateCurrentGameStats({
       levelResult: result,
       levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
-      builtTowers: 0,  // сюда должно передаваться кол-во построенных башен 
-      soldTowers: 0,  // сюда должно передаваться кол-во проданных башен
+      builtTowers: this.scene.scene.registry.list["builtCounter"], 
+      soldTowers: this.scene.scene.registry.list["soldCounter"], 
       killedEnemies: this.scene.scene.registry.list["deathCounter"],
     })
     this.state.saveToLocalStorage();
@@ -174,13 +174,15 @@ export default class GameScene extends Phaser.Scene {
 
   create(data: any): void {
     this.scene.scene.registry.set("deathCounter", 0);
+    this.scene.scene.registry.set("builtCounter", 0);
+    this.scene.scene.registry.set("soldCounter", 0);
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
-
+    
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
     // запуск первой волны (надо сделать кнопку-триггер)
@@ -246,6 +248,6 @@ export default class GameScene extends Phaser.Scene {
       tower.setGold(this.gold);
       this.gold = tower.getGold();
     })
-    // console.log(this.gold)
+    console.log(this.gold)
   }
 }

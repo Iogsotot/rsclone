@@ -11,6 +11,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     x: number;
     y: number;
     damage: number;
+    magicDamage: number;
+    physicalDamage: number;
     missiles:  Phaser.GameObjects.Group;
     enemies:  Phaser.GameObjects.Group;
     isTowerBuilt: boolean;
@@ -31,6 +33,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     costArtilleryTower: number;
     saleMark: Phaser.GameObjects.Sprite;
     canUpdateGold: boolean;
+    enemyCost: number;
+    isEnemyDead: boolean;
 
 
     constructor(scene: Phaser.Scene, positionX: number, positionY: number, mapData: MapType) {
@@ -48,7 +52,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.costMagicTower = 100;
         this.costArtilleryTower = 125;
         this.canUpdateGold = false;
-        
     }
 
     public placeField(): void {
@@ -110,6 +113,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     protected sale(): void {
+        let soldCounter = this.scene.registry.get("soldCounter");
+        soldCounter += 1;
+        this.scene.registry.set("soldCounter", soldCounter);
         this.canUpdateGold = true;
         this.isTowerBuilt = false;
         this.playerGold += this.cost * 0.8;
@@ -121,6 +127,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
  
     protected placeTowerArrow(): void {
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
         this.cost = this.costArchersTower;
         if (this.cost <= this.playerGold) {
             this.hideChoiceTower();
@@ -133,17 +142,19 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 repeat: -1
             });
             this.tower.play('tower_array_anim');
-            this.createStatsTower(15, 1000, 300);
+            this.createStatsTower(15, 1000, 300, 10);
             this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Archers';
             this.tower.setInteractive();
             this.tower.on('pointerdown',() => this.canSale());
-
         }
     }
 
     protected placeTowerBomb(): void {
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
         this.cost = this.costArtilleryTower;
         if (this.cost <= this.playerGold) {
             this.hideChoiceTower();
@@ -156,7 +167,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 repeat: -1
             });
             this.tower.play('tower_bomb_anim');
-            this.createStatsTower(25, 2500, 500);
+            this.createStatsTower(25, 2500, 500, 20, 20);
             this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Artillery';
@@ -166,6 +177,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
 
     protected placeTowerMagic(): void {
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
         this.cost = this.costMagicTower;
         if (this.cost <= this.playerGold) {
             this.hideChoiceTower();
@@ -179,7 +193,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             });
             this.tower.setScale(1.2);
             this.tower.play('tower_magic_anim');
-            this.createStatsTower(20, 1500, 350);
+            this.createStatsTower(200, 1500, 350, 0, 25);
             this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Magic';
@@ -192,6 +206,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         if(this.isTowerSold) {
             this.isTowerSold = false;
             return this.playerGold -= this.cost;
+        } else if (this.isEnemyDead) {
+            this.isEnemyDead = false;
+            return this.playerGold += this.enemyCost;
         } else {
             return this.playerGold;
         }
@@ -216,10 +233,13 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         });
     }
 
-    protected createStatsTower(damage: number, speedFire: number, attackArea: number): void {
+    protected createStatsTower(damage: number, speedFire: number, attackArea: number, 
+        physicalDamage: number = 0, magicDamage: number = 0): void {
         this.damage = damage;
         this.timeForNextShot = speedFire;
         this.attackArea = attackArea;
+        this.physicalDamage = physicalDamage;
+        this.magicDamage = magicDamage;
     }
 
     public setEnemies(enemies: any) {
@@ -233,10 +253,14 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     protected getEnemy(x: number, y: number, distance: any): any | void {
         const enemyUnits: Array<any> = this.enemies.getChildren();
         for(let i = 0; i < enemyUnits.length; i += 1) { 
-            this.isEnemyAlive = enemyUnits[i].getAlive()
+            this.isEnemyAlive = enemyUnits[i].getAlive();
             if(enemyUnits[i].active && Phaser.Math.Distance.Between(x, y, enemyUnits[i].x, enemyUnits[i].y) <= distance
-             && this.isEnemyAlive) {
+             && this.isEnemyAlive) { 
                 return enemyUnits[i];
+            } else if (!this.isEnemyAlive && !this.isEnemyDead) {
+                this.isEnemyDead = true;
+                this.enemyCost = enemyUnits[i].getEnemyCost();
+                enemyUnits.splice(i, 1);
             }
         }
     }
@@ -265,7 +289,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 const enemyPositionY = enemy.y
                 const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
                 this.addMissile(this.x, this.y, angle);
-                enemy.takeDamage(this.damage);
+                enemy.takeDamage(this.damage, this.physicalDamage, this.magicDamage);
             }
         } 
     }
