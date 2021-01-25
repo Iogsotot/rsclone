@@ -1,110 +1,127 @@
 import { map1, map2, map3 } from '../../constants/maps';
 import { getPlayerStatsFromServer } from '../stats/PlayerStats';
+import { KEY_ID } from '../../constants/constants';
 
+interface BarConfigs {
+  containerCoordinates: number[],
+  containerSizes: number[],
+  containerBorderRadius: number,
+  barCoordinates: number[],
+  barSizes: number[],
+  barBorderRadius: number, 
+}
 export default class PreloadScene extends Phaser.Scene {
+  barContainer: Phaser.GameObjects.Graphics
+
+  progressBar: Phaser.GameObjects.Graphics
+
+  loaderText: Phaser.GameObjects.Text
+
   constructor() {
     super({ key: 'PreloadScene' });
   }
-
+  
   async preload() {
-
-    const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem(KEY_ID);
     this.registry.set("stats", getPlayerStatsFromServer(userId));
+    this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
+    
+    this.barContainer = this.add.graphics();
+    this.progressBar = this.add.graphics();
+    this.preloader()
+    
     // towers
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
-      frameHeight: 104
+      frameHeight: 104,
     });
 
     this.load.spritesheet('bomb', './assets/towers/bomb.png', {
       frameWidth: 108,
-      frameHeight: 104
+      frameHeight: 104,
     });
 
     this.load.spritesheet('magic', './assets/towers/magic.png', {
       frameWidth: 108,
-      frameHeight: 104
+      frameHeight: 104,
     });
 
     this.load.spritesheet('tower', './assets/towers/tower.png', {
       frameWidth: 120,
-      frameHeight: 80
+      frameHeight: 80,
     });
 
     this.load.spritesheet('missile-arrow', './assets/towers/missile-arrow.png', {
       frameWidth: 30,
-      frameHeight: 10
+      frameHeight: 10,
     });
 
     this.load.spritesheet('missile-magic', './assets/towers/missile-magic.png', {
       frameWidth: 30,
-      frameHeight: 30
+      frameHeight: 30,
     });
 
     this.load.spritesheet('missile-bomb', './assets/towers/missile-bomb.png', {
       frameWidth: 30,
-      frameHeight: 30
+      frameHeight: 30,
     });
 
-    //enemies    
+    //enemies
     this.load.spritesheet('scorpio', './assets/sprites/scorpio_walk.png', {
       frameWidth: 212,
-      frameHeight: 246
+      frameHeight: 246,
     });
 
     this.load.spritesheet('scorpio_die', './assets/sprites/scorpio_die.png', {
       frameWidth: 212,
-      frameHeight: 246
+      frameHeight: 246,
     });
 
     this.load.spritesheet('scorpio_hurt', './assets/sprites/scorpio_hurt.png', {
       frameWidth: 212,
-      frameHeight: 246
+      frameHeight: 246,
     });
-
 
     this.load.spritesheet('wizardBlack', './assets/sprites/wizard-black_walk.png', {
       frameWidth: 388,
-      frameHeight: 338
+      frameHeight: 338,
     });
 
     this.load.spritesheet('wizardBlack_die', './assets/sprites/wizard-black_die.png', {
       frameWidth: 388,
-      frameHeight: 338
+      frameHeight: 338,
     });
 
     this.load.spritesheet('wizardBlack_hurt', './assets/sprites/wizard-black_hurt.png', {
       frameWidth: 388,
-      frameHeight: 338
+      frameHeight: 338,
     });
 
     this.load.spritesheet('littleOrc', './assets/sprites/little-orc_walk.png', {
       frameWidth: 331,
-      frameHeight: 299
+      frameHeight: 299,
     });
 
     this.load.spritesheet('littleOrc_die', './assets/sprites/little-orc_die.png', {
       frameWidth: 331,
-      frameHeight: 299
+      frameHeight: 299,
     });
 
     this.load.spritesheet('littleOrc_hurt', './assets/sprites/little-orc_hurt.png', {
       frameWidth: 331,
-      frameHeight: 299
+      frameHeight: 299,
     });
-
-
 
     //other
     this.load.image('gate', './assets/imgs/gate-mini.png');
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.image('level1Button', './assets/level_1_title_mini.png')
-    this.load.image('level2Button', './assets/level_2_title_mini.png')
-    this.load.image('level3Button', './assets/level_3_title_mini.png')
+    this.load.image('level1Button', './assets/level_1_title_mini.png');
+    this.load.image('level2Button', './assets/level_2_title_mini.png');
+    this.load.image('level3Button', './assets/level_3_title_mini.png');
 
-    this.load.image('levelsMap', './assets/main-bg.jpg')
+    this.load.image('levelsMap', './assets/main-bg.jpg');
 
     this.load.image('settings-btn', './assets/interface/settings-icon.png');
 
@@ -152,16 +169,103 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('coins-icon', './assets/icons/coins.png');
 
     try {
-      const userId = localStorage.getItem("id");
+      const userId = localStorage.getItem(KEY_ID);
       this.registry.set("stats", await getPlayerStatsFromServer(userId));
     } catch {
-      console.log("Something gone wrong with getting stats from backend")
+      console.log('Something gone wrong with getting stats from backend');
     }
   }
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
-    // console.log('loading...');
     this.scene.start('LevelsScene');
+  }
+
+  preloader() {
+    const containerCoordinates = [this.cameras.main.centerX / 4, this.cameras.main.centerY * 1.7]
+    const barCoordinates = [containerCoordinates[0] + 10, containerCoordinates[1] + 10]
+    const containerSizes = [this.cameras.main.centerX * 1.5, 60]
+    const barSizes = [containerSizes[0] - 20, containerSizes[1] - 20]
+    // чтобы каждый раз не считать ...
+    const barConfig: BarConfigs = {
+      containerCoordinates,
+      containerSizes,
+      containerBorderRadius: containerSizes[1] / 2,
+      barCoordinates,
+      barSizes,
+      barBorderRadius: barSizes[1] / 2, 
+    }
+
+    this.loaderText = this.add.text(
+      this.cameras.main.centerX,
+      containerCoordinates[1] - containerSizes[1],
+      'Loading 0%',
+      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
+    ).setOrigin(0.5)
+    this.add.existing(this.loaderText)
+
+    // border 0x593517 bg 0x42250F
+    this.barContainer.fillStyle(0x42250F)
+    this.barContainer.fillRoundedRect(
+      barConfig.containerCoordinates[0],
+      barConfig.containerCoordinates[1],
+      barConfig.containerSizes[0],
+      barConfig.containerSizes[1],
+      barConfig.containerBorderRadius
+    )
+
+    this.barContainer.lineStyle(10, 0x593517)
+    this.barContainer.strokeRoundedRect(
+      barConfig.containerCoordinates[0],
+      barConfig.containerCoordinates[1],
+      barConfig.containerSizes[0],
+      barConfig.containerSizes[1],
+      barConfig.containerBorderRadius
+    )
+
+    this.load.on('filecomplete-image-kingdom-rush-bg', () => {
+      const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'kingdom-rush-bg')
+      bg.displayHeight = +this.sys.game.config.height  
+      bg.scaleX = bg.scaleY
+      bg.depth = -10
+    });
+
+    this.load.on('progress', (value: number) => this.drawProgressBar(barConfig, value));
+  }
+
+  drawProgressBar(barConfig: BarConfigs, value: number) {
+    const yellowLight = 0xf4d133
+    const yellowDark = 0xde9b26
+    const redLight = 0xe65540
+    const redDark = 0xc63f31
+    
+    const coefficient = value < 0.03 ? 0.03 : value
+    let color = coefficient > 0.85 ? redLight : yellowLight; 
+    this.progressBar.clear()
+    this.progressBar.fillStyle(color)
+    this.progressBar.fillRoundedRect(
+      barConfig.barCoordinates[0],
+      barConfig.barCoordinates[1],
+      barConfig.barSizes[0] * coefficient,
+      barConfig.barSizes[1],
+      barConfig.barBorderRadius,
+    )
+
+    color = coefficient > 0.85 ? redDark : yellowDark;
+    this.progressBar.fillStyle(color)
+    this.progressBar.fillRoundedRect(
+      barConfig.barCoordinates[0],
+      barConfig.barCoordinates[1] + 20,
+      barConfig.barSizes[0] * coefficient,
+      barConfig.barSizes[1] / 2,
+      {
+        tl: 0,
+        tr: 0,
+        bl: barConfig.barBorderRadius,
+        br: barConfig.barBorderRadius,
+      }
+    )
+    
+    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
   }
 }
