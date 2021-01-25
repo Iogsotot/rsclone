@@ -1,5 +1,5 @@
 import createElement from './createElement';
-import { signUp, signIn } from '../backend/backend';
+import { signUp, signIn } from '../../backend';
 
 function createSignPage() {
   // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"
@@ -18,13 +18,18 @@ function createSignPage() {
 
         <form class="sign-form" name="signForm">
           <div class="wrapper-username">
-            <label for="email">Username</label>
-            <input class="sign-username" id="email" name="username" required="">
+            <input
+              placeholder="Name"
+              class="sign-username"
+              id="email" name="username"
+              required=""
+              autocomplete="off"
+            >
           </div>
           <div class="wrapper-password">
-            <label for="password">Password</label>
             <input
               class="sign-password"
+              placeholder="Password"
               id="password"
               type="password"
               autocomplete="on"
@@ -35,13 +40,13 @@ function createSignPage() {
           <div class="keep-me">
             <input type="checkbox" id="scales" name="scales"
                   checked>
-            <label for="scales">Keep Me Signed In</label>
+            <label for="scales">
+              <div class="checkbox-image"></div>
+              Keep Me Signed In
+            </label>
           </div>
           <input class="sign-in-submit" type="submit" value="SIGN IN">
         </form>
-        <div class="forgot-password">
-          <p class="forgot-password-button">Forgot Password</p>
-        </div>
       </div>
     `,
     },
@@ -65,13 +70,6 @@ function createSignPage() {
   signInfoUp?.after(responseInfo);
 
   const signSubmit = document.querySelector('.sign-in-submit') as HTMLInputElement;
-  const forgotPassword = document.querySelector('.forgot-password-button') as HTMLElement;
-
-  forgotPassword.onclick = () => {
-    localStorage.removeItem('token');
-    document.forms.namedItem('signForm')?.reset();
-    responseInfo.textContent = 'Password forgot';
-  };
 
   function handler({ target }) {
     signSubmit.value = target.textContent;

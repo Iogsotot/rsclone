@@ -1,0 +1,106 @@
+.popup-profile-all-wrapper {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 41, 41, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.popup-profile-all-content {
+  background-image: url('../assets/interface/modal-bg.png');
+  width: 630px;
+  height: 423px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  cursor: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 112px 30px 50px 30px;
+  transition: all .5s ease-out;
+  font-family: "Dimbo";
+  color: #FFC107;
+  font-size: x-large;
+  letter-spacing: 0.8px;
+  bottom: 100%;
+}
+
+.close-profile-all-popup {
+  background-image: url('../assets/interface/button_close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.title-profile-all {
+  color:  rgb(230, 225, 82);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  display: block;
+  width: 320px;
+  height: 131px;
+  text-align: center;
+  line-height: 97px;
+  font-size: xxx-large;
+  position: absolute;
+  top: -20px;
+}
+
+.progress-profile-achievements-all {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2.5px 2.5px;
+
+  & .completeWin { background-position-x: 438px; }
+  & .firstBlood { background-position-x: calc(500px - 125px); }
+  & .GreatDefender { background-position-x: 312px; }
+  & .IronDefender { background-position-x: 249px; }
+  & .killer { background-position-x: 186px; }
+  & .seller { background-position-x: 124px; }
+  & .builder { background-position-x: 63px; }
+
+  & .wrapper-icon-achievements-info {
+    display: flex;
+    align-items: center;
+    background-color: #a47248;
+  
+    & .icon-achievements-info {
+      width: 60px;
+      height: 60px;
+      padding: 3px;
+      box-sizing: border-box;
+      background-image: url('../assets/auth/achievements-btn.png');
+      background-size: 500px;
+    }
+  
+    & .icon-achievements-info-descriptions {
+      padding: 0 0 0 20px;
+    }
+  }
+}
+
+.show-top {
+  bottom: 0;
+}

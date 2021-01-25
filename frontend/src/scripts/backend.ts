@@ -1,4 +1,6 @@
-import createStartPage from '../utils/create.start';
+import { startApp } from './App';
+import createStartPage from './auth/utils/create.start';
+import { KEY_TOKEN, KEY_ID } from './constants/constants';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -29,18 +31,18 @@ async function signIn(user) {
     if (ok) {
       responseInfo.innerHTML = `${login} has sign in`;
 
-      localStorage.setItem('id', id);
+      localStorage.setItem(KEY_ID, id);
       if (checked) {
-        localStorage.setItem('token', token);
+        localStorage.setItem(KEY_TOKEN, token);
       }
 
       const isStats = await getCurrentPlayerStats({ id, token });
       console.log('isStats:', isStats);
 
       if (!isStats.ok) {
-        createStats({ id, token });
+        createStats({ id, token, login });
       } else {
-        const isUpdate = await setCurrentPlayerStat({
+        const isUpdate = await setCurrentPlayerStats({
           id,
           token,
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
@@ -48,9 +50,8 @@ async function signIn(user) {
         console.log('isUpdate:', isUpdate);
       }
 
-      setTimeout(() => {
-        createStartPage();
-      }, 300);
+      createStartPage();
+      document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;
       form.reset();
@@ -73,7 +74,7 @@ async function getCurrentPlayerStats({ id, token }) {
 }
 
 // main function for update stat
-async function setCurrentPlayerStat({ id, token, body }) {
+async function setCurrentPlayerStats({ id, token, body }) {
   const response = await fetch(`${SERVER}/users/${id}/stats/`, {
     method: 'PUT',
     headers: {
@@ -86,7 +87,7 @@ async function setCurrentPlayerStat({ id, token, body }) {
   return response.json();
 }
 
-async function createStats({ id, token }) {
+async function createStats({ id, token, login }) {
   const url = `${SERVER}/users/${id}/stats`;
   const options = {
     method: 'POST',
@@ -95,7 +96,7 @@ async function createStats({ id, token }) {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ userId: id }),
+    body: JSON.stringify({ userId: id, login }),
   };
 
   const response = await fetch(url, options);
@@ -147,3 +148,28 @@ async function signUp(user) {
 }
 
 export { signIn, signUp };
+
+// {
+//   "UserID": {
+//     "gameProgress": 0,
+//     "gameLogInCount": 0,
+//     "killedEnemies": 0,
+//     "builtTowers": 0,
+//     "soldTowers": 0,
+//     "ironModeProgress": 0,
+
+//     "achievements": {
+//       "firstAsterisk": false,
+//       "completeWin": false,
+//       "firstBlood": false,
+//       "GreatDefender": false,
+//       "IronDefender": false,
+//       "killer": false,
+//       "seller": false,
+//       "builder": false
+//     }
+//   }
+// }
+
+
+export {getCurrentPlayerStats, setCurrentPlayerStats}

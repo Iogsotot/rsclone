@@ -10,7 +10,7 @@
 }
 
 body {
-  // overflow: hidden;
+  font-family: "Dimbo";
 }
 
 .blur-bg {
@@ -59,20 +59,23 @@ body {
 
 .logo-start-button,
 .logo-credits-button {
-  background-image: url('../assets/auth/UI_board_Small_parchment.png');
+  background-image: url('../assets/auth/btn.png');
   background-size: cover;
   margin: auto;
 
-  font-family: 'Dimbo', cursive;
+  font-family: "Dimbo";
+  letter-spacing: 1px;
   color: #fbd738;
-  text-shadow: #483312 0.1vw 0.1vw 1px, white -0.1vw -0.1vw 1px, white 0.1vw -0.1vw 1px, white -0.1vw 0.1vw 1px;
   text-align: center;
 
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .logo-start-button {
-  width: 70%;
+  width: 50%;
   height: 106px;
   font-size: xxx-large;
   line-height: 106px;
@@ -80,14 +83,14 @@ body {
 }
 
 .logo-credits-button {
-  width: 60%;
+  width: 40%;
   height: 90px;
   font-size: xx-large;
   line-height: 90px;
 }
 
 .logout-game {
-  background-image: url('../assets/auth/close.png');
+  background-image: url('../assets/interface/button_close.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -96,10 +99,13 @@ body {
   position: fixed;
   margin: 10px;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .attendance-per-year-game {
-  background-image: url('../assets/auth/bag-attendance.png');
+  background-image: url('../assets/interface/button_menu.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -109,6 +115,9 @@ body {
   margin: 10px;
   bottom: 0;
   cursor: pointer;
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .wrapper-logo-start-page {
@@ -118,8 +127,6 @@ body {
 
 .logo-start-page {
   background-image: url('../assets/auth/logo.png');
-  // width: 724px;
-  // height: 892px;
   width: 408px;
   height: 292px;
   background-repeat: no-repeat;
@@ -128,121 +135,149 @@ body {
 }
 
 .sign-window {
-  width: 555px;
-  height: 554px;
-  background: linear-gradient(#38315a, #2d0a40);
+  width: 620px;
+  height: 438px;
+  background-size: contain;
+  background-image: url('../assets/modal-bg/start-modal-bg.png');
   padding: 0 60px;
   & .sign-info {
     height: 100px;
     display: flex;
     align-items: center;
     position: relative;
-    & .sign-info-in {
-      margin-right: 33px;
-    }
 
     & .response-info {
-      font-family: sans-serif;
-      font-weight: 600;
+      font-family: "Dimbo";
+      color: #e6e152;
+      font-size: x-large;
       letter-spacing: 0.8px;
-      color: whitesmoke;
       position: absolute;
-      bottom: 0;
+      bottom: -10px;
       margin: 0 20px;
-    }
-  }
-  & .keep-me {
-    display: flex;
-    margin: 10px 20px;
-
-    & input {
-      width: 20px;
-      height: 20px;
-      &:checked + label {
-        color: whitesmoke;
-      }
-      &:checked {
-        background-color: #eec110;
-      }
-    }
-
-    & label {
-      padding-left: 10px;
-    }
-  }
-
-  & .forgot-password {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    & p {
-      font-family: sans-serif;
-      font-weight: 600;
-      letter-spacing: 0.8px;
-      color: #9b90ac;
-      cursor: pointer;
     }
   }
 }
 
 .sign-info-in,
 .sign-info-up {
-  color: #9b90ac;
+  color:  rgb(230, 225, 82);
   cursor: pointer;
-  font-family: sans-serif;
-  letter-spacing: 0.8px;
-  font-size: larger;
+  font-family: "Dimbo";
+  letter-spacing: 1px;
   margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  display: block;
+  width: 200px;
+  height: 84px;
+  text-align: center;
+  line-height: 74px;
+  font-size: xx-large;
+  position: absolute;
+  top: -9px;
+}
+
+.sign-info-in {
+  left: 0;
+}
+
+.sign-info-up {
+  right: 0;
 }
 
 .sign-form {
-  height: 340px;
-  color: #9b90ac;
-  font-family: sans-serif;
-  font-weight: 600;
+  font-family: "Dimbo";
   letter-spacing: 0.8px;
+  font-size: xx-large;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  border-bottom: 2px solid  #9b90ac;
-  padding-bottom: 35px;
-  & input {
-    height: 40px;
-    border: none;
-    border-radius: 40px;
-    background-color:  #eec110;
-    color: whitesmoke;
-    font-family: sans-serif;
-    font-weight: 600;
-    font-size: initial;
-    letter-spacing: 0.8px;
-    cursor: pointer;
-  }
-}
+  position: relative;
 
-.wrapper-username,
-.wrapper-password {
-  display: flex;
-  flex-direction: column;
-  & input {
-    height: 40px;
-    border: none;
-    border-radius: 40px;
-    background-color: #5d5175;
-    padding-left: 20px;
+  & .wrapper-username,
+  .wrapper-password {
+    display: flex;
+    flex-direction: column;
+    & input {
+      font-family: "Dimbo";
+      letter-spacing: 0.8px;
+      font-size: xx-large;
+      color: rgb(230, 225, 82);
+      height: 67px;
+      border: none;
+      background-image: url('../assets/auth/field.png');
+      padding: 0 0 0 20px;
+      background-size: cover;
+      background-color: #6e3c24;
+      margin: 10px 0;
+    }
+
+    & input::placeholder {
+      font-family: "Dimbo";
+      letter-spacing: 0.8px;
+      font-size: xx-large;
+      color: rgb(230, 225, 82);
+    }
   }
-  & label {
-    margin: 10px 20px;
+
+  & .keep-me {
+    font-size: x-large;
+
+    & input {
+      position: absolute;
+      display: none;
+      &:checked + label {
+        color: #FFC107;
+      }
+      &:checked + label > .checkbox-image {
+        background-image: url('../assets/auth/on.png');
+      }
+    }
+
+    & label {
+      color:  rgb(230, 225, 82);
+      display: inline-flex;
+      margin: 10px 0;
+
+      & .checkbox-image {
+        width: 84px;
+        height: 40px;
+        background-image: url('../assets/auth/off.png');
+        background-size: cover;
+        margin-right: 10px;
+      }
+    }
+  }
+  
+  & input.sign-in-submit {
+    height: 138px;
+    width: 255px;
+    border: none;
+    background: url('../assets/auth/btn.png');
+    background-size: cover;
+    cursor: pointer;
+    font-family: "Dimbo";
+    letter-spacing: 0.8px;
+    font-size: xxx-large;
+    color: #FFC107;
+    align-self: center;
+    position: relative;
+    bottom: -22px;
   }
 }
 
 .active-sign-info {
-  color: #f0fbf9;
-  border-bottom: 2px solid #eec110;
   cursor: default;
+  color: #FFC107;
+  width: 250px;
+  height: 104px;
+  font-size: xxx-large;
+  line-height: 89px;
 }
 
 .hide {
   display: none;
+}
+
+.flex-for-achevements {
+  display: flex;
 }
