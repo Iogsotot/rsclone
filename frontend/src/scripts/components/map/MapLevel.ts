@@ -47,18 +47,17 @@ export class MapLevel extends Map {
     return this.curve;
   }
 
-  addTowers(): Array<any> {
-    const towers: Array<any> = [];
+  addTowers(): Tower[] {
+    const towers: Tower[] = [];
       this.mapData.scaleCoordinateTowers.forEach((coordinate) => {
         const tower = this.createTower(coordinate)
         tower.placeField();
         towers.push(tower);
         tower.on('pointerdown',() => tower.choiceTower(), this);
-        // tower.setActive(false);
       })
       return towers;
   }
-  createTower(coordinate: object): any {
+  createTower(coordinate: object): Tower {
     const scaleCoordinateX: number = Object.values(coordinate)[0];
     const scaleCoordinateY: number = Object.values(coordinate)[1];
     const x = this.width / scaleCoordinateX;
