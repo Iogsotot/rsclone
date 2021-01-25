@@ -75,7 +75,7 @@ const map2: MapType = {
   scaleStartPointX: 600,
   scaleStartPointY: 1,
   scaleFinishPointX: 1,
-  scaleFinishPointY: 3.67,
+  scaleFinishPointY: 3.35,
   scaleCoordinateTowers: [
       { x: 2.38, y: 1.12 },
       { x: 2.47, y: 1.53 },

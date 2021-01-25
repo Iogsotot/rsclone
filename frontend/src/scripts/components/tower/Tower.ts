@@ -43,9 +43,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.timeForNextShot = 1000;
         this.mapData = mapData;
         this.isTowerSold = false;
-        this.costTowerArrow = 20;
-        this.costTowerMagic = 30;
-        this.costTowerBomb = 50;
+        this.costTowerArrow = 70;
+        this.costTowerMagic = 100;
+        this.costTowerBomb = 125;
         this.updateGold = false;
     }
 
