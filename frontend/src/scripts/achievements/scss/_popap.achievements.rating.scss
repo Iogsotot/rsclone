@@ -14,8 +14,8 @@
 
 .popup-rating-content {
   background-image: url('../assets/modal-bg/start-modal-bg.png');
-  width: 557px;
-  height: 394px;
+  width: 794px;
+  height: 560px;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
@@ -65,4 +65,16 @@
   font-size: xx-large;
   position: absolute;
   top: -20px;
+}
+
+.wrapper-table-rating {
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  padding: 0 30px;
+
+  & .title-rating-property {
+    display: flex;
+    justify-content: space-between;
+  }
 }

@@ -137,7 +137,7 @@ body {
 .sign-window {
   width: 620px;
   height: 438px;
-  background-size: contain;
+  background-size: cover;
   background-image: url('../assets/modal-bg/start-modal-bg.png');
   padding: 0 60px;
   & .sign-info {
@@ -293,14 +293,10 @@ body {
 .active-sign-info {
   cursor: default;
   color: #FFC107;
-  width: 250px;
-  height: 104px;
-  font-size: xxx-large;
-  line-height: 89px;
-  top: -16px;
+  transform: scale(1.2);
 
   &:hover {
-    transform: none;
+    transform: scale(1.2);
   }
 }
 
