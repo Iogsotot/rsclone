@@ -17,7 +17,6 @@ import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
 import Enemy from '../unit/Enemy';
-import ObjStats from '../interface/ObjStats';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -167,12 +166,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // добавляем динамические статы на страницу
-    // this.gameObjStats = new GameObjStats(this);
-    // this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-    //   this.gameObjStats.updateText(gameObject);
-    // });
-
-    this.gameObjStats = new ObjStats(this)
+    this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
       this.gameObjStats.updateStats(gameObject);
     });
