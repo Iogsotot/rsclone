@@ -8,6 +8,7 @@ export default class LevelButton extends Button {
   constructor(scene: Phaser.Scene, x: number, y: number, btnTexture: string, level: number) {
     super(scene, x, y, btnTexture);
     this.level = level;
+    this.btnImage.setScale(1.1)
   }
 
   handleDown() {

@@ -11,6 +11,7 @@ export default class DiffButton extends Button {
     super(scene, x, y, 'normal-btn')
 
     this.easyBtn = scene.add.image(0, 0, 'easy-btn');
+    this.btnImage.setScale(1)
     this.hardBtn = scene.add.image(0, 0, 'hard-btn');
     
     this.add(this.easyBtn);
