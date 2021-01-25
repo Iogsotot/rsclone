@@ -14,24 +14,27 @@ function runAuth(fn) {
   fetch(`${url}chart/${year}`)
     .then((res) => res.json())
     .then(handleAttendent);
+  if (id) {
+    fetch(`${url}users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    }).then(({ ok }) => {
+      console.log('auth:', ok);
 
-  fetch(`${url}users/${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  }).then(({ ok }) => {
-    console.log('auth:', ok);
-
-    if (ok) {
-      createStartPage();
-      achievementsCreate({ id, token });
-      document.querySelector('.logo-start-button')?.addEventListener('click', fn);
-    } else {
-      createSignPage();
-    }
-  });
+      if (ok) {
+        createStartPage();
+        achievementsCreate({ id, token });
+        document.querySelector('.logo-start-button')?.addEventListener('click', fn);
+      } else {
+        createSignPage();
+      }
+    });
+  } else {
+    createSignPage();
+  }
 }
 
 export default runAuth;

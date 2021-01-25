@@ -1,7 +1,7 @@
 // import { GameObjects } from "phaser";
 import { use } from "matter";
 import { sendPlayerStatsToServer } from "./components/stats/PlayerStats";
-import { levelsConfig, LOCAL_STORAGE_KEY } from "./constants/constants"
+import { KEY_ID, levelsConfig, LOCAL_STORAGE_KEY } from "./constants/constants"
 
 export default class State {
   level: number;
@@ -54,7 +54,7 @@ export default class State {
   async sendDataToBackend() {
     // TODO вызвать sendPlayerStatsToServer из PlayerStats
     const data = this.preparePlayerStatsForBackend()
-    const userId = localStorage.getItem("id");
+    const userId = localStorage.getItem(KEY_ID);
     await sendPlayerStatsToServer(userId, data)
   }
 
