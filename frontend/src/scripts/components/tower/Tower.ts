@@ -2,6 +2,7 @@ import 'phaser';
 import MissileBomb from '../missile/MissileBomb';
 import MissileArrow from '../missile/MissileArrow';
 import MissileMagic from '../missile/MissileMagic';
+import { MapType } from '../../constants/maps';
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -10,6 +11,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     x: number;
     y: number;
     damage: number;
+    magicDamage: number;
+    physicalDamage: number;
     missiles:  Phaser.GameObjects.Group;
     enemies:  Phaser.GameObjects.Group;
     isTowerBuilt: boolean;
@@ -17,99 +20,226 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     timeShot: number
     timeForNextShot: number;
     isEnemyAlive: boolean;
-    arrow: Phaser.GameObjects.Sprite;
-    magic: Phaser.GameObjects.Sprite;
-    bomb: Phaser.GameObjects.Sprite;
+    archersTowerButton: Phaser.GameObjects.Sprite;
+    magicTowerButton: Phaser.GameObjects.Sprite;
+    artilleryTowerButton: Phaser.GameObjects.Sprite;
+    towerButtons: Array<Array<Phaser.GameObjects.Sprite | number>>;
+    mapData: MapType;
+    cost: number;
+    isTowerSold: boolean;
+    playerGold: number;
+    costArchersTower: number;
+    costMagicTower: number;
+    costArtilleryTower: number;
+    saleMark: Phaser.GameObjects.Sprite;
+    canUpdateGold: boolean;
+    enemyCost: number;
+    isEnemyDead: boolean;
 
-    constructor(scene: Phaser.Scene, positionX: number, positionY: number) {
+
+    constructor(scene: Phaser.Scene, positionX: number, positionY: number, mapData: MapType) {
         super(scene, positionX, positionY, 'tower')
         this.x = positionX;
         this.y = positionY;
         this.setInteractive();
         this.isTowerBuilt = false;
         this.timeShot = 0;
-        
         this.isEnemyAlive;
-        this.timeForNextShot = 1000
+        this.timeForNextShot = 1000;
+        this.mapData = mapData;
+        this.isTowerSold = false;
+        this.costArchersTower = 70;
+        this.costMagicTower = 100;
+        this.costArtilleryTower = 125;
+        this.canUpdateGold = false;
     }
 
     public placeField(): void {
         this.tower = this.scene.add.sprite(this.x, this.y, 'tower');
-        this.tower.setOrigin(0.5, 0.5)
-        this.tower.setScale(1.2)
+        this.tower.setOrigin(0.5, 0.5);
+        this.tower.setScale(1.2);
+        if (this.mapData.level === 3) {
+            this.scene.anims.create({
+                key: 'tower_place_desert',
+                frames: this.scene.anims.generateFrameNumbers('tower', {
+                    start: 4,
+                    end: 4}),
+                frameRate: 0,
+                repeat: -1
+            });
+            this.tower.play('tower_place_desert');
+        }
     }
 
     public choiceTower(): void { 
         if(!this.isTowerBuilt) {
-            this.arrow = this.scene.add.sprite(this.x - 58, this.y - 50, 'arrow');
-            this.bomb = this.scene.add.sprite(this.x + 50, this.y + 50, 'bomb');
-            this.magic = this.scene.add.sprite(this.x - 58, this.y + 50, 'magic');
-            this.arrow.setInteractive();
-            this.bomb.setInteractive();
-            this.magic.setInteractive();
-            this.arrow.on('pointerdown', () => this.placeTowerArrow(), this.arrow);
-            this.bomb.on('pointerdown', () => this.placeTowerBomb(), this.bomb);
-            this.magic.on('pointerdown', () => this.placeTowerMagic(), this.magic);
+            this.archersTowerButton = this.scene.add.sprite(this.x - 58, this.y - 50, 'arrow');
+            this.artilleryTowerButton = this.scene.add.sprite(this.x + 50, this.y + 50, 'bomb');
+            this.magicTowerButton = this.scene.add.sprite(this.x - 58, this.y + 50, 'magic');
+            this.towerButtons = [[this.archersTowerButton, this.costArchersTower], 
+                                [this.artilleryTowerButton, this.costArtilleryTower],
+                                [this.magicTowerButton, this.costMagicTower]];
+            this.towerButtons.forEach((towerButton: Array<any>) => {
+                towerButton[0].setInteractive();
+            });
+            this.archersTowerButton.on('pointerdown', () => this.placeTowerArrow(), this.archersTowerButton);
+            this.artilleryTowerButton.on('pointerdown', () => this.placeTowerBomb(), this.artilleryTowerButton);
+            this.magicTowerButton.on('pointerdown', () => this.placeTowerMagic(), this.magicTowerButton);
             this.isTowerBuilt = true;
+            this.canBuyTower();
         } 
     }
 
+    protected canBuyTower(): void {
+        this.towerButtons.forEach((towerButton: Array<any>) => {
+            this.playerGold < towerButton[1] ?
+            towerButton[0].alpha = 0.5 :
+            towerButton[0].alpha = 1;
+        })
+        if (this.playerGold < this.costArtilleryTower && this.playerGold < this.costMagicTower
+            && this.playerGold < this.costArchersTower) {
+                setTimeout((() => this.hideChoiceTower()), 2000);
+                this.isTowerBuilt = false;
+            }
+    }
+
+    protected canSale(): void {
+        if(this.isTowerBuilt) {
+            this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
+            this.saleMark.setInteractive();
+            this.saleMark.on('pointerdown',() => this.sale());
+            setTimeout(() => this.saleMark.destroy(), 3000);
+        } 
+    }
+
+    protected sale(): void {
+        let soldCounter = this.scene.registry.get("soldCounter");
+        soldCounter += 1;
+        this.scene.registry.set("soldCounter", soldCounter);
+        this.canUpdateGold = true;
+        this.isTowerBuilt = false;
+        this.playerGold += this.cost * 0.8;
+        this.tower.destroy();
+        this.placeField();
+        this.saleMark.setVisible(false);
+        this.saleMark.setActive(false);
+        this.tower.on('pointerdown',() => this.choiceTower())
+    }
+ 
     protected placeTowerArrow(): void {
-        this.hideChoiceTower();
-        this.scene.anims.create({
-            key: 'tower_array_anim',
-            frames: this.scene.anims.generateFrameNumbers('tower', {
-                start: 1,
-                end: 1}),
-            frameRate: 0,
-            repeat: -1
-        });
-        this.tower.play('tower_array_anim');
-        this.createStatsTower(15, 1000, 300);
-        this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
+        this.cost = this.costArchersTower;
+        if (this.cost <= this.playerGold) {
+            this.hideChoiceTower();
+            this.scene.anims.create({
+                key: 'tower_array_anim',
+                frames: this.scene.anims.generateFrameNumbers('tower', {
+                    start: 1,
+                    end: 1}),
+                frameRate: 0,
+                repeat: -1
+            });
+            this.tower.play('tower_array_anim');
+            this.createStatsTower(15, 1000, 300, 10);
+            this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
+            this.isTowerSold = true;
+            this.type = 'Archers';
+            this.tower.setInteractive();
+            this.tower.on('pointerdown',() => this.canSale());
+        }
     }
 
     protected placeTowerBomb(): void {
-        this.hideChoiceTower();
-        this.scene.anims.create({
-            key: 'tower_bomb_anim',
-            frames: this.scene.anims.generateFrameNumbers('tower', {
-                start: 3,
-                end: 3}),
-            frameRate: 0,
-            repeat: -1
-        });
-        this.tower.play('tower_bomb_anim');
-        this.createStatsTower(25, 2500, 500);
-        this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
+        this.cost = this.costArtilleryTower;
+        if (this.cost <= this.playerGold) {
+            this.hideChoiceTower();
+            this.scene.anims.create({
+                key: 'tower_bomb_anim',
+                frames: this.scene.anims.generateFrameNumbers('tower', {
+                    start: 3,
+                    end: 3}),
+                frameRate: 0,
+                repeat: -1
+            });
+            this.tower.play('tower_bomb_anim');
+            this.createStatsTower(25, 2500, 500, 20, 20);
+            this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
+            this.isTowerSold = true;
+            this.type = 'Artillery';
+            this.tower.setInteractive();
+            this.tower.on('pointerdown',() => this.canSale());
+        }
     }
 
     protected placeTowerMagic(): void {
-        this.hideChoiceTower();
-        this.scene.anims.create({
-            key: 'tower_magic_anim',
-            frames: this.scene.anims.generateFrameNumbers('tower', {
-                start: 2,
-                end: 2}),
-            frameRate: 0,
-            repeat: -1
-        });
-        this.tower.setScale(1.2);
-        this.tower.play('tower_magic_anim');
-        this.createStatsTower(20, 1500, 350);
-        this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
+        let builtCounter = this.scene.registry.get("builtCounter");
+        builtCounter += 1;
+        this.scene.registry.set("builtCounter", builtCounter);
+        this.cost = this.costMagicTower;
+        if (this.cost <= this.playerGold) {
+            this.hideChoiceTower();
+            this.scene.anims.create({
+                key: 'tower_magic_anim',
+                frames: this.scene.anims.generateFrameNumbers('tower', {
+                    start: 2,
+                    end: 2}),
+                frameRate: 0,
+                repeat: -1
+            });
+            this.tower.setScale(1.2);
+            this.tower.play('tower_magic_anim');
+            this.createStatsTower(200, 1500, 350, 0, 25);
+            this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
+            this.isTowerSold = true;
+            this.type = 'Magic';
+            this.tower.setInteractive();
+            this.tower.on('pointerdown',() => this.canSale());
+        }   
+    }
+
+    public getGold() {
+        if(this.isTowerSold) {
+            this.isTowerSold = false;
+            return this.playerGold -= this.cost;
+        } else if (this.isEnemyDead) {
+            this.isEnemyDead = false;
+            return this.playerGold += this.enemyCost;
+        } else {
+            return this.playerGold;
+        }
+    }
+
+    public setGold(gold) {
+        if (!this.canUpdateGold) {
+            this.playerGold = gold;
+        } else {
+            this.canUpdateGold = false;
+        }
+    }
+
+    public getType() {
+        return this.type;
     }
 
     protected hideChoiceTower(): void {
-        this.arrow.destroy();
-        this.bomb.destroy();
-        this.magic.destroy();
+        this.towerButtons.forEach((towerButton: Array<any>) => {
+            towerButton[0].setActive(false);
+            towerButton[0].setVisible(false);
+        });
     }
 
-    protected createStatsTower(damage: number, speedFire: number, attackArea: number): void {
+    protected createStatsTower(damage: number, speedFire: number, attackArea: number, 
+        physicalDamage: number = 0, magicDamage: number = 0): void {
         this.damage = damage;
         this.timeForNextShot = speedFire;
         this.attackArea = attackArea;
+        this.physicalDamage = physicalDamage;
+        this.magicDamage = magicDamage;
     }
 
     public setEnemies(enemies: any) {
@@ -123,10 +253,14 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     protected getEnemy(x: number, y: number, distance: any): any | void {
         const enemyUnits: Array<any> = this.enemies.getChildren();
         for(let i = 0; i < enemyUnits.length; i += 1) { 
-            this.isEnemyAlive = enemyUnits[i].getAlive()
+            this.isEnemyAlive = enemyUnits[i].getAlive();
             if(enemyUnits[i].active && Phaser.Math.Distance.Between(x, y, enemyUnits[i].x, enemyUnits[i].y) <= distance
-             && this.isEnemyAlive) {
+             && this.isEnemyAlive) { 
                 return enemyUnits[i];
+            } else if (!this.isEnemyAlive && !this.isEnemyDead) {
+                this.isEnemyDead = true;
+                this.enemyCost = enemyUnits[i].getEnemyCost();
+                enemyUnits.splice(i, 1);
             }
         }
     }
@@ -155,7 +289,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                 const enemyPositionY = enemy.y
                 const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
                 this.addMissile(this.x, this.y, angle);
-                enemy.takeDamage(this.damage);
+                enemy.takeDamage(this.damage, this.physicalDamage, this.magicDamage);
             }
         } 
     }

@@ -3,7 +3,7 @@ import { MapLevel } from '../map/MapLevel';
 import EnemyFactory from '../unit/EnemyFactory';
 import { levelsConfig } from '../../constants/constants'
 
-// import Tower from '../tower/Tower';
+import Tower from '../tower/Tower';
 import { AUTO, GameObjects, NONE } from 'phaser';
 
 
@@ -115,8 +115,8 @@ export default class GameScene extends Phaser.Scene {
     this.state.updateCurrentGameStats({
       levelResult: result,
       levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
-      builtTowers: 0,  // сюда должно передаваться кол-во построенных башен 
-      soldTowers: 0,  // сюда должно передаваться кол-во проданных башен
+      builtTowers: this.scene.scene.registry.list["builtCounter"], 
+      soldTowers: this.scene.scene.registry.list["soldCounter"], 
       killedEnemies: this.scene.scene.registry.list["deathCounter"],
     })
     this.state.saveToLocalStorage();
@@ -174,13 +174,15 @@ export default class GameScene extends Phaser.Scene {
 
   create(data: any): void {
     this.scene.scene.registry.set("deathCounter", 0);
+    this.scene.scene.registry.set("builtCounter", 0);
+    this.scene.scene.registry.set("soldCounter", 0);
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
-
+    
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
     // запуск первой волны (надо сделать кнопку-триггер)
@@ -189,6 +191,7 @@ export default class GameScene extends Phaser.Scene {
     const wavesCount = Object.keys(levelsConfig[`level_${this.state.level}`].waves).length;
     // console.log(wavesCount);
     this.createWaveTimer(factory, wavesCount);
+
 
 
     // добавляем динамические статы на страницу
@@ -225,10 +228,11 @@ export default class GameScene extends Phaser.Scene {
     });
 
     // устанавливает взаимодействие пуль и мобов
-    for (let i = 0; i < this.towers.length; i += 1) {
-      this.towers[i].setEnemies(this.enemiesGroup);
-      this.physics.add.overlap(this.enemiesGroup, this.towers[i].getMissiles(), this.towers[i].fire());
-    }
+    this.towers.forEach((tower: Tower) => {
+        tower.setEnemies(this.enemiesGroup);
+        this.physics.add.overlap(this.enemiesGroup, tower.getMissiles(), tower.fire);
+        
+    })
     const gateGroup = this.physics.add.existing(this.gate);
   }
 
@@ -240,7 +244,10 @@ export default class GameScene extends Phaser.Scene {
   update(time) {
     this.gate.rotation += 0.003;
     this.towers.forEach((tower: any) => {
-      tower.update(time)
+      tower.update(time);
+      tower.setGold(this.gold);
+      this.gold = tower.getGold();
     })
+    console.log(this.gold)
   }
 }
