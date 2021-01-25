@@ -148,6 +148,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('magic-icon', './assets/icons/magic.png');
     this.load.image('speed-icon', './assets/icons/speed.png');
     this.load.image('speed2-icon', './assets/icons/speed2.png');
+    this.load.image('target-icon', './assets/icons/target.png');
+    this.load.image('coins-icon', './assets/icons/coins.png');
 
     try {
       const userId = localStorage.getItem("id");
