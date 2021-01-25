@@ -79,6 +79,10 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
+      if(this.gameObjStats.gameObject === enemy) {
+        this.gameObjStats.slideOut()
+        this.gameObjStats.gameObject = null
+      }
       if (this.playerLives <= 0) {
         this.defeat()
       }
@@ -145,9 +149,9 @@ export default class GameScene extends Phaser.Scene {
       const wizardBlack = new WizardBlack(this, way, this.firstPointX, this.firstPointY).setScale(0.3);
       const littleOrc = new LittleOrc(this, way, this.firstPointX, this.firstPointY).setScale(0.25);
 
-      wizardBlack.startFollow({ delay: 1000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
-      scorpio.startFollow({ delay: 2000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
-      littleOrc.startFollow({ delay: 4000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
+      wizardBlack.startFollow({ delay: 100000 * i, duration: wizardBlack.moveSpeed, rotateToPath: true });
+      scorpio.startFollow({ delay: 20000 * i, duration: scorpio.moveSpeed, rotateToPath: true });
+      littleOrc.startFollow({ delay: 40000 * i, duration: littleOrc.moveSpeed, rotateToPath: true });
 
       // enemies.push(scorpio, wizardBlack, littleOrc)
       this.physics.add.existing(scorpio);
@@ -163,14 +167,14 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // добавляем динамические статы на страницу
-    this.gameObjStats = new GameObjStats(this);
-    this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-      this.gameObjStats.updateText(gameObject);
-    });
+    // this.gameObjStats = new GameObjStats(this);
+    // this.input.on('gameobjectdown', (pointer, gameObject, event) => {
+    //   this.gameObjStats.updateText(gameObject);
+    // });
 
-    const stats = new ObjStats(this)
+    this.gameObjStats = new ObjStats(this)
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-      stats.updateStats(gameObject);
+      this.gameObjStats.updateStats(gameObject);
     });
 
     // переделать координаты с хардкода на динамические
@@ -219,5 +223,6 @@ export default class GameScene extends Phaser.Scene {
     this.towers.forEach((tower: any) => {
       tower.update(time)
     })
+    this.gameObjStats.update()
   }
 }
