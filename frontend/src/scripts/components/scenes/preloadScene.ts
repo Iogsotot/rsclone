@@ -144,6 +144,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('win-modal-bg', './assets/modal-bg/win-modal-bg.png');
     this.load.image('settings-modal-bg', './assets/modal-bg/settings-modal-bg.png');
     this.load.image('audio-set-bg', './assets/modal-bg/audio-set-bg.png');
+    this.load.image('table', './assets/modal-bg/table.png');
+    this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
+    this.load.image('win-bg', './assets/modal-bg/win-bg.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
