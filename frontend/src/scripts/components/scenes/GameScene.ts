@@ -12,7 +12,6 @@ import Button from '../button/Button';
 // import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
-import State from '../../State';
 import LevelSettings from '../../LevelSettings';
 import {
   isGreatDefender,
@@ -23,6 +22,7 @@ import {
   isKiller,
   isSeller
 } from '../../constants/achievments';
+import { PlayerStatsManager } from '../stats/PlayerStats';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -49,9 +49,7 @@ export default class GameScene extends Phaser.Scene {
 
   setScene(data) {
     // console.log('setScene: ' + this.registry);
-    this.levelSettings = new LevelSettings(data.level, data.difficulty);
-    // this.state.saveToLocalStorage(this.registry.get("stats").data);
-    // console.log('setScene: ' + this.registry.list["stats"]);
+    this.levelSettings = new LevelSettings(data.level, data.gameDifficulty);
     this.map = new MapLevel(this, this.levelSettings.config.map);
     this.passedEnemies = [];
     this.firstPointX = this.map.getStartPointX();
@@ -62,23 +60,19 @@ export default class GameScene extends Phaser.Scene {
     this.isDefeat = false;
     // this.deathCounter = 0;
     this.gold = this.levelSettings.config.startingGold;
-    this.setPlayersLives();
+    this.playerLives = this.calculatePlayersLivesForDifficulty();
   }
 
-  setPlayersLives() {
-    switch (this.levelSettings.difficulty) {
+  calculatePlayersLivesForDifficulty() {
+    switch (this.levelSettings.gameDifficulty) {
       case 1:
-        this.playerLives = 20;
-        return;
+        return 20
       case 2:
-        this.playerLives = 10;
-        return;
+        return 10
       case 3:
-        this.playerLives = 1;
-        return;
+        return 1
       default:
-        this.playerLives = 20;
-        return;
+        return 20
     }
   }
 
@@ -98,7 +92,7 @@ export default class GameScene extends Phaser.Scene {
 
   defeat() {
     this.isDefeat = true;
-    // this.updateGameStatsInLocalStorage("lose");
+    this.updateGameStatsInLocalStorage("lose");
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
@@ -106,18 +100,18 @@ export default class GameScene extends Phaser.Scene {
   }
 
   win() {
-    // this.updateGameStatsInLocalStorage("win");
+    this.updateGameStatsInLocalStorage("win");
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    isGreatDefender(this);
-    isIronDefender(this);
-    isCompleteWin(this);
-    isFirstAsterisk(this);
+    isGreatDefender();
+    isIronDefender();
+    isCompleteWin();
+    isFirstAsterisk();
   }
 
   calculateLevelStars() {
-    const playerLivesPercent = this.playerLives * 100 / 20;
+    const playerLivesPercent = this.playerLives * 100 / this.calculatePlayersLivesForDifficulty();
     if (playerLivesPercent == 100) {
       return 3;
     } else if (playerLivesPercent >= 50) {
@@ -126,16 +120,20 @@ export default class GameScene extends Phaser.Scene {
     return 1;
   }
 
-  // updateGameStatsInLocalStorage(result = "playing") {
-  //   this.state.updateCurrentGameStats({
-  //     levelResult: result,
-  //     levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
-  //     builtTowers: this.scene.scene.registry.list["builtCounter"],
-  //     soldTowers: this.scene.scene.registry.list["soldCounter"],
-  //     killedEnemies: this.scene.scene.registry.list["deathCounter"],
-  //   })
-  //   this.state.saveToLocalStorage();
-  // }
+  updateGameStatsInLocalStorage(result = "playing") {
+    const data = {
+      level: this.levelSettings.level,
+      levelResult: result,
+    }
+    if (this.levelSettings.gameDifficulty === 3) {
+      data['ironModeProgress'] = result == 'win' ? this.calculateLevelStars() : 0;
+      console.log(data['ironModeProgress'])
+    } else {
+      data['gameProgress'] = result == 'win' ? this.calculateLevelStars() : 0
+    }
+    const playerStatsManager = new PlayerStatsManager();
+    playerStatsManager.saveToLocalStorage(data);
+  }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
     let enemiesProduced: number = 0;
@@ -186,10 +184,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
-    this.cameras.main.fadeIn(750, 0, 0, 0)
+    this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set("deathCounter", 0);
-    this.scene.scene.registry.set("builtCounter", 0);
-    this.scene.scene.registry.set("soldCounter", 0);
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
@@ -226,7 +222,7 @@ export default class GameScene extends Phaser.Scene {
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.run('pause-scene');
-      
+
     });
 
     const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
