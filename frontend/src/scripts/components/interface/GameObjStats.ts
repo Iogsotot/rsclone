@@ -101,19 +101,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
   }
 
   infoConfig(obj: Tower | Unit) {
-    if (obj instanceof Tower) {
-      if (!obj.isTowerBuilt || !obj.type) return null;
-      return {
-        avaTexture: `${obj.getType()}-icon`,
-        name: `${obj.getType().toUpperCase()} TOWER`,
-        img1: 'damage-icon',
-        text1: `${obj.damage}`,
-        img2: 'speed-icon',
-        text2: obj.timeForNextShot > 2400 ? 'slow' : obj.timeForNextShot > 1400 ? 'medium' : 'fast',
-        img3: 'target-icon',
-        text3: obj.attackArea < 350 ? 'small' : obj.attackArea < 400 ? 'medium' : 'long',
-      };
-    } else if (obj instanceof Unit) {
+    if (obj instanceof Unit) {
       return {
         avaTexture: obj.unitType,
         name: obj.unitType.toUpperCase(),
@@ -131,13 +119,27 @@ export default class ObjStats extends Phaser.GameObjects.Container {
         img3: 'coins-icon',
         text3: `${obj.killReward}`,
       };
+    } else if (obj instanceof Tower) {
+      if (!obj.isTowerBuilt || !obj.type) return null;
+      obj.canSale()
+      const missile = obj.getType() === 'Archers'?'arrow':obj.getType() === 'Artillery'?'bomb':'magic'
+      return {
+        avaTexture: `${missile}-icon`,
+        name: `${obj.getType().toUpperCase()} TOWER`,
+        img1: 'damage-icon',
+        text1: `${obj.damage}`,
+        img2: 'speed-icon',
+        text2: obj.timeForNextShot > 2400 ? 'slow' : obj.timeForNextShot > 1400 ? 'medium' : 'fast',
+        img3: 'target-icon',
+        text3: obj.attackArea < 350 ? 'small' : obj.attackArea < 400 ? 'medium' : 'long',
+      };
     }
   }
 
   updateStats(obj: Tower | Unit) {
-    this.gameObject = obj;
     const infoConfig = this.infoConfig(obj);
     if (!infoConfig) return;
+    this.gameObject = obj;
     this.slideIn();
     this.objImg.setTexture(infoConfig.avaTexture);
     this.objImg.setPosition(0, -this.height * 0.7 + this.height * 0.5);
