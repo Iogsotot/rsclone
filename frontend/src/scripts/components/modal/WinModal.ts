@@ -9,9 +9,9 @@ export default class WinModal extends Modal {
   starsImage: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene, starsNumber: 1 | 2 | 3) {
-    super(scene, 'win-modal-bg', 'win-header');
+    super(scene, 'win-modal-bg', 'YOU WIN!');
 
-    this.header.setY(-this.bgImage.height / 2 + this.header.height / 2)
+    this.header.setY(this.header.y + 15)
 
     this.starsImage = scene.add.image(
       0,

@@ -12,7 +12,7 @@ export default class PauseModal extends CustomModal {
   options: Phaser.GameObjects.Container;
 
   constructor(scene: Phaser.Scene) {
-    super(scene, 'settings-modal-bg', 'settings-header');
+    super(scene, 'settings-modal-bg', 'OPTIONS');
 
     this.initializeButtons(scene);
     this.initOptionsContainer(scene);

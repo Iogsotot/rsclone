@@ -132,6 +132,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('settings-header', './assets/modal-headers/header_settings.png');
     this.load.image('failed-header', './assets/modal-headers/header_failed.png');
     this.load.image('win-header', './assets/modal-headers/header_win.png');
+    this.load.image('header-bg', './assets/modal-headers/header.png');
     // star rewards
     this.load.image('star-grey', './assets/interface/star-grey.png');
     this.load.image('star-1', './assets/interface/star-1.png');

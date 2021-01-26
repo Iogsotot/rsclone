@@ -9,10 +9,9 @@ export default class LoseModal extends Modal {
   cancelBtn: Button
 
   constructor(scene: Phaser.Scene) {
-    super(scene, 'failed-modal-bg', 'failed-header');
+    super(scene, 'failed-modal-bg', 'FAILED');
 
-    this.header.setY(-this.bgImage.height / 2 + this.header.height / 2)
-
+    this.header.setY(this.header.y + 15)
     this.starsImage = scene.add.image(
       0,
       -this.bgImage.width / 6,

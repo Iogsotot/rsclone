@@ -8,8 +8,8 @@ export default class CustomModal extends Modal {
 
   ropeRight: Phaser.GameObjects.Image;
 
-  constructor(scene: Phaser.Scene, bgTexture: string, headerTexture: string) {
-    super(scene, bgTexture, headerTexture);
+  constructor(scene: Phaser.Scene, bgTexture: string, title: string) {
+    super(scene, bgTexture, title);
 
     this.addRopes(scene)
     this.initializeCloseBtn(scene);

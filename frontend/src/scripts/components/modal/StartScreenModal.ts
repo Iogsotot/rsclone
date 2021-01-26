@@ -23,7 +23,7 @@ export default class StartScreenModal extends CustomModal {
     towersNumber: number,
     level: number
   ) {
-    super(scene, 'start-modal-bg', `level${level}-title`);
+    super(scene, 'start-modal-bg', `LEVEL ${level}`);
 
     this.drawMapImage(scene, level);
     this.addText(scene, level);
