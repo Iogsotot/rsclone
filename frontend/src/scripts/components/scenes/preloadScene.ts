@@ -126,18 +126,10 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level1Button', './assets/level_1_title_mini.png');
     this.load.image('level2Button', './assets/level_2_title_mini.png');
     this.load.image('level3Button', './assets/level_3_title_mini.png');
-
     this.load.image('levelsMap', './assets/main-bg.jpg');
 
-    this.load.image('settings-btn', './assets/interface/settings-icon.png');
-
-    // modal headers
-    this.load.image('level1-title', './assets/modal-headers/level1-header.png');
-    this.load.image('level2-title', './assets/modal-headers/level2-header.png');
-    this.load.image('level3-title', './assets/modal-headers/level3-header.png');
-    this.load.image('settings-header', './assets/modal-headers/header_settings.png');
-    this.load.image('failed-header', './assets/modal-headers/header_failed.png');
-    this.load.image('win-header', './assets/modal-headers/header_win.png');
+    // header
+    this.load.image('header-bg', './assets/modal-headers/header.png');
     // star rewards
     this.load.image('star-grey', './assets/interface/star-grey.png');
     this.load.image('star-1', './assets/interface/star-1.png');
@@ -145,9 +137,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('star-3', './assets/interface/star-3.png');
     // modal backgrounds
     this.load.image('start-modal-bg', './assets/modal-bg/start-modal-bg.png');
-    this.load.image('failed-modal-bg', './assets/modal-bg/failed-modal-bg.png');
-    this.load.image('win-modal-bg', './assets/modal-bg/win-modal-bg.png');
     this.load.image('settings-modal-bg', './assets/modal-bg/settings-modal-bg.png');
+    this.load.image('audio-set-bg', './assets/modal-bg/audio-set-bg.png');
+    this.load.image('table', './assets/modal-bg/table.png');
+    this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
+    this.load.image('win-bg', './assets/modal-bg/win-bg.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -159,9 +153,15 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
-    this.load.image('easy-btn', './assets/interface/easy_btn.png');
-    this.load.image('normal-btn', './assets/interface/normal_btn.png');
-    this.load.image('hard-btn', './assets/interface/hard_btn.png');
+    this.load.image('easy-btn-bg', './assets/interface/easy-btn-bg.png');
+    this.load.image('normal-btn-bg', './assets/interface/normal-btn-bg.png');
+    this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
+    this.load.image('plus', './assets/interface/plus.png');
+    this.load.image('minus', './assets/interface/minus.png');
+    this.load.image('on', './assets/interface/on.png');
+    this.load.image('off', './assets/interface/off.png');
+    
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
 
     try {
       const userId = localStorage.getItem(KEY_ID);
