@@ -71,10 +71,15 @@
   width: 100%;
   position: absolute;
   top: 70px;
-  padding: 0 30px;
+  padding: 0 50px;
 
   & .title-rating-property {
     display: flex;
     justify-content: space-between;
   }
+}
+
+.wrapper-data-table-rating {
+  width: 100%;
+  padding: 0 20px;
 }

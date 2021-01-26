@@ -1,7 +1,8 @@
 // import { GameObjects } from "phaser";
 import { use } from "matter";
 import { sendPlayerStatsToServer } from "./components/stats/PlayerStats";
-import { KEY_ID, levelsConfig, LOCAL_STORAGE_KEY } from "./constants/constants"
+import { KEY_ID, KEY_TOKEN, levelsConfig, LOCAL_STORAGE_KEY } from "./constants/constants";
+import { getCurrentPlayerStats, setCurrentPlayerStats } from './backend';
 
 export default class State {
   level: number;
@@ -23,7 +24,9 @@ export default class State {
   }
 
   updateCurrentGameStats(data: object) {
-    this.currentGameStats = { ...this.currentGameStats, ...data }
+    this.currentGameStats = { ...this.currentGameStats, ...data };
+    this.sendDataToBackend(data)
+      .then((val) => console.log(val));
   }
 
   preparePlayerStatsForBackend() {
@@ -51,11 +54,47 @@ export default class State {
     // TODO
   }
 
-  async sendDataToBackend() {
+  async sendDataToBackend(data) {
     // TODO вызвать sendPlayerStatsToServer из PlayerStats
-    const data = this.preparePlayerStatsForBackend()
-    const userId = localStorage.getItem(KEY_ID);
-    await sendPlayerStatsToServer(userId, data)
+    // const data = this.preparePlayerStatsForBackend()
+    // const userId = localStorage.getItem(KEY_ID);
+    // await sendPlayerStatsToServer(userId, data)
+
+    const id = localStorage.getItem(KEY_ID);
+    const token = localStorage.getItem(KEY_TOKEN);
+    const { builtTowers, soldTowers, killedEnemies, levelProgress } = data;
+    const currentStateFromServer = await getCurrentPlayerStats({ id, token });
+    let gameProgress;
+
+    if (currentStateFromServer.length) {
+      gameProgress = currentStateFromServer.map((node) => {
+        if (node.level === this.level) {
+
+          const result = node.data < levelProgress ? levelProgress : node.data
+          return { level: this.level, data: result };
+        } else {
+          // const isExist = currentStateFromServer.gameProgress.filter((val) => val.level === this.level);
+          // if (!isExist.length) {
+          //   return { level: this.level, data: levelProgress };
+          // }
+        }
+      });
+    } else {
+      gameProgress = [{ level: this.level, data: levelProgress }];
+    }
+
+    const isUpdate = await setCurrentPlayerStats({
+      id,
+      token,
+      body: {
+        ...currentStateFromServer,
+        builtTowers: currentStateFromServer.builtTowers + builtTowers,
+        soldTowers: currentStateFromServer.soldTowers + soldTowers,
+        killedEnemies: currentStateFromServer.killedEnemies + killedEnemies,
+        gameProgress,
+      },
+    });
+    console.log('isUpdate level:',isUpdate);
   }
 
   // должен отправлять на backend эту же информацию (+ инфу по ачивкав из state)

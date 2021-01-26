@@ -21,6 +21,7 @@ function popapSelectCreate({ stats, id }) {
     classList: ['popup-achievements-wrapper'],
     innerHTML: `
       <div class="popup-achievements-content">
+        <div class="title-rating">Statistics</div>
         <div class="close-achievements-popup"></div>
       </div>
     `,
