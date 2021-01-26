@@ -1,42 +1,30 @@
-import Button from './Button'
+import CustomButton from './CustomButton'
 
-export default class DiffButton extends Button {
+export default class DiffButton extends CustomButton {
   easyBtn: Phaser.GameObjects.Image
   
   hardBtn: Phaser.GameObjects.Image
 
-  diffImages: Phaser.GameObjects.Image[]
+  diffBtns: string[]
   
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'normal-btn')
+    super(scene, x, y, 'NORMAL', 'normal-btn-bg', 'normal-btn-bg')
 
-    this.easyBtn = scene.add.image(0, 0, 'easy-btn');
-    this.btnImage.setScale(1)
-    this.hardBtn = scene.add.image(0, 0, 'hard-btn');
-    
-    this.add(this.easyBtn);
-    this.add(this.hardBtn);
-
-    this.easyBtn.texture.key
-
-    this.easyBtn.setVisible(false)
-    this.hardBtn.setVisible(false)
-    // this.easyBtn.visible
-
-    this.diffImages = [this.easyBtn, this.btnImage, this.hardBtn]
+    this.diffBtns = ['easy', 'normal', 'hard']
     
     this.setInteractive({ useHandCursor: true })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, this.handleClick, this)
   }
 
   handleClick() {
-    const visibleBtnIndex = this.diffImages.findIndex((el) => el.visible)
-    this.diffImages.map((el) => el.setVisible(false))
-    const index = (visibleBtnIndex + 1) % this.diffImages.length
-    this.diffImages[index].setVisible(true)
+    const visibleBtnIndex = this.diffBtns.findIndex((el) => el.toUpperCase() === this.btnText.text)
+    const index = (visibleBtnIndex + 1) % this.diffBtns.length
+    this.btnImage.setTexture(`${this.diffBtns[index]}-btn-bg`)
+    this.btnDownImage.setTexture(`${this.diffBtns[index]}-btn-bg`)
+    this.btnText.setText(`${this.diffBtns[index].toUpperCase()}`)
   }
 
   getDifficulty() {
-    return this.diffImages.findIndex((el) => el.visible) + 1;
+    return this.diffBtns.findIndex((el) => el.toUpperCase() === this.btnText.text) + 1;
   }
 }
