@@ -13,6 +13,16 @@ import Button from '../button/Button';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
+import LevelSettings from '../../LevelSettings';
+import {
+  isGreatDefender,
+  isIronDefender,
+  isCompleteWin,
+  isFirstAsterisk,
+  isBuilder,
+  isKiller,
+  isSeller
+} from '../../constants/achievments';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -23,11 +33,11 @@ export default class GameScene extends Phaser.Scene {
   gatePointY: number;
   gate: Gate;
   gameObjStats: any;
-  state: any;
+  levelSettings: any;
   towers: Array<any>
   enemiesGroup: Phaser.GameObjects.Group;
   gold: number;
-  playerLives: number; 
+  playerLives: number;
   passedEnemies: GameObjects.Group[];
   isDefeat: boolean;
   enemiesProducedCounter: number;
@@ -38,10 +48,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   setScene(data) {
-    this.state = new State(data.level, data.difficulty);
-    this.state.saveToLocalStorage(this.registry.get("stats").data);
-    
-    this.map = new MapLevel(this, this.state.config.map);
+    // console.log('setScene: ' + this.registry);
+    this.levelSettings = new LevelSettings(data.level, data.difficulty);
+    // this.state.saveToLocalStorage(this.registry.get("stats").data);
+    // console.log('setScene: ' + this.registry.list["stats"]);
+    this.map = new MapLevel(this, this.levelSettings.config.map);
     this.passedEnemies = [];
     this.firstPointX = this.map.getStartPointX();
     this.firstPointY = this.map.getStartPointY();
@@ -49,13 +60,13 @@ export default class GameScene extends Phaser.Scene {
     this.gatePointY = this.map.getFinishPointY();
 
     this.isDefeat = false;
-    this.deathCounter = 0;
-    this.gold = this.state.config.startingGold;
+    // this.deathCounter = 0;
+    this.gold = this.levelSettings.config.startingGold;
     this.setPlayersLives();
   }
 
   setPlayersLives() {
-    switch (this.state.difficulty) {
+    switch (this.levelSettings.difficulty) {
       case 1:
         this.playerLives = 20;
         return;
@@ -87,7 +98,7 @@ export default class GameScene extends Phaser.Scene {
 
   defeat() {
     this.isDefeat = true;
-    this.updateGameStatsInLocalStorage("lose");
+    // this.updateGameStatsInLocalStorage("lose");
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
@@ -95,10 +106,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   win() {
-    this.updateGameStatsInLocalStorage("win");
+    // this.updateGameStatsInLocalStorage("win");
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
-    this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars()});
+    this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
+    isGreatDefender(this);
+    isIronDefender(this);
+    isCompleteWin(this);
+    isFirstAsterisk(this);
   }
 
   calculateLevelStars() {
@@ -111,24 +126,24 @@ export default class GameScene extends Phaser.Scene {
     return 1;
   }
 
-  updateGameStatsInLocalStorage(result = "playing") {
-    this.state.updateCurrentGameStats({
-      levelResult: result,
-      levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
-      builtTowers: this.scene.scene.registry.list["builtCounter"], 
-      soldTowers: this.scene.scene.registry.list["soldCounter"], 
-      killedEnemies: this.scene.scene.registry.list["deathCounter"],
-    })
-    this.state.saveToLocalStorage();
-  }
+  // updateGameStatsInLocalStorage(result = "playing") {
+  //   this.state.updateCurrentGameStats({
+  //     levelResult: result,
+  //     levelProgress: result == 'win' ? this.calculateLevelStars() : 0,
+  //     builtTowers: this.scene.scene.registry.list["builtCounter"],
+  //     soldTowers: this.scene.scene.registry.list["soldCounter"],
+  //     killedEnemies: this.scene.scene.registry.list["deathCounter"],
+  //   })
+  //   this.state.saveToLocalStorage();
+  // }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
     let enemiesProduced: number = 0;
-    let currentWaveEnemies: {string, number} = levelsConfig[`level_${this.state.level}`].waves[`wave_${currentWave}`].enemies;
+    let currentWaveEnemies: { string, number } = levelsConfig[`level_${this.levelSettings.level}`].waves[`wave_${currentWave}`].enemies;
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
       for (let i = 0; i < enemiesNumber; i++) {
         const enemy = factory.create(enemyType, this.map.createWay());
-        const delay = i*300;
+        const delay = i * 300;
         enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
         this.physics.add.existing(enemy);
         this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
@@ -138,8 +153,6 @@ export default class GameScene extends Phaser.Scene {
     }
     return enemiesProduced;
   }
-
-
 
   createWinTimerChecker() {
     this.time.addEvent({
@@ -183,13 +196,13 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
-    
+
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
 
     // запуск первой волны (надо сделать кнопку-триггер)
     this.enemiesProducedCounter = 0;
     this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
-    const wavesCount = Object.keys(levelsConfig[`level_${this.state.level}`].waves).length;
+    const wavesCount = Object.keys(levelsConfig[`level_${this.levelSettings.level}`].waves).length;
     // console.log(wavesCount);
     this.createWaveTimer(factory, wavesCount);
 
@@ -230,9 +243,9 @@ export default class GameScene extends Phaser.Scene {
 
     // устанавливает взаимодействие пуль и мобов
     this.towers.forEach((tower: Tower) => {
-        tower.setEnemies(this.enemiesGroup);
-        this.physics.add.overlap(this.enemiesGroup, tower.getMissiles(), tower.fire);
-        
+      tower.setEnemies(this.enemiesGroup);
+      this.physics.add.overlap(this.enemiesGroup, tower.getMissiles(), tower.fire);
+
     })
     const gateGroup = this.physics.add.existing(this.gate);
   }
@@ -249,6 +262,6 @@ export default class GameScene extends Phaser.Scene {
       tower.setGold(this.gold);
       this.gold = tower.getGold();
     })
-    console.log(this.gold)
+    // console.log(this.gold)
   }
 }
