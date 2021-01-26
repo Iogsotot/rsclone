@@ -2,6 +2,10 @@ import Modal from './Modal';
 import Button from '../button/Button';
 
 export default class WinModal extends Modal {
+  window: Phaser.GameObjects.Image;
+
+  textMessage: Phaser.GameObjects.Text;
+  
   continueBtn: Button
   
   restartBtn: Button
@@ -9,16 +13,25 @@ export default class WinModal extends Modal {
   starsImage: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene, starsNumber: 1 | 2 | 3) {
-    super(scene, 'win-modal-bg', 'win-header');
+    super(scene, 'table', 'YOU WIN!');
 
-    this.header.setY(this.sceneCenter[1] - this.bgImage.height / 2 + this.header.height / 2)
+    this.header.setY(this.header.y + 15)
 
-    this.starsImage = scene.add.image(
-      this.sceneCenter[0],
-      this.sceneCenter[1] - this.bgImage.width / 6,
-      `star-${starsNumber}`
-    );
+    this.window = scene.add.image(0, 30, 'fail-bg').setOrigin(0.5)
+    this.add(this.window)
+    this.starsImage = scene.add.image( 0, 0, `star-${starsNumber}`);
+    this.starsImage.setY(-this.window.y-this.starsImage.height/4)
     this.add(this.starsImage);
+
+    const styles = {
+      fontFamily: 'Dimbo',
+      fontSize: '60px',
+      color: '#dbc899',
+      align: 'center'
+    }
+    this.textMessage = scene.add.text(0, 0, 'CONGRATULATIONS!/LEVEL COMPLETE', styles).setOrigin(0.5, -0.5)
+    this.textMessage.setWordWrapCallback((text: string) => text.split(/\//))
+    this.add(this.textMessage)
 
     this.initializeButtons(scene);
   }
@@ -26,17 +39,29 @@ export default class WinModal extends Modal {
   initializeButtons(scene: Phaser.Scene) {
     this.restartBtn = new Button(scene, 0, 0, 'button-restart');
     const restartBtnCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 2 + this.restartBtn.width,
-      this.sceneCenter[1] + this.bgImage.height / 2 - this.restartBtn.width / 4,
+      -this.bgImage.width / 2 + this.restartBtn.width,
+      this.bgImage.height / 2 - this.restartBtn.width / 4,
     ];
     this.restartBtn.setPosition(restartBtnCoordinates[0], restartBtnCoordinates[1]);
 
     this.continueBtn = new Button(scene, 0, 0, 'button-right');
     const continueBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 2 - this.continueBtn.width,
-      this.sceneCenter[1] + this.bgImage.height / 2 - this.continueBtn.width / 4,
+      this.bgImage.width / 2 - this.continueBtn.width,
+      this.bgImage.height / 2 - this.continueBtn.width / 4,
     ];
     this.continueBtn.setPosition(continueBtnCoordinates[0], continueBtnCoordinates[1]);
-  }
 
+    this.add(this.restartBtn)
+    this.add(this.continueBtn)
+  }
+  
+  disappearance() {
+    this.scene.tweens.add({
+      targets: this,
+      scale: { start: this.scale, to: 0 },
+      ease: 'Cubic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
+  }
 }

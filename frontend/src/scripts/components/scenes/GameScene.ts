@@ -173,6 +173,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
+    this.cameras.main.fadeIn(750, 0, 0, 0)
     this.scene.scene.registry.set("deathCounter", 0);
     this.scene.scene.registry.set("builtCounter", 0);
     this.scene.scene.registry.set("soldCounter", 0);
@@ -208,11 +209,11 @@ export default class GameScene extends Phaser.Scene {
       pauseButton.height / 2,
     ]
     pauseButton.setPosition(pauseBtnCoordinates[0], pauseBtnCoordinates[1])
-    pauseButton.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
+    pauseButton.setInteractive().on('pointerup', () => {
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
-      this.scene.launch('pause-scene');
+      this.scene.run('pause-scene');
+      
     });
 
     const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');

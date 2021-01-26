@@ -11,13 +11,29 @@ export default class WinScene extends Phaser.Scene {
 
   create(data: any) {
     const modal = new WinModal(this, data.starsNumber);
+    
+    this.tweens.add({
+      targets: modal,
+      scale: { start: 0.3, to: 1 },
+      ease: 'Elastic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
+    
     modal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.stop('game-scene');
-      this.scene.start('LevelsScene');
+      modal.disappearance()
+      this.cameras.main.fadeOut(500, 0, 0, 0)
+	    this.cameras.main.once('camerafadeoutcomplete', () => {
+        this.time.delayedCall(500, () => {
+          this.scene.start('LevelsScene');
+          this.scene.stop('game-scene');
+        })
+	    })
     });
 
     modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      this.scene.start('game-scene');
+      modal.disappearance()
+      this.time.delayedCall(300, () => this.scene.start('game-scene'))
     });
   }
 }
