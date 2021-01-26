@@ -31,6 +31,12 @@ export default class PreloadScene extends Phaser.Scene {
     this.preloader()
     
     // towers
+
+    this.load.spritesheet('sale', './assets/towers/sale.png', {
+        frameWidth: 45,
+        frameHeight: 45
+      });
+
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
       frameHeight: 104,
