@@ -56,25 +56,25 @@ export default class PauseModal extends CustomModal {
     this.options = new Phaser.GameObjects.Container(
       scene,
       0,
-      0
+      25
     );
 
     const bgImage = scene.add.image(0, 0, 'audio-set-bg');
-    this.options.add(bgImage);
+        this.options.add(bgImage);
     this.options.setSize(bgImage.width, bgImage.height);
 
     const musicSlider = new AudioSlider(
       scene,
       -bgImage.width / 3,
       -bgImage.height / 3,
-      'music-text'
+      'Music'
     );
 
     const soundSlider = new AudioSlider(
       scene,
       -bgImage.width / 3,
       bgImage.height / 9,
-      'sound-text'
+      'Sound'
     );
 
     this.options.add(musicSlider);
