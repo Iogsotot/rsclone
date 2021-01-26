@@ -98,8 +98,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         })
         if (this.playerGold < this.costArtilleryTower && this.playerGold < this.costMagicTower
             && this.playerGold < this.costArchersTower) {
-                setTimeout((() => this.hideChoiceTower()), 2000);
-                this.isTowerBuilt = false;
+                setTimeout((() => {
+                    this.isTowerBuilt = false;
+                    this.hideChoiceTower()}), 2000);
             }
     }
 
@@ -127,11 +128,11 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
  
     protected placeTowerArrow(): void {
-        let builtCounter = this.scene.registry.get("builtCounter");
-        builtCounter += 1;
-        this.scene.registry.set("builtCounter", builtCounter);
         this.cost = this.costArchersTower;
         if (this.cost <= this.playerGold) {
+            let builtCounter = this.scene.registry.get("builtCounter");
+            builtCounter += 1;
+            this.scene.registry.set("builtCounter", builtCounter);
             this.hideChoiceTower();
             this.scene.anims.create({
                 key: 'tower_array_anim',
@@ -151,12 +152,12 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         }
     }
 
-    protected placeTowerBomb(): void {
-        let builtCounter = this.scene.registry.get("builtCounter");
-        builtCounter += 1;
-        this.scene.registry.set("builtCounter", builtCounter);
+    protected placeTowerBomb(): void {  
         this.cost = this.costArtilleryTower;
         if (this.cost <= this.playerGold) {
+            let builtCounter = this.scene.registry.get("builtCounter");
+            builtCounter += 1;
+            this.scene.registry.set("builtCounter", builtCounter);
             this.hideChoiceTower();
             this.scene.anims.create({
                 key: 'tower_bomb_anim',
@@ -176,12 +177,12 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         }
     }
 
-    protected placeTowerMagic(): void {
-        let builtCounter = this.scene.registry.get("builtCounter");
-        builtCounter += 1;
-        this.scene.registry.set("builtCounter", builtCounter);
+    protected placeTowerMagic(): void { 
         this.cost = this.costMagicTower;
         if (this.cost <= this.playerGold) {
+            let builtCounter = this.scene.registry.get("builtCounter");
+            builtCounter += 1;
+            this.scene.registry.set("builtCounter", builtCounter);
             this.hideChoiceTower();
             this.scene.anims.create({
                 key: 'tower_magic_anim',
@@ -193,7 +194,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             });
             this.tower.setScale(1.2);
             this.tower.play('tower_magic_anim');
-            this.createStatsTower(200, 1500, 350, 0, 25);
+            this.createStatsTower(20, 1500, 350, 0, 25);
             this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Magic';
@@ -228,8 +229,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
 
     protected hideChoiceTower(): void {
         this.towerButtons.forEach((towerButton: Array<any>) => {
-            towerButton[0].setActive(false);
-            towerButton[0].setVisible(false);
+            towerButton[0].destroy();
+            // towerButton[0].setActive(false);
+            // towerButton[0].setVisible(false);
         });
     }
 

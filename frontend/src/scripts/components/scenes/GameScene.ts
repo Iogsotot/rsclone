@@ -244,11 +244,10 @@ export default class GameScene extends Phaser.Scene {
 
   update(time) {
     this.gate.rotation += 0.003;
-    this.towers.forEach((tower: any) => {
+    this.towers.forEach((tower: Tower) => {
       tower.update(time);
       tower.setGold(this.gold);
       this.gold = tower.getGold();
     })
-    console.log(this.gold)
   }
 }
