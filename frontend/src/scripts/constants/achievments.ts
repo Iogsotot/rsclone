@@ -1,16 +1,4 @@
 import { PlayerStatsManager } from "../components/stats/PlayerStats";
-import { LOCAL_STORAGE_KEY } from "./constants"
-
-const achievements = {
-  firstAsterisk: false,
-  completeWin: false,
-  firstBlood: false,
-  greatDefender: false,
-  ironDefender: false,
-  killer: false,
-  seller: false,
-  builder: false,
-}
 const playerStats = new PlayerStatsManager();
 
 function isGreatDefender() {
@@ -24,10 +12,6 @@ function isGreatDefender() {
   //if (cсумма всех звёзд по всем уровням (gameProgress) = 9) {
   // изменять в LS greatDefender: true
   // }
-  // const key = LOCAL_STORAGE_KEY;
-  // console.log(localStorage.getItem(LOCAL_STORAGE_KEY));
-  // JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "")
-  // return console.log(context.state);
 }
 
 function isIronDefender() {
@@ -82,7 +66,6 @@ function isFirstBlood() {
   const statsData = playerStats.getFromLocalStorage();
   const killedEnemies = statsData['killedEnemies'];
   if (killedEnemies === 1) {
-    console.log("AFASFSADFASFAFAFASF")
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'firstBlood': true } });
   }
 }

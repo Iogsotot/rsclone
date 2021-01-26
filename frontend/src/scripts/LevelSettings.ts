@@ -10,7 +10,6 @@ export default class LevelSettings {
     this.level = level;
     this.gameDifficulty = gameDifficulty;
     this.config = this.produceConfig();
-    console.log(this);
   }
 
   produceConfig() {
