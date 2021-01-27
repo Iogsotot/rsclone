@@ -46,6 +46,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.setInteractive();
     this.isTowerBuilt = false;
     this.timeShot = 0;
+    this.type = '';
     this.isEnemyAlive;
     this.timeForNextShot = 1000;
     this.mapData = mapData;
@@ -106,7 +107,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
-  protected canSale(): void {
+ canSale(): void {
     if (this.isTowerBuilt) {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
       this.saleMark.setInteractive();

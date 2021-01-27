@@ -77,6 +77,10 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
+      if(this.gameObjStats.gameObject === enemy) {
+        this.gameObjStats.slideOut()
+        this.gameObjStats.gameObject = null
+      }
       setTimeout(() => {
         enemy.destroy();
       }, 3000);
@@ -220,7 +224,8 @@ export default class GameScene extends Phaser.Scene {
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-      this.gameObjStats.updateText(gameObject);
+      console.log('asdfsdf')
+      this.gameObjStats.updateStats(gameObject);
     });
 
     const sceneCenter = [this.cameras.main.centerX, this.cameras.main.centerY];

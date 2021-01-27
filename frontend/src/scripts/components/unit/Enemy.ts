@@ -19,6 +19,7 @@ export default class Enemy extends Unit {
 
   init() {
     this.hp = 100;
+    this.maxHp = this.hp
     this.damage = 20;
     this.physicalArmor = 0;
     this.magicArmor = 0;
