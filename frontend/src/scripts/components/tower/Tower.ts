@@ -40,7 +40,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
 
 
   constructor(scene: Phaser.Scene, positionX: number, positionY: number, mapData: MapType) {
-    super(scene, positionX, positionY, 'tower')
+    super(scene, positionX, positionY, 'tower');
     this.x = positionX;
     this.y = positionY;
     this.setInteractive();

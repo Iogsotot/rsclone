@@ -26,7 +26,7 @@ export default class LevelButton extends Button {
       this.scene.cameras.main.fadeOut(500, 0, 0, 0)
 	    this.scene.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.time.delayedCall(500, () => {
-          this.scene.scene.start('game-scene', {level: this.level, difficulty: diff});
+          this.scene.scene.start('game-scene', {level: this.level, gameDifficulty: diff});
         })
 	    })
     });

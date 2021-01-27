@@ -18,11 +18,9 @@ import {
   isIronDefender,
   isCompleteWin,
   isFirstAsterisk,
-  isBuilder,
-  isKiller,
-  isSeller
 } from '../../constants/achievments';
 import { PlayerStatsManager } from '../stats/PlayerStats';
+import WaveButton from '../button/WaveButton';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -32,6 +30,7 @@ export default class GameScene extends Phaser.Scene {
   gatePointX: number;
   gatePointY: number;
   gate: Gate;
+  waveBtn: WaveButton;
   gameObjStats: any;
   levelSettings: any;
   towers: Array<any>
@@ -48,7 +47,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   setScene(data) {
-    // console.log('setScene: ' + this.registry);
     this.levelSettings = new LevelSettings(data.level, data.gameDifficulty);
     this.map = new MapLevel(this, this.levelSettings.config.map);
     this.passedEnemies = [];
@@ -58,7 +56,6 @@ export default class GameScene extends Phaser.Scene {
     this.gatePointY = this.map.getFinishPointY();
 
     this.isDefeat = false;
-    // this.deathCounter = 0;
     this.gold = this.levelSettings.config.startingGold;
     this.playerLives = this.calculatePlayersLivesForDifficulty();
   }
@@ -79,7 +76,6 @@ export default class GameScene extends Phaser.Scene {
   onEnemyCrossing(enemy) {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
-      // this.passedEnemies - количество врагов, прошедших через ворота
       this.playerLives -= 1;
       setTimeout(() => {
         enemy.destroy();
@@ -92,7 +88,7 @@ export default class GameScene extends Phaser.Scene {
 
   defeat() {
     this.isDefeat = true;
-    this.updateGameStatsInLocalStorage("lose");
+    this.updateGameStatsInLocalStorage('lose');
 
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
@@ -100,7 +96,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   win() {
-    this.updateGameStatsInLocalStorage("win");
+    this.updateGameStatsInLocalStorage('win');
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
@@ -120,7 +116,7 @@ export default class GameScene extends Phaser.Scene {
     return 1;
   }
 
-  updateGameStatsInLocalStorage(result = "playing") {
+  updateGameStatsInLocalStorage(result = 'playing') {
     const data = {
       level: this.levelSettings.level,
       levelResult: result,
@@ -156,7 +152,7 @@ export default class GameScene extends Phaser.Scene {
     this.time.addEvent({
       delay: 1000,
       callback: () => {
-        if (this.scene.scene.registry.list["deathCounter"] === this.enemiesProducedCounter - this.passedEnemies.length) {
+        if (this.scene.scene.registry.list['deathCounter'] === this.enemiesProducedCounter - this.passedEnemies.length) {
           this.win();
         }
       },
@@ -183,9 +179,27 @@ export default class GameScene extends Phaser.Scene {
     })
   }
 
+  startBattle() {
+    const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
+    this.enemiesProducedCounter = 0;
+    this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
+    const wavesCount = Object.keys(levelsConfig[`level_${this.levelSettings.level}`].waves).length;
+    this.createWaveTimer(factory, wavesCount);
+  }
+
+  createWaveBtn() {
+    this.waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
+    this.waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      if (this.scene.isPaused()) return;
+      this.startBattle();
+      //звук начала волны
+
+    });
+  }
+
   create(data: any): void {
     this.cameras.main.fadeIn(750, 0, 0, 0);
-    this.scene.scene.registry.set("deathCounter", 0);
+    this.scene.scene.registry.set('deathCounter', 0);
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
@@ -193,16 +207,15 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
 
-    const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
-
     // запуск первой волны (надо сделать кнопку-триггер)
-    this.enemiesProducedCounter = 0;
-    this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
-    const wavesCount = Object.keys(levelsConfig[`level_${this.levelSettings.level}`].waves).length;
-    // console.log(wavesCount);
-    this.createWaveTimer(factory, wavesCount);
+    this.startBattle();
+    // const waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
+    // waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    //   if (this.scene.isPaused()) return;
+    //   this.startBattle();
+    //   //звук начала волны
 
-
+    // });
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
