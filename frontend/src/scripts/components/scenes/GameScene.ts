@@ -82,7 +82,7 @@ export default class GameScene extends Phaser.Scene {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
       this.gameStats.updateLives(this.playerLives)
-      if(this.gameObjStats.gameObject === enemy) {
+      if (this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
         this.gameObjStats.gameObject = null
       }
@@ -199,12 +199,17 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn() {
-    this.waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
+    const line = new Phaser.Curves.Line([this.firstPointX, this.firstPointY, this.firstPointX + 15, this.firstPointY]);
+    const path = this.add.path(this.firstPointX, this.firstPointY);
+    path.add(line);
+    this.waveBtn = new WaveButton(this, path, this.firstPointX + 200, this.firstPointY - 50, 'waveButton');
     this.waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
+      if (this.scene.isPaused()) {
+        return;
+      }
       this.startBattle();
+      this.waveBtn.destroy();
       //звук начала волны
-
     });
   }
 
@@ -218,17 +223,8 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
+    this.createWaveBtn();
 
-    // запуск первой волны (надо сделать кнопку-триггер)
-    this.startBattle();
-    // const waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
-    // waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-    //   if (this.scene.isPaused()) return;
-    //   this.startBattle();
-    //   //звук начала волны
-
-    // });
-    
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
