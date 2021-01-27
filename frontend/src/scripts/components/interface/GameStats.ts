@@ -19,6 +19,14 @@ export default class GameStats extends Phaser.GameObjects.Container {
 
     this.drawContainers()
     this.generate()
+
+    scene.tweens.add({
+      targets: this,
+      y: { start: this.y - this.height, to: this.y },
+      ease: 'Cubic.Out',
+      repeat: 0,
+      duration: 1000,
+    });
   }
 
   drawContainers() {
