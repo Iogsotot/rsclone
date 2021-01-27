@@ -76,6 +76,10 @@ export default class GameScene extends Phaser.Scene {
       this.passedEnemies.push(enemy);
       // this.passedEnemies - количество врагов, прошедших через ворота
       this.playerLives -= 1;
+      if(this.gameObjStats.gameObject === enemy) {
+        this.gameObjStats.slideOut()
+        this.gameObjStats.gameObject = null
+      }
       setTimeout(() => {
         enemy.destroy();
       }, 3000);
@@ -193,12 +197,11 @@ export default class GameScene extends Phaser.Scene {
     // console.log(wavesCount);
     this.createWaveTimer(factory, wavesCount);
 
-
-
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-      this.gameObjStats.updateText(gameObject);
+      console.log('asdfsdf')
+      this.gameObjStats.updateStats(gameObject);
     });
 
     const sceneCenter = [this.cameras.main.centerX, this.cameras.main.centerY];
@@ -249,6 +252,7 @@ export default class GameScene extends Phaser.Scene {
       tower.setGold(this.gold);
       this.gold = tower.getGold();
     })
+    this.gameObjStats.update()
     console.log(this.gold)
   }
 }
