@@ -1,5 +1,5 @@
 import createElement from '../auth/utils/createElement';
-import whileLoad from '../auth/utils/wait.while.loading';
+import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileCreate from './create.popap.profile';
 import popapRatingCreate from './create.popap.rating';
 
@@ -38,10 +38,10 @@ function popapSelectCreate({ stats, players, id }) {
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-achievements-wrapper')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('close-achievements-popup')) {
-        popup.remove();
+        whileRaise(popup);
       }
     },
   });

@@ -4,21 +4,21 @@ import { getCurrentPlayerStats, setCurrentPlayerStats } from '../../backend';
 // const playerStats = new PlayerStatsManager();
 
 async function sendDataToBackend(data) {
-  const id = localStorage.getItem(KEY_ID);
-  const token = localStorage.getItem(KEY_TOKEN);
-  const currentStateFromServer = await getCurrentPlayerStats({ id, token });
+  // const id = localStorage.getItem(KEY_ID);
+  // const token = localStorage.getItem(KEY_TOKEN);
+  // const currentStateFromServer = await getCurrentPlayerStats({ id, token });
 
-  const isUpdate = await setCurrentPlayerStats({
-    id,
-    token,
-    body: {
-      ...currentStateFromServer,
-      builtTowers: currentStateFromServer.builtTowers + builtTowers,
-      soldTowers: currentStateFromServer.soldTowers + soldTowers,
-      killedEnemies: currentStateFromServer.killedEnemies + killedEnemies,
-    },
-  });
-  console.log('isUpdate level:',isUpdate);
+  // const isUpdate = await setCurrentPlayerStats({
+  //   id,
+  //   token,
+  //   body: {
+  //     ...currentStateFromServer,
+  //     builtTowers: currentStateFromServer.builtTowers + builtTowers,
+  //     soldTowers: currentStateFromServer.soldTowers + soldTowers,
+  //     killedEnemies: currentStateFromServer.killedEnemies + killedEnemies,
+  //   },
+  // });
+  // console.log('isUpdate level:',isUpdate);
 }
 
 export default sendDataToBackend;

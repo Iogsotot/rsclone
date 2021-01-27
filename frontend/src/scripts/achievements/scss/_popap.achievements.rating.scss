@@ -25,11 +25,11 @@
   flex-direction: column;
   align-items: center;
   padding: 112px 30px 50px 30px;
-  transition: all .5s ease-out;
   font-family: "Dimbo";
   color: #FFC107;
   font-size: x-large;
   letter-spacing: 0.8px;
+  transition: all .5s ease-out;
   bottom: 100%;
 }
 
@@ -76,6 +76,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: right;
+    & > * {
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
 }
 

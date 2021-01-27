@@ -1,10 +1,7 @@
 import createElement from '../auth/utils/createElement';
-import whileLoad from '../auth/utils/wait.while.loading';
+import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 
 function popapRatingCreate(stats, players) {
-  console.log('rating data:', stats);
-  console.log('players:', players);
-
   const forSort = stats.map((node) => {
     const { gameProgress, achievements } = node;
 
@@ -41,7 +38,8 @@ function popapRatingCreate(stats, players) {
     return `
       <div
         class="data-rating-player"
-        data-progress="${progress}"
+        data-name="${login}"
+        data-progress="${progress === 'no progress' ? 0 : progress}"
         data-achievements="${gotStatsAchievements.length}"
       >
         <div class="rating-player's-name">
@@ -66,9 +64,9 @@ function popapRatingCreate(stats, players) {
 
         <div class="wrapper-table-rating">
           <div class="title-rating-property">
-            <div>Player's name</div>
-            <div>game progress</div>
-            <div>achievements</div>
+            <div class="rating-property-name">Player's name</div>
+            <div class="rating-property-progress">game progress</div>
+            <div class="rating-property-achievements">achievements</div>
           </div>
         </div>
 
@@ -80,10 +78,31 @@ function popapRatingCreate(stats, players) {
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-rating-wrapper')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('close-rating-popup')) {
-        popup.remove();
+        whileRaise(popup);
+      }
+
+      const wrapper = document.querySelector('.wrapper-data-table-rating');
+      const players = document.querySelectorAll('.data-rating-player');
+
+      if (target.classList.contains('rating-property-name')) {
+        const sortHandler = (a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+        const result = Array.from(players).sort(sortHandler);
+        wrapper?.append(...result);
+      }
+
+      if (target.classList.contains('rating-property-progress')) {
+        const sortHandler = (a, b) => a.getAttribute('data-progress') - b.getAttribute('data-progress');
+        const result = Array.from(players).sort(sortHandler);
+        wrapper?.append(...result);
+      }
+
+      if (target.classList.contains('rating-property-achievements')) {
+        const sortHandler = (a, b) => a.getAttribute('data-achievements') - b.getAttribute('data-achievements');
+        const result = Array.from(players).sort(sortHandler);
+        wrapper?.append(...result);
       }
     },
   });
