@@ -12,6 +12,7 @@ import Button from '../button/Button';
 // import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
+import GameStats from '../interface/GameStats';
 import LevelSettings from '../../LevelSettings';
 import {
   isGreatDefender,
@@ -41,6 +42,7 @@ export default class GameScene extends Phaser.Scene {
   isDefeat: boolean;
   enemiesProducedCounter: number;
   deathCounter: number;
+  gameStats: GameStats;
 
   constructor() {
     super('game-scene');
@@ -58,6 +60,8 @@ export default class GameScene extends Phaser.Scene {
     this.isDefeat = false;
     this.gold = this.levelSettings.config.startingGold;
     this.playerLives = this.calculatePlayersLivesForDifficulty();
+    this.gameStats.updateLives(this.playerLives)
+    this.gameStats.updateGolds(this.gold)
   }
 
   calculatePlayersLivesForDifficulty() {
@@ -77,6 +81,7 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
+      this.gameStats.updateLives(this.playerLives)
       if(this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
         this.gameObjStats.gameObject = null
@@ -136,6 +141,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
+    this.gameStats.updateWaves(currentWave)
     let enemiesProduced: number = 0;
     let currentWaveEnemies: { string, number } = levelsConfig[`level_${this.levelSettings.level}`].waves[`wave_${currentWave}`].enemies;
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
@@ -188,6 +194,7 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesProducedCounter = 0;
     this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
     const wavesCount = Object.keys(levelsConfig[`level_${this.levelSettings.level}`].waves).length;
+    this.gameStats.updateWaves(1, wavesCount)
     this.createWaveTimer(factory, wavesCount);
   }
 
@@ -204,6 +211,7 @@ export default class GameScene extends Phaser.Scene {
   create(data: any): void {
     this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set('deathCounter', 0);
+    this.gameStats = new GameStats(this)
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
@@ -220,11 +228,10 @@ export default class GameScene extends Phaser.Scene {
     //   //звук начала волны
 
     // });
-
+    
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
-      console.log('asdfsdf')
       this.gameObjStats.updateStats(gameObject);
     });
 
@@ -275,6 +282,7 @@ export default class GameScene extends Phaser.Scene {
       tower.update(time);
       tower.setGold(this.gold);
       this.gold = tower.getGold();
+      this.gameStats.updateGolds(this.gold)
     })
     // console.log(this.gold)
   }

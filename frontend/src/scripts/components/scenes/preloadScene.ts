@@ -161,6 +161,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('speed2-icon', './assets/icons/speed2.png');
     this.load.image('target-icon', './assets/icons/target.png');
     this.load.image('coins-icon', './assets/icons/coins.png');
+    this.load.image('wave-icon', './assets/icons/skull.png');
     this.load.image('easy-btn-bg', './assets/interface/easy-btn-bg.png');
     this.load.image('normal-btn-bg', './assets/interface/normal-btn-bg.png');
     this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
