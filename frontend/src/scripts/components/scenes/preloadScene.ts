@@ -1,6 +1,4 @@
 import { map1, map2, map3 } from '../../constants/maps';
-import { getPlayerStatsFromServer } from '../stats/PlayerStats';
-import { KEY_ID } from '../../constants/constants';
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -22,8 +20,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   async preload() {
-    const userId = localStorage.getItem(KEY_ID);
-    this.registry.set("stats", getPlayerStatsFromServer(userId));
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
     
     this.barContainer = this.add.graphics();
@@ -127,6 +123,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level2Button', './assets/level_2_title_mini.png');
     this.load.image('level3Button', './assets/level_3_title_mini.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
+    // this.load.image('waveButton', './assets/imgs/wave_button.png');
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -153,6 +150,18 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
+    // icons    
+    this.load.image('armor-icon', './assets/icons/armor.png');
+    this.load.image('arrow-icon', './assets/icons/arrows.png');
+    this.load.image('bomb-icon', './assets/icons/bomb.png');
+    this.load.image('damage-icon', './assets/icons/damage.png');
+    this.load.image('heart-icon', './assets/icons/heart.png');
+    this.load.image('magic-icon', './assets/icons/magic.png');
+    this.load.image('speed-icon', './assets/icons/speed.png');
+    this.load.image('speed2-icon', './assets/icons/speed2.png');
+    this.load.image('target-icon', './assets/icons/target.png');
+    this.load.image('coins-icon', './assets/icons/coins.png');
+    this.load.image('wave-icon', './assets/icons/skull.png');
     this.load.image('easy-btn-bg', './assets/interface/easy-btn-bg.png');
     this.load.image('normal-btn-bg', './assets/interface/normal-btn-bg.png');
     this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
@@ -162,13 +171,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('off', './assets/interface/off.png');
     
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
-
-    try {
-      const userId = localStorage.getItem(KEY_ID);
-      this.registry.set("stats", await getPlayerStatsFromServer(userId));
-    } catch {
-      console.log('Something gone wrong with getting stats from backend');
-    }
   }
 
   create() {

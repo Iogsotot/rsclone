@@ -32,8 +32,8 @@ export class MapLevel extends Map {
     this.scaleCoordinateTowers = this.mapData.scaleCoordinateTowers;
   }
 
-  createWay(): any {
-    const points: Array<any> = [];
+  createWay(): Phaser.Curves.Path {
+    const points: Array<Phaser.Math.Vector2> = [];
     const randomWay = Math.round(Math.random());
     this.scalePointsWay.forEach((scalePoint: any) => {
       if(scalePoint instanceof Array) {
