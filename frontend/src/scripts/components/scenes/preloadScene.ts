@@ -1,4 +1,5 @@
 import { map1, map2, map3 } from '../../constants/maps';
+import langConfig from '../../layouts/langConfig'
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -176,6 +177,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
     this.scene.start('LevelsScene');
+    // this.scene.start('game-scene', {  level: 1, difficulty: 1 });
   }
 
   preloader() {
@@ -193,10 +195,11 @@ export default class PreloadScene extends Phaser.Scene {
       barBorderRadius: barSizes[1] / 2, 
     }
 
+    const loading = langConfig[`${window['lang']}`].loading
     this.loaderText = this.add.text(
       this.cameras.main.centerX,
       containerCoordinates[1] - containerSizes[1],
-      'Loading 0%',
+      `${loading} 0%`,
       { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
@@ -262,7 +265,7 @@ export default class PreloadScene extends Phaser.Scene {
         br: barConfig.barBorderRadius,
       }
     )
-    
-    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
+    const loading = langConfig[`${window['lang']}`].loading
+    this.loaderText.setText(`${loading} ${(coefficient * 100).toFixed()}%`)
   }
 }

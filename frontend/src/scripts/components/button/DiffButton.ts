@@ -1,30 +1,37 @@
 import CustomButton from './CustomButton'
-
+import langConfig from '../../layouts/langConfig';
 export default class DiffButton extends CustomButton {
   easyBtn: Phaser.GameObjects.Image
   
   hardBtn: Phaser.GameObjects.Image
 
-  diffBtns: string[]
+  diffBtns: string[][]
   
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'NORMAL', 'normal-btn-bg', 'normal-btn-bg')
+    const lang = window['lang']
+    const normal = langConfig[`${lang}`].normal.toUpperCase()
 
-    this.diffBtns = ['easy', 'normal', 'hard']
+    super(scene, x, y, `${normal}`, 'normal-btn-bg', 'normal-btn-bg')
+
+    this.diffBtns = [
+      ['easy', langConfig[`${lang}`].easy], 
+      ['normal', langConfig[`${lang}`].normal], 
+      ['hard', langConfig[`${lang}`].hard]
+    ]
     
     this.setInteractive({ useHandCursor: true })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, this.handleClick, this)
   }
 
   handleClick() {
-    const visibleBtnIndex = this.diffBtns.findIndex((el) => el.toUpperCase() === this.btnText.text)
+    const visibleBtnIndex = this.diffBtns.findIndex((el) => el[1].toUpperCase() === this.btnText.text)
     const index = (visibleBtnIndex + 1) % this.diffBtns.length
-    this.btnImage.setTexture(`${this.diffBtns[index]}-btn-bg`)
-    this.btnDownImage.setTexture(`${this.diffBtns[index]}-btn-bg`)
-    this.btnText.setText(`${this.diffBtns[index].toUpperCase()}`)
+    this.btnImage.setTexture(`${this.diffBtns[index][0]}-btn-bg`)
+    this.btnDownImage.setTexture(`${this.diffBtns[index][0]}-btn-bg`)
+    this.btnText.setText(`${this.diffBtns[index][1].toUpperCase()}`)
   }
 
   getDifficulty() {
-    return this.diffBtns.findIndex((el) => el.toUpperCase() === this.btnText.text) + 1;
+    return this.diffBtns.findIndex((el) => el[1].toUpperCase() === this.btnText.text) + 1;
   }
 }
