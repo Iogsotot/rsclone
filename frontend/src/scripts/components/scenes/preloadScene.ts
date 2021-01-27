@@ -1,6 +1,4 @@
 import { map1, map2, map3 } from '../../constants/maps';
-import { getPlayerStatsFromServer } from '../stats/PlayerStats';
-import { KEY_ID } from '../../constants/constants';
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -22,8 +20,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   async preload() {
-    const userId = localStorage.getItem(KEY_ID);
-    this.registry.set("stats", getPlayerStatsFromServer(userId));
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
     
     this.barContainer = this.add.graphics();
@@ -127,6 +123,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level2Button', './assets/level_2_title_mini.png');
     this.load.image('level3Button', './assets/level_3_title_mini.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
+    // this.load.image('waveButton', './assets/imgs/wave_button.png');
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -174,13 +171,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('off', './assets/interface/off.png');
     
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
-
-    try {
-      const userId = localStorage.getItem(KEY_ID);
-      this.registry.set("stats", await getPlayerStatsFromServer(userId));
-    } catch {
-      console.log('Something gone wrong with getting stats from backend');
-    }
   }
 
   create() {
