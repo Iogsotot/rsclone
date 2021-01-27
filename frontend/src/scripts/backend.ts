@@ -40,7 +40,6 @@ async function signIn(user) {
           localStorage.removeItem(KEY_TOKEN);
         });
       }
-
       const isStats = await getCurrentPlayerStats({ id, token });
       console.log('isStats:', isStats);
 
@@ -168,8 +167,8 @@ export { signIn, signUp };
 //       "firstAsterisk": false,
 //       "completeWin": false,
 //       "firstBlood": false,
-//       "GreatDefender": false,
-//       "IronDefender": false,
+//       "greatDefender": false,
+//       "ironDefender": false,
 //       "killer": false,
 //       "seller": false,
 //       "builder": false
@@ -178,4 +177,4 @@ export { signIn, signUp };
 // }
 
 
-export {getCurrentPlayerStats, setCurrentPlayerStats}
+export { getCurrentPlayerStats, setCurrentPlayerStats }

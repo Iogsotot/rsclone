@@ -2,6 +2,8 @@
 // как наших защитников, так и врагов
 
 import 'phaser'
+import { isKiller, isFirstBlood } from '../../constants/achievments';
+import { PlayerStatsManager } from '../stats/PlayerStats';
 
 export default class Unit extends Phaser.GameObjects.PathFollower {
   hp: number;
@@ -64,21 +66,25 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   die() {
-    if (this.isAlive) {
-      let deathCounter = this.scene.registry.get("deathCounter");
-      deathCounter += 1;
-      this.scene.registry.set("deathCounter", deathCounter);
+    if (this.isAlive) {  
       this.isAlive = false;
       this.pauseFollow();
       this.play({ key: `${this.unitType}_die`, repeat: 0});
       this.on('animationcomplete', this.despawn, this)
     }
   }
-
+  
   despawn() {
-    let stats = this.scene.registry.get("stats");
-    stats.killedEnemies += 1;
-    this.scene.registry.set('stats', stats);
+    const playerStats = new PlayerStatsManager();
+    let killedEnemies = playerStats.getFromLocalStorage()['killedEnemies'];
+    killedEnemies += 1;
+    isFirstBlood();
+    isKiller();
+    playerStats.saveToLocalStorage({'killedEnemies': killedEnemies});
+    let deathCounter = this.scene.registry.get("deathCounter");
+    deathCounter += 1;
+    this.scene.registry.set("deathCounter", deathCounter);
+
     this.scene.time.delayedCall(5000, this.destroy, [], this)
   }
 

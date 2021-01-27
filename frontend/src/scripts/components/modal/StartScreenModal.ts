@@ -7,15 +7,15 @@ export default class StartScreenModal extends CustomModal {
   mapImage: Phaser.GameObjects.Image;
 
   levelText: Phaser.GameObjects.Container;
-  
+
   towersNumberText: Phaser.GameObjects.Text;
-  
+
   level: number;
 
   difficultyBtn: DiffButton
-  
+
   difficultyImage: Phaser.GameObjects.Image;
-  
+
   startBtn: Button
 
   constructor(
@@ -29,7 +29,7 @@ export default class StartScreenModal extends CustomModal {
     this.addText(scene, level);
     this.gameDifficulty(scene, 'easy');
     this.addStartButton(scene)
-    
+
     this.towersNumberText = scene.add.text(
       this.bgImage.width / 5,
       this.bgImage.width / 5,
@@ -102,7 +102,7 @@ export default class StartScreenModal extends CustomModal {
     this.difficultyBtn = new DiffButton(scene, difficultyImageCoordinates[0], difficultyImageCoordinates[1])
     this.add(this.difficultyBtn)
   }
-  
+
   addStartButton(scene: Phaser.Scene) {
     this.startBtn = new Button(scene, 0, 0, 'button-start')
     const startBtnCoordinates = [
