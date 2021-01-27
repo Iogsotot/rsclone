@@ -5,6 +5,7 @@ import 'phaser'
 
 export default class Unit extends Phaser.GameObjects.PathFollower {
   hp: number;
+  maxHp: number;
   physicalArmor: number;
   magicArmor: number;
   damage: number;

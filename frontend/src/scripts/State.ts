@@ -64,24 +64,13 @@ export default class State {
     const token = localStorage.getItem(KEY_TOKEN);
     const { builtTowers, soldTowers, killedEnemies, levelProgress } = data;
     const currentStateFromServer = await getCurrentPlayerStats({ id, token });
-    let gameProgress;
 
-    if (currentStateFromServer.length) {
-      gameProgress = currentStateFromServer.map((node) => {
-        if (node.level === this.level) {
-
-          const result = node.data < levelProgress ? levelProgress : node.data
-          return { level: this.level, data: result };
-        } else {
-          // const isExist = currentStateFromServer.gameProgress.filter((val) => val.level === this.level);
-          // if (!isExist.length) {
-          //   return { level: this.level, data: levelProgress };
-          // }
-        }
-      });
-    } else {
-      gameProgress = [{ level: this.level, data: levelProgress }];
-    }
+    currentStateFromServer.forEach((node) => {
+      if (node.level === this.level) {
+        const result = node.data < levelProgress ? levelProgress : node.data
+        node.data = result;
+      }
+    });
 
     const isUpdate = await setCurrentPlayerStats({
       id,
@@ -91,7 +80,6 @@ export default class State {
         builtTowers: currentStateFromServer.builtTowers + builtTowers,
         soldTowers: currentStateFromServer.soldTowers + soldTowers,
         killedEnemies: currentStateFromServer.killedEnemies + killedEnemies,
-        gameProgress,
       },
     });
     console.log('isUpdate level:',isUpdate);

@@ -44,6 +44,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.setInteractive();
         this.isTowerBuilt = false;
         this.timeShot = 0;
+        this.type = ''
         this.isEnemyAlive;
         this.timeForNextShot = 1000;
         this.mapData = mapData;
@@ -103,7 +104,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             }
     }
 
-    protected canSale(): void {
+    canSale(): void {
         if(this.isTowerBuilt) {
             this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
             this.saleMark.setInteractive();
@@ -121,6 +122,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         this.playerGold += this.cost * 0.8;
         this.tower.destroy();
         this.placeField();
+        this.type=''
         this.saleMark.setVisible(false);
         this.saleMark.setActive(false);
         this.tower.on('pointerdown',() => this.choiceTower())
@@ -146,8 +148,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Archers';
-            this.tower.setInteractive();
-            this.tower.on('pointerdown',() => this.canSale());
+            // this.tower.setInteractive();
+            // this.tower.on('pointerdown',() => this.canSale());
         }
     }
 
@@ -171,8 +173,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Artillery';
-            this.tower.setInteractive();
-            this.tower.on('pointerdown',() => this.canSale());
+            // this.tower.setInteractive();
+            // this.tower.on('pointerdown',() => this.canSale());
         }
     }
 
@@ -197,8 +199,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
             this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
             this.isTowerSold = true;
             this.type = 'Magic';
-            this.tower.setInteractive();
-            this.tower.on('pointerdown',() => this.canSale());
+            // this.tower.setInteractive();
+            // this.tower.on('pointerdown',() => this.canSale());
         }   
     }
 

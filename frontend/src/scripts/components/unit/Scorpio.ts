@@ -9,6 +9,7 @@ export default class Scorpio extends Enemy {
     // moveSpeed - За какое время будет пройден way
     this.moveSpeed = 30000;
     this.hp = 200 * difficultyCoeff;
+    this.maxHp = this.hp
     this.physicalArmor = 50 * difficultyCoeff;
     this.killReward = 15;
     this.setScale(0.75);
