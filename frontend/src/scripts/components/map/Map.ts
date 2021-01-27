@@ -16,7 +16,7 @@ export default class Map {
   }
 
   create(): void {
-    this.map = this.scene.add.image(0, 0, `map_${this.scene.state.level}`).setOrigin(0, 0);
+    this.map = this.scene.add.image(0, 0, `map_${this.scene.levelSettings.level}`).setOrigin(0, 0);
     this.map.setDisplaySize(this.width, this.height);
   }
 }
