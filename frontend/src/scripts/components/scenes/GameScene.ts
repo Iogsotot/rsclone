@@ -13,6 +13,7 @@ import Button from '../button/Button';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import State from '../../State';
+import GameStats from '../interface/GameStats';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -32,6 +33,7 @@ export default class GameScene extends Phaser.Scene {
   isDefeat: boolean;
   enemiesProducedCounter: number;
   deathCounter: number;
+  gameStats: GameStats;
 
   constructor() {
     super('game-scene');
@@ -52,6 +54,8 @@ export default class GameScene extends Phaser.Scene {
     this.deathCounter = 0;
     this.gold = this.state.config.startingGold;
     this.setPlayersLives();
+    this.gameStats.updateLives(this.playerLives)
+    this.gameStats.updateGolds(this.gold)
   }
 
   setPlayersLives() {
@@ -76,6 +80,7 @@ export default class GameScene extends Phaser.Scene {
       this.passedEnemies.push(enemy);
       // this.passedEnemies - количество врагов, прошедших через ворота
       this.playerLives -= 1;
+      this.gameStats.updateLives(this.playerLives)
       if(this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
         this.gameObjStats.gameObject = null
@@ -127,6 +132,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
+    this.gameStats.updateWaves(currentWave)
     let enemiesProduced: number = 0;
     let currentWaveEnemies: {string, number} = levelsConfig[`level_${this.state.level}`].waves[`wave_${currentWave}`].enemies;
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
@@ -181,6 +187,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.scene.registry.set("deathCounter", 0);
     this.scene.scene.registry.set("builtCounter", 0);
     this.scene.scene.registry.set("soldCounter", 0);
+    this.gameStats = new GameStats(this)
     this.setScene(data);
     this.map.create();
     this.towers = this.map.addTowers();
@@ -196,6 +203,7 @@ export default class GameScene extends Phaser.Scene {
     const wavesCount = Object.keys(levelsConfig[`level_${this.state.level}`].waves).length;
     // console.log(wavesCount);
     this.createWaveTimer(factory, wavesCount);
+    this.gameStats.updateWaves(1, wavesCount)
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
@@ -251,6 +259,7 @@ export default class GameScene extends Phaser.Scene {
       tower.update(time);
       tower.setGold(this.gold);
       this.gold = tower.getGold();
+      this.gameStats.updateGolds(this.gold)
     })
     this.gameObjStats.update()
     console.log(this.gold)

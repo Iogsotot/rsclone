@@ -6,6 +6,8 @@ export default class GameStats extends Phaser.GameObjects.Container {
   
   wavesInfo: Phaser.GameObjects.Text
 
+  wavesCount: number;
+
   constructor(scene: Phaser.Scene) {
     super(scene)
     scene.add.existing(this)
@@ -67,15 +69,16 @@ export default class GameStats extends Phaser.GameObjects.Container {
     this.add(this.wavesInfo)
   }
 
-  updatePlayerLives(playerLives: number) {
+  updateLives(playerLives: number) {
     this.livesInfo.setText(playerLives.toString())
   }
   
-  updateGoldsInfo(golds: number) {
+  updateGolds(golds: number) {
     this.goldsInfo.setText(golds.toString())
   }
   
-  updateWavesInfo(currentWave: number, maxWaves: number) {
-    this.wavesInfo.setText(`${currentWave}/${maxWaves}`)
+  updateWaves(currentWave: number, maxWaves?: number) {
+    if(maxWaves) this.wavesCount = maxWaves
+    this.wavesInfo.setText(`WAVE ${currentWave}/${this.wavesCount}`)
   }
 } 
