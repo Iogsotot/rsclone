@@ -1,23 +1,49 @@
 import createElement from '../auth/utils/createElement';
 import whileLoad from '../auth/utils/wait.while.loading';
 
-function popapRatingCreate(stats) {
+function popapRatingCreate(stats, players) {
   console.log('rating data:', stats);
+  console.log('players:', players);
 
-  const readyStats = stats.map((node) => {
-    const allStatsAchievements = Object.values(node.achievements);
+  const forSort = stats.map((node) => {
+    const { gameProgress, achievements } = node;
+
+    const allStatsAchievements = Object.values(achievements || {});
     const gotStatsAchievements = allStatsAchievements.filter((property) => property);
-  
-    // const allStats = Object.values(node);
-    // const gotStats = allStats.filter((property) => property);
-    console.log('all, got :', node, node.length);
 
-    const elemetsPlayersName = ``;
-    const elementsGameProgress = ``;
-    const elementsRatingAchievements = `${gotStatsAchievements.length}/${allStatsAchievements.length}`;
+    const reducer = (acc, val) => acc + val;
+    const progress = Object.values(gameProgress || {}).reduce(reducer, 0);
+
+    return { ...node, gameProgressSort: progress, achievementsSort: gotStatsAchievements.length };
+  });
+
+  forSort.sort((a, b) => a.gameProgressSort - b.gameProgressSort);
+  forSort.sort((a, b) => a.achievementsSort - b.achievementsSort);
+
+  players.forEach((player) => {
+    const isFind = forSort.find((node) => node.login === player.login);
+    if (!isFind) forSort.push(player);
+  });
+
+  const readyStats = forSort.map((node) => {
+    const { login, gameProgress, achievements } = node;
+
+    const allStatsAchievements = Object.values(achievements || {});
+    const gotStatsAchievements = allStatsAchievements.filter((property) => property);
+
+    const reducer = (acc, val) => acc + val;
+    const progress = Object.values(gameProgress || {}).reduce(reducer, 0);
+
+    const elemetsPlayersName = login || 'no login';
+    const elementsGameProgress = gameProgress ? `${progress}/9` : 'no progress';
+    const elementsRatingAchievements = achievements ? `${gotStatsAchievements.length}/${allStatsAchievements.length}` : 'no achievements';
 
     return `
-      <div class="data-rating-values">
+      <div
+        class="data-rating-player"
+        data-progress="${progress}"
+        data-achievements="${gotStatsAchievements.length}"
+      >
         <div class="rating-player's-name">
           ${elemetsPlayersName}
         </div>

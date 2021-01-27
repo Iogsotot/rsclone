@@ -16,7 +16,18 @@ async function getCurrentPlayerStats({ id, token }) {
   return response.json();
 }
 
-function popapSelectCreate({ stats, id }) {
+async function getPlayers({ token }) {
+  const response = await fetch(`${SERVER}/users`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
+
+function popapSelectCreate({ stats, players, id }) {
   const popup = createElement('div', {
     classList: ['popup-achievements-wrapper'],
     innerHTML: `
@@ -50,7 +61,7 @@ function popapSelectCreate({ stats, id }) {
     textContent: 'Overall rating',
     onclick: () => {
       popup.remove();
-      popapRatingCreate(stats.data);
+      popapRatingCreate(stats.data, players.data);
     }
   });
 
@@ -65,7 +76,8 @@ function achievementsCreate({ id, token }) {
     classList: ['achievements-icon'],
     onclick: async () => {
       const stats = await getCurrentPlayerStats({ id, token });
-      popapSelectCreate({ stats, id });
+      const players = await getPlayers({ token });
+      popapSelectCreate({ stats, players, id });
     }
   });
   

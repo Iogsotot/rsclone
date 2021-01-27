@@ -55,34 +55,6 @@ export default class State {
   }
 
   async sendDataToBackend(data) {
-    // TODO вызвать sendPlayerStatsToServer из PlayerStats
-    // const data = this.preparePlayerStatsForBackend()
-    // const userId = localStorage.getItem(KEY_ID);
-    // await sendPlayerStatsToServer(userId, data)
-
-    const id = localStorage.getItem(KEY_ID);
-    const token = localStorage.getItem(KEY_TOKEN);
-    const { builtTowers, soldTowers, killedEnemies, levelProgress } = data;
-    const currentStateFromServer = await getCurrentPlayerStats({ id, token });
-
-    currentStateFromServer.forEach((node) => {
-      if (node.level === this.level) {
-        const result = node.data < levelProgress ? levelProgress : node.data
-        node.data = result;
-      }
-    });
-
-    const isUpdate = await setCurrentPlayerStats({
-      id,
-      token,
-      body: {
-        ...currentStateFromServer,
-        builtTowers: currentStateFromServer.builtTowers + builtTowers,
-        soldTowers: currentStateFromServer.soldTowers + soldTowers,
-        killedEnemies: currentStateFromServer.killedEnemies + killedEnemies,
-      },
-    });
-    console.log('isUpdate level:',isUpdate);
   }
 
   // должен отправлять на backend эту же информацию (+ инфу по ачивкав из state)
