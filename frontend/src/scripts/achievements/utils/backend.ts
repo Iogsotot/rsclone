@@ -7,8 +7,7 @@ async function sendDataToBackend() {
   const currentStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "");
   const { data } = await getCurrentPlayerStats({ id, token });
   const {
-    userId, login, builtTowers, soldTowers,
-    killedEnemies, achievements, gameProgress, ironModeProgress
+    userId, login, builtTowers, soldTowers, killedEnemies
   } = data;
   console.log('currentStorage:', currentStorage);
   console.log('currentStateFromServer: ', data);

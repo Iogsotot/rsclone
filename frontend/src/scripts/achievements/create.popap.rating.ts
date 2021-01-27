@@ -14,8 +14,8 @@ function popapRatingCreate(stats, players) {
     return { ...node, gameProgressSort: progress, achievementsSort: gotStatsAchievements.length };
   });
 
-  forSort.sort((a, b) => a.gameProgressSort - b.gameProgressSort);
-  forSort.sort((a, b) => a.achievementsSort - b.achievementsSort);
+  forSort.sort((a, b) => a.gameProgressSort - b.gameProgressSort).reverse();
+  forSort.sort((a, b) => a.achievementsSort - b.achievementsSort).reverse();
 
   players.forEach((player) => {
     const isFind = forSort.find((node) => node.login === player.login);
@@ -90,19 +90,25 @@ function popapRatingCreate(stats, players) {
       if (target.classList.contains('rating-property-name')) {
         const sortHandler = (a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
         const result = Array.from(players).sort(sortHandler);
-        wrapper?.append(...result);
+        result.forEach((el) => {
+          wrapper?.append(el);
+        });
       }
 
       if (target.classList.contains('rating-property-progress')) {
         const sortHandler = (a, b) => a.getAttribute('data-progress') - b.getAttribute('data-progress');
-        const result = Array.from(players).sort(sortHandler);
-        wrapper?.append(...result);
+        const result = Array.from(players).sort(sortHandler).reverse();
+        result.forEach((el) => {
+          wrapper?.append(el);
+        });
       }
 
       if (target.classList.contains('rating-property-achievements')) {
         const sortHandler = (a, b) => a.getAttribute('data-achievements') - b.getAttribute('data-achievements');
-        const result = Array.from(players).sort(sortHandler);
-        wrapper?.append(...result);
+        const result = Array.from(players).sort(sortHandler).reverse();
+        result.forEach((el) => {
+          wrapper?.append(el);
+        });
       }
     },
   });
