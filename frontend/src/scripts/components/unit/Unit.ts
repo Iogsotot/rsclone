@@ -70,8 +70,8 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     const playerStats = new PlayerStatsManager();
     let killedEnemies = playerStats.getFromLocalStorage()['killedEnemies'];
     killedEnemies += 1;
-    isFirstBlood();
-    isKiller();
+    isFirstBlood(this.scene);
+    isKiller(this.scene);
     playerStats.saveToLocalStorage({'killedEnemies': killedEnemies});
     let deathCounter = this.scene.registry.get("deathCounter");
     deathCounter += 1;

@@ -124,7 +124,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level3Button', './assets/level_3_title_mini.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
     this.load.image('waveButton', './assets/icons/wave_button.png');
-    this.load.image('achievementPopup', './assets/imgs/achievement_popup.png')
+    
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -170,6 +170,17 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('minus', './assets/interface/minus.png');
     this.load.image('on', './assets/interface/on.png');
     this.load.image('off', './assets/interface/off.png');
+
+    //ahievements icons
+    this.load.image('icon-builder', './assets/achievements/builder.png');
+    this.load.image('icon-complete_win', './assets/achievements/complete_win.png');
+    this.load.image('icon-first_asterisk', './assets/achievements/first_asterisk.png');
+    this.load.image('icon-first_blood', './assets/achievements/first_blood.png');
+    this.load.image('icon-great_defender', './assets/achievements/great_defender.png');
+    this.load.image('icon-iron_defender', './assets/achievements/iron_defender.png');
+    this.load.image('icon-killer', './assets/achievements/killer.png');
+    this.load.image('icon-seller', './assets/achievements/seller.png');
+    this.load.image('achievementPopup', './assets/achievements/achievement_popup.png');
     
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
   }

@@ -24,7 +24,7 @@ import {
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
 import waveBtnConfigs from '../../constants/waveBtnConfigs';
-import Popup from '../events/achievements_popup';
+// import Popup from '../events/achievements_popup';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -48,7 +48,7 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
-  popup: Popup;
+  // popup: Popup;
 
   constructor() {
     super('game-scene');
@@ -113,13 +113,15 @@ export default class GameScene extends Phaser.Scene {
 
   win() {
     this.updateGameStatsInLocalStorage('win');
+    isGreatDefender(this);
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    isGreatDefender();
-    isIronDefender();
-    isCompleteWin();
-    isFirstAsterisk();
+    // isIronDefender(this.scene);
+    // ошибка выпадает:
+    // isCompleteWin(this.scene);
+    // isFirstAsterisk(this.scene);
+
     sendDataToBackend();
   }
 
@@ -146,7 +148,7 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
-    console.log('updateGameStatsInLocalStorage [data]:', data);
+    // console.log('updateGameStatsInLocalStorage [data]:', data);
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
@@ -258,8 +260,9 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
     this.createWaveBtn(data);
+    // this.popup = new Popup(this, 0, 0, 'achievementPopup');
+    // popup.startAnimation();
 
-    this.popup = new Popup(this, 0, 0, 'achievementPopup');
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
