@@ -1,0 +1,69 @@
+.credits-wrapper {
+  position: fixed;
+  z-index: 15;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../assets/credits/wood_2.png');
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.credits-content {
+  background-image: url('../assets/credits/paper_3.png');
+  width: 557px;
+  height: 746px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  display: flex;
+  cursor: auto;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 100%;
+  transition: all .5s ease-out;
+  padding: 172px 60px 161px;
+}
+
+.title-credits {
+  color:  rgb(230, 225, 82);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  width: 207px;
+  height: 85px;
+  text-align: center;
+  line-height: 59px;
+  font-size: xx-large;
+  position: absolute;
+  top: 70px;
+}
+
+.close-credits-popup {
+  background-image: url('../assets/interface/button_close.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  margin: 20px;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.show-top {
+  bottom: 0;
+}

@@ -85,7 +85,7 @@ async function getCurrentPlayerStats({ id, token }) {
 // main function for update stat
 async function setCurrentPlayerStats({ id, token, body }) {
   try {
-    const response = await fetch(`${SERVER}/users/${id}/stats`, {
+    const response = await fetch(`${SERVER}/users/${id}/stats/`, {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
