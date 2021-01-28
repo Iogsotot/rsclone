@@ -19,12 +19,10 @@
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
-  display: flex;
   cursor: auto;
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
   bottom: 100%;
   transition: all .5s ease-out;
   padding: 172px 60px 161px;
@@ -61,6 +59,43 @@
 
   &:hover {
     transform: scale(1.1);
+  }
+}
+
+.credits-data {
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  font-size: xx-large;
+
+  & .credits-people {
+    display: flex;
+    align-items: center;
+
+    & .avatar {
+      width: 60px;
+      height: 60px;
+      background-size: cover;
+      border-radius: 50%;
+    }
+
+    & a {
+      padding: 10px 20px;
+      text-decoration: none;
+    }
+
+    & .Iogsotot {
+      background-image: url('https://avatars.githubusercontent.com/u/50149163?s=400&u=9a763fefd25839d62bec939ad7302d8a29948cb4&v=4');
+    }
+    & .DenisAfa {
+      background-image: url('https://avatars.githubusercontent.com/u/64201928?s=400&u=b33f2c5f182a021649e8ac548259a05dc3ed792e&v=4');
+    }
+    & .Abdulloh76 {
+      background-image: url('https://avatars.githubusercontent.com/u/59783836?s=400&v=4');
+    }
+    & .mrINEX {
+      background-image: url('https://avatars.githubusercontent.com/u/35580404?s=400&u=742a3a17f24933ff191b620cf949e6f1b872e20a&v=4')
+    }
+
   }
 }
 
