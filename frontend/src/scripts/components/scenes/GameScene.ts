@@ -113,14 +113,10 @@ export default class GameScene extends Phaser.Scene {
 
   win() {
     this.updateGameStatsInLocalStorage('win');
-    isGreatDefender(this);
+    // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    isIronDefender(this.scene);
-    // ошибка выпадает:
-    // isCompleteWin(this.scene);
-    // isFirstAsterisk(this.scene);
 
     sendDataToBackend();
   }
@@ -251,6 +247,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
+    isGreatDefender(this);
     this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set('deathCounter', 0);
     this.gameStats = new GameStats(this)
