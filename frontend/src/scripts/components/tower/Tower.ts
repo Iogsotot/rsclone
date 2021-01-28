@@ -126,6 +126,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     playerStats.saveToLocalStorage({ 'soldTowers': soldTowers });
     this.canUpdateGold = true;
     this.isTowerBuilt = false;
+    this.type = '';
     this.playerGold += this.cost * 0.8;
     this.tower.destroy();
     this.placeField();
