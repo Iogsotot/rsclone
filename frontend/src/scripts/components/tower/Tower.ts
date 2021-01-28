@@ -5,6 +5,7 @@ import MissileMagic from '../missile/MissileMagic';
 import { MapType } from '../../constants/maps';
 import { isBuilder, isSeller } from '../../constants/achievments'
 import { PlayerStatsManager } from '../stats/PlayerStats';
+import GameObjStats from '../interface/GameRoundStats';
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -107,16 +108,17 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
- canSale(): void {
+ canSale(slideOut: CallableFunction, context: object): void {
     if (this.isTowerBuilt) {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
       this.saleMark.setInteractive();
-      this.saleMark.on('pointerdown', () => this.sale());
+      this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
       setTimeout(() => this.saleMark.destroy(), 3000);
     }
   }
 
-  protected sale(): void {
+  protected sale(slideOut, context: object): void {
+    slideOut.call(context)
     const playerStats = new PlayerStatsManager();
     let soldTowers = playerStats.getFromLocalStorage()['soldTowers'];
     soldTowers += 1;
@@ -124,6 +126,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     playerStats.saveToLocalStorage({ 'soldTowers': soldTowers });
     this.canUpdateGold = true;
     this.isTowerBuilt = false;
+    this.type = '';
     this.playerGold += this.cost * 0.8;
     this.tower.destroy();
     this.placeField();
@@ -155,8 +158,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'archers';
-      // this.tower.setInteractive();
-      // this.tower.on('pointerdown', () => this.canSale());
     }
   }
 
@@ -183,8 +184,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'artillery';
-      // this.tower.setInteractive();
-      // this.tower.on('pointerdown', () => this.canSale());
     }
   }
 
@@ -212,8 +211,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'magic';
-      // this.tower.setInteractive();
-      // this.tower.on('pointerdown', () => this.canSale());
     }
   }
 

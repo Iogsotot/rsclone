@@ -2,7 +2,7 @@ import Tower from '../tower/Tower';
 import Unit from '../unit/Unit';
 import langConfig from '../../layouts/langConfig';
 
-export default class ObjStats extends Phaser.GameObjects.Container {
+export default class GameObjStats extends Phaser.GameObjects.Container {
   gameObject: Tower | Unit;
   objNameContainer: Phaser.GameObjects.Graphics;
   objInfoContainer: Phaser.GameObjects.Graphics;
@@ -30,6 +30,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
 
     this.drawContainers();
     this.generate();
+    this.depth = 1000
   }
 
   drawContainers() {
@@ -123,7 +124,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
       };
     } else if (obj instanceof Tower) {
       if (!obj.isTowerBuilt || !obj.type) return null;
-      obj.canSale();
+      obj.canSale(this.slideOut, this)
       const missile =
         obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
       return {
@@ -205,7 +206,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
     });
   }
 
-  update() {
+  updateEnemyHp() {
     if (this.gameObject instanceof Unit) {
       this.infoText_1.setText(`${this.gameObject.hp}/${this.gameObject.maxHp}`);
       if (this.gameObject.hp === 0) this.slideOut();
