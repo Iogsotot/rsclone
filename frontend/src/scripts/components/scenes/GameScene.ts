@@ -117,7 +117,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    // isIronDefender(this.scene);
+    isIronDefender(this.scene);
     // ошибка выпадает:
     // isCompleteWin(this.scene);
     // isFirstAsterisk(this.scene);
@@ -212,12 +212,13 @@ export default class GameScene extends Phaser.Scene {
   createWaveBtn(data) {
     this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
-    const path = new Phaser.Curves.Line([
+    const path = new Phaser.Curves.Path();
+    path.add(new Phaser.Curves.Line([
       this.pointX,
       this.pointY,
       this.pointX + waveBtnConfigs[data.level].endPointX,
       this.pointY + waveBtnConfigs[data.level].endPointY
-    ]);
+    ]));
     this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
 
     // const graphics = this.add.graphics();
