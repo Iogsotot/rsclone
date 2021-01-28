@@ -39,8 +39,7 @@ function isCompleteWin(scene) {
   const gameProgress = statsData['gameProgress'];
   const values: Array<number> = Object.values(gameProgress);
 
-  
-  if (values.length === 3 && values.indexOf(0) === -1) {
+  if (values.length === 3 && values.indexOf(0) === -1) { 
     const popup = new Popup(scene, 0, 0, 'achievementPopup');
     popup.init('completeWin');
     popup.startAnimation();
