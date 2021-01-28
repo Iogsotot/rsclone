@@ -3,7 +3,7 @@ import MissileBomb from '../missile/MissileBomb';
 import MissileArrow from '../missile/MissileArrow';
 import MissileMagic from '../missile/MissileMagic';
 import { MapType } from '../../constants/maps';
-import { isBuilder, isSeller } from '../../constants/achievments'
+import { isBuilder, isSeller } from '../../constants/achievements'
 import { PlayerStatsManager } from '../stats/PlayerStats';
 
 

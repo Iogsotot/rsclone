@@ -2,7 +2,7 @@
 // как наших защитников, так и врагов
 
 import 'phaser'
-import { isKiller, isFirstBlood } from '../../constants/achievments';
+import { isKiller, isFirstBlood } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 
 export default class Unit extends Phaser.GameObjects.PathFollower {

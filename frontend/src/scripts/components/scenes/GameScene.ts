@@ -20,10 +20,11 @@ import {
   isIronDefender,
   isCompleteWin,
   isFirstAsterisk,
-} from '../../constants/achievments';
+} from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
 import waveBtnConfigs from '../../constants/waveBtnConfigs';
+import Popup from '../events/achievements_popup';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -47,6 +48,7 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
+  popup: Popup;
 
   constructor() {
     super('game-scene');
@@ -256,6 +258,8 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
     this.createWaveBtn(data);
+
+    this.popup = new Popup(this, 0, 0, 'achievementPopup');
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
