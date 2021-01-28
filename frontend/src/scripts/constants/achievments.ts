@@ -9,15 +9,9 @@ function isGreatDefender() {
   if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'greatDefender': true } });
   }
-  //if (cсумма всех звёзд по всем уровням (gameProgress) = 9) {
-  // изменять в LS greatDefender: true
-  // }
 }
 
 function isIronDefender() {
-  //if (cсумма всех звёзд по всем уровням (ironModeProgress) = 9) {
-  // изменять в LS ironDefender: true
-  // }
   const statsData = playerStats.getFromLocalStorage();
   const ironModeProgress = statsData['ironModeProgress'];
   const values: Array<number> = Object.values(ironModeProgress);
@@ -28,9 +22,6 @@ function isIronDefender() {
 }
 
 function isCompleteWin() {
-  //if (если у каждого ключа в gameProgress есть значение не равное 0) {
-  // изменять в LS completeWin: true
-  // }
   const statsData = playerStats.getFromLocalStorage();
   const gameProgress = statsData['gameProgress'];
   const values: Array<number> = Object.values(gameProgress);
@@ -40,9 +31,6 @@ function isCompleteWin() {
 }
 
 function isFirstAsterisk() {
-  //if (если у любого ключа в gameProgress или в ironModeProgress значение не равное 0) {
-  // изменять в LS firstAsterisk: true
-  // }
   const statsData = playerStats.getFromLocalStorage();
   const gameProgress = statsData['gameProgress'];
   const ironModeProgress = statsData['ironModeProgress'];
