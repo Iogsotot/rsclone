@@ -22,6 +22,7 @@ import {
 } from '../../constants/achievments';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
+import waveBtnConfigs from '../../constants/waveBtnConfigs';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -30,6 +31,8 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
+  pointX: number;
+  pointY: number;
   gate: Gate;
   waveBtn: WaveButton;
   gameObjStats: any;
@@ -141,7 +144,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
-    this.gameStats.updateWaves(currentWave)
+    this.gameStats.updateWaves(currentWave);
     let enemiesProduced: number = 0;
     let currentWaveEnemies: { string, number } = levelsConfig[`level_${this.levelSettings.level}`].waves[`wave_${currentWave}`].enemies;
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
@@ -198,17 +201,42 @@ export default class GameScene extends Phaser.Scene {
     this.createWaveTimer(factory, wavesCount);
   }
 
-  createWaveBtn() {
-    const line = new Phaser.Curves.Line([this.firstPointX, this.firstPointY, this.firstPointX + 15, this.firstPointY]);
-    const path = this.add.path(this.firstPointX, this.firstPointY);
-    path.add(line);
-    this.waveBtn = new WaveButton(this, path, this.firstPointX + 200, this.firstPointY - 50, 'waveButton');
+  createWaveBtn(data) {
+    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
+    this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
+    const path = new Phaser.Curves.Line([
+      this.pointX,
+      this.pointY,
+      this.pointX + waveBtnConfigs[data.level].endPointX,
+      this.pointY + waveBtnConfigs[data.level].endPointY
+    ]);
+    this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
+
+    // const graphics = this.add.graphics();
+    // graphics.lineStyle(1, 0xffffff, 1);
+    // path.draw(graphics);
+    this.waveBtn.rotation -= waveBtnConfigs[data.level].rotation;
+    this.waveBtn.startFollow({
+      positionOnPath: true,
+      duration: 500,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Ease',
+    })
     this.waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) {
         return;
       }
       this.startBattle();
-      this.waveBtn.destroy();
+      this.scene.scene.tweens.add({
+        targets: this.waveBtn,
+        scale: 0,
+        ease: 'Linear',
+        duration: 300,
+      });
+      setTimeout(() => {
+        this.waveBtn.destroy();
+      }, 310);
       //звук начала волны
     });
   }
@@ -223,7 +251,7 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
-    this.createWaveBtn();
+    this.createWaveBtn(data);
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
