@@ -33,7 +33,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     
     this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
-    this.on("pointerdown", this.takeDamage, this)
+    // this.on("pointerdown", this.takeDamage, this);
   }
 
   takeDamage(damage, physicalDamage, magicDamage) {
