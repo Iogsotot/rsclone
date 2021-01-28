@@ -2,9 +2,19 @@ import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileCreate from './create.popap.profile';
 import popapRatingCreate from './create.popap.rating';
-import { getCurrentPlayerStats } from '../backend';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
+
+async function getCurrentPlayerStats({ id, token }) {
+  const response = await fetch(`${SERVER}/users/${id}/stats`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  });
+  return response.json();
+}
 
 async function getPlayers({ token }) {
   const response = await fetch(`${SERVER}/users`, {

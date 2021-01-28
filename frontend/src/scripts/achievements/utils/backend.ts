@@ -9,8 +9,6 @@ async function sendDataToBackend() {
   const {
     userId, login, builtTowers, soldTowers, killedEnemies
   } = data;
-  console.log('currentStorage:', currentStorage);
-  console.log('currentStateFromServer: ', data);
 
   const isUpdate = await setCurrentPlayerStats({
     id,
@@ -28,6 +26,7 @@ async function sendDataToBackend() {
     },
   });
   console.log('sendDataToBackend [result]:', isUpdate);
+  return isUpdate;
 }
 
 export default sendDataToBackend;

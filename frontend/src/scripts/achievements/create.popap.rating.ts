@@ -56,9 +56,14 @@ function popapRatingCreate(stats, players) {
 
         <div class="wrapper-table-rating">
           <div class="title-rating-property">
-            <div class="rating-property-name">Player's name</div>
-            <div class="rating-property-progress">game progress</div>
-            <div class="rating-property-achievements">achievements</div>
+            <input type="checkbox" id="name" name="name" checked>
+            <label for="name" class="rating-property-name">Player's name</label>
+
+            <input type="checkbox" id="progress" name="progress" checked>
+            <label for="progress" class="rating-property-progress">game progress</label>
+
+            <input type="checkbox" id="achievements" name="achievements" checked>
+            <label for="achievements" class="rating-property-achievements">achievements</label>
           </div>
         </div>
 
