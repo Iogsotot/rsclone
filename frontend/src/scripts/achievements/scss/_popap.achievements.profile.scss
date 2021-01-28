@@ -112,13 +112,14 @@
   display: flex;
   flex-direction: column;
 
-  & .completeWin { background-position-x: 438px; }
-  & .firstBlood { background-position-x: calc(500px - 125px); }
-  & .GreatDefender { background-position-x: 312px; }
-  & .IronDefender { background-position-x: 249px; }
-  & .killer { background-position-x: 186px; }
-  & .seller { background-position-x: 124px; }
-  & .builder { background-position-x: 63px; }
+  & .completeWin { background-image: url('../assets/achievements/complete_win.png'); }
+  & .firstBlood { background-image: url('../assets/achievements/first_blood.png'); }
+  & .greatDefender { background-image: url('../assets/achievements/great_defender.png'); }
+  & .ironDefender { background-image: url('../assets/achievements/iron_defender.png'); }
+  & .killer { background-image: url('../assets/achievements/killer.png'); }
+  & .seller { background-image: url('../assets/achievements/seller.png'); }
+  & .builder { background-image: url('../assets/achievements/builder.png'); }
+  & .firstAsterisk { background-image: url('../assets/achievements/first_asterisk.png'); }
 
   & .icons-profile {
     display: flex;
@@ -130,8 +131,7 @@
       height: 60px;
       padding: 3px;
       box-sizing: border-box;
-      background-image: url('../assets/auth/achievements-btn.png');
-      background-size: 500px;
+      background-size: contain;
       cursor: pointer;
 
       &:hover {
@@ -157,12 +157,11 @@
         height: 60px;
         padding: 3px;
         box-sizing: border-box;
-        background-image: url('../assets/auth/achievements-btn.png');
-        background-size: 500px;
+        background-size: contain;
       }
 
       & .icon-achievements-info-descriptions {
-        padding: 0 0 0 20px;
+        padding: 0 15px;
       }
     }
   }

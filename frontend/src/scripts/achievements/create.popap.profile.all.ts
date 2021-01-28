@@ -12,13 +12,40 @@ function popapProfileAllCreate(arrayStats) {
         ${arrayStats
           .map(([key, value]) => {
             const opacity = value ? 1 : .4;
-            
-              return `
-                <div class="wrapper-icon-achievements-info" style="opacity: ${opacity};">
-                  <div class="icon-achievements-info ${key}"></div>
-                  <div class='icon-achievements-info-descriptions'>${key}</div>
-                </div>
-                `;
+            let info;
+            switch (key) {
+              case 'completeWin':
+                info = 'complete win!';
+                break;
+              case 'firstBlood':
+                info = 'First blood';
+                break;
+              case 'greatDefender':
+                info = 'Great Defender!'
+                break;
+              case 'ironDefender':
+                info = 'Iron defender';
+                break;
+              case 'killer':
+                info = 'Killer';
+                break;
+              case 'seller':
+                info = 'Seller';
+                break;
+              case 'builder':
+                info = 'Builder';
+                break;
+              case 'firstAsterisk':
+                info = 'First asterisk';
+              default:
+            }
+          
+            return `
+              <div class="wrapper-icon-achievements-info" style="opacity: ${opacity};">
+                <div class="icon-achievements-info ${key}"></div>
+                <div class='icon-achievements-info-descriptions'>${info}</div>
+              </div>
+              `;
           }).join(' ')}
         </div>
       </div>
