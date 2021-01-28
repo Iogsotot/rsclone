@@ -1,6 +1,7 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
 import { KEY_TOKEN, KEY_ID } from './constants/constants';
+import achievementsCreate from '../scripts/achievements/create.achievements';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -32,8 +33,12 @@ async function signIn(user) {
       responseInfo.innerHTML = `${login} has sign in`;
 
       localStorage.setItem(KEY_ID, id);
-      if (checked) {
-        localStorage.setItem(KEY_TOKEN, token);
+      localStorage.setItem(KEY_TOKEN, token);
+      if (!checked) {
+        window.addEventListener('unload', function() {
+          localStorage.removeItem(KEY_ID);
+          localStorage.removeItem(KEY_TOKEN);
+        });
       }
       const isStats = await getCurrentPlayerStats({ id, token });
       console.log('isStats:', isStats);
@@ -50,6 +55,7 @@ async function signIn(user) {
       }
 
       createStartPage();
+      achievementsCreate({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;

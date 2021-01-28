@@ -14,8 +14,8 @@
 
 .popup-rating-content {
   background-image: url('../assets/modal-bg/start-modal-bg.png');
-  width: 557px;
-  height: 394px;
+  width: 794px;
+  height: 560px;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 5px;
@@ -23,14 +23,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   padding: 112px 30px 50px 30px;
-  transition: all .5s ease-out;
   font-family: "Dimbo";
   color: #FFC107;
   font-size: x-large;
   letter-spacing: 0.8px;
+  transition: all .5s ease-out;
   bottom: 100%;
 }
 
@@ -65,4 +64,48 @@
   font-size: xx-large;
   position: absolute;
   top: -20px;
+}
+
+.wrapper-table-rating {
+  width: 100%;
+  position: absolute;
+  top: 70px;
+  padding: 0 50px;
+
+  & .title-rating-property {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: right;
+    & > * {
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.wrapper-data-table-rating {
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  overflow-y: scroll;
+
+  & .data-rating-player {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: right;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px rgb(212, 232, 37);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: goldenrod;
+    border-radius: 10px;
+  }
 }

@@ -1,3 +1,4 @@
+import sendDataToBackend from '../achievements/utils/backend';
 import { PlayerStatsManager } from "../components/stats/PlayerStats";
 const playerStats = new PlayerStatsManager();
 
@@ -8,6 +9,7 @@ function isGreatDefender() {
 
   if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'greatDefender': true } });
+    sendDataToBackend();
   }
 }
 
@@ -18,6 +20,7 @@ function isIronDefender() {
 
   if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'ironDefender': true } });
+    sendDataToBackend();
   }
 }
 
@@ -27,6 +30,7 @@ function isCompleteWin() {
   const values: Array<number> = Object.values(gameProgress);
   if (values.length === 3 && values.indexOf(0) === -1) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'completeWin': true } });
+    sendDataToBackend();
   }
 }
 
@@ -39,6 +43,7 @@ function isFirstAsterisk() {
   if ((gameValues.indexOf(1) !== -1 || gameValues.indexOf(2) !== -1 || gameValues.indexOf(3) !== -1)
     || (ironModeValues.indexOf(1) !== -1 || ironModeValues.indexOf(2) !== -1 || ironModeValues.indexOf(3) !== -1)) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'firstAsterisk': true } });
+    sendDataToBackend();
   }
 }
 
@@ -47,6 +52,7 @@ function isBuilder() {
   const builtTowers = statsData['builtTowers'];
   if (builtTowers === 30) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'builder': true } });
+    sendDataToBackend();
   }
 }
 
@@ -55,6 +61,7 @@ function isFirstBlood() {
   const killedEnemies = statsData['killedEnemies'];
   if (killedEnemies === 1) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'firstBlood': true } });
+    sendDataToBackend();
   }
 }
 
@@ -63,6 +70,7 @@ function isKiller() {
   const killedEnemies = statsData['killedEnemies'];
   if (killedEnemies === 150) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'killer': true } });
+    sendDataToBackend();
   }
 }
 
@@ -71,6 +79,7 @@ function isSeller() {
   const soldTowers = statsData['soldTowers'];
   if (soldTowers === 30) {
     playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'seller': true } });
+    sendDataToBackend();
   }
 }
 

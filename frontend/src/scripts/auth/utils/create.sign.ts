@@ -42,7 +42,7 @@ function createSignPage() {
                   checked>
             <label for="scales">
               <div class="checkbox-image"></div>
-              Keep Me Signed In
+              <div class="checkbox-text">Keep Me Signed In</div>
             </label>
           </div>
           <input class="sign-in-submit" type="submit" value="SIGN IN">
