@@ -34,6 +34,7 @@ async function signIn(user) {
 
       localStorage.setItem(KEY_ID, id);
       localStorage.setItem(KEY_TOKEN, token);
+      
       if (!checked) {
         window.addEventListener('unload', function() {
           localStorage.removeItem(KEY_ID);
