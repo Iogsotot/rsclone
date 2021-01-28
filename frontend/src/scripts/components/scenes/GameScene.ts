@@ -1,7 +1,8 @@
 import 'phaser';
 import { MapLevel } from '../map/MapLevel';
 import EnemyFactory from '../unit/EnemyFactory';
-import { levelsConfig } from '../../constants/constants'
+import { levelsConfig } from '../../constants/constants';
+import sendDataToBackend from '../../achievements/utils/backend';
 
 import Tower from '../tower/Tower';
 import { AUTO, GameObjects, NONE } from 'phaser';
@@ -102,6 +103,7 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
     this.scene.launch('lose-scene');
+    sendDataToBackend();
   }
 
   win() {
@@ -113,6 +115,7 @@ export default class GameScene extends Phaser.Scene {
     isIronDefender();
     isCompleteWin();
     isFirstAsterisk();
+    sendDataToBackend();
   }
 
   calculateLevelStars() {
@@ -138,6 +141,7 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
+    console.log('updateGameStatsInLocalStorage [data]:', data);
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {

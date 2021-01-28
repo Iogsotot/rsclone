@@ -29,6 +29,22 @@
   transition: all .5s ease-out;
 }
 
+.title-rating {
+  color:  rgb(230, 225, 82);
+  font-family: "Dimbo";
+  letter-spacing: 1px;
+  margin: 0 20px;
+  background-image: url('../assets/auth/title.png');
+  background-size: contain;
+  width: 207px;
+  height: 85px;
+  text-align: center;
+  line-height: 59px;
+  font-size: xx-large;
+  position: absolute;
+  top: -20px;
+}
+
 .close-achievements-popup {
   background-image: url('../assets/interface/button_close.png');
   background-size: contain;
