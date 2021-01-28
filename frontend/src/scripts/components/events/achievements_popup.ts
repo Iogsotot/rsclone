@@ -17,48 +17,56 @@ export default class Popup extends Phaser.GameObjects.Container {
     let text = '';
     const styles = {
       fontFamily: 'Dimbo',
-      fontSize: '80px',
+      fontSize: '60px',
       color: '#dbc899'
     };
     switch (type) {
       case 'builder':
+        // case 'test':
         text = 'Builder';
         iconTexture = 'icon-builder';
         break;
       case 'completeWin':
+        // case 'test':
         text = 'complete win!';
         iconTexture = 'icon-complete_win';
         break;
       case 'firstAsterisk':
+        // case 'test':
         text = 'First asterisk';
         iconTexture = 'icon-first_asterisk';
         break;
       case 'firstBlood':
+        // case 'test':
         text = 'First blood';
         iconTexture = 'icon-first_blood';
         break;
       case 'greatDefender':
+        // case 'test':
         text = 'Great defender!';
         iconTexture = 'icon-great_defender';
         break;
       case 'killer':
+      // case 'test':
         text = 'Killer';
         iconTexture = 'icon-killer';
         break;
       case 'ironDefender':
+        // case 'test':
         text = 'Iron defender';
         iconTexture = 'icon-iron_defender';
         break;
       case 'seller':
+        // case 'test':
         text = 'Seller';
         iconTexture = 'icon-seller';
         break;
       default:
-        text = 'Hurray!';
+        text = 'Лучший наш защитник!';
         iconTexture = 'icon-first_asterisk';
     }
-    const icon = this.scene.add.sprite(this.x, -this.popupHeight, iconTexture).setOrigin(1.4, 0.5);
-    const title = this.scene.add.text(this.x, -this.popupHeight, text, styles).setOrigin(0.4, 0.5);
+    const icon = this.scene.add.sprite(this.x, -this.popupHeight, iconTexture).setOrigin(0.5, 0.8).setScale(0.7);
+    const title = this.scene.add.text(this.x, -this.popupHeight, text, styles).setOrigin(0.5, -0.4);
     this.add([icon, title]);
   }
 
@@ -66,10 +74,10 @@ export default class Popup extends Phaser.GameObjects.Container {
     this.setSize(this.achievementIcon.width, this.achievementIcon.height);
     this.slideIn();
 
-    setTimeout(() => {
-      console.log('I am fly away')
-      this.slideOut();
-    }, 3500);
+    // setTimeout(() => {
+    //   console.log('I am fly away')
+    //   this.slideOut();
+    // }, 3500);
   }
 
 

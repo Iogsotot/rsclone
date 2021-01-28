@@ -10,17 +10,16 @@ import { AUTO, GameObjects, NONE } from 'phaser';
 
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
-// import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import GameStats from '../interface/GameStats';
 import LevelSettings from '../../LevelSettings';
-import {
-  isGreatDefender,
-  isIronDefender,
-  isCompleteWin,
-  isFirstAsterisk,
-} from '../../constants/achievements';
+// import {
+//   isGreatDefender,
+//   isIronDefender,
+//   isCompleteWin,
+//   isFirstAsterisk,
+// } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
 import waveBtnConfigs from '../../constants/waveBtnConfigs';
@@ -206,6 +205,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn(data) {
+    
     this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
     const path = new Phaser.Curves.Path();
@@ -247,7 +247,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create(data: any): void {
-    isGreatDefender(this);
     this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set('deathCounter', 0);
     this.gameStats = new GameStats(this)
@@ -258,9 +257,11 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
     this.createWaveBtn(data);
-    // this.popup = new Popup(this, 0, 0, 'achievementPopup');
-    // popup.startAnimation();
 
+    // debug code
+    // const testPopup = new Popup(this, 0, 0, 'achievementPopup');
+    // testPopup.init('test');
+    // testPopup.startAnimation();
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
