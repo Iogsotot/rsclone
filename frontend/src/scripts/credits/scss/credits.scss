@@ -64,8 +64,6 @@
 
 .credits-data {
   font-family: "Dimbo";
-  letter-spacing: 1px;
-  font-size: x-large;
   color: #c43c1c;
   padding-right: 5px;
 
@@ -128,13 +126,33 @@
 
   & .wrapper-gratitude {
     & .gratitude-from {
-      & div {
-        margin: 15px 0 5px;
-      }
-      & p {
-        color: antiquewhite;
-        border: 2px solid #d0a763;
-        background-color: #e3b872;
+      padding: 30px 0;
+
+      & ul {
+        list-style: none;
+        text-align: center;
+      
+        font-size: 20px;
+        font-weight: bold;
+
+        & li {
+          font-size: 14px;
+          font-weight: normal;
+        }
+        
+        & li:nth-child(odd) {
+          font-size: 18px;
+          padding: 10px 0px 0px;
+        }
+        & a {
+          text-decoration: none;
+          font-weight: bolder;
+          color: inherit;
+        }
+        
+        & a:hover {
+          text-decoration: underline;
+        }
       }
     }
   }

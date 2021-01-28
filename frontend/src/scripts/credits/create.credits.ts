@@ -31,16 +31,41 @@ function createCredits() {
           <h2 class="credits-title">Gratitude</h2>
           <div class="wrapper-gratitude">
             <div class="gratitude-from">
-              <div>Gratitude from people</div>
-              <p>s lekrnflwa;vjrtvanlei jrtblq i3jn5ljntilqejr j 34qimgjcl g  3qjig4 cm3g jg  j4ij m ij3 4lijmgml  h34gl</p>
+              <ul>
+                Особая благодарность от IogSotot:
+                <li>моей команде</li>
+                <li>за Kingdom Rush и выдежрку!</li>
+                <li>моей черепахе</li>
+                <li>за снятие стресса и плавучесть</li>
+                <li>Артёму <a href="https://github.com/cardamo">Cardamo</a></li>
+                <li>за менторство и крепкое плечо</li>
+                <li><a href="https://rs.school/">RSS и людям из чатов</a></li>
+                <li>за шутки, общение и помощь</li>
+                <li>Алексею <a href="https://github.com/lexlem">Lexlem</a></li>
+                <li>за всё и даже больше</li>
+              </ul>
             </div>
             <div class="gratitude-from">
-              <div>Gratitude from people</div>
-              <p>s lekrnflwa;vjrtvanlei jrtblq i3jn5ljntijig4 cm3g jg  j4ij m ij3 4lijmgml  h34gl</p>
+              <ul>
+                Особая благодарность от DenisAfa:
+                <li>моей команде</li>
+                <li>за Kingdom Rush и выдежрку!</li>
+              </ul>
             </div>
             <div class="gratitude-from">
-              <div>Gratitude from people</div>
-              <p>s lekrnflwa;vjrtvanlei jrtblq i3jn5ljntilqejr j 3vjrtvanlei jrtblq i3jn5ljntijig4 cm3g jg  j4ij m vjrtvanlei jrtblq i3jn5ljntijig4 cm3g jg  j4ij m vjrtvanlei jrtblq i3jn5ljntijig4 cm3g jg  j4ij m 4qimgjcl g  3qjig4 cm3g jg  j4ij m ij3 4lijmgml  h34gl</p>
+              <ul>
+                Особая благодарность от Abdulloh76:
+                <li>моей команде</li>
+                <li>за Kingdom Rush и выдежрку!</li>
+              </ul>
+            </div>
+            <div class="gratitude-from">
+              <ul>
+                Особая благодарность от mrINEX:
+                <li>моей команде</li>
+                <li>за Kingdom Rush и выдежрку!</li>
+                <li><a href="https://rs.school/">RSS и людям из чатов</a></li>
+              </ul>
             </div>
           </div>
         </div>
