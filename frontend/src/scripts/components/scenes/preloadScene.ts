@@ -124,6 +124,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level3Button', './assets/level_3_title_mini.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
     this.load.image('waveButton', './assets/icons/wave_button.png');
+    this.load.image('achievementPopup', './assets/imgs/achievement_popup.png')
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
