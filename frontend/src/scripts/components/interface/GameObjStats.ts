@@ -29,6 +29,7 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
 
     this.drawContainers();
     this.generate();
+    this.depth = 1000
   }
 
   drawContainers() {
@@ -192,7 +193,7 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     });
   }
 
-  update() {
+  updateEnemyHp() {
     if (this.gameObject instanceof Unit) {
       this.infoText_1.setText(`${this.gameObject.hp}/${this.gameObject.maxHp}`);
       if (this.gameObject.hp === 0) this.slideOut();

@@ -284,6 +284,6 @@ export default class GameScene extends Phaser.Scene {
       this.gold = tower.getGold();
       this.gameStats.updateGolds(this.gold)
     })
-    // console.log(this.gold)
+    this.gameObjStats.updateEnemyHp()
   }
 }
