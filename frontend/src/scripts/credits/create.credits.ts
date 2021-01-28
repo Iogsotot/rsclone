@@ -18,6 +18,9 @@ function createCredits() {
         whileRaise(popup);
       }
     },
+  }, {
+    height: `${window.innerHeight}`,
+    width: `${window.innerWidth}`,
   });
 
   whileLoad(popup, '../assets/credits/wood_2.png');
