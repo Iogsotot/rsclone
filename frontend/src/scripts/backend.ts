@@ -62,7 +62,6 @@ async function signIn(user) {
       form.reset();
     }
   } catch (err) {
-    console.log(err);
     responseInfo.textContent = err.name;
   }
 }
@@ -143,7 +142,6 @@ async function signUp(user) {
 
     const response = await fetch(request);
     const { data, ok } = await response.json();
-    console.log(data, ok);
 
     if (ok) {
       responseInfo.innerHTML = `${data.login} has sign up`;
