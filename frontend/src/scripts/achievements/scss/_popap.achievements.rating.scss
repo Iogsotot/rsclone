@@ -76,6 +76,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: right;
+    
+    & input {
+      display: none;
+    }
+
     & > * {
       cursor: pointer;
 

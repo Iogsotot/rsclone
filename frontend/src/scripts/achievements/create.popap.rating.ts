@@ -23,33 +23,25 @@ function popapRatingCreate(stats, players) {
   });
 
   const readyStats = forSort.map((node) => {
-    const { login, gameProgress, achievements } = node;
-
-    const allStatsAchievements = Object.values(achievements || {});
-    const gotStatsAchievements = allStatsAchievements.filter((property) => property);
-
-    const reducer = (acc, val) => acc + val;
-    const progress = Object.values(gameProgress || {}).reduce(reducer, 0);
-
-    const elemetsPlayersName = login || 'no login';
-    const elementsGameProgress = gameProgress ? `${progress}/9` : 'no progress';
-    const elementsRatingAchievements = achievements ? `${gotStatsAchievements.length}/${allStatsAchievements.length}` : 'no achievements';
+    const { login, gameProgressSort, achievementsSort } = node;
+    const resultProgress = gameProgressSort === undefined ? '0' : gameProgressSort;
+    const resultAchievements = achievementsSort === undefined ? '0' : achievementsSort;
 
     return `
       <div
         class="data-rating-player"
         data-name="${login}"
-        data-progress="${progress === 'no progress' ? 0 : progress}"
-        data-achievements="${gotStatsAchievements.length}"
+        data-progress="${resultProgress}"
+        data-achievements="${resultAchievements}"
       >
         <div class="rating-player's-name">
-          ${elemetsPlayersName}
+          ${login}
         </div>
         <div class="rating-game-progress">
-          ${elementsGameProgress}
+          ${resultProgress}/9
         </div>
         <div class="rating-achievements">
-          ${elementsRatingAchievements}
+          ${resultAchievements}/8
         </div>
       </div>
     `
@@ -64,9 +56,14 @@ function popapRatingCreate(stats, players) {
 
         <div class="wrapper-table-rating">
           <div class="title-rating-property">
-            <div class="rating-property-name">Player's name</div>
-            <div class="rating-property-progress">game progress</div>
-            <div class="rating-property-achievements">achievements</div>
+            <input type="checkbox" id="name" name="name" checked>
+            <label for="name" class="rating-property-name">Player's name</label>
+
+            <input type="checkbox" id="progress" name="progress" checked>
+            <label for="progress" class="rating-property-progress">game progress</label>
+
+            <input type="checkbox" id="achievements" name="achievements" checked>
+            <label for="achievements" class="rating-property-achievements">achievements</label>
           </div>
         </div>
 

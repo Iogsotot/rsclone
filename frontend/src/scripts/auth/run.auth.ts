@@ -22,8 +22,6 @@ function runAuth(fn) {
         'Content-Type': 'application/json',
       },
     }).then(({ ok }) => {
-      console.log('auth:', ok);
-
       if (ok) {
         createStartPage();
         achievementsCreate({ id, token });

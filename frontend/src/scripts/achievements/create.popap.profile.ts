@@ -3,8 +3,6 @@ import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileAllCreate from './create.popap.profile.all';
 
 function popapProfileCreate(stats) {
-  console.log('stat user:', stats);
-
   const arrayStats = Object.entries(stats.achievements);
   const allStats = Object.values(stats.achievements);
   const gotStats = allStats.filter((property) => property);
