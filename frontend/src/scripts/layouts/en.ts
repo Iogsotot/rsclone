@@ -13,8 +13,8 @@ export default {
   towersNumber: 'Possible towers number',
   wave: 'wave',
   options: 'options',
-  music: 'music',
-  sound: 'sound',
+  music: 'Music',
+  sound: 'Sound',
   failed: 'failed',
   sorry: 'SORRY :(/LEVEL FAILED',
   win: 'you win!',
@@ -23,6 +23,7 @@ export default {
   slow: 'slow',
   medium: 'medium',
   fast: 'fast',
+  veryFast: 'very fast',
   small: 'small',
   long: 'long',
   levelTheme: {
@@ -30,4 +31,14 @@ export default {
     2: 'This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english.',
     3: 'This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english.',
   },
+  enemy: {
+    littleOrc: 'littleOrc',
+    wizardBlack: 'wizardBlack',
+    scorpio: 'scorpio'
+  },
+  tower: {
+    archers: 'ARCHERS TOWER',
+    artillery: 'ARTILLERY TOWER',
+    magic: 'MAGIC TOWER'
+  }
 }
