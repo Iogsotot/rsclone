@@ -5,6 +5,7 @@ import MissileMagic from '../missile/MissileMagic';
 import { MapType } from '../../constants/maps';
 import { isBuilder, isSeller } from '../../constants/achievments'
 import { PlayerStatsManager } from '../stats/PlayerStats';
+import GameObjStats from '../interface/GameRoundStats';
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -107,16 +108,17 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
- canSale(): void {
+ canSale(slideOut: CallableFunction, context: object): void {
     if (this.isTowerBuilt) {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
       this.saleMark.setInteractive();
-      this.saleMark.on('pointerdown', () => this.sale());
+      this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
       setTimeout(() => this.saleMark.destroy(), 3000);
     }
   }
 
-  protected sale(): void {
+  protected sale(slideOut, context: object): void {
+    slideOut.call(context)
     const playerStats = new PlayerStatsManager();
     let soldTowers = playerStats.getFromLocalStorage()['soldTowers'];
     soldTowers += 1;
@@ -155,8 +157,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'Archers';
-      this.tower.setInteractive();
-      this.tower.on('pointerdown', () => this.canSale());
     }
   }
 
@@ -183,8 +183,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'Artillery';
-      this.tower.setInteractive();
-      this.tower.on('pointerdown', () => this.canSale());
     }
   }
 
@@ -212,8 +210,6 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = 'Magic';
-      this.tower.setInteractive();
-      this.tower.on('pointerdown', () => this.canSale());
     }
   }
 

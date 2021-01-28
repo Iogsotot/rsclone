@@ -1,7 +1,7 @@
 import Tower from '../tower/Tower';
 import Unit from '../unit/Unit';
 
-export default class ObjStats extends Phaser.GameObjects.Container {
+export default class GameObjStats extends Phaser.GameObjects.Container {
   gameObject: Tower | Unit;
   objNameContainer: Phaser.GameObjects.Graphics;
   objInfoContainer: Phaser.GameObjects.Graphics;
@@ -121,7 +121,7 @@ export default class ObjStats extends Phaser.GameObjects.Container {
       };
     } else if (obj instanceof Tower) {
       if (!obj.isTowerBuilt || !obj.type) return null;
-      obj.canSale()
+      obj.canSale(this.slideOut, this)
       const missile = obj.getType() === 'Archers'?'arrow':obj.getType() === 'Artillery'?'bomb':'magic'
       return {
         avaTexture: `${missile}-icon`,
