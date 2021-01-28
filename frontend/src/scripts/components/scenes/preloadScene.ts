@@ -180,7 +180,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('icon-iron_defender', './assets/achievements/iron_defender.png');
     this.load.image('icon-killer', './assets/achievements/killer.png');
     this.load.image('icon-seller', './assets/achievements/seller.png');
-    this.load.image('achievementPopup', './assets/achievements/achievement_popup.png');
+    this.load.image('achievementPopup', './assets/achievements/achievement_popup_3.png');
     
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
   }

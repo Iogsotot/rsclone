@@ -18,46 +18,38 @@ export default class Popup extends Phaser.GameObjects.Container {
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '60px',
-      color: '#dbc899'
+      color: '#d2a2521',
     };
     switch (type) {
       case 'builder':
-        // case 'test':
         text = 'Builder';
         iconTexture = 'icon-builder';
         break;
       case 'completeWin':
-        // case 'test':
         text = 'complete win!';
         iconTexture = 'icon-complete_win';
         break;
       case 'firstAsterisk':
-        // case 'test':
         text = 'First asterisk';
         iconTexture = 'icon-first_asterisk';
         break;
       case 'firstBlood':
-        // case 'test':
         text = 'First blood';
         iconTexture = 'icon-first_blood';
         break;
       case 'greatDefender':
-        // case 'test':
         text = 'Great defender!';
         iconTexture = 'icon-great_defender';
         break;
       case 'killer':
-      // case 'test':
         text = 'Killer';
         iconTexture = 'icon-killer';
         break;
       case 'ironDefender':
-        // case 'test':
         text = 'Iron defender';
         iconTexture = 'icon-iron_defender';
         break;
       case 'seller':
-        // case 'test':
         text = 'Seller';
         iconTexture = 'icon-seller';
         break;
@@ -73,11 +65,12 @@ export default class Popup extends Phaser.GameObjects.Container {
   startAnimation() {
     this.setSize(this.achievementIcon.width, this.achievementIcon.height);
     this.slideIn();
+    // звук появления анимации
 
-    // setTimeout(() => {
-    //   console.log('I am fly away')
-    //   this.slideOut();
-    // }, 3500);
+    setTimeout(() => {
+      // console.log('I am fly away');
+      this.slideOut();
+    }, 3000);
   }
 
 
