@@ -20,7 +20,7 @@ export default {
     killer: 'Убийца',
     builder: 'Строитель',
     ironDefender: 'Железный Защитник',
-    greatDefender: 'Мощный Защитник',
+    greatDefender: 'Великий Защитник',
     completeWin: 'Полная Победа',
   },
   loading: 'Загрузка',
