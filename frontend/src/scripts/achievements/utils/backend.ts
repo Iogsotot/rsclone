@@ -10,7 +10,7 @@ async function sendDataToBackend() {
     userId, login, builtTowers, soldTowers, killedEnemies
   } = data;
 
-  const isUpdate = await setCurrentPlayerStats({
+  const update = await setCurrentPlayerStats({
     id,
     token,
     body: {
@@ -25,8 +25,7 @@ async function sendDataToBackend() {
       ironModeProgress: currentStorage.ironModeProgress,
     },
   });
-  console.log('sendDataToBackend [result]:', isUpdate);
-  return isUpdate;
+  return update;
 }
 
 export default sendDataToBackend;
