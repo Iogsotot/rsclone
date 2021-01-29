@@ -43,13 +43,13 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
     this.initCheckbox(scene);
     this.initProgressBar(scene);
 
-    this.increase.setInteractive().on('pointerup', () =>  this.drawProgressBar(1))
-    this.decrease.setInteractive().on('pointerup', () => this.drawProgressBar(-1))
+    this.increase.setInteractive().on('pointerup', () =>  this.drawProgressBar(1));
+    this.decrease.setInteractive().on('pointerup', () => this.drawProgressBar(-1));
   }
 
   initCheckbox(scene: Phaser.Scene) {
-    this.checkbox = scene.add.image(0, 0, 'on').setOrigin(0.5)
-    this.checkbox.setX(this.title.width+this.checkbox.width/4)
+    this.checkbox = scene.add.image(0, 0, 'on').setOrigin(0.5);
+    this.checkbox.setX(this.title.width+this.checkbox.width/4);
     this.add(this.checkbox);
     this.checkbox
       .setInteractive({ useHandCursor: true })

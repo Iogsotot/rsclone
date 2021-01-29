@@ -10,20 +10,20 @@ import { AUTO, GameObjects, NONE } from 'phaser';
 
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
-// import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import GameStats from '../interface/GameStats';
 import LevelSettings from '../../LevelSettings';
-import {
-  isGreatDefender,
-  isIronDefender,
-  isCompleteWin,
-  isFirstAsterisk,
-} from '../../constants/achievments';
+// import {
+//   isGreatDefender,
+//   isIronDefender,
+//   isCompleteWin,
+//   isFirstAsterisk,
+// } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
 import waveBtnConfigs from '../../constants/waveBtnConfigs';
+// import Popup from '../events/achievements_popup';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -47,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
+  // popup: Popup;
 
   constructor() {
     super('game-scene');
@@ -111,13 +112,11 @@ export default class GameScene extends Phaser.Scene {
 
   win() {
     this.updateGameStatsInLocalStorage('win');
+    // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    isGreatDefender();
-    isIronDefender();
-    isCompleteWin();
-    isFirstAsterisk();
+
     sendDataToBackend();
   }
 
@@ -144,6 +143,10 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
+<<<<<<< HEAD
+=======
+    // console.log('updateGameStatsInLocalStorage [data]:', data);
+>>>>>>> 22b050e54b7907ba1463f6f72f73ed166d7f5a93
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
@@ -205,9 +208,9 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn(data) {
+    
     this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
-
     const path = new Phaser.Curves.Path();
     path.add(new Phaser.Curves.Line([
       this.pointX,
@@ -215,7 +218,6 @@ export default class GameScene extends Phaser.Scene {
       this.pointX + waveBtnConfigs[data.level].endPointX,
       this.pointY + waveBtnConfigs[data.level].endPointY
     ]));
-
     this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
 
     // const graphics = this.add.graphics();
@@ -258,6 +260,11 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
     this.createWaveBtn(data);
+
+    // debug code
+    // const testPopup = new Popup(this, 0, 0, 'achievementPopup');
+    // testPopup.init('test');
+    // testPopup.startAnimation();
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);

@@ -2,7 +2,7 @@
 // как наших защитников, так и врагов
 
 import 'phaser'
-import { isKiller, isFirstBlood } from '../../constants/achievments';
+import { isKiller, isFirstBlood } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 
 export default class Unit extends Phaser.GameObjects.PathFollower {
@@ -70,8 +70,8 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     const playerStats = new PlayerStatsManager();
     let killedEnemies = playerStats.getFromLocalStorage()['killedEnemies'];
     killedEnemies += 1;
-    isFirstBlood();
-    isKiller();
+    isFirstBlood(this.scene);
+    isKiller(this.scene);
     playerStats.saveToLocalStorage({'killedEnemies': killedEnemies});
     let deathCounter = this.scene.registry.get("deathCounter");
     deathCounter += 1;
