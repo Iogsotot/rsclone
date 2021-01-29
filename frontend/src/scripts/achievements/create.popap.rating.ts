@@ -82,44 +82,44 @@ function popapRatingCreate(stats, players) {
       }
 
       const wrapper = document.querySelector('.wrapper-data-table-rating');
-      const players = document.querySelectorAll('.data-rating-player');
+      const players = Array.from(document.querySelectorAll('.data-rating-player'));
       const [name, progress, achievements] = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-
+      
       if (target.classList.contains('rating-property-name')) {
         const sortHandler = (a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
-        const result = Array.from(players);
+
         if (name.checked) {
-          result.sort(sortHandler);
+          players.sort(sortHandler);
         } else {
-          result.sort(sortHandler).reverse();
+          players.sort(sortHandler).reverse();
         }
-        result.forEach((el) => {
+        players.forEach((el) => {
           wrapper?.append(el);
         });
       }
 
       if (target.classList.contains('rating-property-progress')) {
         const sortHandler = (a, b) => a.getAttribute('data-progress') - b.getAttribute('data-progress');
-        const result = Array.from(players);
+
         if (progress.checked) {
-          result.sort(sortHandler).reverse();
+          players.sort(sortHandler).reverse();
         } else {
-          result.sort(sortHandler);
+          players.sort(sortHandler);
         }
-        result.forEach((el) => {
+        players.forEach((el) => {
           wrapper?.append(el);
         });
       }
 
       if (target.classList.contains('rating-property-achievements')) {
         const sortHandler = (a, b) => a.getAttribute('data-achievements') - b.getAttribute('data-achievements');
-        const result = Array.from(players);
+
         if (achievements.checked) {
-          result.sort(sortHandler).reverse();
+          players.sort(sortHandler).reverse();
         } else {
-          result.sort(sortHandler);
+          players.sort(sortHandler);
         }
-        result.forEach((el) => {
+        players.forEach((el) => {
           wrapper?.append(el);
         });
       }
