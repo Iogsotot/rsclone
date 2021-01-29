@@ -75,13 +75,7 @@ async function getCurrentPlayerStats({ id, token }) {
         'Content-Type': 'application/json',
       },
     });
-    const result = await response.json();
-    if (!result.ok) {
-      localStorage.removeItem(KEY_TOKEN);
-      localStorage.removeItem(KEY_ID);
-      window.location.reload();
-    }
-    return result;
+    return response.json();
   } catch(err) {
     return { data: err, ok: false };
   }
