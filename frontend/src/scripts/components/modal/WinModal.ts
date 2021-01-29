@@ -1,5 +1,6 @@
 import Modal from './Modal';
 import Button from '../button/Button';
+import langConfig from '../../layouts/langConfig';
 
 export default class WinModal extends Modal {
   window: Phaser.GameObjects.Image;
@@ -13,7 +14,9 @@ export default class WinModal extends Modal {
   starsImage: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene, starsNumber: 1 | 2 | 3) {
-    super(scene, 'table', 'YOU WIN!');
+    const config = langConfig[`${window['lang']}`]
+    const winText = config.win.toUpperCase()
+    super(scene, 'table', winText );
 
     this.header.setY(this.header.y + 15)
 
@@ -29,7 +32,7 @@ export default class WinModal extends Modal {
       color: '#dbc899',
       align: 'center'
     }
-    this.textMessage = scene.add.text(0, 0, 'CONGRATULATIONS!/LEVEL COMPLETE', styles).setOrigin(0.5, -0.5)
+    this.textMessage = scene.add.text(0, 0, config.congrats, styles).setOrigin(0.5, -0.5)
     this.textMessage.setWordWrapCallback((text: string) => text.split(/\//))
     this.add(this.textMessage)
 

@@ -157,7 +157,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.createStatsTower(15, 1000, 300, 10);
       this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
       this.isTowerSold = true;
-      this.type = 'Archers';
+      this.type = 'archers';
     }
   }
 
@@ -183,7 +183,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.createStatsTower(25, 2500, 500, 20, 20);
       this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
       this.isTowerSold = true;
-      this.type = 'Artillery';
+      this.type = 'artillery';
     }
   }
 
@@ -210,7 +210,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.createStatsTower(200, 1500, 350, 0, 25);
       this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
       this.isTowerSold = true;
-      this.type = 'Magic';
+      this.type = 'magic';
     }
   }
 
