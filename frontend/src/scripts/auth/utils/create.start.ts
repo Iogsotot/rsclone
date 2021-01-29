@@ -56,6 +56,9 @@ function createPopupAttendance(arr) {
     innerHTML: `
       <div class="popup-attendance-content">
 
+        <div class="rope-popup-left"></div>
+        <div class="rope-popup-right"></div>
+
         <div class="close-popup"></div>
         
         <figure>
