@@ -6,25 +6,27 @@ async function sendDataToBackend() {
   const token = localStorage.getItem(KEY_TOKEN);
   const currentStorage = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "");
   const { data } = await getCurrentPlayerStats({ id, token });
-  const {
-    userId, login, builtTowers, soldTowers, killedEnemies
-  } = data;
+  const { userId, login } = data;
 
-  const update = await setCurrentPlayerStats({
+  const objectWillSend = {
     id,
     token,
     body: {
       ...data,
       userId,
       login,
-      builtTowers: builtTowers + currentStorage.builtTowers,
-      soldTowers: soldTowers + currentStorage.soldTowers,
-      killedEnemies: killedEnemies + currentStorage.killedEnemies,
+      builtTowers: currentStorage.builtTowers,
+      soldTowers: currentStorage.soldTowers,
+      killedEnemies: currentStorage.killedEnemies,
       achievements: currentStorage.achievements,
       gameProgress: currentStorage.gameProgress,
       ironModeProgress: currentStorage.ironModeProgress,
     },
-  });
+  };
+
+  const update = await setCurrentPlayerStats(objectWillSend);
+  console.log('object will send [send   >]:', objectWillSend);
+  console.log('object will send [result <]:', update);
   return update;
 }
 

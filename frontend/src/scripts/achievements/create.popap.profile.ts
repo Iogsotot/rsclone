@@ -31,13 +31,41 @@ function popapProfileCreate(stats) {
         <div class="icons-profile-achievements">
           <div class="icons-profile">
           ${arrayStats
-            .map(([key, value]) => {
+            .map(([key, value], index) => {
+              let info;
+              switch (key) {
+                case 'completeWin':
+                  info = 'complete win!';
+                  break;
+                case 'firstBlood':
+                  info = 'First blood';
+                  break;
+                case 'greatDefender':
+                  info = 'Great Defender!'
+                  break;
+                case 'ironDefender':
+                  info = 'Iron defender';
+                  break;
+                case 'killer':
+                  info = 'Killer';
+                  break;
+                case 'seller':
+                  info = 'Seller';
+                  break;
+                case 'builder':
+                  info = 'Builder';
+                  break;
+                case 'firstAsterisk':
+                  info = 'First asterisk';
+                default:
+              }
+
               if (value) {
                 achievement.push(
                   `
-                  <div class="wrapper-icon-achievements-info hide">
+                  <div class="wrapper-icon-achievements-info ${index === 0 ? 'flex-for-achevements' : 'hide'}">
                     <div class="icon-achievements-info ${key}"></div>
-                    <div class='icon-achievements-info-descriptions'>${key}</div>
+                    <div class='icon-achievements-info-descriptions'>${info}</div>
                   </div>
                   `
                 );
