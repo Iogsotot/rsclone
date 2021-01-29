@@ -1,5 +1,6 @@
 import createElement from './createElement';
 import getAttendance from '../backend/getAttendance';
+import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 
@@ -43,6 +44,9 @@ function createStartPage() {
   const body = document.querySelector('body') as HTMLBodyElement;
   body.innerText = '';
   body.append(logout, attendance, startPage);
+
+  const credits = document.querySelector('.logo-credits-button');
+  credits?.addEventListener('click', () => createCredits());
 }
 
 function createPopupAttendance(arr) {
@@ -55,6 +59,9 @@ function createPopupAttendance(arr) {
     classList: ['popup-attendance-wrapper'],
     innerHTML: `
       <div class="popup-attendance-content">
+
+        <div class="rope-popup-left"></div>
+        <div class="rope-popup-right"></div>
 
         <div class="close-popup"></div>
         

@@ -1,7 +1,7 @@
 import CustomModal from './CustomModal';
-import { levelsConfig } from '../../constants/constants';
 import Button from '../button/Button';
 import DiffButton from '../button/DiffButton';
+import langConfig from '../../layouts/langConfig';
 
 export default class StartScreenModal extends CustomModal {
   mapImage: Phaser.GameObjects.Image;
@@ -23,17 +23,20 @@ export default class StartScreenModal extends CustomModal {
     towersNumber: number,
     level: number
   ) {
-    super(scene, 'start-modal-bg', `LEVEL ${level}`);
+    const lang = window['lang']
+    const levelText = langConfig[`${lang}`].level.toUpperCase()
+    super(scene, 'start-modal-bg', `${levelText} ${level}`);
 
     this.drawMapImage(scene, level);
     this.addText(scene, level);
     this.gameDifficulty(scene, 'easy');
     this.addStartButton(scene)
 
+    const possibleTowers = langConfig[`${lang}`].towersNumber
     this.towersNumberText = scene.add.text(
       this.bgImage.width / 5,
       this.bgImage.width / 5,
-      `Possible towers number: ${towersNumber}`,
+      `${possibleTowers}: ${towersNumber}`,
       { fontSize: '30px', fontFamily: 'Dimbo', color: '#c0c0c0' }
     ).setOrigin(0.5)
 
@@ -73,6 +76,9 @@ export default class StartScreenModal extends CustomModal {
   }
 
   addText(scene: Phaser.Scene, level: number) {
+    const lang = window['lang']
+    const levelText = langConfig[`${lang}`].levelTheme[`${level}`]
+
     const levelTextCoordinates = [
       -30,
       -this.bgImage.width / 24,
@@ -84,7 +90,7 @@ export default class StartScreenModal extends CustomModal {
     );
     this.levelText.setSize(this.bgImage.width / 2, this.bgImage.height / 2);
     const levelInfo = scene.add
-      .text(0, 0, levelsConfig[`level_${level}`]['theme'], {
+      .text(0, 0, levelText, {
         fontSize: '25px',
         align: 'justify',
         wordWrap: { width: this.levelText.width },

@@ -1,3 +1,4 @@
+import langConfig from "../../layouts/langConfig";
 
 export default class GameStats extends Phaser.GameObjects.Container {
   livesInfo: Phaser.GameObjects.Text
@@ -67,10 +68,9 @@ export default class GameStats extends Phaser.GameObjects.Container {
 
   generate() {
     const styles = { fontFamily: 'Dimbo', fontSize: '40px' };
-    
-    this.livesInfo = this.scene.add.text(this.width*0.2, 25, '20', styles).setOrigin(0.5)
-    this.goldsInfo = this.scene.add.text(this.width*0.75, 25, '300', styles).setOrigin(0.5)
-    this.wavesInfo = this.scene.add.text(this.width*0.5, 95, 'WAVE 1/14', styles).setOrigin(0.5)
+    this.livesInfo = this.scene.add.text(this.width*0.2, 25, '', styles).setOrigin(0.5)
+    this.goldsInfo = this.scene.add.text(this.width*0.75, 25, '', styles).setOrigin(0.5)
+    this.wavesInfo = this.scene.add.text(this.width*0.5, 95, '', styles).setOrigin(0.5)
     
     this.add(this.livesInfo)
     this.add(this.goldsInfo)
@@ -87,6 +87,7 @@ export default class GameStats extends Phaser.GameObjects.Container {
   
   updateWaves(currentWave: number, maxWaves?: number) {
     if(maxWaves) this.wavesCount = maxWaves
-    this.wavesInfo.setText(`WAVE ${currentWave}/${this.wavesCount}`)
+    const waveText = langConfig[`${window['lang']}`].wave.toUpperCase()
+    this.wavesInfo.setText(`${waveText} ${currentWave}/${this.wavesCount}`)
   }
 } 

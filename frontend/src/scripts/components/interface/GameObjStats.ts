@@ -1,5 +1,6 @@
 import Tower from '../tower/Tower';
 import Unit from '../unit/Unit';
+import langConfig from '../../layouts/langConfig';
 
 export default class GameObjStats extends Phaser.GameObjects.Container {
   gameObject: Tower | Unit;
@@ -102,37 +103,49 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
   }
 
   infoConfig(obj: Tower | Unit) {
+    const textConfig = langConfig[`${window['lang']}`];
     if (obj instanceof Unit) {
       return {
         avaTexture: obj.unitType,
-        name: obj.unitType.toUpperCase(),
+        name: textConfig.enemy[obj.unitType].toUpperCase(),
         img1: 'heart-icon',
         text1: `${obj.hp}/${obj.maxHp}`,
         img2: 'speed-icon',
         text2:
           obj.moveSpeed < 2000
-            ? 'very fast'
+            ? textConfig.veryFast
             : obj.moveSpeed < 3500
-            ? 'fast'
+            ? textConfig.fast
             : obj.moveSpeed < 6000
-            ? 'slow'
-            : 'very slow',
+            ? textConfig.slow
+            : textConfig.verySlow,
         img3: 'coins-icon',
         text3: `${obj.killReward}`,
       };
     } else if (obj instanceof Tower) {
       if (!obj.isTowerBuilt || !obj.type) return null;
       obj.canSale(this.slideOut, this)
-      const missile = obj.getType() === 'Archers'?'arrow':obj.getType() === 'Artillery'?'bomb':'magic'
+      const missile =
+        obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
       return {
         avaTexture: `${missile}-icon`,
-        name: `${obj.getType().toUpperCase()} TOWER`,
+        name: `${textConfig.tower[obj.getType()]}`,
         img1: 'damage-icon',
         text1: `${obj.damage}`,
         img2: 'speed-icon',
-        text2: obj.timeForNextShot > 2400 ? 'slow' : obj.timeForNextShot > 1400 ? 'medium' : 'fast',
+        text2:
+          obj.timeForNextShot > 2400
+            ? textConfig.slow
+            : obj.timeForNextShot > 1400
+            ? textConfig.medium
+            : textConfig.fast,
         img3: 'target-icon',
-        text3: obj.attackArea < 350 ? 'small' : obj.attackArea < 400 ? 'medium' : 'long',
+        text3:
+          obj.attackArea < 350
+            ? textConfig.small
+            : obj.attackArea < 400
+            ? textConfig.medium
+            : textConfig.long,
       };
     }
   }

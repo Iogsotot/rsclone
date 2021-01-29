@@ -1,6 +1,7 @@
 import CustomModal from './CustomModal';
 import Button from '../button/Button';
 import AudioSlider from '../interface/AudioSlider';
+import langConfig from '../../layouts/langConfig';
 
 export default class PauseModal extends CustomModal {
   menuBtn: Button;
@@ -12,7 +13,7 @@ export default class PauseModal extends CustomModal {
   options: Phaser.GameObjects.Container;
 
   constructor(scene: Phaser.Scene) {
-    super(scene, 'settings-modal-bg', 'OPTIONS');
+    super(scene, 'settings-modal-bg', langConfig[`${window['lang']}`].options.toUpperCase());
 
     this.initializeButtons(scene);
     this.initOptionsContainer(scene);
@@ -67,14 +68,14 @@ export default class PauseModal extends CustomModal {
       scene,
       -bgImage.width / 3,
       -bgImage.height / 3,
-      'Music'
+      langConfig[`${window['lang']}`].music
     );
 
     const soundSlider = new AudioSlider(
       scene,
       -bgImage.width / 3,
       bgImage.height / 9,
-      'Sound'
+      langConfig[`${window['lang']}`].sound
     );
 
     this.options.add(musicSlider);
