@@ -45,9 +45,9 @@ export default {
   small: 'kichik',
   long: 'uzoq',
   levelTheme: {
-    1: 'O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn.',
-    2: 'O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn.',
-    3: 'O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn. O`zbekcha matn.',
+    1: 'Men sizga salom beraman va sizning olijanobligingiz va jasoratingiz oldida bosh egaman! Ulug\'vor podshoh Denas o\'z generalini xizmatga chaqiradi. Poytaxt yaqinida orklar to\'dasi ko\'rindi! Bu jonzotlar faqat o\'z yo\'llarida hamma narsani talon-taroj qilishni va yoqishni biladilar. Ushbu jinoyatlar muammolardan muammolarga qadar o\'sishdan oldin ularni to\'xtatish kerak.',
+    2: 'General, ork to\'dasi bizning eng katta muammoimiz emas edi! Janubiy Port aholisi taqiqlangan erlardan Black Mages tomonidan qilingan hujumlar haqida xabar berishdi. Siz va sizning batalyoningiz shahar xavfsizligini ta\'minlash uchun u erga yuborilgan. Omad tilaymiz, general!',
+    3: 'Lineriya himoyachisi, biz qadimgi Hammerxold darvozasidamiz. Yaqinda Qora Mages, Orklar va Chayonlar qo\'shinlari qal\'a devorlarining so\'nggi himoyachilarini yo\'q qiladi. Do\'stlaringizga kirish va yordam qo\'lini cho\'zish vaqti keldi!',
   },
   enemy: {
     littleOrc: 'kichik ork',

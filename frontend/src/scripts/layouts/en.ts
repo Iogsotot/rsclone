@@ -45,9 +45,9 @@ export default {
   small: 'small',
   long: 'long',
   levelTheme: {
-    1: 'This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english.',
-    2: 'This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english.',
-    3: 'This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english. This text is in english.',
+    1: 'Greeting, noble and heroic warrior! As a General of His Mejesty\'s forces, King Denas requires your services. A band of Orcs approaches near the capital! Theay are beasts who only think about looting and burning everything in their wake. It is necessary to stop these crimes before they grow from troubles to problems. ',
+    2: 'General, the orc gang was not our biggest problem! The inhabitants of the city of Southport have reported attacks by Black Wizards from the Forbidden Lands. You must take a batalion to Southport to bolster the city\' defenses. Good luck, General!',
+    3: 'Defender of Linerea! We are at the gates of ancient Hammerhold. Hordes of Black Mages, Orcs and Scorpions are overrunning the few troops still defenfing the fortress wall. Time is of the essence general, we must rush to their aid!',
   },
   enemy: {
     littleOrc: 'little orc',
