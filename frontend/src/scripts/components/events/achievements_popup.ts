@@ -1,5 +1,5 @@
 export default class Popup extends Phaser.GameObjects.Container {
-  achievementIcon: Phaser.GameObjects.Sprite;
+  achievementBg: Phaser.GameObjects.Sprite;
   popupHeight: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, achievementTexture: string) {
@@ -8,8 +8,8 @@ export default class Popup extends Phaser.GameObjects.Container {
     this.x = scene.cameras.main.centerX / 2;
     this.popupHeight = 250;
     this.y = this.popupHeight / 2;
-    this.achievementIcon = scene.add.sprite(this.x, -this.popupHeight, achievementTexture);
-    this.add(this.achievementIcon);
+    this.achievementBg = scene.add.sprite(this.x, -this.popupHeight, achievementTexture);
+    this.add(this.achievementBg);
   }
 
   init(type) {
@@ -63,7 +63,7 @@ export default class Popup extends Phaser.GameObjects.Container {
   }
 
   startAnimation() {
-    this.setSize(this.achievementIcon.width, this.achievementIcon.height);
+    this.setSize(this.achievementBg.width, this.achievementBg.height);
     this.slideIn();
     // звук появления анимации
 
