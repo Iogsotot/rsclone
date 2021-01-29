@@ -27,10 +27,10 @@ async function sendDataToBackend() {
     },
   }
 
-  const isUpdate = await setCurrentPlayerStats(objectWillSend);
+  const update = await setCurrentPlayerStats(objectWillSend);
   console.log('object will send [send >]:', objectWillSend);
-  console.log('object will send [result <]:', isUpdate);
-  return isUpdate;
+  console.log('object will send [result <]:', update);
+  return update;
 }
 
 export default sendDataToBackend;
