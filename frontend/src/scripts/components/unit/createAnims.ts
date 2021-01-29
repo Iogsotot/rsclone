@@ -80,4 +80,30 @@ export default function createAnims(context) {
     frameRate: 30,
   });
 
+  context.anims.create({
+    key: 'levendor_walk',
+    frames: context.anims.generateFrameNumbers('levendor', {
+      start: 0,
+      end: 19,
+    }),
+    frameRate: 25,
+  });
+
+  context.anims.create({
+    key: 'levendor_die',
+    frames: context.anims.generateFrameNumbers('levendor_die', {
+      start: 0,
+      end: 19,
+    }),
+    frameRate: 25,
+  });
+
+  context.anims.create({
+    key: 'levendor_hurt',
+    frames: context.anims.generateFrameNumbers('levendor_hurt', {
+      start: 0,
+      end: 19,
+    }),
+    frameRate: 50,
+  });
 } 

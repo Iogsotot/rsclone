@@ -115,6 +115,21 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 299,
     });
 
+    this.load.spritesheet('levendor', './assets/sprites/levendor_walk.png', {
+      frameWidth: 294,
+      frameHeight: 275,
+    });
+
+    this.load.spritesheet('levendor_die', './assets/sprites/levendor_die.png', {
+      frameWidth: 304,
+      frameHeight: 285,
+    });
+
+    this.load.spritesheet('levendor_hurt', './assets/sprites/levendor_hurt.png', {
+      frameWidth: 304,
+      frameHeight: 285,
+    });
+
     //other
     this.load.spritesheet('gate', './assets/imgs/gate-mini.png', {
       frameWidth: 300,
