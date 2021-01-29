@@ -1,4 +1,5 @@
 import { map1, map2, map3 } from '../../constants/maps';
+import langConfig from '../../layouts/langConfig'
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -6,7 +7,7 @@ interface BarConfigs {
   containerBorderRadius: number,
   barCoordinates: number[],
   barSizes: number[],
-  barBorderRadius: number, 
+  barBorderRadius: number,
 }
 export default class PreloadScene extends Phaser.Scene {
   barContainer: Phaser.GameObjects.Graphics
@@ -18,20 +19,20 @@ export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' });
   }
-  
+
   async preload() {
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
-    
+
     this.barContainer = this.add.graphics();
     this.progressBar = this.add.graphics();
     this.preloader()
-    
+
     // towers
 
     this.load.spritesheet('sale', './assets/towers/sale.png', {
-        frameWidth: 45,
-        frameHeight: 45
-      });
+      frameWidth: 45,
+      frameHeight: 45
+    });
 
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
@@ -122,15 +123,24 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.image('level1Button', './assets/level_1_title_mini.png');
-    this.load.image('level2Button', './assets/level_2_title_mini.png');
-    this.load.image('level3Button', './assets/level_3_title_mini.png');
+    this.load.spritesheet('level1Button', './assets/interface/icon_level_1.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('level2Button', './assets/interface/icon_level_2.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('level3Button', './assets/interface/icon_level_3.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
     this.load.image('levelsMap', './assets/main-bg.jpg');
     this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
       frameWidth: 168,
       frameHeight: 108,
     });
-    
+
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -214,13 +224,14 @@ export default class PreloadScene extends Phaser.Scene {
       frameWidth: 617,
       frameHeight: 256,
     });
-    
+
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
   }
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
     this.scene.start('LevelsScene');
+    // this.scene.start('game-scene', {  level: 1, difficulty: 1 });
   }
 
   preloader() {
@@ -235,13 +246,14 @@ export default class PreloadScene extends Phaser.Scene {
       containerBorderRadius: containerSizes[1] / 2,
       barCoordinates,
       barSizes,
-      barBorderRadius: barSizes[1] / 2, 
+      barBorderRadius: barSizes[1] / 2,
     }
 
+    const loading = langConfig[`${window['lang']}`].loading
     this.loaderText = this.add.text(
       this.cameras.main.centerX,
       containerCoordinates[1] - containerSizes[1],
-      'Loading 0%',
+      `${loading} 0%`,
       { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
@@ -267,7 +279,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('filecomplete-image-kingdom-rush-bg', () => {
       const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'kingdom-rush-bg')
-      bg.displayHeight = +this.sys.game.config.height  
+      bg.displayHeight = +this.sys.game.config.height
       bg.scaleX = bg.scaleY
       bg.depth = -10
     });
@@ -280,9 +292,9 @@ export default class PreloadScene extends Phaser.Scene {
     const yellowDark = 0xde9b26
     const redLight = 0xe65540
     const redDark = 0xc63f31
-    
+
     const coefficient = value < 0.03 ? 0.03 : value
-    let color = coefficient > 0.85 ? redLight : yellowLight; 
+    let color = coefficient > 0.85 ? redLight : yellowLight;
     this.progressBar.clear()
     this.progressBar.fillStyle(color)
     this.progressBar.fillRoundedRect(
@@ -307,7 +319,7 @@ export default class PreloadScene extends Phaser.Scene {
         br: barConfig.barBorderRadius,
       }
     )
-    
-    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
+    const loading = langConfig[`${window['lang']}`].loading
+    this.loaderText.setText(`${loading} ${(coefficient * 100).toFixed()}%`)
   }
 }

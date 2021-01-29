@@ -1,5 +1,6 @@
 import Modal from './Modal';
 import Button from '../button/Button';
+import langConfig from '../../layouts/langConfig';
 
 export default class LoseModal extends Modal {
   window: Phaser.GameObjects.Image;
@@ -13,7 +14,9 @@ export default class LoseModal extends Modal {
   cancelBtn: Button
 
   constructor(scene: Phaser.Scene) {
-    super(scene, 'table', 'FAILED');
+    const config = langConfig[`${window['lang']}`]
+    const failText = config.failed.toUpperCase()
+    super(scene, 'table', failText);
 
     this.header.setY(this.header.y + 15)
     
@@ -29,7 +32,7 @@ export default class LoseModal extends Modal {
       color: '#dbc899',
       align: 'center'
     }
-    this.textMessage = scene.add.text(0, 0, 'SORRY :(/LEVEL FAILED', styles).setOrigin(0.5, -0.5)
+    this.textMessage = scene.add.text(0, 0, config.sorry, styles).setOrigin(0.5, -0.5)
     this.textMessage.setWordWrapCallback((text: string) => text.split(/\//))
     this.add(this.textMessage)
 

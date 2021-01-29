@@ -18,7 +18,7 @@ export async function startApp() {
   }
   new Phaser.Game(config);
 }
-
+window['lang'] = 'ru';
 window.addEventListener('load', () => {
   runAuth(startApp);
 });
