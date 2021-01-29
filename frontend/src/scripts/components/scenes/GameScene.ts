@@ -143,10 +143,7 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
-<<<<<<< HEAD
-=======
     // console.log('updateGameStatsInLocalStorage [data]:', data);
->>>>>>> 22b050e54b7907ba1463f6f72f73ed166d7f5a93
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
