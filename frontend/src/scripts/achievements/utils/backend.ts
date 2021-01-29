@@ -8,9 +8,6 @@ async function sendDataToBackend() {
   const { data } = await getCurrentPlayerStats({ id, token });
   const { userId, login } = data;
 
-  console.log('object will send [from server]:', data);
-  console.log('object will send [from local storage]:', currentStorage);
-
   const objectWillSend = {
     id,
     token,
@@ -28,7 +25,7 @@ async function sendDataToBackend() {
   };
 
   const update = await setCurrentPlayerStats(objectWillSend);
-  console.log('object will send [send >]:', objectWillSend);
+  console.log('object will send [send   >]:', objectWillSend);
   console.log('object will send [result <]:', update);
   return update;
 }
