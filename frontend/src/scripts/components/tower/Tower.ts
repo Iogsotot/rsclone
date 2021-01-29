@@ -3,7 +3,7 @@ import MissileBomb from '../missile/MissileBomb';
 import MissileArrow from '../missile/MissileArrow';
 import MissileMagic from '../missile/MissileMagic';
 import { MapType } from '../../constants/maps';
-import { isBuilder, isSeller } from '../../constants/achievments'
+import { isBuilder, isSeller } from '../../constants/achievements'
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import GameObjStats from '../interface/GameRoundStats';
 
@@ -122,7 +122,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     const playerStats = new PlayerStatsManager();
     let soldTowers = playerStats.getFromLocalStorage()['soldTowers'];
     soldTowers += 1;
-    isSeller();
+    isSeller(this.scene);
     playerStats.saveToLocalStorage({ 'soldTowers': soldTowers });
     this.canUpdateGold = true;
     this.isTowerBuilt = false;
@@ -139,7 +139,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     const playerStats = new PlayerStatsManager();
     let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
     builtTowers += 1;
-    isBuilder();
+    isBuilder(this.scene);
     playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
     this.cost = this.costArchersTower;
     if (this.cost <= this.playerGold) {
@@ -165,7 +165,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     const playerStats = new PlayerStatsManager();
     let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
     builtTowers += 1;
-    isBuilder();
+    isBuilder(this.scene);
     playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
     this.cost = this.costArtilleryTower;
     if (this.cost <= this.playerGold) {
@@ -191,7 +191,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     const playerStats = new PlayerStatsManager();
     let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
     builtTowers += 1;
-    isBuilder();
+    isBuilder(this.scene);
     playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
     this.cost = this.costMagicTower;
     if (this.cost <= this.playerGold) {

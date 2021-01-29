@@ -14,6 +14,7 @@ function runAuth(fn) {
   fetch(`${url}chart/${year}`)
     .then((res) => res.json())
     .then(handleAttendent);
+  
   if (id) {
     fetch(`${url}users/${id}`, {
       headers: {

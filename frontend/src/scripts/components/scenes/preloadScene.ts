@@ -116,7 +116,10 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     //other
-    this.load.image('gate', './assets/imgs/gate-mini.png');
+    this.load.spritesheet('gate', './assets/imgs/gate-mini.png', {
+      frameWidth: 300,
+      frameHeight: 300,
+    });
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
@@ -124,7 +127,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('level2Button', './assets/level_2_title_mini.png');
     this.load.image('level3Button', './assets/level_3_title_mini.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
-    this.load.image('waveButton', './assets/icons/wave_button.png');
+    this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
+      frameWidth: 168,
+      frameHeight: 108,
+    });
+    
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -170,8 +177,46 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('minus', './assets/interface/minus.png');
     this.load.image('on', './assets/interface/on.png');
     this.load.image('off', './assets/interface/off.png');
+
+    //ahievements icons
+    this.load.spritesheet('icon-builder', './assets/achievements/builder.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-complete_win', './assets/achievements/complete_win.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_asterisk', './assets/achievements/first_asterisk.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_blood', './assets/achievements/first_blood.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-great_defender', './assets/achievements/great_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-iron_defender', './assets/achievements/iron_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-killer', './assets/achievements/killer.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-seller', './assets/achievements/seller.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('achievementPopup', './assets/achievements/achievement_popup_3.png', {
+      frameWidth: 617,
+      frameHeight: 256,
+    });
     
-    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
   }
 
   create() {
