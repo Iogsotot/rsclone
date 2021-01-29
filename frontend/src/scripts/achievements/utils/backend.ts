@@ -25,7 +25,7 @@ async function sendDataToBackend() {
       gameProgress: currentStorage.gameProgress,
       ironModeProgress: currentStorage.ironModeProgress,
     },
-  }
+  };
 
   const update = await setCurrentPlayerStats(objectWillSend);
   console.log('object will send [send >]:', objectWillSend);
