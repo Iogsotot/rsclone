@@ -1,6 +1,7 @@
 import createElement from './createElement';
 import getAttendance from '../backend/getAttendance';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
+import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 
 function createStartPage() {
   const startPage = createElement(
@@ -51,7 +52,7 @@ function createPopupAttendance(arr) {
   const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
 
   const popup = createElement('div', {
-    classList: ['popup-attendance-wrapper', 'hide'],
+    classList: ['popup-attendance-wrapper'],
     innerHTML: `
       <div class="popup-attendance-content">
 
@@ -83,28 +84,15 @@ function createPopupAttendance(arr) {
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-attendance-wrapper')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('close-popup')) {
-        popup.remove();
+        whileRaise(popup);
       }
     },
   });
 
-  const loader = createElement('div', {
-    classList: ['loader'],
-  });
-
-  document.querySelector('.start-page')?.append(loader);
-  document.querySelector('body')?.append(popup);
-
-  const preloaderImg = document.createElement('img');
-  preloaderImg.src = '../assets/auth/close.png';
-
-  preloaderImg.addEventListener('load', () => {
-    loader.remove();
-    popup.classList.remove('hide');
-  });
+  whileLoad(popup, '../assets/interface/modal-bg.png');
 }
 
 export default createStartPage;

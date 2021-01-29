@@ -33,18 +33,10 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     
     this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
-    this.on("pointerdown", this.takeDamage, this)
-  }
-
-  create() {
-    console.log(`${this.unitType}_walk`);
+    // this.on("pointerdown", this.takeDamage, this);
   }
 
   takeDamage(damage, physicalDamage, magicDamage) {
-      // Денис: понимаю зачем делать проверку на this.hp - damage? 
-      // Пример: у моба 30 хп, башня стреляет уроном 20, 30 - 20 = 10 < damage
-      // получается проверку проходит и моб умирает, хотя у него 10 хп еще
-    // if(this.hp - damage < damage) {
     if(this.hp <= damage) {
       this.hp = 0;
       this.die();
@@ -92,7 +84,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       return this.killReward
   }
 
-  // этот метод нужен чтобы утаскивать состояние enemy в tower. 
   getAlive() {
       return this.isAlive
   }

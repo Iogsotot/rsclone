@@ -25,6 +25,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .5s ease-out;
+    bottom: 100%;
 }
 
 .close-popup {
@@ -38,4 +40,8 @@
     right: 0;
     top: 0;
     cursor: pointer;
+}
+
+.show-top {
+    bottom: 0;
 }
