@@ -9,6 +9,9 @@ export default class Popup extends Phaser.GameObjects.Container {
     this.popupHeight = 250;
     this.y = this.popupHeight / 2;
     this.achievementBg = scene.add.sprite(this.x, -this.popupHeight, achievementTexture);
+    this.setSize(this.achievementBg.width, this.achievementBg.height);
+    this.y = this.height / 2;
+    this.achievementBg.setY(-this.height)
     this.add(this.achievementBg);
   }
 
@@ -63,12 +66,10 @@ export default class Popup extends Phaser.GameObjects.Container {
   }
 
   startAnimation() {
-    this.setSize(this.achievementBg.width, this.achievementBg.height);
     this.slideIn();
     // звук появления анимации
 
     setTimeout(() => {
-      // console.log('I am fly away');
       this.slideOut();
     }, 3000);
   }
