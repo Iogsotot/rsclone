@@ -1,5 +1,5 @@
 export default class Popup extends Phaser.GameObjects.Container {
-  achievementIcon: Phaser.GameObjects.Sprite;
+  achievementBg: Phaser.GameObjects.Sprite;
   popupHeight: number;
 
   constructor(scene: Phaser.Scene, x: number, y: number, achievementTexture: string) {
@@ -8,8 +8,8 @@ export default class Popup extends Phaser.GameObjects.Container {
     this.x = scene.cameras.main.centerX / 2;
     this.popupHeight = 250;
     this.y = this.popupHeight / 2;
-    this.achievementIcon = scene.add.sprite(this.x, -this.popupHeight, achievementTexture);
-    this.add(this.achievementIcon);
+    this.achievementBg = scene.add.sprite(this.x, -this.popupHeight, achievementTexture);
+    this.add(this.achievementBg);
   }
 
   init(type) {
@@ -17,8 +17,8 @@ export default class Popup extends Phaser.GameObjects.Container {
     let text = '';
     const styles = {
       fontFamily: 'Dimbo',
-      fontSize: '80px',
-      color: '#dbc899'
+      fontSize: '60px',
+      color: '#d2a2521',
     };
     switch (type) {
       case 'builder':
@@ -54,22 +54,23 @@ export default class Popup extends Phaser.GameObjects.Container {
         iconTexture = 'icon-seller';
         break;
       default:
-        text = 'Hurray!';
+        text = 'Лучший наш защитник!';
         iconTexture = 'icon-first_asterisk';
     }
-    const icon = this.scene.add.sprite(this.x, -this.popupHeight, iconTexture).setOrigin(1.4, 0.5);
-    const title = this.scene.add.text(this.x, -this.popupHeight, text, styles).setOrigin(0.4, 0.5);
+    const icon = this.scene.add.sprite(this.x, -this.popupHeight, iconTexture).setOrigin(0.5, 0.8).setScale(0.7);
+    const title = this.scene.add.text(this.x, -this.popupHeight, text, styles).setOrigin(0.5, -0.4);
     this.add([icon, title]);
   }
 
   startAnimation() {
-    this.setSize(this.achievementIcon.width, this.achievementIcon.height);
+    this.setSize(this.achievementBg.width, this.achievementBg.height);
     this.slideIn();
+    // звук появления анимации
 
     setTimeout(() => {
-      console.log('I am fly away')
+      // console.log('I am fly away');
       this.slideOut();
-    }, 3500);
+    }, 3000);
   }
 
 
