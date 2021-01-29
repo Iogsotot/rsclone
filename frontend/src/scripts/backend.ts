@@ -1,7 +1,6 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
 import { KEY_TOKEN, KEY_ID } from './constants/constants';
-import achievementsCreate from '../scripts/achievements/create.achievements';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -54,8 +53,7 @@ async function signIn(user) {
         });
       }
 
-      createStartPage();
-      achievementsCreate({ id, token });
+      createStartPage({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;

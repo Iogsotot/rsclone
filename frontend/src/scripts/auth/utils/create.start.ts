@@ -3,8 +3,10 @@ import getAttendance from '../backend/getAttendance';
 import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
+import achievementsCreate from '../../achievements/create.achievements';
+import keysHandler from '../events/keys-handler';
 
-function createStartPage() {
+function createStartPage({ id, token }) {
   const startPage = createElement(
     'div',
     {
@@ -12,7 +14,10 @@ function createStartPage() {
       innerHTML: `
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
-      <div class="logo-start-button">START</div>
+      <div class="logo-start-button">
+        <span>START</span>
+        <span class="hot-key hot-key-start">enter</span>
+      </div>
       <div class="logo-credits-button">CREDITS</div>
     </div>
     `,
@@ -45,8 +50,13 @@ function createStartPage() {
   body.innerText = '';
   body.append(logout, attendance, startPage);
 
+  // const start = document.querySelector('.logo-start-button');
   const credits = document.querySelector('.logo-credits-button');
-  credits?.addEventListener('click', () => createCredits());
+
+  document.addEventListener('keydown', keysHandler);
+  credits?.addEventListener('click', createCredits);
+
+  achievementsCreate({ id, token });
 }
 
 function createPopupAttendance(arr) {
