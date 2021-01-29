@@ -180,7 +180,7 @@ export default class GameScene extends Phaser.Scene {
   createWaveTimer(factory: EnemyFactory, wavesCount: number) {
     let currentWave = 1;
     this.time.addEvent({
-      delay: 10000,
+      delay: 20000,
       callback: () => {
         currentWave += 1;
         if (currentWave <= wavesCount) {
