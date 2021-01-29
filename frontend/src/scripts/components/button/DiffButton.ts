@@ -1,41 +1,37 @@
-import Button from './Button'
-
-export default class DiffButton extends Button {
+import CustomButton from './CustomButton'
+import langConfig from '../../layouts/langConfig';
+export default class DiffButton extends CustomButton {
   easyBtn: Phaser.GameObjects.Image
   
   hardBtn: Phaser.GameObjects.Image
 
-  diffImages: Phaser.GameObjects.Image[]
+  diffBtns: string[][]
   
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    super(scene, x, y, 'normal-btn')
+    const lang = window['lang']
+    const normal = langConfig[`${lang}`].normal.toUpperCase()
 
-    this.easyBtn = scene.add.image(0, 0, 'easy-btn');
-    this.hardBtn = scene.add.image(0, 0, 'hard-btn');
-    
-    this.add(this.easyBtn);
-    this.add(this.hardBtn);
+    super(scene, x, y, `${normal}`, 'normal-btn-bg', 'normal-btn-bg')
 
-    this.easyBtn.texture.key
-
-    this.easyBtn.setVisible(false)
-    this.hardBtn.setVisible(false)
-    // this.easyBtn.visible
-
-    this.diffImages = [this.easyBtn, this.btnImage, this.hardBtn]
+    this.diffBtns = [
+      ['easy', langConfig[`${lang}`].easy], 
+      ['normal', langConfig[`${lang}`].normal], 
+      ['hard', langConfig[`${lang}`].hard]
+    ]
     
     this.setInteractive({ useHandCursor: true })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, this.handleClick, this)
   }
 
   handleClick() {
-    const visibleBtnIndex = this.diffImages.findIndex((el) => el.visible)
-    this.diffImages.map((el) => el.setVisible(false))
-    const index = (visibleBtnIndex + 1) % this.diffImages.length
-    this.diffImages[index].setVisible(true)
+    const visibleBtnIndex = this.diffBtns.findIndex((el) => el[1].toUpperCase() === this.btnText.text)
+    const index = (visibleBtnIndex + 1) % this.diffBtns.length
+    this.btnImage.setTexture(`${this.diffBtns[index][0]}-btn-bg`)
+    this.btnDownImage.setTexture(`${this.diffBtns[index][0]}-btn-bg`)
+    this.btnText.setText(`${this.diffBtns[index][1].toUpperCase()}`)
   }
 
   getDifficulty() {
-    return this.diffImages.findIndex((el) => el.visible) + 1;
+    return this.diffBtns.findIndex((el) => el[1].toUpperCase() === this.btnText.text) + 1;
   }
 }

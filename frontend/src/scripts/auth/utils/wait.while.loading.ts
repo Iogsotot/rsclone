@@ -17,4 +17,9 @@ function whileLoad(element, imgUrl) {
   });
 }
 
-export default whileLoad;
+function whileRaise(element) {
+  element.children[0].classList.remove('show-top');
+  element.children[0].addEventListener("transitionend", () => element.remove(), false);
+}
+
+export { whileLoad, whileRaise };

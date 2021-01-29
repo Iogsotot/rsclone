@@ -1,6 +1,5 @@
 import { map1, map2, map3 } from '../../constants/maps';
-import { getPlayerStatsFromServer } from '../stats/PlayerStats';
-import { KEY_ID } from '../../constants/constants';
+import langConfig from '../../layouts/langConfig'
 
 interface BarConfigs {
   containerCoordinates: number[],
@@ -22,8 +21,6 @@ export default class PreloadScene extends Phaser.Scene {
   }
   
   async preload() {
-    const userId = localStorage.getItem(KEY_ID);
-    this.registry.set("stats", getPlayerStatsFromServer(userId));
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
     
     this.barContainer = this.add.graphics();
@@ -119,25 +116,25 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     //other
-    this.load.image('gate', './assets/imgs/gate-mini.png');
+    this.load.spritesheet('gate', './assets/imgs/gate-mini.png', {
+      frameWidth: 300,
+      frameHeight: 300,
+    });
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
     this.load.image('level1Button', './assets/level_1_title_mini.png');
     this.load.image('level2Button', './assets/level_2_title_mini.png');
     this.load.image('level3Button', './assets/level_3_title_mini.png');
-
     this.load.image('levelsMap', './assets/main-bg.jpg');
+    this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
+      frameWidth: 168,
+      frameHeight: 108,
+    });
+    
 
-    this.load.image('settings-btn', './assets/interface/settings-icon.png');
-
-    // modal headers
-    this.load.image('level1-title', './assets/modal-headers/level1-header.png');
-    this.load.image('level2-title', './assets/modal-headers/level2-header.png');
-    this.load.image('level3-title', './assets/modal-headers/level3-header.png');
-    this.load.image('settings-header', './assets/modal-headers/header_settings.png');
-    this.load.image('failed-header', './assets/modal-headers/header_failed.png');
-    this.load.image('win-header', './assets/modal-headers/header_win.png');
+    // header
+    this.load.image('header-bg', './assets/modal-headers/header.png');
     // star rewards
     this.load.image('star-grey', './assets/interface/star-grey.png');
     this.load.image('star-1', './assets/interface/star-1.png');
@@ -145,9 +142,11 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('star-3', './assets/interface/star-3.png');
     // modal backgrounds
     this.load.image('start-modal-bg', './assets/modal-bg/start-modal-bg.png');
-    this.load.image('failed-modal-bg', './assets/modal-bg/failed-modal-bg.png');
-    this.load.image('win-modal-bg', './assets/modal-bg/win-modal-bg.png');
     this.load.image('settings-modal-bg', './assets/modal-bg/settings-modal-bg.png');
+    this.load.image('audio-set-bg', './assets/modal-bg/audio-set-bg.png');
+    this.load.image('table', './assets/modal-bg/table.png');
+    this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
+    this.load.image('win-bg', './assets/modal-bg/win-bg.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -159,21 +158,71 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
-    this.load.image('easy-btn', './assets/interface/easy_btn.png');
-    this.load.image('normal-btn', './assets/interface/normal_btn.png');
-    this.load.image('hard-btn', './assets/interface/hard_btn.png');
+    // icons    
+    this.load.image('armor-icon', './assets/icons/armor.png');
+    this.load.image('arrow-icon', './assets/icons/arrows.png');
+    this.load.image('bomb-icon', './assets/icons/bomb.png');
+    this.load.image('damage-icon', './assets/icons/damage.png');
+    this.load.image('heart-icon', './assets/icons/heart.png');
+    this.load.image('magic-icon', './assets/icons/magic.png');
+    this.load.image('speed-icon', './assets/icons/speed.png');
+    this.load.image('speed2-icon', './assets/icons/speed2.png');
+    this.load.image('target-icon', './assets/icons/target.png');
+    this.load.image('coins-icon', './assets/icons/coins.png');
+    this.load.image('wave-icon', './assets/icons/skull.png');
+    this.load.image('easy-btn-bg', './assets/interface/easy-btn-bg.png');
+    this.load.image('normal-btn-bg', './assets/interface/normal-btn-bg.png');
+    this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
+    this.load.image('plus', './assets/interface/plus.png');
+    this.load.image('minus', './assets/interface/minus.png');
+    this.load.image('on', './assets/interface/on.png');
+    this.load.image('off', './assets/interface/off.png');
 
-    try {
-      const userId = localStorage.getItem(KEY_ID);
-      this.registry.set("stats", await getPlayerStatsFromServer(userId));
-    } catch {
-      console.log('Something gone wrong with getting stats from backend');
-    }
+    //ahievements icons
+    this.load.spritesheet('icon-builder', './assets/achievements/builder.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-complete_win', './assets/achievements/complete_win.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_asterisk', './assets/achievements/first_asterisk.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_blood', './assets/achievements/first_blood.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-great_defender', './assets/achievements/great_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-iron_defender', './assets/achievements/iron_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-killer', './assets/achievements/killer.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-seller', './assets/achievements/seller.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('achievementPopup', './assets/achievements/achievement_popup_3.png', {
+      frameWidth: 617,
+      frameHeight: 256,
+    });
+    
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
   }
 
   create() {
     this.add.text(20, 20, 'Loading game...', { fontFamily: 'Dimbo' });
     this.scene.start('LevelsScene');
+    // this.scene.start('game-scene', {  level: 1, difficulty: 1 });
   }
 
   preloader() {
@@ -191,10 +240,11 @@ export default class PreloadScene extends Phaser.Scene {
       barBorderRadius: barSizes[1] / 2, 
     }
 
+    const loading = langConfig[`${window['lang']}`].loading
     this.loaderText = this.add.text(
       this.cameras.main.centerX,
       containerCoordinates[1] - containerSizes[1],
-      'Loading 0%',
+      `${loading} 0%`,
       { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
@@ -260,7 +310,7 @@ export default class PreloadScene extends Phaser.Scene {
         br: barConfig.barBorderRadius,
       }
     )
-    
-    this.loaderText.setText(`Loading ${(coefficient * 100).toFixed()}%`)
+    const loading = langConfig[`${window['lang']}`].loading
+    this.loaderText.setText(`${loading} ${(coefficient * 100).toFixed()}%`)
   }
 }

@@ -5,7 +5,7 @@ export default class Button extends Phaser.GameObjects.Container {
     super(scene, x, y);
     scene.add.existing(this);
 
-    this.btnImage = scene.add.image(0, 0, btnTexture);
+    this.btnImage = scene.add.image(0, 0, btnTexture).setScale(0.8);
 
     this.add(this.btnImage);
 
@@ -22,7 +22,7 @@ export default class Button extends Phaser.GameObjects.Container {
   }
 
   handleOver() {
-    this.setScale(1.2).setAlpha(1);
+    this.setScale(1.15).setAlpha(1);
   }
   handleOut() {
     this.setScale(1);

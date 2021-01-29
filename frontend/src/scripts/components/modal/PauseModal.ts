@@ -1,5 +1,7 @@
 import CustomModal from './CustomModal';
 import Button from '../button/Button';
+import AudioSlider from '../interface/AudioSlider';
+import langConfig from '../../layouts/langConfig';
 
 export default class PauseModal extends CustomModal {
   menuBtn: Button;
@@ -8,22 +10,25 @@ export default class PauseModal extends CustomModal {
 
   resumeBtn: Button;
 
+  options: Phaser.GameObjects.Container;
+
   constructor(scene: Phaser.Scene) {
-    super(scene, 'settings-modal-bg', 'settings-header');
+    super(scene, 'settings-modal-bg', langConfig[`${window['lang']}`].options.toUpperCase());
 
     this.initializeButtons(scene);
+    this.initOptionsContainer(scene);
   }
 
   initializeButtons(scene: Phaser.Scene) {
     const menuBtnCoordinates = [
-      this.sceneCenter[0] - this.bgImage.width / 3,
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      -this.bgImage.width / 3,
+      this.bgImage.height / 2,
     ];
     this.menuBtn = new Button(scene, menuBtnCoordinates[0], menuBtnCoordinates[1], 'button-menu');
 
     const restartBtnCoordinates = [
-      this.sceneCenter[0],
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      0,
+      this.bgImage.height / 2,
     ];
     this.restartBtn = new Button(
       scene,
@@ -33,8 +38,8 @@ export default class PauseModal extends CustomModal {
     );
 
     const resumeBtnCoordinates = [
-      this.sceneCenter[0] + this.bgImage.width / 3,
-      this.sceneCenter[1] + this.bgImage.height / 2,
+      this.bgImage.width / 3,
+      this.bgImage.height / 2,
     ];
     this.resumeBtn = new Button(
       scene,
@@ -42,5 +47,39 @@ export default class PauseModal extends CustomModal {
       resumeBtnCoordinates[1],
       'button-right'
     );
+
+    this.add(this.restartBtn)
+    this.add(this.resumeBtn)
+    this.add(this.menuBtn)
+  }
+
+  initOptionsContainer(scene: Phaser.Scene) {
+    this.options = new Phaser.GameObjects.Container(
+      scene,
+      0,
+      25
+    );
+
+    const bgImage = scene.add.image(0, 0, 'audio-set-bg');
+        this.options.add(bgImage);
+    this.options.setSize(bgImage.width, bgImage.height);
+
+    const musicSlider = new AudioSlider(
+      scene,
+      -bgImage.width / 3,
+      -bgImage.height / 3,
+      langConfig[`${window['lang']}`].music
+    );
+
+    const soundSlider = new AudioSlider(
+      scene,
+      -bgImage.width / 3,
+      bgImage.height / 9,
+      langConfig[`${window['lang']}`].sound
+    );
+
+    this.options.add(musicSlider);
+    this.options.add(soundSlider);
+    this.add(this.options);
   }
 }

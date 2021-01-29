@@ -18,17 +18,11 @@ export default class Enemy extends Unit {
   }
 
   init() {
-    // задел на Advance Scope:
-    // if (this.type === 'defender') {
-    // }
     this.hp = 100;
+    this.maxHp = this.hp
     this.damage = 20;
     this.physicalArmor = 0;
     this.magicArmor = 0;
     this.killReward = 5;
   }
-
-  
-
-  
 }

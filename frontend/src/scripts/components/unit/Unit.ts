@@ -2,9 +2,12 @@
 // как наших защитников, так и врагов
 
 import 'phaser'
+import { isKiller, isFirstBlood } from '../../constants/achievements';
+import { PlayerStatsManager } from '../stats/PlayerStats';
 
 export default class Unit extends Phaser.GameObjects.PathFollower {
   hp: number;
+  maxHp: number;
   physicalArmor: number;
   magicArmor: number;
   damage: number;
@@ -30,18 +33,10 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     
     this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
     this.setInteractive();
-    this.on("pointerdown", this.takeDamage, this)
-  }
-
-  create() {
-    console.log(`${this.unitType}_walk`);
+    // this.on("pointerdown", this.takeDamage, this);
   }
 
   takeDamage(damage, physicalDamage, magicDamage) {
-      // Денис: понимаю зачем делать проверку на this.hp - damage? 
-      // Пример: у моба 30 хп, башня стреляет уроном 20, 30 - 20 = 10 < damage
-      // получается проверку проходит и моб умирает, хотя у него 10 хп еще
-    // if(this.hp - damage < damage) {
     if(this.hp <= damage) {
       this.hp = 0;
       this.die();
@@ -63,21 +58,25 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   die() {
-    if (this.isAlive) {
-      let deathCounter = this.scene.registry.get("deathCounter");
-      deathCounter += 1;
-      this.scene.registry.set("deathCounter", deathCounter);
+    if (this.isAlive) {  
       this.isAlive = false;
       this.pauseFollow();
       this.play({ key: `${this.unitType}_die`, repeat: 0});
       this.on('animationcomplete', this.despawn, this)
     }
   }
-
+  
   despawn() {
-    let stats = this.scene.registry.get("stats");
-    stats.killedEnemies += 1;
-    this.scene.registry.set('stats', stats);
+    const playerStats = new PlayerStatsManager();
+    let killedEnemies = playerStats.getFromLocalStorage()['killedEnemies'];
+    killedEnemies += 1;
+    isFirstBlood(this.scene);
+    isKiller(this.scene);
+    playerStats.saveToLocalStorage({'killedEnemies': killedEnemies});
+    let deathCounter = this.scene.registry.get("deathCounter");
+    deathCounter += 1;
+    this.scene.registry.set("deathCounter", deathCounter);
+
     this.scene.time.delayedCall(5000, this.destroy, [], this)
   }
 
@@ -85,7 +84,6 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
       return this.killReward
   }
 
-  // этот метод нужен чтобы утаскивать состояние enemy в tower. 
   getAlive() {
       return this.isAlive
   }

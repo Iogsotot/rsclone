@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Map from './Map';
-import { map1, MapType } from '../../constants/maps';
+import { MapType } from '../../constants/maps';
 import getRandomDeviationWay from '../../utils/getRandomDeviationWay';
 import Tower from '../tower/Tower';
 import GameScene from '../scenes/GameScene';
@@ -63,7 +63,7 @@ export class MapLevel extends Map {
     const x = this.width / scaleCoordinateX;
     const y = this.height / scaleCoordinateY;
     const tower = new Tower(this.scene, x, y, this.mapData);
-    return tower
+    return tower;
   }
   createPointWay(points: Array<any>, scalePoint: object): void {
     const scaleX: number = Object.values(scalePoint)[0];
