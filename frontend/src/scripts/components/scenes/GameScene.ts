@@ -153,7 +153,7 @@ export default class GameScene extends Phaser.Scene {
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
       for (let i = 0; i < enemiesNumber; i++) {
         const enemy = factory.create(enemyType, this.map.createWay());
-        const delay = i * 300;
+        const delay = i * 600;
         enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
         this.physics.add.existing(enemy);
         this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
