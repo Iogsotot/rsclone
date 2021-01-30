@@ -7,6 +7,7 @@ import { isBuilder, isSeller } from '../../constants/achievements'
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import Unit from '../unit/Unit';
 import GameObjStats from '../interface/GameRoundStats';
+import langConfig from '../../layouts/langConfig'
 
 
 
@@ -82,9 +83,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.attackAreaArchersTower = 300;
     this.attackAreaArtilleryTower = 500;
     this.attackAreaMagicTower = 350;
-    this.typeArchersTower = 'Archers';
-    this.typeArtilleryTower = 'Artillery';
-    this.typeMagicTower = 'Magic';
+    this.typeArchersTower = 'archers';
+    this.typeArtilleryTower = 'artillery';
+    this.typeMagicTower = 'magic';
   }
 
   public placeField(): void {
@@ -131,6 +132,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
 
   towerInformation(): void {
       let hasInfo: boolean = false;
+      const config = langConfig[`${window['lang']}`]
       this.towersInfo.forEach((towerInfo: Array<any>) => {
         towerInfo[0].on('pointermove', () => {
             towerInfo[0].setScale(1.2);
@@ -146,7 +148,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                     color: '#dbc899',
                     align: 'left',
                   }
-                let text = `${towerInfo[5]} Tower/Price: ${towerInfo[1]}/Damage: ${towerInfo[2]}`;
+                let text = `${config.tower[towerInfo[5]]}/${config.price}: ${towerInfo[1]}/${config.damage}: ${towerInfo[2]}`;
                 
                 this.textInfo = this.scene.add.text((this.x - infoWindowWidth / 2) + 10, 
                     (this.y - infoWindowHeight * 2) + 10, text, styles).setDepth(1);
