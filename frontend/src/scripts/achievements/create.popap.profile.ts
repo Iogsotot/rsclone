@@ -1,10 +1,8 @@
 import createElement from '../auth/utils/createElement';
-import whileLoad from '../auth/utils/wait.while.loading';
+import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileAllCreate from './create.popap.profile.all';
 
 function popapProfileCreate(stats) {
-  console.log('stat user:', stats);
-
   const arrayStats = Object.entries(stats.achievements);
   const allStats = Object.values(stats.achievements);
   const gotStats = allStats.filter((property) => property);
@@ -33,13 +31,41 @@ function popapProfileCreate(stats) {
         <div class="icons-profile-achievements">
           <div class="icons-profile">
           ${arrayStats
-            .map(([key, value]) => {
+            .map(([key, value], index) => {
+              let info;
+              switch (key) {
+                case 'completeWin':
+                  info = 'complete win!';
+                  break;
+                case 'firstBlood':
+                  info = 'First blood';
+                  break;
+                case 'greatDefender':
+                  info = 'Great Defender!'
+                  break;
+                case 'ironDefender':
+                  info = 'Iron defender';
+                  break;
+                case 'killer':
+                  info = 'Killer';
+                  break;
+                case 'seller':
+                  info = 'Seller';
+                  break;
+                case 'builder':
+                  info = 'Builder';
+                  break;
+                case 'firstAsterisk':
+                  info = 'First asterisk';
+                default:
+              }
+
               if (value) {
                 achievement.push(
                   `
-                  <div class="wrapper-icon-achievements-info hide">
+                  <div class="wrapper-icon-achievements-info ${index === 0 ? 'flex-for-achevements' : 'hide'}">
                     <div class="icon-achievements-info ${key}"></div>
-                    <div class='icon-achievements-info-descriptions'>${key}</div>
+                    <div class='icon-achievements-info-descriptions'>${info}</div>
                   </div>
                   `
                 );
@@ -61,10 +87,10 @@ function popapProfileCreate(stats) {
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-profile-wrapper')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('close-profile-popup')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('icon-achievements')) {
         const [ , need] = target.classList;

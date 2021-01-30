@@ -1,6 +1,7 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
 import { KEY_TOKEN, KEY_ID } from './constants/constants';
+import achievementsCreate from '../scripts/achievements/create.achievements';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -32,75 +33,90 @@ async function signIn(user) {
       responseInfo.innerHTML = `${login} has sign in`;
 
       localStorage.setItem(KEY_ID, id);
-      if (checked) {
-        localStorage.setItem(KEY_TOKEN, token);
+      localStorage.setItem(KEY_TOKEN, token);
+      
+      if (!checked) {
+        window.addEventListener('unload', function() {
+          localStorage.removeItem(KEY_ID);
+          localStorage.removeItem(KEY_TOKEN);
+        });
       }
+
       const isStats = await getCurrentPlayerStats({ id, token });
-      console.log('isStats:', isStats);
 
       if (!isStats.ok) {
         createStats({ id, token, login });
       } else {
-        const isUpdate = await setCurrentPlayerStats({
+        setCurrentPlayerStats({
           id,
           token,
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
         });
-        console.log('isUpdate:', isUpdate);
       }
 
       createStartPage();
+      achievementsCreate({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
       responseInfo.textContent = data;
       form.reset();
     }
   } catch (err) {
-    console.log(err);
     responseInfo.textContent = err.name;
   }
 }
 
 async function getCurrentPlayerStats({ id, token }) {
-  const response = await fetch(`${SERVER}/users/${id}/stats/current`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${SERVER}/users/${id}/stats/current`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  } catch(err) {
+    return { data: err, ok: false };
+  }
 }
 
 // main function for update stat
 async function setCurrentPlayerStats({ id, token, body }) {
-  const response = await fetch(`${SERVER}/users/${id}/stats/`, {
-    method: 'PUT',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  });
-  return response.json();
+  try {
+    const response = await fetch(`${SERVER}/users/${id}/stats/`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    return response.json();
+  } catch(err) {
+    return { data: err, ok: false };
+  }
 }
 
 async function createStats({ id, token, login }) {
-  const url = `${SERVER}/users/${id}/stats`;
-  const options = {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ userId: id, login }),
-  };
+  try {
+    const url = `${SERVER}/users/${id}/stats`;
+    const options = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: id, login }),
+    };
 
-  const response = await fetch(url, options);
-  const result = await response.json();
-  console.log('result createStats():', result);
+    const response = await fetch(url, options);
+    return response.json();
+  } catch(err) {
+    return { data: err, ok: false };
+  }
 }
 
 async function signUp(user) {
@@ -126,7 +142,6 @@ async function signUp(user) {
 
     const response = await fetch(request);
     const { data, ok } = await response.json();
-    console.log(data, ok);
 
     if (ok) {
       responseInfo.innerHTML = `${data.login} has sign up`;

@@ -3,9 +3,11 @@ import MissileBomb from '../missile/MissileBomb';
 import MissileArrow from '../missile/MissileArrow';
 import MissileMagic from '../missile/MissileMagic';
 import { MapType } from '../../constants/maps';
-import { isBuilder, isSeller } from '../../constants/achievments'
+import { isBuilder, isSeller } from '../../constants/achievements'
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import Unit from '../unit/Unit';
+import GameObjStats from '../interface/GameRoundStats';
+
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -146,7 +148,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
                   }
                 let text = `${towerInfo[5]} Tower/Price: ${towerInfo[1]}/Damage: ${towerInfo[2]}`;
                 
-                this.textInfo = this.scene.add.text((this.x - infoWindowWidth / 2) + 10, (this.y - infoWindowHeight * 2) + 10, text, styles).setDepth(1);
+                this.textInfo = this.scene.add.text((this.x - infoWindowWidth / 2) + 10, 
+                    (this.y - infoWindowHeight * 2) + 10, text, styles).setDepth(1);
                 this.textInfo.setWordWrapCallback((text: string) => text.split(/\//));
                 this.graphics = this.scene.add.graphics({ fillStyle: { color: 0x00ff00, alpha: 0.3 } });
                 let circle = new Phaser.Geom.Circle(this.x, this.y, towerInfo[4]);
@@ -177,20 +180,21 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
- canSale(): void {
+ canSale(slideOut: CallableFunction, context: object): void {
     if (this.isTowerBuilt) {
-      this.saleMark = this.scene.add.sprite(this.x, this.y + 75, 'sale');
+      this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
       this.saleMark.setInteractive({ useHandCursor: true });
-      this.saleMark.on('pointerdown', () => this.sale());
+      this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
       setTimeout(() => this.saleMark.destroy(), 3000);
     }
   }
 
-  protected sale(): void {
+  protected sale(slideOut, context: object): void {
+    slideOut.call(context)
     const playerStats = new PlayerStatsManager();
     let soldTowers = playerStats.getFromLocalStorage()['soldTowers'];
     soldTowers += 1;
-    isSeller();
+    isSeller(this.scene);
     playerStats.saveToLocalStorage({ 'soldTowers': soldTowers });
     this.canUpdateGold = true;
     this.isTowerBuilt = false;
@@ -209,7 +213,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       const playerStats = new PlayerStatsManager();
       let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
       builtTowers += 1;
-      isBuilder();
+      isBuilder(this.scene);
       playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
       this.hideChoiceTower();
       this.scene.anims.create({
@@ -236,7 +240,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       const playerStats = new PlayerStatsManager();
       let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
       builtTowers += 1;
-      isBuilder();
+      isBuilder(this.scene);
       playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
       this.hideChoiceTower();
       this.scene.anims.create({
@@ -263,7 +267,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       const playerStats = new PlayerStatsManager();
       let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
       builtTowers += 1;
-      isBuilder();
+      isBuilder(this.scene);
       playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
       this.hideChoiceTower();
       this.scene.anims.create({

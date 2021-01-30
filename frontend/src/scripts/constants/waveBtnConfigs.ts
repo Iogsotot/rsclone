@@ -1,0 +1,25 @@
+const waveBtnConfigs = {
+  1: {
+    startPointX: 200,
+    startPointY: -50,
+    endPointX: 50,
+    endPointY: -20,
+    rotation: 0.4,
+  },
+  2: {
+    startPointX: 20,
+    startPointY: -150,
+    endPointX: 0,
+    endPointY: 50,
+    rotation: 1.6,
+  },
+  3: {
+    startPointX: 200,
+    startPointY: 30,
+    endPointX: 50,
+    endPointY: 0,
+    rotation: 0,
+  },
+};
+
+export default waveBtnConfigs;

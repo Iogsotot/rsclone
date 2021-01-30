@@ -25,6 +25,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .5s ease-out;
+    bottom: 100%;
+
+    & .rope-popup-left {
+        background-image: url('../assets/interface/rope_big.png');
+        height: 108%;
+        width: 40px;
+        position: absolute;
+        background-repeat: no-repeat;
+        bottom: 345px;
+        left: 60px;
+      }
+      
+    & .rope-popup-right {
+        background-image: url('../assets/interface/rope_big.png');
+        height: 108%;
+        width: 40px;
+        position: absolute;
+        background-repeat: no-repeat;
+        bottom: 345px;
+        right: 60px;
+      }
 }
 
 .close-popup {
@@ -38,4 +60,8 @@
     right: 0;
     top: 0;
     cursor: pointer;
+}
+
+.show-top {
+    bottom: 0;
 }
