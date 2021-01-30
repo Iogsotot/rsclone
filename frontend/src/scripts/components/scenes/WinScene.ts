@@ -1,4 +1,10 @@
 import WinModal from '../modal/WinModal';
+import {
+  isGreatDefender,
+  isIronDefender,
+  isCompleteWin,
+  isFirstAsterisk,
+} from '../../constants/achievements';
 
 export default class WinScene extends Phaser.Scene {
   starsNumber: any;
@@ -19,6 +25,11 @@ export default class WinScene extends Phaser.Scene {
       repeat: 0,
       duration: 1000,
     });
+
+    isGreatDefender(this);
+    isIronDefender(this);
+    isCompleteWin(this);
+    isFirstAsterisk(this);
     
     modal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       modal.disappearance()

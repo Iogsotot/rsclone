@@ -1,6 +1,8 @@
 import createElement from './createElement';
 import getAttendance from '../backend/getAttendance';
+import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
+import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 
 function createStartPage() {
   const startPage = createElement(
@@ -42,6 +44,9 @@ function createStartPage() {
   const body = document.querySelector('body') as HTMLBodyElement;
   // body.innerText = '';
   body.prepend(logout, attendance, startPage);
+
+  const credits = document.querySelector('.logo-credits-button');
+  credits?.addEventListener('click', () => createCredits());
 }
 
 
@@ -52,9 +57,12 @@ function createPopupAttendance(arr) {
   const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
 
   const popup = createElement('div', {
-    classList: ['popup-attendance-wrapper', 'hide'],
+    classList: ['popup-attendance-wrapper'],
     innerHTML: `
       <div class="popup-attendance-content">
+
+        <div class="rope-popup-left"></div>
+        <div class="rope-popup-right"></div>
 
         <div class="close-popup"></div>
         
@@ -84,28 +92,15 @@ function createPopupAttendance(arr) {
     `,
     onclick: ({ target }) => {
       if (target.classList.contains('popup-attendance-wrapper')) {
-        popup.remove();
+        whileRaise(popup);
       }
       if (target.classList.contains('close-popup')) {
-        popup.remove();
+        whileRaise(popup);
       }
     },
   });
 
-  const loader = createElement('div', {
-    classList: ['loader'],
-  });
-
-  document.querySelector('.start-page')?.append(loader);
-  document.querySelector('body')?.append(popup);
-
-  const preloaderImg = document.createElement('img');
-  preloaderImg.src = '../assets/auth/close.png';
-
-  preloaderImg.addEventListener('load', () => {
-    loader.remove();
-    popup.classList.remove('hide');
-  });
+  whileLoad(popup, '../assets/interface/modal-bg.png');
 }
 
 export default createStartPage;

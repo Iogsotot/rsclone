@@ -7,7 +7,7 @@ interface BarConfigs {
   containerBorderRadius: number,
   barCoordinates: number[],
   barSizes: number[],
-  barBorderRadius: number, 
+  barBorderRadius: number,
 }
 export default class PreloadScene extends Phaser.Scene {
   barContainer: Phaser.GameObjects.Graphics
@@ -19,20 +19,20 @@ export default class PreloadScene extends Phaser.Scene {
   constructor() {
     super({ key: 'PreloadScene' });
   }
-  
+
   async preload() {
     this.load.image('kingdom-rush-bg', './assets/auth/kingdom-rush.png');
-    
+
     this.barContainer = this.add.graphics();
     this.progressBar = this.add.graphics();
     this.preloader()
-    
+
     // towers
 
     this.load.spritesheet('sale', './assets/towers/sale.png', {
-        frameWidth: 45,
-        frameHeight: 45
-      });
+      frameWidth: 45,
+      frameHeight: 45
+    });
 
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 108,
@@ -116,15 +116,31 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     //other
-    this.load.image('gate', './assets/imgs/gate-mini.png');
+    this.load.spritesheet('gate', './assets/imgs/gate-mini.png', {
+      frameWidth: 300,
+      frameHeight: 300,
+    });
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.image('level1Button', './assets/level_1_title_mini.png');
-    this.load.image('level2Button', './assets/level_2_title_mini.png');
-    this.load.image('level3Button', './assets/level_3_title_mini.png');
+    this.load.spritesheet('level1Button', './assets/interface/icon_level_1.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('level2Button', './assets/interface/icon_level_2.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('level3Button', './assets/interface/icon_level_3.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
     this.load.image('levelsMap', './assets/main-bg.jpg');
-    // this.load.image('waveButton', './assets/imgs/wave_button.png');
+    this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
+      frameWidth: 168,
+      frameHeight: 108,
+    });
+
 
     // header
     this.load.image('header-bg', './assets/modal-headers/header.png');
@@ -170,8 +186,46 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('minus', './assets/interface/minus.png');
     this.load.image('on', './assets/interface/on.png');
     this.load.image('off', './assets/interface/off.png');
-    
-    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
+
+    //ahievements icons
+    this.load.spritesheet('icon-builder', './assets/achievements/builder.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-complete_win', './assets/achievements/complete_win.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_asterisk', './assets/achievements/first_asterisk.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-first_blood', './assets/achievements/first_blood.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-great_defender', './assets/achievements/great_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-iron_defender', './assets/achievements/iron_defender.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-killer', './assets/achievements/killer.png', {
+      frameWidth: 175,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('icon-seller', './assets/achievements/seller.png', {
+      frameWidth: 176,
+      frameHeight: 176,
+    });
+    this.load.spritesheet('achievementPopup', './assets/achievements/achievement_popup_3.png', {
+      frameWidth: 617,
+      frameHeight: 256,
+    });
+
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
   }
 
   create() {
@@ -192,7 +246,7 @@ export default class PreloadScene extends Phaser.Scene {
       containerBorderRadius: containerSizes[1] / 2,
       barCoordinates,
       barSizes,
-      barBorderRadius: barSizes[1] / 2, 
+      barBorderRadius: barSizes[1] / 2,
     }
 
     const loading = langConfig[`${window['lang']}`].loading
@@ -225,7 +279,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.on('filecomplete-image-kingdom-rush-bg', () => {
       const bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'kingdom-rush-bg')
-      bg.displayHeight = +this.sys.game.config.height  
+      bg.displayHeight = +this.sys.game.config.height
       bg.scaleX = bg.scaleY
       bg.depth = -10
     });
@@ -238,9 +292,9 @@ export default class PreloadScene extends Phaser.Scene {
     const yellowDark = 0xde9b26
     const redLight = 0xe65540
     const redDark = 0xc63f31
-    
+
     const coefficient = value < 0.03 ? 0.03 : value
-    let color = coefficient > 0.85 ? redLight : yellowLight; 
+    let color = coefficient > 0.85 ? redLight : yellowLight;
     this.progressBar.clear()
     this.progressBar.fillStyle(color)
     this.progressBar.fillRoundedRect(

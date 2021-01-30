@@ -1,7 +1,8 @@
 import 'phaser';
 import { MapLevel } from '../map/MapLevel';
 import EnemyFactory from '../unit/EnemyFactory';
-import { levelsConfig } from '../../constants/constants'
+import { levelsConfig } from '../../constants/constants';
+import sendDataToBackend from '../../achievements/utils/backend';
 
 import Tower from '../tower/Tower';
 import { AUTO, GameObjects, NONE } from 'phaser';
@@ -9,19 +10,20 @@ import { AUTO, GameObjects, NONE } from 'phaser';
 
 import GameObjStats from '../interface/GameObjStats'
 import Button from '../button/Button';
-// import WinModal from '../modal/WinModal';
 import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import GameStats from '../interface/GameStats';
 import LevelSettings from '../../LevelSettings';
-import {
-  isGreatDefender,
-  isIronDefender,
-  isCompleteWin,
-  isFirstAsterisk,
-} from '../../constants/achievments';
+// import {
+//   isGreatDefender,
+//   isIronDefender,
+//   isCompleteWin,
+//   isFirstAsterisk,
+// } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
+import waveBtnConfigs from '../../constants/waveBtnConfigs';
+// import Popup from '../events/achievements_popup';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -30,6 +32,8 @@ export default class GameScene extends Phaser.Scene {
   firstPointY: number;
   gatePointX: number;
   gatePointY: number;
+  pointX: number;
+  pointY: number;
   gate: Gate;
   waveBtn: WaveButton;
   gameObjStats: any;
@@ -43,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
+  // popup: Popup;
 
   constructor() {
     super('game-scene');
@@ -82,7 +87,7 @@ export default class GameScene extends Phaser.Scene {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
       this.gameStats.updateLives(this.playerLives)
-      if(this.gameObjStats.gameObject === enemy) {
+      if (this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
         this.gameObjStats.gameObject = null
       }
@@ -102,17 +107,17 @@ export default class GameScene extends Phaser.Scene {
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'lose-scene');
     this.scene.launch('lose-scene');
+    sendDataToBackend();
   }
 
   win() {
     this.updateGameStatsInLocalStorage('win');
+    // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
-    isGreatDefender();
-    isIronDefender();
-    isCompleteWin();
-    isFirstAsterisk();
+
+    sendDataToBackend();
   }
 
   calculateLevelStars() {
@@ -138,10 +143,11 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
+    // console.log('updateGameStatsInLocalStorage [data]:', data);
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
-    this.gameStats.updateWaves(currentWave)
+    this.gameStats.updateWaves(currentWave);
     let enemiesProduced: number = 0;
     let currentWaveEnemies: { string, number } = levelsConfig[`level_${this.levelSettings.level}`].waves[`wave_${currentWave}`].enemies;
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
@@ -198,13 +204,45 @@ export default class GameScene extends Phaser.Scene {
     this.createWaveTimer(factory, wavesCount);
   }
 
-  createWaveBtn() {
-    this.waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
-    this.waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
-      this.startBattle();
-      //звук начала волны
+  createWaveBtn(data) {
+    
+    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
+    this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
+    const path = new Phaser.Curves.Path();
+    path.add(new Phaser.Curves.Line([
+      this.pointX,
+      this.pointY,
+      this.pointX + waveBtnConfigs[data.level].endPointX,
+      this.pointY + waveBtnConfigs[data.level].endPointY
+    ]));
+    this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
 
+    // const graphics = this.add.graphics();
+    // graphics.lineStyle(1, 0xffffff, 1);
+    // path.draw(graphics);
+    this.waveBtn.rotation -= waveBtnConfigs[data.level].rotation;
+    this.waveBtn.startFollow({
+      positionOnPath: true,
+      duration: 500,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Ease',
+    })
+    this.waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+      if (this.scene.isPaused()) {
+        return;
+      }
+      this.startBattle();
+      this.scene.scene.tweens.add({
+        targets: this.waveBtn,
+        scale: 0,
+        ease: 'Linear',
+        duration: 300,
+      });
+      setTimeout(() => {
+        this.waveBtn.destroy();
+      }, 310);
+      //звук начала волны
     });
   }
 
@@ -218,17 +256,13 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesGroup = this.physics.add.group();
     createAnims(this);
     this.createGate();
+    this.createWaveBtn(data);
 
-    // запуск первой волны (надо сделать кнопку-триггер)
-    this.startBattle();
-    // const waveBtn = new WaveButton(this, this.firstPointX + 100, this.firstPointY, 'waveButton');
-    // waveBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-    //   if (this.scene.isPaused()) return;
-    //   this.startBattle();
-    //   //звук начала волны
+    // debug code
+    // const testPopup = new Popup(this, 0, 0, 'achievementPopup');
+    // testPopup.init('test');
+    // testPopup.startAnimation();
 
-    // });
-    
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);
     this.input.on('gameobjectdown', (pointer, gameObject, event) => {
