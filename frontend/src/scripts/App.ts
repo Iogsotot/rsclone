@@ -16,8 +16,15 @@ export async function startApp() {
   } catch {
     console.log('Something gone wrong with getting stats from backend');
   }
-  new Phaser.Game(config);
+  
+  if(!startApp.game) {
+    startApp.game = new Phaser.Game(config)
+  } else {
+    startApp.game.loop.wake()
+    startApp.game.scene.wake('LevelsScene')
+  }
 }
+startApp.game = null;
 window['lang'] = 'ru';
 window.addEventListener('load', () => {
   runAuth(startApp);

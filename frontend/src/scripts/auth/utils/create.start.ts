@@ -40,9 +40,10 @@ function createStartPage() {
   });
 
   const body = document.querySelector('body') as HTMLBodyElement;
-  body.innerText = '';
-  body.append(logout, attendance, startPage);
+  // body.innerText = '';
+  body.prepend(logout, attendance, startPage);
 }
+
 
 function createPopupAttendance(arr) {
   let positionAttendance = 0;

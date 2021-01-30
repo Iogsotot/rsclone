@@ -1,6 +1,13 @@
 import createElement from './createElement';
 
 function createBgGame() {
+  document.querySelector('.logout-game')?.remove()
+  document.querySelector('.attendance-per-year-game')?.remove()
+  document.querySelector('.start-page')?.remove()
+  document.querySelector('.achievements-icon')?.remove()
+
+  if(document.querySelector('.blur-bg')) return
+
   const blurBg = createElement(
     'div',
     {
@@ -12,8 +19,8 @@ function createBgGame() {
     }
   );
 
-  document.body.textContent = '';
-  document.body.append(blurBg);
+  // document.body.textContent = '';
+  document.body.prepend(blurBg);
 }
 
 export default createBgGame;

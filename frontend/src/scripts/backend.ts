@@ -48,7 +48,7 @@ async function signIn(user) {
         });
         console.log('isUpdate:', isUpdate);
       }
-
+      (document.querySelector('body') as HTMLBodyElement).textContent = ''
       createStartPage();
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
