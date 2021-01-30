@@ -1,11 +1,12 @@
-import createStartPage from '../../auth/utils/create.start';
+import { startApp } from '../../App';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 
 const id = localStorage.getItem(KEY_ID);
 const token = localStorage.getItem(KEY_TOKEN);
 
 function keysHandler(event) {
-  console.log(event.key);
+  console.log(event);
+
   switch (event.key) {
     case "Down": // IE/Edge specific value
     case "ArrowDown":
@@ -24,7 +25,7 @@ function keysHandler(event) {
       // Do something for "right arrow" key press.
       break;
     case "Enter":
-      createStartPage({ id, token});
+      // startApp();
       break;
     case "Esc": // IE/Edge specific value
     case "Escape":

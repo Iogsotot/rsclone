@@ -5,8 +5,14 @@ import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 import achievementsCreate from '../../achievements/create.achievements';
 import keysHandler from '../events/keys-handler';
+import langConfig from '../../layouts/langConfig';
 
 function createStartPage({ id, token }) {
+  const lang = window['lang'];
+
+  const startText = langConfig[`${lang}`].start.toUpperCase();
+  const creditsText = langConfig[`${lang}`].credits.toUpperCase();
+  
   const startPage = createElement(
     'div',
     {
@@ -15,10 +21,10 @@ function createStartPage({ id, token }) {
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
       <div class="logo-start-button">
-        <span>START</span>
+        <span>${startText}</span>
         <span class="hot-key hot-key-start">enter</span>
       </div>
-      <div class="logo-credits-button">CREDITS</div>
+      <div class="logo-credits-button">${creditsText}</div>
     </div>
     `,
     },
@@ -50,10 +56,9 @@ function createStartPage({ id, token }) {
   body.innerText = '';
   body.append(logout, attendance, startPage);
 
-  // const start = document.querySelector('.logo-start-button');
   const credits = document.querySelector('.logo-credits-button');
 
-  document.addEventListener('keydown', keysHandler);
+  startPage.addEventListener('keydown', keysHandler);
   credits?.addEventListener('click', createCredits);
 
   achievementsCreate({ id, token });
