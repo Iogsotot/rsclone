@@ -36,6 +36,7 @@ export default class GameScene extends Phaser.Scene {
   pointY: number;
   gate: Gate;
   waveBtn: WaveButton;
+  waveBtnClone: WaveButton;
   gameObjStats: any;
   levelSettings: any;
   towers: Array<any>
@@ -205,9 +206,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn(data) {
-    
-    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
+
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
+    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
+    // this.pointX = 0;
+    // this.pointY = 0;
     const path = new Phaser.Curves.Path();
     path.add(new Phaser.Curves.Line([
       this.pointX,
@@ -216,6 +219,33 @@ export default class GameScene extends Phaser.Scene {
       this.pointY + waveBtnConfigs[data.level].endPointY
     ]));
     this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
+    if (data.level === 2) {
+      this.waveBtnClone = this.add.follower(path, this.pointX - 90, this.pointY - 900, 'waveButton');
+      this.waveBtnClone.startFollow({
+        positionOnPath: false,
+        duration: 500,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Ease',
+      });
+      this.waveBtnClone.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        if (this.scene.isPaused()) {
+          return;
+        }
+        this.startBattle();
+        this.scene.scene.tweens.add({
+          targets: [this.waveBtn, this.waveBtnClone],
+          scale: 0,
+          ease: 'Linear',
+          duration: 300,
+        });
+        setTimeout(() => {
+          this.waveBtn.destroy();
+          this.waveBtnClone.destroy();
+        }, 310);
+        //звук начала волны
+      });
+    }
 
     // const graphics = this.add.graphics();
     // graphics.lineStyle(1, 0xffffff, 1);
@@ -233,6 +263,18 @@ export default class GameScene extends Phaser.Scene {
         return;
       }
       this.startBattle();
+      if (this.waveBtnClone) {
+        this.scene.scene.tweens.add({
+          targets: this.waveBtnClone,
+          scale: 0,
+          ease: 'Linear',
+          duration: 300,
+        });
+        setTimeout(() => {
+          this.waveBtnClone.destroy();
+        }, 310);
+      }
+
       this.scene.scene.tweens.add({
         targets: this.waveBtn,
         scale: 0,
@@ -300,7 +342,7 @@ export default class GameScene extends Phaser.Scene {
     this.towers.forEach((tower: Tower) => {
       tower.setEnemies(this.enemiesGroup);
     })
-    
+
     const gateGroup = this.physics.add.existing(this.gate);
   }
 
