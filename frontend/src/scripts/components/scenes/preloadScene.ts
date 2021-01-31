@@ -138,18 +138,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.spritesheet('level1Button', './assets/interface/icon_level_1.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
-    this.load.spritesheet('level2Button', './assets/interface/icon_level_2.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
-    this.load.spritesheet('level3Button', './assets/interface/icon_level_3.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
+    this.load.image('level1Button', './assets/interface/icon_level_1.png');
+    this.load.image('level2Button', './assets/interface/icon_level_2.png');
+    this.load.image('level3Button', './assets/interface/icon_level_3.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
     this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
       frameWidth: 168,
