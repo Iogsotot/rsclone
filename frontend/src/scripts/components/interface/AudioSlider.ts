@@ -35,7 +35,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       fontSize: '80px',
       color: '#dbc899'
     }
-    this.title = scene.add.text(0, 0, titleTexture, styles).setOrigin(0.4, 0.5)
+    this.title = scene.add.text(0, 0, titleTexture, styles)
     this.add(this.title);
 
     this.audioValue = 0;
@@ -48,8 +48,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   initCheckbox(scene: Phaser.Scene) {
-    this.checkbox = scene.add.image(0, 0, 'on').setOrigin(0.5);
-    this.checkbox.setX(this.title.width+this.checkbox.width/4);
+    this.checkbox = scene.add.image(this.title.width*1.2, this.title.height, 'on').setOrigin(0,1);
     this.add(this.checkbox);
     this.checkbox
       .setInteractive({ useHandCursor: true })
@@ -62,11 +61,12 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   initProgressBar(scene: Phaser.Scene) {
-    this.decrease = new Button(scene, -this.title.width / 4, this.title.height, 'minus');
+    this.decrease = new Button(scene, 0, this.title.height*1.5, 'minus')
+    this.decrease.setX(this.decrease.width/2)
+    
+    this.barContainer = scene.add.image(0, this.title.height*1.5, 'slider-bar-bg')
 
-    this.barContainer = scene.add.image(0, this.title.height, 'slider-bar-bg');
-
-    this.barContainer.setX(this.barContainer.width / 2);
+    this.barContainer.setX(this.barContainer.width / 2 + this.decrease.x*2);
 
     this.progressBar = scene.add.graphics();
     this.initBarConfigs();
@@ -74,8 +74,8 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
 
     this.increase = new Button(
       scene,
-      -this.title.width / 4 + this.barContainer.width + this.decrease.width,
-      this.title.height,
+      this.barContainer.width + this.decrease.width*1.5,
+      this.title.height*1.5,
       'plus'
     );
 
