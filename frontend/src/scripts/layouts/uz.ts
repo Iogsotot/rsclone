@@ -37,11 +37,11 @@ export default {
   sorry: 'UZUR :(/MUVAFFAQIYATSIZ/YAKUN',
   win: 'g\'alaba!',
   congrats: 'TABRIKLAR!/MUVAFFAQIYATLI/YAKUN',
-  verySlow: 'juda sekin',
+  verySlow: 'juda,sekin',
   slow: 'sekin',
   medium: 'o\'rtacha',
   fast: 'tez',
-  veryFast: 'juda tez',
+  veryFast: 'juda,tez',
   small: 'kichik',
   long: 'uzoq',
   levelTheme: {
