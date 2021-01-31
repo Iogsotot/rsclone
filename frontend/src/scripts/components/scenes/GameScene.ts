@@ -35,6 +35,7 @@ export default class GameScene extends Phaser.Scene {
   pointX: number;
   pointY: number;
   gate: Gate;
+  fakeGate: Gate;
   waveBtn: WaveButton;
   gameObjStats: any;
   levelSettings: any;
@@ -86,6 +87,7 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
+      this.sound.play('lose-life');
       this.gameStats.updateLives(this.playerLives)
       if (this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
@@ -101,6 +103,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   defeat() {
+    this.sound.stopAll();
+    this.sound.play('defeat');
     this.isDefeat = true;
     this.updateGameStatsInLocalStorage('lose');
 
@@ -111,6 +115,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   win() {
+    this.sound.stopAll();
+    this.sound.play('win');
     this.updateGameStatsInLocalStorage('win');
     // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
@@ -196,6 +202,11 @@ export default class GameScene extends Phaser.Scene {
   }
 
   startBattle() {
+    console.log('time is come')
+    this.sound.stopAll();
+    // this.sound.stopByKey('level-1');
+    this.sound.play('start-battle');
+    this.sound.play('level-1-attack');
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
     this.enemiesProducedCounter = 0;
     this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
@@ -205,7 +216,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn(data) {
-    
     this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
     const path = new Phaser.Curves.Path();
@@ -246,7 +256,13 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  soundsManager() {
+    this.sound.stopByKey('main-theme');
+    this.sound.play('level-1');
+  }
+
   create(data: any): void {
+    this.soundsManager();
     this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set('deathCounter', 0);
     this.gameStats = new GameStats(this)
@@ -278,10 +294,10 @@ export default class GameScene extends Phaser.Scene {
     ]
     pauseButton.setPosition(pauseBtnCoordinates[0], pauseBtnCoordinates[1])
     pauseButton.setInteractive().on('pointerup', () => {
+      this.sound.pauseAll();
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.run('pause-scene');
-
     });
 
     const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
@@ -306,12 +322,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createGate() {
-    this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
-    this.gate.alpha = 0.6;
+    this.gate = new Gate(this, this.gatePointX + 60, this.gatePointY + 60, 'gate').setScale(0.5);
+    this.fakeGate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
+    this.fakeGate.alpha = 0.6;
+    this.gate.alpha = 0;
   }
 
   update(time) {
-    this.gate.rotation += 0.003;
+    this.fakeGate.rotation += 0.003;
     this.towers.forEach((tower: any) => {
       tower.update(time);
       tower.setGold(this.gold);
