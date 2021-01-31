@@ -232,6 +232,25 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
+
+    //sounds
+    this.load.audio('main-theme', './assets/sounds/themes/Main_Theme.mp3');
+    this.load.audio('level-1', './assets/sounds/themes/level_1.mp3');
+    this.load.audio('level-1-attack', './assets/sounds/themes/Level_Under_Attack.mp3');
+    this.load.audio('start-battle', './assets/sounds/waveIncoming.wav');
+    this.load.audio('win', './assets/sounds/levelCompleted.wav');
+    this.load.audio('defeat', './assets/sounds/levelFailed.wav');
+    this.load.audio('lose-life', './assets/sounds/loseLife.wav');
+
+    this.load.audio('wizardBlack-die', './assets/sounds/enemy_wizard_die.wav');
+    this.load.audio('littleOrc-die', './assets/sounds/enemy_orc_die.wav');
+    this.load.audio('scorpio-die', './assets/sounds/enemy_scorpio_die.wav');
+    this.load.audio('levendor-die', './assets/sounds/enemy_levendor_die.wav');
+
+    this.load.audio('tower-sell', './assets/sounds/tower_sell.wav');
+    this.load.audio('tower-building', './assets/sounds/tower_building.wav');
+
+    this.load.audio('achievement-unlock', './assets/sounds/achievement_unlock.wav');
   }
 
   create() {

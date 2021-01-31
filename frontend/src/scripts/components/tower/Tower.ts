@@ -108,11 +108,14 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
- canSale(slideOut: CallableFunction, context: object): void {
+  canSale(slideOut: CallableFunction, context: object): void {
     if (this.isTowerBuilt) {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
       this.saleMark.setInteractive();
-      this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
+      this.saleMark.on('pointerdown', () => {
+        this.scene.sound.play('tower-sell');
+        this.sale(slideOut, context);
+      });
       setTimeout(() => this.saleMark.destroy(), 3000);
     }
   }
@@ -138,6 +141,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   protected placeTowerArrow(): void {
     const playerStats = new PlayerStatsManager();
     let builtTowers = playerStats.getFromLocalStorage()['builtTowers'];
+    // счетчик сломан и звук тоже ломается из-за этого
+    // this.scene.sound.play('tower-building');
     builtTowers += 1;
     isBuilder(this.scene);
     playerStats.saveToLocalStorage({ 'builtTowers': builtTowers });
@@ -217,6 +222,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   public getGold() {
     if (this.isTowerSold) {
       this.isTowerSold = false;
+      this.scene.sound.play('tower-building');
       return this.playerGold -= this.cost;
     } else if (this.isEnemyDead) {
       this.isEnemyDead = false;

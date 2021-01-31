@@ -202,11 +202,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   startBattle() {
-    console.log('time is come')
     this.sound.stopAll();
-    // this.sound.stopByKey('level-1');
-    this.sound.play('start-battle');
-    this.sound.play('level-1-attack');
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
     this.enemiesProducedCounter = 0;
     this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
@@ -252,13 +248,14 @@ export default class GameScene extends Phaser.Scene {
       setTimeout(() => {
         this.waveBtn.destroy();
       }, 310);
-      //звук начала волны
+      this.sound.play('start-battle');
+      this.sound.play('level-1-attack', {loop: true});
     });
   }
 
   soundsManager() {
     this.sound.stopByKey('main-theme');
-    this.sound.play('level-1');
+    this.sound.play('level-1', {loop: true});
   }
 
   create(data: any): void {
