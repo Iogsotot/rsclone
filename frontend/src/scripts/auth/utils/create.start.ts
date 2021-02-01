@@ -3,6 +3,14 @@ import getAttendance from '../backend/getAttendance';
 import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
+import LangSwitcher, { LangConfig } from './LangSwitcher';
+
+
+const langConfigs: LangConfig[] = [
+  { lang: 'en', text: 'English' },
+  { lang: 'ru', text: 'Русский' },
+  { lang: 'uz', text: 'O\'zbekcha' },
+]
 
 function createStartPage() {
   const startPage = createElement(
@@ -44,6 +52,7 @@ function createStartPage() {
   const body = document.querySelector('body') as HTMLBodyElement;
   body.innerText = '';
   body.append(logout, attendance, startPage);
+  new LangSwitcher(langConfigs)
 
   const credits = document.querySelector('.logo-credits-button');
   credits?.addEventListener('click', () => createCredits());
