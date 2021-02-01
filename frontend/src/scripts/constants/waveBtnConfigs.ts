@@ -7,11 +7,11 @@ const waveBtnConfigs = {
     rotation: 0.4,
   },
   2: {
-    startPointX: 20,
-    startPointY: -150,
-    endPointX: 0,
-    endPointY: 50,
-    rotation: 1.6,
+    startPointX: 340,
+    startPointY: 210,
+    endPointX: 50,
+    endPointY: 0,
+    rotation: 0,
   },
   3: {
     startPointX: 200,

@@ -58,5 +58,7 @@ export default {
     archers: 'БАШНЯ ЛУЧНИКОВ',
     artillery: 'БАШНЯ АРТИЛЛЕРИЙ',
     magic: 'БАШНЯ МАГА'
-  }
+  },
+  price: 'стоимость',
+  damage: 'урон',
 }

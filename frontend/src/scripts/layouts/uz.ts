@@ -58,5 +58,7 @@ export default {
     archers: 'KAMONCHILAR MINORASI',
     artillery: 'ARTILLERYA MINORASI',
     magic: 'SEHRGAR MINORASI'
-  }
+  },
+  price: 'narx',
+  damage: 'zarar',
 }

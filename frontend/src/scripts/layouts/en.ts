@@ -58,5 +58,7 @@ export default {
     archers: 'ARCHERS TOWER',
     artillery: 'ARTILLERY TOWER',
     magic: 'MAGIC TOWER'
-  }
+  },
+  price: 'price',
+  damage: 'damage',
 }
