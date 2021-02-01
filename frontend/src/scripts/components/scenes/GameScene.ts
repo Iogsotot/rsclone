@@ -284,6 +284,14 @@ export default class GameScene extends Phaser.Scene {
 
     });
 
+    this.input.keyboard.on('keydown-SPACE', (event) => {
+      if(event.ctrlKey) {
+        this.scene.pause();
+        this.scene.moveAbove('game-scene', 'pause-scene');
+        this.scene.run('pause-scene');
+      }
+    });
+
     const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
     loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       if (this.scene.isPaused()) return;
