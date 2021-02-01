@@ -64,8 +64,6 @@ function createStartPage({ id, token }) {
   new LangSwitcher(langConfigs)
 
   const credits = document.querySelector('.logo-credits-button');
-
-  startPage.addEventListener('keydown', keysHandler);
   credits?.addEventListener('click', createCredits);
 
   achievementsCreate({ id, token });
