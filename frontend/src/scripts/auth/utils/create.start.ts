@@ -5,6 +5,7 @@ import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 import achievementsCreate from '../../achievements/create.achievements';
 import LangSwitcher, { LangConfig } from './LangSwitcher';
+import langConfig from '../../layouts/langConfig';
 
 
 const langConfigs: LangConfig[] = [
@@ -14,10 +15,11 @@ const langConfigs: LangConfig[] = [
 ]
 
 function createStartPage({ id, token }) {
-  const lang = window['lang'];
+  const lang = localStorage.getItem('lang');
+  console.log(langConfig);
 
-  const startText = langConfigs[`${lang}`].start.toUpperCase();
-  const creditsText = langConfigs[`${lang}`].credits.toUpperCase();
+  const startText = langConfig[`${lang}`].start.toUpperCase();
+  const creditsText = langConfig[`${lang}`].credits.toUpperCase();
   
   const startPage = createElement(
     'div',
@@ -28,7 +30,6 @@ function createStartPage({ id, token }) {
       <div class="logo-start-page"></div>
       <div class="logo-start-button">
         <span>${startText}</span>
-        <span class="hot-key hot-key-start">enter</span>
       </div>
       <div class="logo-credits-button">${creditsText}</div>
     </div>
