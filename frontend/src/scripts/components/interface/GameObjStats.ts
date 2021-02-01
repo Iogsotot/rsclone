@@ -79,11 +79,7 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     const fontStyles = {
       fontFamily: 'Dimbo',
       fontSize: '40px',
-      align: 'center',
-      lineSpacing: -10,
-      wordWrap: {
-        callback: (text: string) => text.split(','),
-      }
+      align: 'center'
     };
 
     this.objImg = this.scene.add.image(0, 0, '').setOrigin(0.5);
@@ -120,13 +116,11 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
         text1: `${obj.hp}/${obj.maxHp}`,
         img2: 'shoes-icon',
         text2:
-          obj.moveSpeed < 2000
-            ? textConfig.veryFast
-            : obj.moveSpeed < 3500
+          obj.moveSpeed < 30000
             ? textConfig.fast
-            : obj.moveSpeed < 6000
-            ? textConfig.slow
-            : textConfig.verySlow,
+            : obj.moveSpeed < 45000
+            ? textConfig.medium
+            : textConfig.slow,
         img3: 'coins-icon',
         text3: `${obj.killReward}`,
       };
