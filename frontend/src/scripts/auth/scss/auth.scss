@@ -57,19 +57,6 @@ body {
   z-index: -1;
 }
 
-.hot-key {
-  background-image: url('../assets/achievements/achievement_popup_3.png');
-  background-size: cover;
-  width: 50px;
-  height: 20px;
-  position: absolute;
-  color: #6e3c22;
-  line-height: normal;
-  font-size: initial;
-  bottom: 0;
-  left: calc(50% - 25px);
-}
-
 .logo-start-button,
 .logo-credits-button {
   background-image: url('../assets/auth/btn.png');

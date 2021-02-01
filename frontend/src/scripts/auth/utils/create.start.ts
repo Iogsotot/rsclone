@@ -78,12 +78,7 @@ function createPopupAttendance(arr) {
     classList: ['popup-attendance-wrapper'],
     innerHTML: `
       <div class="popup-attendance-content">
-
-        <div class="rope-popup-left"></div>
-        <div class="rope-popup-right"></div>
-
         <div class="close-popup"></div>
-        
         <figure>
           <figcaption>Game attendance over the year</figcaption>
           <svg class="full_graph">
