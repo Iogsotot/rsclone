@@ -4,14 +4,20 @@ import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 import achievementsCreate from '../../achievements/create.achievements';
-import keysHandler from '../events/keys-handler';
-import langConfig from '../../layouts/langConfig';
+import LangSwitcher, { LangConfig } from './LangSwitcher';
+
+
+const langConfigs: LangConfig[] = [
+  { lang: 'en', text: 'English' },
+  { lang: 'ru', text: 'Русский' },
+  { lang: 'uz', text: 'O\'zbekcha' },
+]
 
 function createStartPage({ id, token }) {
   const lang = window['lang'];
 
-  const startText = langConfig[`${lang}`].start.toUpperCase();
-  const creditsText = langConfig[`${lang}`].credits.toUpperCase();
+  const startText = langConfigs[`${lang}`].start.toUpperCase();
+  const creditsText = langConfigs[`${lang}`].credits.toUpperCase();
   
   const startPage = createElement(
     'div',
@@ -55,6 +61,7 @@ function createStartPage({ id, token }) {
   const body = document.querySelector('body') as HTMLBodyElement;
   body.innerText = '';
   body.append(logout, attendance, startPage);
+  new LangSwitcher(langConfigs)
 
   const credits = document.querySelector('.logo-credits-button');
 
