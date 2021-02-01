@@ -183,11 +183,13 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   }
 
  canSale(slideOut: CallableFunction, context: object): void {
-    if (this.isTowerBuilt) {
-      this.saleMark = this.scene.add.sprite(this.x, this.y + 70, 'sale');
+    if (this.isTowerBuilt && !this.saleMark || !this.saleMark.scene) {
+      this.saleMark = this.scene.add.sprite(this.x, this.y + 75, 'sale');
       this.saleMark.setInteractive({ useHandCursor: true });
+      this.saleMark.on('pointermove', () => this.saleMark.setScale(1.2));
+      this.saleMark.on('pointerout', () => this.saleMark.setScale(1));
       this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
-      setTimeout(() => this.saleMark.destroy(), 3000);
+      setTimeout(() => this.saleMark.destroy(), 2500);
     }
   }
 
@@ -320,9 +322,11 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       towerButton[0].destroy();
     });
     this.towerSelectionCircle.destroy();
-    this.infoWindow.destroy();
-    this.textInfo.destroy();
-    this.graphics.destroy();
+    if(this.infoWindow) {
+        this.infoWindow.destroy();
+        this.textInfo.destroy();
+        this.graphics.destroy();
+    }
   }
 
   protected createStatsTower(damage: number, speedFire: number, attackArea: number,
