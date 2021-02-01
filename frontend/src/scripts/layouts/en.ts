@@ -37,11 +37,9 @@ export default {
   sorry: 'SORRY :(/LEVEL FAILED',
   win: 'you win!',
   congrats: 'CONGRATULATIONS!/LEVEL COMPLETE',
-  verySlow: 'very,slow',
   slow: 'slow',
   medium: 'medium',
   fast: 'fast',
-  veryFast: 'very,fast',
   small: 'small',
   long: 'long',
   levelTheme: {
