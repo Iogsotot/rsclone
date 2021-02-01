@@ -13,6 +13,9 @@ export default {
   profile: 'Profil',
   overallRating: 'Umumiy reyting',
   achievements: 'yutuqlar',
+  youGot: 'Ta yutuqdan',
+  achievementsOutOf: 'tasiga erishdingiz',
+  all: 'barchasi',
   achievs: {
     firstBlood: 'Birinchi Qon',
     firstAsterisk: 'Birinchi Yulduz',

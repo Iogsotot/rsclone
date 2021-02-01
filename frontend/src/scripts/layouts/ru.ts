@@ -13,6 +13,9 @@ export default {
   profile: 'Профиль',
   overallRating: 'Общий рейтинг',
   achievements: 'достижения',
+  youGot: 'Вы получили',
+  achievementsOutOf: 'достижения из',
+  all: 'все',
   achievs: {
     firstBlood: 'Первая Кровь',
     firstAsterisk: 'Первая Звезда',

@@ -29,11 +29,16 @@ async function getPlayers({ token }) {
 }
 
 function popapSelectCreate({ stats, players, id }) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const statisticsText = langConfig[`${lang}`].statistics;
+  const profileText = langConfig[`${lang}`].profile;
+  const overallRatingText = langConfig[`${lang}`].overallRating;
+
   const popup = createElement('div', {
     classList: ['popup-achievements-wrapper'],
     innerHTML: `
       <div class="popup-achievements-content">
-        <div class="title-rating">Statistics</div>
+        <div class="title-rating">${statisticsText}</div>
         <div class="close-achievements-popup"></div>
       </div>
     `,
@@ -49,7 +54,7 @@ function popapSelectCreate({ stats, players, id }) {
 
   const profile = createElement('div', {
     classList: ['achievements-content-profile-button'],
-    textContent: 'Profile',
+    textContent: profileText,
     onclick: () => {
       popup.remove();
       const [ userStat ] = stats.data.filter(({ userId }) => userId === id );
@@ -59,7 +64,7 @@ function popapSelectCreate({ stats, players, id }) {
 
   const rating = createElement('div', {
     classList: ['achievements-content-rating-button'],
-    textContent: 'Overall rating',
+    textContent: overallRatingText,
     onclick: () => {
       popup.remove();
       popapRatingCreate(stats.data, players.data);

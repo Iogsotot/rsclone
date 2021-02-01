@@ -72,6 +72,9 @@ function createPopupAttendance(arr) {
   let positionAttendance = 0;
   let positionText = 8;
 
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const attendanceOverYearText = langConfig[`${lang}`].attendanceOverYear;
+
   const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
 
   const popup = createElement('div', {
@@ -80,7 +83,7 @@ function createPopupAttendance(arr) {
       <div class="popup-attendance-content">
         <div class="close-popup"></div>
         <figure>
-          <figcaption>Game attendance over the year</figcaption>
+          <figcaption>${attendanceOverYearText}</figcaption>
           <svg class="full_graph">
               <title id="title">A bart chart showing game attendance over the year</title>
               ${arr

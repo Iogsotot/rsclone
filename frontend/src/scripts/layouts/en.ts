@@ -13,6 +13,9 @@ export default {
   profile: 'Profile',
   overallRating: 'Overall rating',
   achievements: 'achievements',
+  youGot: 'You got',
+  achievementsOutOf: 'achievements out of',
+  all: 'all',
   achievs: {
     firstBlood: 'First Blood',
     firstAsterisk: 'First Asterisk',
