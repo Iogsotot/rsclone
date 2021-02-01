@@ -15,9 +15,12 @@ const langConfigs: LangConfig[] = [
 ]
 
 function createStartPage({ id, token }) {
-  const lang = localStorage.getItem('lang');
-  console.log(langConfig);
+  const body = document.querySelector('body') as HTMLBodyElement;
+  body.innerText = '';
 
+  new LangSwitcher(langConfigs);
+
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
   const startText = langConfig[`${lang}`].start.toUpperCase();
   const creditsText = langConfig[`${lang}`].credits.toUpperCase();
   
@@ -28,9 +31,7 @@ function createStartPage({ id, token }) {
       innerHTML: `
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
-      <div class="logo-start-button">
-        <span>${startText}</span>
-      </div>
+      <div class="logo-start-button">${startText}</div>
       <div class="logo-credits-button">${creditsText}</div>
     </div>
     `,
@@ -59,10 +60,7 @@ function createStartPage({ id, token }) {
     },
   });
 
-  const body = document.querySelector('body') as HTMLBodyElement;
-  body.innerText = '';
   body.append(logout, attendance, startPage);
-  new LangSwitcher(langConfigs)
 
   const credits = document.querySelector('.logo-credits-button');
   credits?.addEventListener('click', createCredits);

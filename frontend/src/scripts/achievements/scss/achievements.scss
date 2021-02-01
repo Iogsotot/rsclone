@@ -4,17 +4,23 @@
 @import './popap.achievements.profile.all';
 
 .achievements-icon {
-  background-image: url('../assets/achievements/achievements_icon.jpg.png');
+  background-image: url('../assets/achievements/achievements_icon.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 115px;
-  height: 115px;
+  width: 126px;
+  height: 126px;
   position: fixed;
   margin: 10px;
   bottom: 0;
   right: 0;
+  color: #e6e152;
+  font-family: "Dimbo";
+  text-align: center;
+  font-size: x-large;
+  line-height: 189px;
   cursor: pointer;
+  
   &:hover {
     transform: scale(1.1);
   }

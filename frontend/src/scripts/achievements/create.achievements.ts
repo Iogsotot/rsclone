@@ -2,6 +2,7 @@ import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileCreate from './create.popap.profile';
 import popapRatingCreate from './create.popap.rating';
+import langConfig from '../layouts/langConfig';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -71,9 +72,12 @@ function popapSelectCreate({ stats, players, id }) {
 }
 
 function achievementsCreate({ id, token }) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const achievementsText = langConfig[`${lang}`].achievements;
 
   const achievementsIcon = createElement('div', {
     classList: ['achievements-icon'],
+    textContent: `${achievementsText}`,
     onclick: async () => {
       const stats = await getCurrentPlayerStats({ id, token });
       const players = await getPlayers({ token });
