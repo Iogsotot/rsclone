@@ -60,7 +60,38 @@ function createStartPage({ id, token }) {
     },
   });
 
-  body.append(logout, attendance, startPage);
+  const footer = createElement('footer', {
+    classList: ['kingdom-rush-footer'],
+    innerHTML: `
+      <div class="the-rolling-scopes">
+        <div class="rss"></div>
+        <a href="https://rs.school/js/">The Rolling Scopes (RS School)</a>
+      </div>
+
+      <div class="wrapper-credits-people">
+        <div class="credits-people">
+          <div class="avatar Iogsotot"></div>
+          <a href="https://github.com/Iogsotot">Iogsotot</a>
+        </div>
+        <div class="credits-people">
+          <div class="avatar DenisAfa"></div>
+          <a href="https://github.com/DenisAfa">DenisAfa</a>
+        </div>
+        <div class="credits-people">
+          <div class="avatar Abdulloh76"></div>
+          <a href="https://github.com/Abdulloh76">Abdulloh76</a>
+        </div>
+        <div class="credits-people">
+          <div class="avatar mrINEX"></div>
+          <a href="https://github.com/mrINEX">mrINEX</a>
+        </div>
+      </div>
+
+      <div class="year-create">2021</div>
+    `
+  });
+
+  body.append(logout, attendance, startPage, footer);
 
   const credits = document.querySelector('.logo-credits-button');
   credits?.addEventListener('click', createCredits);

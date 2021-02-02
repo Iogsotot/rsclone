@@ -114,7 +114,7 @@ body {
   height: 70px;
   position: fixed;
   margin: 10px;
-  bottom: 0;
+  bottom: 50px;
   cursor: pointer;
   &:hover {
     transform: scale(1.1);
@@ -233,13 +233,10 @@ body {
         color: #FFC107;
       }
       &:checked + label > .checkbox-image {
-        background-image: url('../assets/auth/on.png');
+        background-image: url('../assets/sign/onNoText.png');
       }
       &:checked + label > .checkbox-text {
         transform: scale(1.1);
-      }
-      &:checked + label > .checkbox-text:hover {
-        transform: scale(1);
       }
     }
 
@@ -252,20 +249,9 @@ body {
       & .checkbox-image {
         width: 84px;
         height: 40px;
-        background-image: url('../assets/auth/off.png');
+        background-image: url('../assets/sign/offNoText.png');
         background-size: cover;
         margin-right: 20px;
-
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      & .checkbox-text {
-        transform: scale(1);
-        &:hover {
-          transform: scale(1.1);
-        }
       }
     }
   }
@@ -298,6 +284,83 @@ body {
 
   &:hover {
     transform: scale(1.2);
+  }
+}
+
+.kingdom-rush-footer {
+  height: 5vh;
+  width: 100%;
+  background-color: #bb3e08c9;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  border-top: 2px solid #f3e06b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .the-rolling-scopes {
+    display: flex;
+    padding: 0 2vw;
+
+    & .rss {
+      background-image: url('https://rs.school/images/rs_school_js.svg');
+      background-position: center;
+      width: 6vw;
+      height: 2.9vh;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+
+    & a {
+      padding: 0.1vh 1.2vw;
+      text-decoration: none;
+      color: antiquewhite;
+      font-size: 2vw;
+    }
+  }
+
+  & .wrapper-credits-people {
+    display: flex;
+
+    & .credits-people {
+      display: flex;
+      align-items: center;
+  
+      & .avatar {
+        width: 2.6vw;
+        height: 2.6vw;
+        background-size: cover;
+        border-radius: 50%;
+      }
+  
+      & a {
+        padding: 0.1vh 1.2vw;
+        text-decoration: none;
+        color: antiquewhite;
+        font-size: 2vw;
+      }
+  
+      & .Iogsotot {
+        background-image: url('https://avatars.githubusercontent.com/u/50149163?s=400&u=9a763fefd25839d62bec939ad7302d8a29948cb4&v=4');
+      }
+      & .DenisAfa {
+        background-image: url('https://avatars.githubusercontent.com/u/64201928?s=400&u=b33f2c5f182a021649e8ac548259a05dc3ed792e&v=4');
+      }
+      & .Abdulloh76 {
+        background-image: url('https://avatars.githubusercontent.com/u/59783836?s=400&v=4');
+      }
+      & .mrINEX {
+        background-image: url('https://avatars.githubusercontent.com/u/35580404?s=400&u=742a3a17f24933ff191b620cf949e6f1b872e20a&v=4')
+      }
+  
+    }
+  }
+
+  & .year-create {
+    color: antiquewhite;
+    font-size: 2vw;
+    padding: 0 2vw;
   }
 }
 
