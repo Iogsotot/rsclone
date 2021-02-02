@@ -168,11 +168,11 @@ body {
   background-image: url('../assets/auth/title.png');
   background-size: contain;
   display: block;
-  width: 200px;
-  height: 84px;
+  width: 226px;
+  height: 94px;
   text-align: center;
   line-height: 74px;
-  font-size: xx-large;
+  font-size: x-large;
   position: absolute;
   top: -9px;
 
@@ -271,15 +271,15 @@ body {
   }
   
   & input.sign-in-submit {
-    height: 138px;
-    width: 255px;
+    height: 150px;
+    width: 278px;
     border: none;
     background: url('../assets/auth/btn.png');
     background-size: cover;
     cursor: pointer;
     font-family: "Dimbo";
     letter-spacing: 0.8px;
-    font-size: xxx-large;
+    font-size: xx-large;
     color: #FFC107;
     align-self: center;
     position: relative;
