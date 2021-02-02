@@ -254,6 +254,10 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.audio('tower-sell', './assets/sounds/tower_sell.wav');
     this.load.audio('tower-building', './assets/sounds/tower_building.wav');
+    this.load.audio('tower-choice', './assets/sounds/GUI_MouseOverTowerIcon.wav');
+    this.load.audio('missile-arrow', './assets/sounds/tower_arrow_attack.wav');
+    this.load.audio('missile-bomb', './assets/sounds/tower_bomb_attack.wav');
+    this.load.audio('missile-magic', './assets/sounds/tower_wizard_attack.wav');
 
     this.load.audio('achievement-unlock', './assets/sounds/achievement_unlock.wav');
   }

@@ -127,6 +127,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.magicTowerButton.on('pointerdown', () => this.placeTowerMagic(), this.magicTowerButton);
       this.isTowerBuilt = true;
       this.canBuyTower();
+      this.scene.sound.play('tower-choice');
     }
   }
 
@@ -188,8 +189,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 75, 'sale');
       this.saleMark.setInteractive({ useHandCursor: true });
       this.saleMark.on('pointermove', () => this.saleMark.setScale(1.2));
-      this.saleMark.on('pointerout', () => this.saleMark.setScale(1));
-      this.scene.sound.play('tower-sell');
+      this.saleMark.on('pointerout', () => this.saleMark.setScale(1)); 
       this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
       setTimeout(() => this.saleMark.destroy(), 2500);
     }
@@ -210,7 +210,8 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.placeField();
     this.saleMark.setVisible(false);
     this.saleMark.setActive(false);
-    this.tower.on('pointerdown', () => this.choiceTower())
+    this.tower.on('pointerdown', () => this.choiceTower());
+    this.scene.sound.play('tower-sell');
   }
 
   protected placeTowerArrow(): void {
@@ -389,6 +390,17 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
         this.addMissile(angle);
         enemy.takeDamage(this.damage, this.physicalDamage, this.magicDamage);
+        switch (this.type) {
+            case this.typeArchersTower:
+                this.scene.sound.play('missile-arrow');
+                break;
+            case this.typeMagicTower:
+                this.scene.sound.play('missile-magic');
+                break;
+            case this.typeArtilleryTower:
+                this.scene.sound.play('missile-bomb');
+                break;
+        }
       }
     }
   }
