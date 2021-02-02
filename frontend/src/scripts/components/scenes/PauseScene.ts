@@ -41,11 +41,9 @@ export default class PauseScene extends Phaser.Scene {
       this.time.delayedCall(300, () => this.scene.start('game-scene'));
     });
 
-    this.input.keyboard.on('keydown-Q', (event) => {
-      if(event.ctrlKey) {
-        this.modal.slideOut();
-        this.time.delayedCall(300, () => this.scene.start('game-scene'));
-      }
+    this.input.keyboard.on('keydown-R', (event) => {
+      this.modal.slideOut();
+      this.time.delayedCall(300, () => this.scene.start('game-scene'));
     });
 
     this.modal.resumeBtn.setInteractive().on('pointerup', () => {

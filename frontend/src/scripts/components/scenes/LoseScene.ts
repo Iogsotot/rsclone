@@ -34,11 +34,9 @@ export default class LoseScene extends Phaser.Scene {
       this.time.delayedCall(300, () => this.scene.start('game-scene'))
     });
 
-    this.input.keyboard.on('keydown-Q', (event) => {
-      if(event.ctrlKey) {
-        modal.disappearance()
-        this.time.delayedCall(300, () => this.scene.start('game-scene'))
-      }
+    this.input.keyboard.on('keydown-R', (event) => {
+      modal.disappearance()
+      this.time.delayedCall(300, () => this.scene.start('game-scene'))
     });
   }
 
