@@ -8,7 +8,7 @@ const LOCAL_STORAGE_KEY: string = 'KingdomRushCloneStateKey';
 const levelsConfig = {
   'level_1': {
     'map': map1,
-    'startingGold': 300,
+    'startingGold': 250,
     'waves': {
       'wave_1': {
         'enemies': {
@@ -45,7 +45,7 @@ const levelsConfig = {
   },
   'level_2': {
     'map': map2,
-    'startingGold': 250,
+    'startingGold': 400,
     'waves': {
       'wave_1': {
         'enemies': {
@@ -94,7 +94,7 @@ const levelsConfig = {
   },
   'level_3': {
     'map': map3,
-    'startingGold': 100,
+    'startingGold': 500,
     'waves': {
       'wave_1': {
         'enemies': {

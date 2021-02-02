@@ -75,15 +75,15 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.costMagicTower = 100;
     this.costArtilleryTower = 125;
     this.canUpdateGold = false;
-    this.damageArchersTower = 6;
-    this.damageArtilleryTower = 25;
-    this.damageMagicTower = 15;
+    this.damageArchersTower = 15;
+    this.damageArtilleryTower = 35;
+    this.damageMagicTower = 20;
     this.speedFireArchersTower = 1000;
     this.speedFireArtilleryTower = 3000;
     this.speedFireMagicTower = 1500;
     this.attackAreaArchersTower = 280;
     this.attackAreaArtilleryTower = 320;
-    this.attackAreaMagicTower = 280;
+    this.attackAreaMagicTower = 300;
     this.typeArchersTower = 'archers';
     this.typeArtilleryTower = 'artillery';
     this.typeMagicTower = 'magic';
@@ -111,9 +111,9 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     if (!this.isTowerBuilt) {
       this.towerSelectionCircle = this.scene.add.sprite(this.x, this.y, 'circle').setDepth(1);
       this.archersTowerButton = this.scene.add.sprite(this.x - 65, this.y - 65, 'arrow').setDepth(1);
-      this.artilleryTowerButton = this.scene.add.sprite(this.x - 65, this.y + 75, 'bomb').setDepth(1);
+      this.artilleryTowerButton = this.scene.add.sprite(this.x - 65, this.y + 65, 'bomb').setDepth(1);
       this.magicTowerButton = this.scene.add.sprite(this.x + 65, this.y - 65, 'magic').setDepth(1);
-      this.closeButton = this.scene.add.sprite(this.x + 65, this.y + 75, 'close_tower_button').setDepth(1)
+      this.closeButton = this.scene.add.sprite(this.x + 65, this.y + 65, 'close_tower_button').setDepth(1)
       this.towersInfo = [[this.archersTowerButton, this.costArchersTower, this.damageArchersTower,
       this.speedFireArchersTower, this.attackAreaArchersTower, this.typeArchersTower],
       [this.artilleryTowerButton, this.costArtilleryTower, this.damageArtilleryTower,
@@ -271,7 +271,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       });
       this.tower.play('tower_bomb_anim');
       this.createStatsTower(this.damageArtilleryTower, this.speedFireArtilleryTower,
-        this.attackAreaArtilleryTower, 20, 20);
+        this.attackAreaArtilleryTower, 10, 10);
       this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = this.typeArtilleryTower;
@@ -299,7 +299,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.tower.setScale(1.2);
       this.tower.play('tower_magic_anim');
       this.createStatsTower(this.damageMagicTower, this.speedFireMagicTower,
-        this.attackAreaMagicTower, 0, 25);
+        this.attackAreaMagicTower, 0, 10);
       this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
       this.isTowerSold = true;
       this.type = this.typeMagicTower;
