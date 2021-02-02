@@ -65,26 +65,33 @@ function createStartPage({ id, token }) {
     classList: ['kingdom-rush-footer'],
     innerHTML: `
       <div class="the-rolling-scopes">
-        <div class="rss"></div>
-        <a href="https://rs.school/js/">The Rolling Scopes (RS School)</a>
+        <a href="https://rs.school/js/" class="rss"></a>
       </div>
 
-      <div class="wrapper-credits-people">
-        <div class="credits-people">
-          <div class="avatar Iogsotot"></div>
-          <a href="https://github.com/Iogsotot">IogSotot</a>
+      <div class="wrapper-team-people">
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/Iogsotot">
+            <div class="avatar Iogsotot"></div>
+            <div>IogSotot</div>
+          </a>
         </div>
-        <div class="credits-people">
-          <div class="avatar DenisAfa"></div>
-          <a href="https://github.com/DenisAfa">DenisAfa</a>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/DenisAfa">
+            <div class="avatar DenisAfa"></div>
+            <div>DenisAfa</div>
+          </a>
         </div>
-        <div class="credits-people">
-          <div class="avatar Abdulloh76"></div>
-          <a href="https://github.com/Abdulloh76">Abdulloh76</a>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/Abdulloh76">
+            <div class="avatar Abdulloh76"></div>
+            <div>Abdulloh76</div>
+          </a>
         </div>
-        <div class="credits-people">
-          <div class="avatar mrINEX"></div>
-          <a href="https://github.com/mrINEX">mrINEX</a>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/mrINEX">
+            <div class="avatar mrINEX"></div>
+            <div>mrINEX</div>
+          </a>
         </div>
       </div>
 

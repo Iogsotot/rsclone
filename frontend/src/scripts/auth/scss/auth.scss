@@ -302,8 +302,6 @@ footer {
   background-repeat: no-repeat;
   background-position: bottom;
   background-size: cover;
-  // background-size: cover;
-  // background-color: #351000c9;
 
   font-size: 16px;
   color: #fbd738;
@@ -327,24 +325,35 @@ footer {
       background: url('../assets/icons/rs_school_js.svg');
       background-size: contain;
       background-repeat: no-repeat;
+
+      opacity: 0.8;
+      &:hover {
+        border-bottom: 2px solid transparent;
+        opacity: 1;
+      }
     }
   }
 
-  .wrapper-credits-people {
+  .wrapper-team-people {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     margin: auto;
 
-    .credits-people {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
+    .team-people {
       padding: 0 5px;
-      margin: auto;
+
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      & a>* {
+        display: inline-block;
+      }
 
       .avatar {
         width: 40px;
@@ -383,10 +392,12 @@ footer {
     border-bottom: 2px solid transparent;
     text-decoration: none;
 
+    opacity: 0.8;
     cursor: pointer;
     transition: all 250ms linear;
 
     &:hover {
+      opacity: 1;
       color: #fbad38;
       border-bottom: 2px solid #fbad38;
       transition: all 250ms linear;
