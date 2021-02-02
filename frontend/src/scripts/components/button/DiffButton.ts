@@ -21,6 +21,14 @@ export default class DiffButton extends CustomButton {
     
     this.setInteractive({ useHandCursor: true })
       .on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, this.handleClick, this)
+      
+    this.scene.input.keyboard.on('keydown-D', (event) => {
+      this.handleDown()
+      this.handleClick()
+    });
+    this.scene.input.keyboard.on('keyup-D', (event) => {
+      this.handleUp()
+    });
   }
 
   handleClick() {

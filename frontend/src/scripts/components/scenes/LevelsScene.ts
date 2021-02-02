@@ -24,8 +24,18 @@ export default class LevelsScene extends Phaser.Scene {
     
     this.cancelBtn = new Button(this, 50, 50, 'modal-close-btn')
     this.cancelBtn.setInteractive().on('pointerup', () => {
-      
-      this.cameras.main.fadeOut(500, 0, 0, 0)
+      this.cancel()
+    })
+
+    this.input.keyboard.on('keydown-Q', (event) => {
+      if(event.ctrlKey) {
+        this.cancel()
+      }
+    });
+  }
+
+  cancel() {
+    this.cameras.main.fadeOut(500, 0, 0, 0)
       const token = localStorage.getItem(KEY_TOKEN);
       const id = localStorage.getItem(KEY_ID);
       this.cameras.main.once('camerafadeoutcomplete', () => {
@@ -37,8 +47,5 @@ export default class LevelsScene extends Phaser.Scene {
           document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
         })
 	    })
-
-    })
-    
   }
 }
