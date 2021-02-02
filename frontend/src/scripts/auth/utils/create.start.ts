@@ -66,7 +66,7 @@ function createStartPage({ id, token }) {
     innerHTML: `
       <div class="the-rolling-scopes">
         <div class="rss"></div>
-        <a href="https://rs.school/js/"></a>
+        <a href="https://rs.school/js/">The Rolling Scopes (RS School)</a>
       </div>
 
       <div class="wrapper-credits-people">
