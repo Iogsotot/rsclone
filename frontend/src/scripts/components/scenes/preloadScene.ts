@@ -54,6 +54,11 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 75,
     });
 
+    this.load.spritesheet('close_tower_button', './assets/towers/close_button_tower.png', {
+        frameWidth: 75,
+        frameHeight: 75,
+      });
+
     this.load.spritesheet('tower', './assets/towers/tower.png', {
       frameWidth: 120,
       frameHeight: 80,
