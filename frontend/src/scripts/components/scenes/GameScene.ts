@@ -244,6 +244,23 @@ export default class GameScene extends Phaser.Scene {
       }, 310);
       //звук начала волны
     });
+    // hot key для начала волны
+    this.input.keyboard.on('keyup-N', (event) => {
+      if (this.scene.isPaused()) {
+        return;
+      }
+      this.startBattle();
+      this.scene.scene.tweens.add({
+        targets: this.waveBtn,
+        scale: 0,
+        ease: 'Linear',
+        duration: 300,
+      });
+      setTimeout(() => {
+        this.waveBtn.destroy();
+      }, 310);
+      //звук начала волны
+    });
   }
 
   create(data: any): void {
