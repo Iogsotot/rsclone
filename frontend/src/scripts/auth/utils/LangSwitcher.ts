@@ -48,9 +48,9 @@ export default class LangSwitcher {
     this.switcherContainer.append(this.langCurrent)
     this.switcherContainer.append(this.dropDown)
 
-    const main = document.querySelector('main');
+    // const main = document.querySelector('main');
     
-    main?.append(this.switcherContainer);
+    body?.append(this.switcherContainer);
 
     this.dropDown.addEventListener('click', this.clickHandler)
   }
