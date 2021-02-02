@@ -66,13 +66,13 @@ function createStartPage({ id, token }) {
     innerHTML: `
       <div class="the-rolling-scopes">
         <div class="rss"></div>
-        <a href="https://rs.school/js/">The Rolling Scopes (RS School)</a>
+        <a href="https://rs.school/js/"></a>
       </div>
 
       <div class="wrapper-credits-people">
         <div class="credits-people">
           <div class="avatar Iogsotot"></div>
-          <a href="https://github.com/Iogsotot">Iogsotot</a>
+          <a href="https://github.com/Iogsotot">IogSotot</a>
         </div>
         <div class="credits-people">
           <div class="avatar DenisAfa"></div>

@@ -93,7 +93,6 @@ function achievementsCreate({ id, token }) {
   
   const main = document.querySelector('main');
   main?.append(achievementsIcon);
-  // document.body.append(achievementsIcon);
 }
 
 export default achievementsCreate;
