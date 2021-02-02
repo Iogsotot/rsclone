@@ -8,14 +8,15 @@ function isGreatDefender(scene) {
   const gameProgress = statsData['gameProgress'];
   const values: Array<number> = Object.values(gameProgress);
 
+  if (statsData['achievements']['greatDefender'] !== true) {
+    if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
+      const popup = new Popup(scene, 0, 0, 'achievementPopup');
+      popup.init('greatDefender');
+      popup.startAnimation();
 
-  if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
-    const popup = new Popup(scene, 0, 0, 'achievementPopup');
-    popup.init('greatDefender');
-    popup.startAnimation();
-
-    playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'greatDefender': true } });
-    sendDataToBackend();
+      playerStats.saveToLocalStorage({ 'achievements': { ...statsData['achievements'], 'greatDefender': true } });
+      sendDataToBackend();
+    }
   }
 }
 
@@ -24,7 +25,7 @@ function isIronDefender(scene) {
   const ironModeProgress = statsData['ironModeProgress'];
   const values: Array<number> = Object.values(ironModeProgress);
 
-  if (statsData['achievements']['ironDefender'] !== true) { 
+  if (statsData['achievements']['ironDefender'] !== true) {
     if (values.reduce((a: number, b: number) => a + b, 0) === 9) {
       const popup = new Popup(scene, 0, 0, 'achievementPopup');
       popup.init('ironDefender');

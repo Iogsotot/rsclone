@@ -30,49 +30,51 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     this.damageSpeed = 5;
     this.moveSpeed = 10000;
     this.killReward = 5;
-    
-    this.play({ key: `${this.unitType}_walk`, repeat:  Infinity});
+
+    this.play({ key: `${this.unitType}_walk`, repeat: Infinity });
     this.setInteractive();
     // this.on("pointerdown", this.takeDamage, this);
   }
 
   takeDamage(damage, physicalDamage, magicDamage) {
-    if(this.hp <= damage) {
+    if (this.hp <= damage) {
       this.hp = 0;
       this.die();
-    } else if(this.hp > damage) {
+    } else if (this.hp > damage) {
       if (this.physicalArmor !== 0 && physicalDamage !== 0 && this.physicalArmor >= physicalDamage) {
+        // this.scene.sound.play(`${this.unitType}-hurt`);
         this.physicalArmor -= physicalDamage;
-        this.play({ key: `${this.unitType}_hurt`, repeat: 0})
-        this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
+        this.play({ key: `${this.unitType}_hurt`, repeat: 0 })
+        this.chain([{ key: `${this.unitType}_walk`, repeat: Infinity }]);
       } else if (this.magicArmor !== 0 && magicDamage !== 0 && this.magicArmor >= magicDamage) {
-        this.magicArmor -= magicDamage;            
-        this.play({ key: `${this.unitType}_hurt`, repeat: 0})
-        this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
+        this.magicArmor -= magicDamage;
+        this.play({ key: `${this.unitType}_hurt`, repeat: 0 })
+        this.chain([{ key: `${this.unitType}_walk`, repeat: Infinity }]);
       } else {
-        this.hp -= damage; 
-        this.play({ key: `${this.unitType}_hurt`, repeat: 0})
-        this.chain([{key: `${this.unitType}_walk`, repeat: Infinity}]);
+        this.hp -= damage;
+        this.play({ key: `${this.unitType}_hurt`, repeat: 0 })
+        this.chain([{ key: `${this.unitType}_walk`, repeat: Infinity }]);
       }
     }
   }
 
   die() {
-    if (this.isAlive) {  
+    if (this.isAlive) {
       this.isAlive = false;
       this.pauseFollow();
-      this.play({ key: `${this.unitType}_die`, repeat: 0});
+      this.scene.sound.play(`${this.unitType}-die`);
+      this.play({ key: `${this.unitType}_die`, repeat: 0 });
       this.on('animationcomplete', this.despawn, this)
     }
   }
-  
+
   despawn() {
     const playerStats = new PlayerStatsManager();
     let killedEnemies = playerStats.getFromLocalStorage()['killedEnemies'];
     killedEnemies += 1;
     isFirstBlood(this.scene);
     isKiller(this.scene);
-    playerStats.saveToLocalStorage({'killedEnemies': killedEnemies});
+    playerStats.saveToLocalStorage({ 'killedEnemies': killedEnemies });
     let deathCounter = this.scene.registry.get("deathCounter");
     deathCounter += 1;
     this.scene.registry.set("deathCounter", deathCounter);
@@ -81,10 +83,10 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
   }
 
   getEnemyCost() {
-      return this.killReward
+    return this.killReward
   }
 
   getAlive() {
-      return this.isAlive
+    return this.isAlive
   }
 }

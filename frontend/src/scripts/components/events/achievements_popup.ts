@@ -66,6 +66,7 @@ export default class Popup extends Phaser.GameObjects.Container {
   }
 
   startAnimation() {
+    this.scene.sound.play('achievement-unlock');
     this.slideIn();
     // звук появления анимации
 

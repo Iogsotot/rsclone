@@ -55,7 +55,8 @@ export default {
   enemy: {
     littleOrc: 'little orc',
     wizardBlack: 'wizard black',
-    scorpio: 'scorpio'
+    scorpio: 'scorpio',
+    levendor: 'Levendor',
   },
   tower: {
     archers: 'ARCHERS TOWER',
