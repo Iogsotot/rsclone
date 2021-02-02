@@ -11,7 +11,10 @@
 
 body {
   font-family: "Dimbo";
+  overflow-y: hidden;
 }
+
+
 
 .blur-bg {
   position: absolute;
@@ -288,7 +291,7 @@ body {
 }
 
 .kingdom-rush-footer {
-  height: 5vh;
+  // height: 5vh;
   width: 100%;
   background-color: #bb3e08c9;
   position: absolute;

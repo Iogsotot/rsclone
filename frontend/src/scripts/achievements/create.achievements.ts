@@ -90,7 +90,10 @@ function achievementsCreate({ id, token }) {
     }
   });
   
-  document.body.append(achievementsIcon);
+  
+  const main = document.querySelector('main');
+  main?.append(achievementsIcon);
+  // document.body.append(achievementsIcon);
 }
 
 export default achievementsCreate;

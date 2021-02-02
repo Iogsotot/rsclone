@@ -17,6 +17,7 @@ const langConfigs: LangConfig[] = [
 function createStartPage({ id, token }) {
   const body = document.querySelector('body') as HTMLBodyElement;
   body.innerText = '';
+  const main = createElement('main');
 
   new LangSwitcher(langConfigs);
 
@@ -91,7 +92,9 @@ function createStartPage({ id, token }) {
     `
   });
 
-  body.append(logout, attendance, startPage, footer);
+  main.append(logout, attendance, startPage);
+
+  body.append(main, footer);
 
   const credits = document.querySelector('.logo-credits-button');
   credits?.addEventListener('click', createCredits);
