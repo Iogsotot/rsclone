@@ -52,7 +52,8 @@ export default {
   enemy: {
     littleOrc: 'kichik ork',
     wizardBlack: 'qora sehrgar',
-    scorpio: 'chayon'
+    scorpio: 'chayon',
+    levendor: 'Levendor',
   },
   tower: {
     archers: 'KAMONCHILAR MINORASI',

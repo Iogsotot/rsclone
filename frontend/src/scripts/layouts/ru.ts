@@ -52,7 +52,8 @@ export default {
   enemy: {
     littleOrc: 'маленький орк',
     wizardBlack: 'черный волшебник',
-    scorpio: 'скорпион'
+    scorpio: 'скорпион',
+    levendor: 'Левендор',
   },
   tower: {
     archers: 'БАШНЯ ЛУЧНИКОВ',

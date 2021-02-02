@@ -7,7 +7,7 @@ export default class WizardBlack extends Enemy {
     this.setPosition(x, y);
 
     // moveSpeed - За какое время будет пройден way
-    this.moveSpeed = 55000;
+    this.moveSpeed = 50000;
     this.hp = 135 * difficultyCoeff;
     this.maxHp = this.hp
     this.magicArmor = 100 * difficultyCoeff;

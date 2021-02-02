@@ -113,11 +113,11 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.artilleryTowerButton = this.scene.add.sprite(this.x, this.y + 75, 'bomb').setDepth(1);
       this.magicTowerButton = this.scene.add.sprite(this.x + 65, this.y - 65, 'magic').setDepth(1);
       this.towersInfo = [[this.archersTowerButton, this.costArchersTower, this.damageArchersTower,
-         this.speedFireArchersTower, this.attackAreaArchersTower, this.typeArchersTower],
-      [this.artilleryTowerButton, this.costArtilleryTower, this.damageArtilleryTower, 
-        this.speedFireArtilleryTower, this.attackAreaArtilleryTower, this.typeArtilleryTower],
-      [this.magicTowerButton, this.costMagicTower, this.damageMagicTower, 
-        this.speedFireMagicTower, this.attackAreaMagicTower, this.typeMagicTower]];
+      this.speedFireArchersTower, this.attackAreaArchersTower, this.typeArchersTower],
+      [this.artilleryTowerButton, this.costArtilleryTower, this.damageArtilleryTower,
+      this.speedFireArtilleryTower, this.attackAreaArtilleryTower, this.typeArtilleryTower],
+      [this.magicTowerButton, this.costMagicTower, this.damageMagicTower,
+      this.speedFireMagicTower, this.attackAreaMagicTower, this.typeMagicTower]];
       this.towersInfo.forEach((towerButton: Array<any>) => {
         towerButton[0].setInteractive({ useHandCursor: true });
       });
@@ -131,41 +131,41 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   }
 
   towerInformation(): void {
-      let hasInfo: boolean = false;
-      const config = langConfig[`${window['lang']}`]
-      this.towersInfo.forEach((towerInfo: Array<any>) => {
-        towerInfo[0].on('pointermove', () => {
-            towerInfo[0].setScale(1.2);
-            if (!hasInfo) {
-                hasInfo = true;
-                let infoWindowWidth = +this.scene.game.config.width / 10;
-                let infoWindowHeight = +this.scene.game.config.height / 12;
-                this.infoWindow = this.scene.add.image((this.x), (this.y - 150), 'settings-modal-bg').setDepth(1);
-                this.infoWindow.setDisplaySize(infoWindowWidth, infoWindowHeight);
-                const styles = {
-                    fontFamily: 'Dimbo',
-                    fontSize: '24px',
-                    color: '#dbc899',
-                    align: 'left',
-                  }
-                let text = `${config.tower[towerInfo[5]]}/${config.price}: ${towerInfo[1]}/${config.damage}: ${towerInfo[2]}`;
-                
-                this.textInfo = this.scene.add.text((this.x - infoWindowWidth / 2) + 10, 
-                    (this.y - infoWindowHeight * 2) + 10, text, styles).setDepth(1);
-                this.textInfo.setWordWrapCallback((text: string) => text.split(/\//));
-                this.graphics = this.scene.add.graphics({ fillStyle: { color: 0x00ff00, alpha: 0.3 } });
-                let circle = new Phaser.Geom.Circle(this.x, this.y, towerInfo[4]);
-                this.graphics.fillCircleShape(circle).setDepth(0);
-            }
-          });
-          towerInfo[0].on('pointerout', () => {
-            towerInfo[0].setScale(1);
-            this.infoWindow.destroy();
-            this.textInfo.destroy();
-            hasInfo = false;
-            this.graphics.destroy();
-          });
-      })
+    let hasInfo: boolean = false;
+    const config = langConfig[`${window['lang']}`]
+    this.towersInfo.forEach((towerInfo: Array<any>) => {
+      towerInfo[0].on('pointermove', () => {
+        towerInfo[0].setScale(1.2);
+        if (!hasInfo) {
+          hasInfo = true;
+          let infoWindowWidth = +this.scene.game.config.width / 10;
+          let infoWindowHeight = +this.scene.game.config.height / 12;
+          this.infoWindow = this.scene.add.image((this.x), (this.y - 150), 'settings-modal-bg').setDepth(1);
+          this.infoWindow.setDisplaySize(infoWindowWidth, infoWindowHeight);
+          const styles = {
+            fontFamily: 'Dimbo',
+            fontSize: '24px',
+            color: '#dbc899',
+            align: 'left',
+          }
+          let text = `${config.tower[towerInfo[5]]}/${config.price}: ${towerInfo[1]}/${config.damage}: ${towerInfo[2]}`;
+
+          this.textInfo = this.scene.add.text((this.x - infoWindowWidth / 2) + 10,
+            (this.y - infoWindowHeight * 2) + 10, text, styles).setDepth(1);
+          this.textInfo.setWordWrapCallback((text: string) => text.split(/\//));
+          this.graphics = this.scene.add.graphics({ fillStyle: { color: 0x00ff00, alpha: 0.3 } });
+          let circle = new Phaser.Geom.Circle(this.x, this.y, towerInfo[4]);
+          this.graphics.fillCircleShape(circle).setDepth(0);
+        }
+      });
+      towerInfo[0].on('pointerout', () => {
+        towerInfo[0].setScale(1);
+        this.infoWindow.destroy();
+        this.textInfo.destroy();
+        hasInfo = false;
+        this.graphics.destroy();
+      });
+    })
   }
 
   protected canBuyTower(): void {
@@ -178,16 +178,18 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       && this.playerGold < this.costArchersTower) {
       setTimeout((() => {
         this.isTowerBuilt = false;
-        this.hideChoiceTower()}), 2000);
+        this.hideChoiceTower()
+      }), 2000);
     }
   }
 
- canSale(slideOut: CallableFunction, context: object): void {
+  canSale(slideOut: CallableFunction, context: object): void {
     if (this.isTowerBuilt && !this.saleMark || !this.saleMark.scene) {
       this.saleMark = this.scene.add.sprite(this.x, this.y + 75, 'sale');
       this.saleMark.setInteractive({ useHandCursor: true });
       this.saleMark.on('pointermove', () => this.saleMark.setScale(1.2));
       this.saleMark.on('pointerout', () => this.saleMark.setScale(1));
+      this.scene.sound.play('tower-sell');
       this.saleMark.on('pointerdown', () => this.sale(slideOut, context));
       setTimeout(() => this.saleMark.destroy(), 2500);
     }
@@ -230,7 +232,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         repeat: -1
       });
       this.tower.play('tower_array_anim');
-      this.createStatsTower(this.damageArchersTower, this.speedFireArchersTower, 
+      this.createStatsTower(this.damageArchersTower, this.speedFireArchersTower,
         this.attackAreaArchersTower, 10);
       this.missiles = this.scene.physics.add.group({ classType: MissileArrow, runChildUpdate: true });
       this.isTowerSold = true;
@@ -257,7 +259,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         repeat: -1
       });
       this.tower.play('tower_bomb_anim');
-      this.createStatsTower(this.damageArtilleryTower, this.speedFireArtilleryTower, 
+      this.createStatsTower(this.damageArtilleryTower, this.speedFireArtilleryTower,
         this.attackAreaArtilleryTower, 20, 20);
       this.missiles = this.scene.physics.add.group({ classType: MissileBomb, runChildUpdate: true });
       this.isTowerSold = true;
@@ -285,7 +287,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       });
       this.tower.setScale(1.2);
       this.tower.play('tower_magic_anim');
-      this.createStatsTower(this.damageMagicTower, this.speedFireMagicTower, 
+      this.createStatsTower(this.damageMagicTower, this.speedFireMagicTower,
         this.attackAreaMagicTower, 0, 25);
       this.missiles = this.scene.physics.add.group({ classType: MissileMagic, runChildUpdate: true });
       this.isTowerSold = true;
@@ -296,6 +298,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   public getGold() {
     if (this.isTowerSold) {
       this.isTowerSold = false;
+      this.scene.sound.play('tower-building');
       return this.playerGold -= this.cost;
     } else if (this.isEnemyDead) {
       this.isEnemyDead = false;
@@ -322,10 +325,10 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       towerButton[0].destroy();
     });
     this.towerSelectionCircle.destroy();
-    if(this.infoWindow) {
-        this.infoWindow.destroy();
-        this.textInfo.destroy();
-        this.graphics.destroy();
+    if (this.infoWindow) {
+      this.infoWindow.destroy();
+      this.textInfo.destroy();
+      this.graphics.destroy();
     }
   }
 
@@ -347,18 +350,18 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   }
 
   protected getEnemy(): any | void {
-      for (let i = 0; i < this.enemies.length; i += 1) {
-        this.isEnemyAlive = this.enemies[i].getAlive();
-        const enemyDistance = Phaser.Math.Distance.Between(this.x, this.y, this.enemies[i].x, this.enemies[i].y);
-        if (this.enemies[i].active && this.isEnemyAlive && enemyDistance <= this.attackArea) {
-            return this.enemies[i];
-        } 
-        else if (!this.isEnemyAlive && !this.isEnemyDead) {
-            this.isEnemyDead = true;
-            this.enemyCost = this.enemies[i].getEnemyCost();
-            this.enemies.splice(i, 1);
-        } 
-    }  
+    for (let i = 0; i < this.enemies.length; i += 1) {
+      this.isEnemyAlive = this.enemies[i].getAlive();
+      const enemyDistance = Phaser.Math.Distance.Between(this.x, this.y, this.enemies[i].x, this.enemies[i].y);
+      if (this.enemies[i].active && this.isEnemyAlive && enemyDistance <= this.attackArea) {
+        return this.enemies[i];
+      }
+      else if (!this.isEnemyAlive && !this.isEnemyDead) {
+        this.isEnemyDead = true;
+        this.enemyCost = this.enemies[i].getEnemyCost();
+        this.enemies.splice(i, 1);
+      }
+    }
   }
 
   protected addMissile(angle: number): void {
@@ -378,22 +381,22 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   }
 
   public fire() {
-    if (this.isTowerBuilt) {  
-    const enemy = this.getEnemy();
+    if (this.isTowerBuilt) {
+      const enemy = this.getEnemy();
       if (enemy) {
         const enemyPositionX = enemy.x;
         const enemyPositionY = enemy.y
         const angle = Phaser.Math.Angle.Between(this.x, this.y, enemyPositionX, enemyPositionY);
         this.addMissile(angle);
         enemy.takeDamage(this.damage, this.physicalDamage, this.magicDamage);
-      } 
+      }
     }
   }
 
   update(time: number) {
-        if (time > this.timeShot && this.isTowerBuilt) {  
-          this.fire();
-          this.timeShot = time + this.timeForNextShot;
-        }
+    if (time > this.timeShot && this.isTowerBuilt) {
+      this.fire();
+      this.timeShot = time + this.timeForNextShot;
     }
+  }
 }
