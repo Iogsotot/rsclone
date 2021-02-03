@@ -8,9 +8,9 @@ router.route('/').post(
     const user = await loginService.getUser(login);
 
     if (!user) {
-      res.status(403).send({ data: 'Forbidden', ok: false });
+      res.send({ data: 'Forbidden', ok: false });
     } else if (password !== user.password) {
-      res.status(403).send({ data: 'Invalid password', ok: false });
+      res.send({ data: 'Invalid password', ok: false });
     } else {
       res.status(200).json({
         token: loginService.createToken(login, password),
