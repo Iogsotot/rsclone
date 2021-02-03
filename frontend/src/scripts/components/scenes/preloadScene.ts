@@ -202,8 +202,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
     this.load.image('plus', './assets/interface/button_plus.png');
     this.load.image('minus', './assets/interface/button_minus.png');
-    this.load.image('on', './assets/interface/on.png');
-    this.load.image('off', './assets/interface/off.png');
+    this.load.image('on', './assets/sign/onNoText.png');
+    this.load.image('off', './assets/sign/offNoText.png');
 
     //ahievements icons
     this.load.spritesheet('icon-builder', './assets/achievements/builder.png', {

@@ -55,8 +55,13 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   handleCheckboxClick() {
-    if (this.checkbox.texture.key === 'on') this.checkbox.setTexture('off');
-    else this.checkbox.setTexture('on');
+    if (this.checkbox.texture.key === 'on') {
+      this.checkbox.setTexture('off');
+      this.drawProgressBar(-10)
+    } else {
+      this.checkbox.setTexture('on');
+      this.drawProgressBar(1)
+    }
   }
 
   initProgressBar(scene: Phaser.Scene) {
@@ -121,16 +126,17 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
 
     this.barConfigs.barSizes[0] += 50 * change;
 
-    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`]
-    const audioKeys = Object.keys(audios)
-    for(let i=0; i<audioKeys.length; i++) {
-      audios[`${audioKeys[i]}`].setVolume(this.barConfigs.barSizes[0]/this.barConfigs.maxValue)
-    }
-
     if (this.barConfigs.barSizes[0] < 20) {
       this.barConfigs.barSizes[0] = 20;
     } else if (this.barConfigs.barSizes[0] > this.barConfigs.maxValue) {
       this.barConfigs.barSizes[0] = this.barConfigs.maxValue;
+    }
+
+    if (this.barConfigs.barSizes[0] > 20) this.checkbox.setTexture('on')
+    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`]
+    const audioKeys = Object.keys(audios)
+    for(let i=0; i<audioKeys.length; i++) {
+      audios[`${audioKeys[i]}`].setVolume(this.barConfigs.barSizes[0]/this.barConfigs.maxValue)
     }
 
     this.progressBar.clear();
