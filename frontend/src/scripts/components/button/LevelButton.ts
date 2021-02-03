@@ -9,9 +9,9 @@ export default class LevelButton extends Button {
     super(scene, x, y, btnTexture);
     this.level = level;
 
-    this.btnImage.setScale(1.1)
+    this.btnImage.setScale(1.1);
     this.scene.input.keyboard.on(`keydown-${numToStr(level)}`, (event) => {
-      this.handleDown()
+      this.handleDown();
     });
   }
 
@@ -19,39 +19,39 @@ export default class LevelButton extends Button {
     const modal = new StartScreenModal(
       this.scene,
       levelsConfig[`level_${this.level}`].map.scaleCoordinateTowers.length,
-      this.level
+      this.level,
     );
-    modal.slideIn()
+    modal.slideIn();
 
     modal.startBtn.setInteractive().on('pointerup', () => {
       // get difficulty
-      const diff = modal.difficultyBtn.getDifficulty()
-      modal.slideOut()
-      this.scene.cameras.main.fadeOut(500, 0, 0, 0)
-	    this.scene.cameras.main.once('camerafadeoutcomplete', () => {
+      const diff = modal.difficultyBtn.getDifficulty();
+      modal.slideOut();
+      this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+      this.scene.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.time.delayedCall(500, () => {
-          this.scene.scene.start('game-scene', {level: this.level, gameDifficulty: diff});
-        })
-	    })
+          this.scene.scene.start('game-scene', { level: this.level, gameDifficulty: diff });
+        });
+      });
     });
     this.scene.input.keyboard.on('keydown-ENTER', (event) => {
       // get difficulty
-      const diff = modal.difficultyBtn.getDifficulty()
-      modal.slideOut()
-      this.scene.cameras.main.fadeOut(500, 0, 0, 0)
-	    this.scene.cameras.main.once('camerafadeoutcomplete', () => {
+      const diff = modal.difficultyBtn.getDifficulty();
+      modal.slideOut();
+      this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+      this.scene.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.time.delayedCall(500, () => {
-          this.scene.scene.start('game-scene', {level: this.level, gameDifficulty: diff});
-        })
-	    })
+          this.scene.scene.start('game-scene', { level: this.level, gameDifficulty: diff });
+        });
+      });
     });
 
     modal.closeModalBtn.setInteractive().on('pointerup', () => {
-      modal.slideOut()
-    })
+      modal.slideOut();
+    });
 
     this.scene.input.keyboard.on('keydown-ESC', (event) => {
-      modal.slideOut()
+      modal.slideOut();
     });
   }
   handleOut() {
@@ -59,8 +59,8 @@ export default class LevelButton extends Button {
   }
 }
 
-function numToStr(number:number) {
-  switch(number) {
+function numToStr(number: number) {
+  switch (number) {
     case 0: return 'ZERO';
     case 1: return 'ONE';
     case 2: return 'TWO';

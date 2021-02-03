@@ -25,7 +25,7 @@ export default class PauseScene extends Phaser.Scene {
     this.modal.menuBtn.setInteractive().on('pointerup', () => this.toMenu());
 
     this.input.keyboard.on('keydown-M', (event) => {
-      if(event.ctrlKey) this.toMenu()
+      if (event.ctrlKey) this.toMenu();
     });
 
     this.modal.restartBtn.setInteractive().on('pointerup', () => {
@@ -51,6 +51,7 @@ export default class PauseScene extends Phaser.Scene {
       });
     });
   }
+
   cancel() {
     this.modal.slideOut();
     setTimeout(() => {

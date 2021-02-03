@@ -1,28 +1,3 @@
-// IMPORTANT TO IMPLEMENT
-// export default function getPlayerStatsFromServer(userId) {
-//   // await fetch bla bla
-//   // getStat() {
-//   //   // went to do backend answers
-//   // }
-//   return {
-//     gameProgress: 0,
-//     gameLogInCount: 0,
-//     killedEnemies: 0,
-//     builtTowers: 0,
-//     soldTowers: 0,
-//     ironModeProgress: 0,
-
-//     achievements: {
-//       firstAsterisk: false,
-//       completeVictory: false,
-//       firstBlood: false,
-//       greatDefender: false,
-//       ironDefender: false,
-//       killer: false,
-//       seller: false,
-//       builder: false,
-//     }
-
 type AchievStats = {
   firstAsterisk: boolean,
   completeVictory: boolean,
@@ -113,7 +88,9 @@ class PlayerStatsManager {
 
   getFromLocalStorage() {
     return JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) ||
-      JSON.stringify({ 'builtTowers': 0, 'soldTowers': 0, 'killedEnemies': 0, 'gameLogInCount': 0, 'achievements': {} }))
+      JSON.stringify({
+ builtTowers: 0, soldTowers: 0, killedEnemies: 0, gameLogInCount: 0, achievements: {} 
+}))
   }
 }
 

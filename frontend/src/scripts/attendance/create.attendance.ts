@@ -6,10 +6,10 @@ function createPopupAttendance(arr) {
   const lang = window['lang'] || localStorage.getItem('lang') || 'en';
   const attendanceOverYearText = langConfig[`${lang}`].attendanceOverYear;
 
-    const maxAttendance = Math.max(...arr.map((el) => el.attendance));
-    const popup = createElement('div', {
-      classList: ['popup-attendance-wrapper'],
-      innerHTML: `
+  const maxAttendance = Math.max(...arr.map((el) => el.attendance));
+  const popup = createElement('div', {
+    classList: ['popup-attendance-wrapper'],
+    innerHTML: `
         <div class="popup-attendance-content">
           <div class="close-popup"></div>
           
@@ -17,9 +17,9 @@ function createPopupAttendance(arr) {
           <div class="wrapper-attendance">
             <div class="day-attendance-content">
                 ${arr
-                  .map(({ date, attendance }) => {
-                    const precent = ((maxAttendance - attendance) / maxAttendance) * 100;
-                    return `
+        .map(({ date, attendance }) => {
+          const precent = ((maxAttendance - attendance) / maxAttendance) * 100;
+          return `
                     <div class='day-attendance-info'>
                       <svg class='bar'>
                         <rect width="${100 - precent}%" height="19"></rect>
@@ -29,26 +29,26 @@ function createPopupAttendance(arr) {
                       <span style='color: #a27448;'>${date}</span>
                     </div>
                     `;
-                  })
-                  .join(' ')}
+        })
+        .join(' ')}
             </div>
           </div>
         
         </div>
       `,
-      onclick: ({ target }) => {
-        if (target.classList.contains('popup-attendance-wrapper')) {
-          whileRaise(popup);
-        }
-        if (target.classList.contains('close-popup')) {
-          whileRaise(popup);
-        }
-      },
-    });
-    
-    whileLoad(popup, '../assets/interface/modal-bg.png');
-    const content = document.querySelector('.day-attendance-content');
-    if (content) content.scrollTop = 999;
-  }
+    onclick: ({ target }) => {
+      if (target.classList.contains('popup-attendance-wrapper')) {
+        whileRaise(popup);
+      }
+      if (target.classList.contains('close-popup')) {
+        whileRaise(popup);
+      }
+    },
+  });
+
+  whileLoad(popup, '../assets/interface/modal-bg.png');
+  const content = document.querySelector('.day-attendance-content');
+  if (content) content.scrollTop = 999;
+}
 
 export default createPopupAttendance;

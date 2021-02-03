@@ -3,9 +3,13 @@ import GameScene from '../scenes/GameScene';
 
 export default class Map {
   scene: GameScene;
+
   mapData: MapType;
+
   map: Phaser.GameObjects.Image;
+
   width: number;
+
   height: number;
 
   constructor(scene: GameScene, mapData: MapType) {

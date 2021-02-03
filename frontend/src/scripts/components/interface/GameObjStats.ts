@@ -4,16 +4,27 @@ import langConfig from '../../layouts/langConfig';
 
 export default class GameObjStats extends Phaser.GameObjects.Container {
   gameObject: Tower | Unit;
+
   objNameContainer: Phaser.GameObjects.Graphics;
+
   objInfoContainer: Phaser.GameObjects.Graphics;
+
   modalConfigs: any;
+
   objImg: Phaser.GameObjects.Image;
+
   nameText: Phaser.GameObjects.Text;
+
   infoText_1: Phaser.GameObjects.Text;
+
   infoText_2: Phaser.GameObjects.Text;
+
   infoText_3: Phaser.GameObjects.Text;
+
   infoImg_1: Phaser.GameObjects.Image;
+
   infoImg_2: Phaser.GameObjects.Image;
+
   infoImg_3: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene) {
@@ -25,12 +36,12 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     this.setSize(+scene.sys.game.config.width / 2, 60);
     this.setPosition(
       scene.cameras.main.centerX - this.width / 2,
-      +scene.sys.game.config.height - this.height * 0.7
+      +scene.sys.game.config.height - this.height * 0.7,
     );
 
     this.drawContainers();
     this.generate();
-    this.depth = 1000
+    this.depth = 1000;
   }
 
   drawContainers() {
@@ -79,7 +90,7 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     const fontStyles = {
       fontFamily: 'Dimbo',
       fontSize: '40px',
-      align: 'center'
+      align: 'center',
     };
 
     this.objImg = this.scene.add.image(0, 0, '').setOrigin(0.5);
@@ -119,16 +130,15 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
           obj.moveSpeed < 30000
             ? textConfig.fast
             : obj.moveSpeed < 45000
-            ? textConfig.medium
-            : textConfig.slow,
+              ? textConfig.medium
+              : textConfig.slow,
         img3: 'coins-icon',
         text3: `${obj.killReward}`,
       };
     } else if (obj instanceof Tower) {
       if (!obj.isTowerBuilt || !obj.type) return null;
-      obj.canSale(this.slideOut, this)
-      const missile =
-        obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
+      obj.canSale(this.slideOut, this);
+      const missile =        obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
       return {
         avaTexture: `${missile}-icon`,
         name: `${textConfig.tower[obj.getType()]}`,
@@ -139,15 +149,15 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
           obj.timeForNextShot > 2400
             ? textConfig.slow
             : obj.timeForNextShot > 1400
-            ? textConfig.medium
-            : textConfig.fast,
+              ? textConfig.medium
+              : textConfig.fast,
         img3: 'target-icon',
         text3:
           obj.attackArea < 350
             ? textConfig.small
             : obj.attackArea < 400
-            ? textConfig.medium
-            : textConfig.long,
+              ? textConfig.medium
+              : textConfig.long,
       };
     }
   }
@@ -173,17 +183,15 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
 
     this.infoImg_2.setTexture(infoConfig.img2);
     this.infoText_2.setText(infoConfig.text2);
-    const info2_xStart =
-      this.objInfoContainer.x +
-      this.modalConfigs.infoContainerWidth / 2 -
-      this.infoText_2.width/2;
+    const info2_xStart =      this.objInfoContainer.x
+      + this.modalConfigs.infoContainerWidth / 2
+      - this.infoText_2.width/2;
     this.infoImg_2.setPosition(info2_xStart - this.infoImg_2.width, textsY);
     this.infoText_2.setPosition(info2_xStart, textsY);
 
     this.infoImg_3.setTexture(infoConfig.img3);
     this.infoText_3.setText(infoConfig.text3);
-    const info3_xStart =
-      this.objInfoContainer.x + this.modalConfigs.infoContainerWidth - this.infoText_3.width-10;
+    const info3_xStart =      this.objInfoContainer.x + this.modalConfigs.infoContainerWidth - this.infoText_3.width-10;
     this.infoImg_3.setPosition(info3_xStart - this.infoImg_3.width, textsY);
     this.infoText_3.setPosition(info3_xStart, textsY);
   }

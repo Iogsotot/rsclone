@@ -91,7 +91,7 @@ function popapRatingCreate(stats, players) {
       const wrapper = document.querySelector('.wrapper-data-table-rating');
       const players = Array.from(document.querySelectorAll('.data-rating-player'));
       const [name, progress, achievements] = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-      
+
       if (target.classList.contains('rating-property-name')) {
         const sortHandler = (a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
 

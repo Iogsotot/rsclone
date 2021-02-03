@@ -59,7 +59,7 @@ function popapSelectCreate({ stats, players, id }) {
       popup.remove();
       const [ userStat ] = stats.data.filter(({ userId }) => userId === id );
       popapProfileCreate(userStat);
-    }
+    },
   });
 
   const rating = createElement('div', {
@@ -68,7 +68,7 @@ function popapSelectCreate({ stats, players, id }) {
     onclick: () => {
       popup.remove();
       popapRatingCreate(stats.data, players.data);
-    }
+    },
   });
 
   whileLoad(popup, '../assets/auth/achievement_board.png');
@@ -87,10 +87,10 @@ function achievementsCreate({ id, token }) {
       const stats = await getCurrentPlayerStats({ id, token });
       const players = await getPlayers({ token });
       popapSelectCreate({ stats, players, id });
-    }
+    },
   });
-  
-  
+
+
   const main = document.querySelector('main');
   main?.append(achievementsIcon);
 }
