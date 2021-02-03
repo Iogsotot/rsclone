@@ -1,4 +1,3 @@
-import achievementsCreate from '../../achievements/create.achievements';
 import { startApp } from '../../App';
 import createStartPage from '../../auth/utils/create.start';
 import LevelButton from '../../components/button/LevelButton';
@@ -99,8 +98,7 @@ export default class LevelsScene extends Phaser.Scene {
         this.time.delayedCall(300, () => {
           this.scene.sleep()
           this.game.loop.sleep()
-          createStartPage();
-          achievementsCreate({ id, token });
+          createStartPage({ id, token });
           document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
         })
 	    })
