@@ -1,7 +1,23 @@
 import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
+import langConfig from '../layouts/langConfig';
 
 function createCredits() {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const creditsText = langConfig[`${lang}`].credits;
+  const ourTeamText = langConfig[`${lang}`].ourTeam;
+  const gratitudeText = langConfig[`${lang}`].gratitude;
+  const specialThanksFromText = langConfig[`${lang}`].specialThanksFrom;
+  const myTeamText = langConfig[`${lang}`].myTeam;
+  const perText = langConfig[`${lang}`].per;
+  const andEnduranceText = langConfig[`${lang}`].andEndurance;
+  const andPeopleFromChatsText = langConfig[`${lang}`].andPeopleFromChats;
+  const myTurtleText = langConfig[`${lang}`].myTurtle;
+  const forStressReliefAndBuoyancyText = langConfig[`${lang}`].forStressReliefAndBuoyancy;
+  const forMentoringAndStrongShoulderText = langConfig[`${lang}`].forMentoringAndStrongShoulder;
+  const forJokesCommunicationAndHelpText = langConfig[`${lang}`].forJokesCommunicationAndHelp;
+  const forEverythingAndEvenMoreText = langConfig[`${lang}`].forEverythingAndEvenMore;
+
   const popup = createElement('div', {
     classList: ['credits-wrapper'],
     innerHTML: `
@@ -10,8 +26,8 @@ function createCredits() {
     <div class="credits-content">
     
       <div class="credits-data">
-        <h2 class="credits-title">Credits</h2>
-        <h3 class="credits-subtitle">Our team</h3>
+        <h2 class="credits-title">${creditsText[0].toUpperCase() + creditsText.slice(1)}</h2>
+        <h3 class="credits-subtitle">${ourTeamText}</h3>
         <div class="team">
           <a class="team-people" href="https://github.com/Iogsotot">
             <div class="avatar Iogsotot"></div>
@@ -30,44 +46,44 @@ function createCredits() {
             <div class="team-member" >mrINEX</div>
           </a>
         </div>
-        <h3 class="credits-subtitle">Gratitude</h3>
+        <h3 class="credits-subtitle">${gratitudeText}</h3>
         <ul>
           <div class="gratitude-title">
-          Особая благодарность от IogSotot:
+          ${specialThanksFromText} IogSotot:
           </div>
-          <li>моей команде</li>
-          <li>за Kingdom Rush и выдержку!</li>
-          <li>моей черепахе</li>
-          <li>за снятие стресса и плавучесть</li>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+          <li>${myTurtleText}</li>
+          <li>${forStressReliefAndBuoyancyText}</li>
           <li>Артёму <a class="credits-link" href="https://github.com/cardamo">Cardamo</a></li>
-          <li>за менторство и крепкое плечо</li>
-          <li><a class="credits-link" href="https://rs.school/">RSS и людям из чатов</a></li>
-          <li>за шутки, общение и помощь</li>
+          <li>${forMentoringAndStrongShoulderText}</li>
+          <li><a class="credits-link" href="https://rs.school/">RSS ${andPeopleFromChatsText}</a></li>
+          <li>${forJokesCommunicationAndHelpText}</li>
           <li>Алексею <a class="credits-link" href="https://github.com/lexlem">Lexlem</a></li>
-          <li>за всё и даже больше</li>
+          <li>${forEverythingAndEvenMoreText}</li>
         </ul>
         <ul>
           <div class="gratitude-title">
-          Особая благодарность от DenisAfa:
+          ${specialThanksFromText} DenisAfa:
           </div>
-          <li>моей команде</li>
-          <li>за Kingdom Rush и выдержку!</li>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
         </ul>
         <ul>
           <div class="gratitude-title">
-          Особая благодарность от Abdulloh76:
+          ${specialThanksFromText} Abdulloh76:
           </div>
-          <li>моей команде</li>
-          <li>за Kingdom Rush и выдержку!</li>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
         </ul>
     
         <ul>
           <div class="gratitude-title">
-          Особая благодарность от mrINEX:
+          ${specialThanksFromText} mrINEX:
           </div>
-          <li>моей команде</li>
-          <li>за Kingdom Rush и выдержку!</li>
-          <li><a class="credits-link" href="https://rs.school/">RSS и людям из чатов</a></li>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+          <li><a class="credits-link" href="https://rs.school/">RSS ${andPeopleFromChatsText}</a></li>
         </ul>
     
       </div>
