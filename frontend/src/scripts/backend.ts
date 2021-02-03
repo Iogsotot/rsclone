@@ -52,7 +52,7 @@ async function signIn(user) {
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
         });
       }
-
+      
       createStartPage({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {

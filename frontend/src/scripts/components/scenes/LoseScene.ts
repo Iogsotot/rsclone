@@ -20,18 +20,33 @@ export default class LoseScene extends Phaser.Scene {
 
     modal.cancelBtn.setInteractive().on('pointerup', () => {
       modal.disappearance()
-      this.cameras.main.fadeOut(500, 0, 0, 0)
-	    this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.time.delayedCall(500, () => {
-          this.scene.stop('game-scene')
-          this.scene.start('LevelsScene');
-        })
-	    })
+      this.cancel()
+    });
+
+    this.input.keyboard.on('keydown-LEFT', (event) => {
+      if(event.ctrlKey) {
+        this.cancel()
+      }
     });
 
     modal.restartBtn.setInteractive().on('pointerup', () => {
       modal.disappearance()
       this.time.delayedCall(300, () => this.scene.start('game-scene'))
     });
+
+    this.input.keyboard.on('keydown-R', (event) => {
+      modal.disappearance()
+      this.time.delayedCall(300, () => this.scene.start('game-scene'))
+    });
+  }
+
+  cancel() {
+    this.cameras.main.fadeOut(500, 0, 0, 0)
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.time.delayedCall(500, () => {
+        this.scene.stop('game-scene')
+        this.scene.start('LevelsScene');
+      })
+    })
   }
 }

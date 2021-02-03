@@ -37,7 +37,7 @@ export default class StartScreenModal extends CustomModal {
       this.bgImage.width / 5,
       this.bgImage.width / 5,
       `${possibleTowers}: ${towersNumber}`,
-      { fontSize: '30px', fontFamily: 'Dimbo', color: '#c0c0c0' }
+      { fontSize: '40px', fontFamily: 'Dimbo', color: '#c0c0c0' }
     ).setOrigin(0.5)
 
     this.add(this.mapImage);
@@ -81,21 +81,22 @@ export default class StartScreenModal extends CustomModal {
 
     const levelTextCoordinates = [
       -30,
-      -this.bgImage.width / 24,
+      -this.bgImage.width / 2 + this.mapImage.displayHeight+15,
     ];
     this.levelText = new Phaser.GameObjects.Container(
       scene,
       levelTextCoordinates[0],
       levelTextCoordinates[1]
-    );
+    )
     this.levelText.setSize(this.bgImage.width / 2, this.bgImage.height / 2);
     const levelInfo = scene.add
       .text(0, 0, levelText, {
-        fontSize: '25px',
+        fontFamily: 'Dimbo',
+        fontSize: '32px',
         align: 'justify',
         wordWrap: { width: this.levelText.width },
       })
-      .setOrigin(0, 0.5);
+      .setOrigin(0, 0);
 
     this.levelText.add(levelInfo);
   }
