@@ -3,6 +3,8 @@ export default {
   signUp: 'регистрация',
   name: 'имя',
   password: 'пароль',
+  hasSignIn: 'вошел',
+  hasSignUp: 'зарегистрировался',
   keepMe: 'Держать меня в системе',
   playerName: 'Имя игрока',
   gameProgress: 'прогресс игры',

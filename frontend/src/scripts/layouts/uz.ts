@@ -3,6 +3,8 @@ export default {
   signUp: 'ro\'yxatdan o\'tish',
   name: 'ism',
   password: 'parol',
+  hasSignIn: 'tizimga kirdi',
+  hasSignUp: `ro'yxatdan o'tdi`,
   keepMe: 'Meni eslab qolish',
   playerName: 'O\'yinchining ismi',
   gameProgress: 'o\'yin rivojlanishi',

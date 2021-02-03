@@ -92,8 +92,6 @@ function createSignPage() {
 
   signSubmit.onclick = (e) => {
     const { elements } = document.forms.namedItem('signForm') as HTMLFormElement;
-    const { value } = e.target as HTMLInputElement;
-
     const username = (elements.namedItem('username') as HTMLInputElement).value;
     const password = (elements.namedItem('password') as HTMLInputElement).value;
 

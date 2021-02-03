@@ -2,9 +2,6 @@ import createElement from "../auth/utils/createElement";
 import { whileLoad, whileRaise } from "../auth/utils/wait.while.loading";
 
 function createPopupAttendance(arr) {
-    console.log('all:', arr)
-    let positionAttendance = 0;
-  
     const maxAttendance = Math.max(...arr.map((el) => el.attendance));
     const popup = createElement('div', {
       classList: ['popup-attendance-wrapper'],
@@ -17,7 +14,6 @@ function createPopupAttendance(arr) {
             <div class="day-attendance-content">
                 ${arr
                   .map(({ date, attendance }) => {
-                    positionAttendance += 20;
                     const precent = ((maxAttendance - attendance) / maxAttendance) * 100;
                     return `
                     <div class='day-attendance-info'>
