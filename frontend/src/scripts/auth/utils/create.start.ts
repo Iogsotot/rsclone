@@ -96,6 +96,9 @@ function createStartPage({ id, token }) {
 
   body.append(main, footer);
 
+  //удалить после дебага
+  // createCredits();
+
   const credits = document.querySelector('.logo-credits-button');
   credits?.addEventListener('click', createCredits);
 
