@@ -22,7 +22,7 @@ function createStartPage({ id, token }) {
   const lang = window['lang'] || localStorage.getItem('lang') || 'en';
   const startText = langConfig[`${lang}`].start.toUpperCase();
   const creditsText = langConfig[`${lang}`].credits.toUpperCase();
-  
+
   const startPage = createElement(
     'div',
     {
@@ -127,20 +127,20 @@ function createPopupAttendance(arr) {
           <svg class="full_graph">
               <title id="title">A bart chart showing game attendance over the year</title>
               ${arr
-                .map(({ year, allAttendance }) => {
-                  positionAttendance += 20;
-                  positionText += 20;
-                  const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
+        .map(({ year, allAttendance }) => {
+          positionAttendance += 20;
+          positionText += 20;
+          const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
 
-                  return `
+          return `
                   <g class="bar">
                     <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
                     <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
                     <text x="85%" y="${positionText}" dy=".35em">${year}</text>
                   </g>
                   `;
-                })
-                .join(' ')}
+        })
+        .join(' ')}
           </svg>
         </figure>
       

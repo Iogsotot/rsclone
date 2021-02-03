@@ -7,12 +7,12 @@ import GameScene from '../scenes/GameScene';
 
 
 export interface MapLevel {
-  new(scene: any, mapData: MapType): Map
+  new(scene: Phaser.Scene, mapData: MapType): Map
 }
 
 export class MapLevel extends Map {
-  curve: any;
-  mapData: any;
+  curve: Phaser.Curves.Path;
+  mapData: MapType;
   startPointX: number;
   startPointY: number;
   finishPointX: number;
@@ -22,7 +22,6 @@ export class MapLevel extends Map {
 
   constructor(scene: GameScene, mapData: MapType) {
     super(scene, mapData);
-    this.curve = undefined;
     this.mapData = mapData;
     this.startPointX = this.mapData.scaleStartPointX;
     this.startPointY = this.height / this.mapData.scaleStartPointY;
@@ -65,7 +64,7 @@ export class MapLevel extends Map {
     const tower = new Tower(this.scene, x, y, this.mapData);
     return tower;
   }
-  createPointWay(points: Array<any>, scalePoint: object): void {
+  createPointWay(points: Array<Phaser.Math.Vector2>, scalePoint: object): void {
     const scaleX: number = Object.values(scalePoint)[0];
     const scaleY: number = Object.values(scalePoint)[1];
     const pointX: number = this.getRandomPointX(scaleX);

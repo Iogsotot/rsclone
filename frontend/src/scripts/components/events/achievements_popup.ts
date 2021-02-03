@@ -21,7 +21,7 @@ export default class Popup extends Phaser.GameObjects.Container {
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '60px',
-      color: '#d2a2521',
+      color: '#d2a252',
     };
     switch (type) {
       case 'builder':

@@ -5,7 +5,7 @@ import { levelsConfig } from '../../constants/constants';
 import sendDataToBackend from '../../achievements/utils/backend';
 
 import Tower from '../tower/Tower';
-import { AUTO, GameObjects, NONE } from 'phaser';
+import { GameObjects } from 'phaser';
 
 
 import GameObjStats from '../interface/GameObjStats'
@@ -14,16 +14,9 @@ import Gate from '../Gate';
 import createAnims from '../unit/createAnims';
 import GameStats from '../interface/GameStats';
 import LevelSettings from '../../LevelSettings';
-// import {
-//   isGreatDefender,
-//   isIronDefender,
-//   isCompleteWin,
-//   isFirstAsterisk,
-// } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
 import WaveButton from '../button/WaveButton';
 import waveBtnConfigs from '../../constants/waveBtnConfigs';
-// import Popup from '../events/achievements_popup';
 
 
 export default class GameScene extends Phaser.Scene {
@@ -49,7 +42,6 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
-  // popup: Popup;
 
   constructor() {
     super('game-scene');
@@ -119,7 +111,6 @@ export default class GameScene extends Phaser.Scene {
     this.sound.stopAll();
     this.sound.play('win');
     this.updateGameStatsInLocalStorage('win');
-    // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
     this.scene.launch('win-scene', { starsNumber: this.calculateLevelStars() });
@@ -150,7 +141,6 @@ export default class GameScene extends Phaser.Scene {
     }
     const playerStatsManager = new PlayerStatsManager();
     playerStatsManager.saveToLocalStorage(data);
-    // console.log('updateGameStatsInLocalStorage [data]:', data);
   }
 
   produceWaveEnemies(factory: EnemyFactory, currentWave: number): number {
@@ -247,13 +237,11 @@ export default class GameScene extends Phaser.Scene {
           this.waveBtn.destroy();
           this.waveBtnClone.destroy();
         }, 310);
-        //звук начала волны
+        this.sound.play('start-battle');
+        this.sound.play('level-1-attack', { loop: true });
       });
     }
 
-    // const graphics = this.add.graphics();
-    // graphics.lineStyle(1, 0xffffff, 1);
-    // path.draw(graphics);
     this.waveBtn.rotation -= waveBtnConfigs[data.level].rotation;
     this.waveBtn.startFollow({
       positionOnPath: true,
@@ -289,7 +277,7 @@ export default class GameScene extends Phaser.Scene {
         this.waveBtn.destroy();
       }, 310);
       this.sound.play('start-battle');
-      this.sound.play('level-1-attack', {loop: true});
+      this.sound.play('level-1-attack', { loop: true });
     });
     // hot key для начала волны
     this.input.keyboard.on('keyup-N', (event) => {
@@ -312,7 +300,7 @@ export default class GameScene extends Phaser.Scene {
 
   soundsManager() {
     this.sound.stopByKey('main-theme');
-    this.sound.play('level-1', {loop: true});
+    this.sound.play('level-1', { loop: true });
   }
 
   create(data: any): void {
@@ -327,11 +315,6 @@ export default class GameScene extends Phaser.Scene {
     createAnims(this);
     this.createGate();
     this.createWaveBtn(data);
-
-    // debug code
-    // const testPopup = new Popup(this, 0, 0, 'achievementPopup');
-    // testPopup.init('test');
-    // testPopup.startAnimation();
 
     // добавляем динамические статы на страницу
     this.gameObjStats = new GameObjStats(this);

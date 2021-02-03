@@ -1,167 +1,256 @@
 .credits-wrapper {
   position: fixed;
-  z-index: 15;
+  z-index: 35;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url('../assets/credits/wood_2.png');
+  background-image: url("../assets/credits/wood_2.png");
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-}
+  cursor: default;
 
-.credits-content {
-  background-image: url('../assets/credits/paper_3.png');
-  width: 90%;
-  background-position: center;
-  height: 100vh;
-  background-repeat: no-repeat;
-  background-size: contain;
-  cursor: auto;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  bottom: 100%;
-  transition: all .5s ease-out;
-  padding: 17.2vh 19vw 13vh;
-}
+  .close-credits-popup {
+    background-image: url("../assets/interface/button_close.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    margin: 15px;
+    left: 0;
+    top: 0;
+    cursor: pointer;
 
-.title-credits {
-  color:  rgb(230, 225, 82);
-  font-family: "Dimbo";
-  margin: 0 20px;
-  background-image: url('../assets/auth/title.png');
-  background-size: cover;
-  background-position: center;
-  width: 20.8vw;
-  height: 10.6vh;
-  text-align: center;
-  line-height: 8.6vh;
-  font-size: 5vh;
-  position: absolute;
-  top: 7vh;
-}
-
-.close-credits-popup {
-  background-image: url('../assets/interface/button_close.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 7vw;
-  height: 7vw;
-  position: fixed;
-  margin: 2%;
-  left: 0;
-  top: 0;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-}
-
-.credits-data {
-  font-family: "Dimbo";
-  color: #c43c1c;
-  padding-right: 5px;
-
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar {
-    width: 0.5vw;
-  }
-  &::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 1px rgb(212, 232, 37);
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #c43c1c;
-    border-radius: 0.25vw;
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
-  & .credits-title {
-    margin: 2.5vh 0 1vh;
-    font-size: 3.2vw;
+  .credits-bg {
+    height: 100vh;
+    width: 100vw;
+
+    padding: 12vh 0 15vh;
+
+    background-image: url("../assets/credits/paper_3.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    bottom: 100%;
+    transition: all .5s ease-out;
+    position: relative;
   }
 
-  & .wrapper-credits-people {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.4vw;
+  .show-top {
+    bottom: 0;
+  }
 
-    & .credits-people {
+  .credits-data {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 1px rgb(212, 232, 37);
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #c43c1c;
+      border-radius: 0.25vw;
+    }
+
+    height: 73vh;
+    width: fit-content;
+    margin: auto;
+    padding: 5px 10px 5px 5px;
+
+    font-family: "Dimbo", sans-serif;
+    font-size: 16px;
+    color: #c43c1c;
+    text-align: center;
+
+    .credits-title {
+      height: 50px;
+      padding: 5px;
+      margin: 5px auto 0px;
+
+      background-image: url("../assets/auth/title.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      font-size: 26px;
+      color: #5f3616;
+    }
+
+    .credits-subtitle {
+      margin-top: 15px;
+
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #884d20;
+    }
+
+    .team {
       display: flex;
+      width: 400px;
+      flex-wrap: wrap;
+
+      margin: auto;
+    }
+
+    .team-people {
+      display: flex;
+      flex-direction: row;
       align-items: center;
-      border: 0.2vw solid #d0a763;
+
+      width: 190px;
+      margin: 3px;
+      padding: 2px;
+
+      border: 2px solid #d0a763;
       background-color: #e3b872;
-  
-      & .avatar {
-        width: 6vw;
-        height: 6vw;
-        background-size: cover;
+
+      font-size: 20px;
+      text-decoration: none;
+
+      transition: all 250ms linear;
+      &:nth-of-type(1) {
+        border-top-left-radius: 20px;
+      }
+      &:nth-of-type(2) {
+        border-top-right-radius: 20px;
+      }
+      &:nth-of-type(3) {
+        border-bottom-left-radius: 20px;
+      }
+      &:nth-of-type(4) {
+        border-bottom-right-radius: 20px;
+      }
+
+      .avatar {
+        height: 80px;
+        width: 80px;
+        margin-right: 15px;
+
         border-radius: 50%;
+        background-size: contain;
+        &.Iogsotot {
+          background-image: url("https://avatars.githubusercontent.com/u/50149163?s=400&u=9a763fefd25839d62bec939ad7302d8a29948cb4&v=4");
+        }
+        &.DenisAfa {
+          background-image: url("https://avatars.githubusercontent.com/u/64201928?s=400&u=b33f2c5f182a021649e8ac548259a05dc3ed792e&v=4");
+        }
+        &.Abdulloh76 {
+          background-image: url("https://avatars.githubusercontent.com/u/59783836?s=400&v=4");
+        }
+        &.mrINEX {
+          background-image: url("https://avatars.githubusercontent.com/u/35580404?s=400&u=742a3a17f24933ff191b620cf949e6f1b872e20a&v=4");
+        }
       }
-  
-      & a {
-        padding: 1vh 2vw;
-        text-decoration: none;
+
+      .team-member {
         color: antiquewhite;
-        font-size: 2.2vw;
+        letter-spacing: 1px;
+        margin: auto;
+        transition: all 350ms linear;
       }
-  
-      & .Iogsotot {
-        background-image: url('https://avatars.githubusercontent.com/u/50149163?s=400&u=9a763fefd25839d62bec939ad7302d8a29948cb4&v=4');
+
+      &:hover {
+        transition: all 350ms linear;
+        background-color: #f5d4a0;
+        .team-member {
+          transition: all 350ms linear;
+          color: #a1814c;
+        }
       }
-      & .DenisAfa {
-        background-image: url('https://avatars.githubusercontent.com/u/64201928?s=400&u=b33f2c5f182a021649e8ac548259a05dc3ed792e&v=4');
+    }
+
+    ul {
+      list-style: none;
+
+      .gratitude-title {
+        font-size: 18px;
+        font-style: italic;
+        padding: 10px 0 5px;
       }
-      & .Abdulloh76 {
-        background-image: url('https://avatars.githubusercontent.com/u/59783836?s=400&v=4');
+      & li {
+        font-size: 18px;
       }
-      & .mrINEX {
-        background-image: url('https://avatars.githubusercontent.com/u/35580404?s=400&u=742a3a17f24933ff191b620cf949e6f1b872e20a&v=4')
+      & li:nth-child(odd) {
+        font-size: 14px;
+        font-weight: normal;
+        padding: 0px 0 10px;
       }
-  
+    }
+    .credits-link {
+      color: #e68303;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .wrapper-gratitude {
+      display: flex;
+      flex-direction: column;
     }
   }
+}
 
-  & .wrapper-gratitude {
-    & .gratitude-from {
-      padding: 3vh 0;
+@media (min-height: 950px) {
+  .credits-wrapper {
+    .credits-data {
+      .team-people {
+        font-size: 22px;
+      }
+      .credits-subtitle {
+        font-size: 26px;
+      }
 
-      & ul {
-        list-style: none;
-        text-align: center;
-      
-        font-size: 2vw;
-        font-weight: bold;
-
-        & li {
-          font-size: 1.4vw;
-          font-weight: normal;
+      ul {
+        li {
+          font-size: 20px;
+          &:nth-child(odd) {
+            font-size: 16px;
+          }
         }
-        
-        & li:nth-child(odd) {
-          font-size: 1.8vw;
-          padding: 1vw 0 0;
-        }
-        & a {
-          text-decoration: none;
-          font-weight: bolder;
-          color: inherit;
-        }
-        
-        & a:hover {
-          text-decoration: underline;
+        .gratitude-title {
+          font-size: 20px;
         }
       }
     }
   }
 }
 
-.show-top {
-  bottom: 0;
+@media (min-height: 1100px) {
+  .credits-wrapper {
+    .credits-data {
+      .credits-subtitle {
+        font-size: 28px;
+      }
+
+      ul {
+        li {
+          font-size: 22px;
+          &:nth-child(odd) {
+            font-size: 18px;
+          }
+        }
+        .gratitude-title {
+          font-size: 22px;
+        }
+      }
+    }
+  }
 }
