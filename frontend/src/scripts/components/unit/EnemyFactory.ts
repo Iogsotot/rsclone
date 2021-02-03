@@ -1,6 +1,8 @@
 import Scorpio from './Scorpio';
-import WizardBlack from "./WizardBlack";
-import LittleOrc from "./LittleOrc";
+import WizardBlack from './WizardBlack';
+import LittleOrc from './LittleOrc';
+import Levendor from './Levendor';
+import Mummy from './Mummy';
 
 export default class EnemyFactory {
   context: any;
@@ -17,6 +19,7 @@ export default class EnemyFactory {
     scorpio: Scorpio,
     wizardBlack: WizardBlack,
     littleOrc: LittleOrc,
+    levendor: Levendor,
   }
 
   create(type = 'littleOrc', path) {
