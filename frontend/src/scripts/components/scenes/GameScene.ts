@@ -42,6 +42,8 @@ export default class GameScene extends Phaser.Scene {
   enemiesProducedCounter: number;
   deathCounter: number;
   gameStats: GameStats;
+  music:any
+  sounds:any
 
   constructor() {
     super('game-scene');
@@ -80,7 +82,7 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
-      this.sound.play('lose-life');
+      this.sounds.loseLife.play();
       this.gameStats.updateLives(this.playerLives)
       if (this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
@@ -97,7 +99,7 @@ export default class GameScene extends Phaser.Scene {
 
   defeat() {
     this.sound.stopAll();
-    this.sound.play('defeat');
+    this.sounds.defeat.play()
     this.isDefeat = true;
     this.updateGameStatsInLocalStorage('lose');
 
@@ -109,7 +111,7 @@ export default class GameScene extends Phaser.Scene {
 
   win() {
     this.sound.stopAll();
-    this.sound.play('win');
+    this.sounds.win.play()
     this.updateGameStatsInLocalStorage('win');
     this.scene.pause();
     this.scene.moveAbove('game-scene', 'win-scene');
@@ -237,8 +239,9 @@ export default class GameScene extends Phaser.Scene {
           this.waveBtn.destroy();
           this.waveBtnClone.destroy();
         }, 310);
-        this.sound.play('start-battle');
-        this.sound.play('level-1-attack', { loop: true });
+        this.sounds.startBattle.play()
+        // this.sound.play('level-1-attack', { loop: true });
+        this.music.levelAttack.play()
       });
     }
 
@@ -276,8 +279,8 @@ export default class GameScene extends Phaser.Scene {
       setTimeout(() => {
         this.waveBtn.destroy();
       }, 310);
-      this.sound.play('start-battle');
-      this.sound.play('level-1-attack', { loop: true });
+      this.sounds.startBattle.play();
+      this.music.levelAttack.play();
     });
     // hot key для начала волны
     this.input.keyboard.on('keyup-N', (event) => {
@@ -300,7 +303,29 @@ export default class GameScene extends Phaser.Scene {
 
   soundsManager() {
     this.sound.stopByKey('main-theme');
-    this.sound.play('level-1', { loop: true });
+
+    this.music = {
+      levelTheme: this.sound.add('level-1', { loop: true }),
+      levelAttack: this.sound.add('level-1-attack', { loop: true }),
+    }
+    this.sounds = {
+      defeat: this.sound.add('defeat'),
+      win: this.sound.add('win'),
+      loseLife: this.sound.add('lose-life'),
+      startBattle: this.sound.add('start-battle'),
+      wizardBlackDie: this.sound.add('wizardBlack-die'),
+      littleOrcDie: this.sound.add('littleOrc-die'),
+      scorpioDie: this.sound.add('scorpio-die'),
+      levendorDie: this.sound.add('levendor-die'),
+      towerChoice: this.sound.add('tower-choice'),
+      towerSell: this.sound.add('tower-sell'),
+      towerBuilding: this.sound.add('tower-building'),
+      missileArrow: this.sound.add('missile-arrow'),
+      missileMagic: this.sound.add('missile-magic'),
+      missileBomb: this.sound.add('missile-bomb'),
+    }
+
+    this.music.levelTheme.play()
   }
 
   create(data: any): void {
