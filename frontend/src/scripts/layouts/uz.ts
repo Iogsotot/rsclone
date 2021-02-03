@@ -56,5 +56,17 @@ export default {
     archers: 'KAMONCHILAR MINORASI',
     artillery: 'ARTILLERYA MINORASI',
     magic: 'SEHRGAR MINORASI'
-  }
+  },
+  hotkeysTitle: 'Texkor Tugmalar',
+  hotkeys: [
+    { key: 'CTRL+Q' , info: 'bosqichlar sahifasidan o\'yinni tark eting' },
+    { key: 'KEY NUMBERS' , info: 'tegishli bosqichni tanlash' },
+    { key: 'KEY D' , info: 'o\'yin qiyinligini o\'zgartirish' },
+    { key: 'ENTER' , info: 'o\'yinni boshlash(bosqichni tanlayotganda)' },
+    { key: 'CTRL+M' , info: 'bosqichlar sahifasiga o\'tish(o\'yin to\'xtagan vaqtda)' },
+    { key: 'ESC' , info: 'oynani yopish' },
+    { key: 'KEY N' , info: 'birinchi to\'lqinni boshlash' },
+    { key: 'CTRL+SPACE' , info: 'o\'yinni to\'xtatib turish' },
+    { key: 'CTRL+LEFT/RIGHT' , info: 'g\'alaba/mag\'lubiyat paytidagi tegishli tugma' },
+  ]
 }
