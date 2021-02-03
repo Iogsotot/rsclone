@@ -20,6 +20,7 @@ export async function startApp() {
   if(!startApp.game) {
     startApp.game = new Phaser.Game(config)
   } else {
+    (document.querySelector('body') as HTMLBodyElement).style.height = '100%';
     (document.querySelector('canvas') as HTMLElement).style.display = '';
     startApp.game.loop.wake()
     startApp.game.scene.wake('LevelsScene')
