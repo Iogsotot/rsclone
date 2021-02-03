@@ -60,7 +60,12 @@ export default class LevelsScene extends Phaser.Scene {
     new LevelButton(this, 500, 520, 'level2Button', 2).setAlpha(0.8);
     new LevelButton(this, 980, 590, 'level3Button', 3).setAlpha(0.8);
 
-    this.events.on('wake', () => this.cameras.main.fadeIn(600, 0, 0, 0))
+    this.events.on('wake', () => {
+      this.cameras.main.fadeIn(600, 0, 0, 0)
+      if (!this.sounds.mainTheme.isPlaying) {
+        this.sounds.mainTheme.play();
+      }
+    })
     
     this.cancelBtn = new Button(this, 50, 50, 'modal-close-btn')
     this.cancelBtn.setInteractive().on('pointerup', () => {
@@ -96,6 +101,7 @@ export default class LevelsScene extends Phaser.Scene {
       const id = localStorage.getItem(KEY_ID);
       this.cameras.main.once('camerafadeoutcomplete', () => {
         this.time.delayedCall(300, () => {
+          this.sound.stopAll()
           this.scene.sleep()
           this.game.loop.sleep()
           createStartPage({ id, token });
