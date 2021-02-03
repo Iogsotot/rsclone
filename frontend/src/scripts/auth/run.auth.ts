@@ -9,9 +9,9 @@ const url = 'https://rs-clone.herokuapp.com/';
 function runAuth(fn) {
   const token = localStorage.getItem(KEY_TOKEN);
   const id = localStorage.getItem(KEY_ID);
-  
+
   handleAttendent();
-  
+
   if (id) {
     fetch(`${url}users/${id}`, {
       headers: {

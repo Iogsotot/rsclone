@@ -40,53 +40,54 @@ function popapProfileCreate(stats) {
         <div class="icons-profile-achievements">
           <div class="icons-profile">
           ${arrayStats
-            .map(([key, value]) => {
-              let info;
-              switch (key) {
-                case 'completeWin':
-                  info = achievs['completeWin'];
-                  break;
-                case 'firstBlood':
-                  info = achievs['firstBlood'];
-                  break;
-                case 'greatDefender':
-                  info = achievs['greatDefender'];
-                  break;
-                case 'ironDefender':
-                  info = achievs['ironDefender'];
-                  break;
-                case 'killer':
-                  info = achievs['killer'];
-                  break;
-                case 'seller':
-                  info = achievs['seller'];
-                  break;
-                case 'builder':
-                  info = achievs['builder'];
-                  break;
-                case 'firstAsterisk':
-                  info = achievs['firstAsterisk'];
-                default:
-              }
+        .map(([key, value]) => {
+          let info;
+          switch (key) {
+            case 'completeWin':
+              info = achievs['completeWin'];
+              break;
+            case 'firstBlood':
+              info = achievs['firstBlood'];
+              break;
+            case 'greatDefender':
+              info = achievs['greatDefender'];
+              break;
+            case 'ironDefender':
+              info = achievs['ironDefender'];
+              break;
+            case 'killer':
+              info = achievs['killer'];
+              break;
+            case 'seller':
+              info = achievs['seller'];
+              break;
+            case 'builder':
+              info = achievs['builder'];
+              break;
+            case 'firstAsterisk':
+              info = achievs['firstAsterisk'];
+              break;
+            default:
+          }
 
-              if (value) {
-                achievement.push(
-                  `
+          if (value) {
+            achievement.push(
+              `
                   <div class="wrapper-icon-achievements-info ${!isAdd ? 'flex-for-achevements' : 'hide'}">
                     <div class="icon-achievements-info ${key}"></div>
                     <div class='icon-achievements-info-descriptions'>${info}</div>
                   </div>
                   `
-                );
-                isAdd = true;
-  
-                return `
+            );
+            isAdd = true;
+
+            return `
                   <div class="icon-achievements ${key}"></div>
                 `;
-              } else {
-                return '';
-              }
-            }).join(' ')}
+          }
+          return '';
+
+        }).join(' ')}
           </div>
           <div class="icon-profile-info">
             ${achievement.join(' ')}
@@ -103,7 +104,7 @@ function popapProfileCreate(stats) {
         whileRaise(popup);
       }
       if (target.classList.contains('icon-achievements')) {
-        const [ , need] = target.classList;
+        const [, need] = target.classList;
         const iconsInfo = document.querySelectorAll('.wrapper-icon-achievements-info');
 
         iconsInfo.forEach((el) => {

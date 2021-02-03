@@ -2,19 +2,22 @@ import Scorpio from './Scorpio';
 import WizardBlack from './WizardBlack';
 import LittleOrc from './LittleOrc';
 import Levendor from './Levendor';
-import Mummy from './Mummy';
 
 export default class EnemyFactory {
   context: any;
+
   x: number;
+
   y: number;
+
   props: object;
 
   constructor(context, x, y) {
-    this.context = context; 
+    this.context = context;
     this.x = x;
     this.y = y;
   }
+
   static list = {
     scorpio: Scorpio,
     wizardBlack: WizardBlack,

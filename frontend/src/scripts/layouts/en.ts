@@ -73,20 +73,20 @@ export default {
   tower: {
     archers: 'ARCHERS TOWER',
     artillery: 'ARTILLERY TOWER',
-    magic: 'MAGIC TOWER'
+    magic: 'MAGIC TOWER',
   },
   hotkeysTitle: 'Hot Keys',
   hotkeys: [
-    { key: 'CTRL+Q' , info: 'quit game from levels page' },
-    { key: 'KEY NUMBERS' , info: 'choose appropriate level' },
-    { key: 'KEY D' , info: 'change the game difficulty' },
-    { key: 'ENTER' , info: 'start game(when choosing level)' },
-    { key: 'CTRL+M' , info: 'go to levels page(when game is paused)' },
-    { key: 'ESC' , info: 'close modal' },
-    { key: 'KEY N' , info: 'start first wave' },
-    { key: 'CTRL+SPACE' , info: 'pause the game' },
-    { key: 'CTRL+LEFT/RIGHT' , info: 'appropriate button when win/lose' },
+    { key: 'CTRL+Q', info: 'quit game from levels page' },
+    { key: 'KEY NUMBERS', info: 'choose appropriate level' },
+    { key: 'KEY D', info: 'change the game difficulty' },
+    { key: 'ENTER', info: 'start game(when choosing level)' },
+    { key: 'CTRL+M', info: 'go to levels page(when game is paused)' },
+    { key: 'ESC', info: 'close modal' },
+    { key: 'KEY N', info: 'start first wave' },
+    { key: 'CTRL+SPACE', info: 'pause the game' },
+    { key: 'CTRL+LEFT/RIGHT', info: 'appropriate button when win/lose' },
   ],
   price: 'price',
   damage: 'damage',
-}
+};

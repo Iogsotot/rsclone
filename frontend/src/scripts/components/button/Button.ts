@@ -24,12 +24,15 @@ export default class Button extends Phaser.GameObjects.Container {
   handleOver() {
     this.setScale(1.15).setAlpha(1);
   }
+
   handleOut() {
     this.setScale(1);
   }
+
   handleDown() {
     // this.handleOver()
   }
+
   handleUp() {
     this.handleOut();
   }

@@ -1,4 +1,15 @@
-.wrapper-attendance {
+.title-attandence-popap {
+  font-size: xx-large;
+  color: #352824;
+  margin-bottom: 30px;
+}
+
+.day-attendance-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  padding-right: 10px;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -11,18 +22,6 @@
     background: goldenrod;
     border-radius: 10px;
   }
-}
-
-.title-attandence-popap {
-  font-size: xx-large;
-  color: #352824;
-  margin-bottom: 30px;
-}
-
-.day-attendance-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 svg {
