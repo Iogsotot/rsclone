@@ -28,7 +28,9 @@ function createPopupAttendance(arr) {
                       <rect width="${100 - precent}%" height="20px" y="${positionAttendance}"></rect>
                       <text x="0" y="${positionAttendance}" dy="${positionText}">${attendance}</text>
                     </g>
-                    <text x="85%" y="${positionAttendance}" dy="${positionText}">${date}</text>
+                    <g class="bar-info">
+                      <text x="85%" y="${positionAttendance}" dy="${positionText}">${date}</text>
+                    </g>
                     `;
                   })
                   .join(' ')}
