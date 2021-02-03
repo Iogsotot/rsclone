@@ -1,12 +1,11 @@
 import createElement from './createElement';
-import getAttendance from '../backend/getAttendance';
+import getAttendance from '../../attendance/backend/getAttendance';
 import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
-import { whileLoad, whileRaise } from '../utils/wait.while.loading';
-import achievementsCreate from '../../achievements/create.achievements';
 import LangSwitcher, { LangConfig } from './LangSwitcher';
+import createPopupAttendance from '../../attendance/create.attendance';
+import achievementsCreate from '../../achievements/create.achievements';
 import langConfig from '../../layouts/langConfig';
-
 
 const langConfigs: LangConfig[] = [
   { lang: 'en', text: 'English' },
@@ -107,58 +106,6 @@ function createStartPage({ id, token }) {
   credits?.addEventListener('click', createCredits);
 
   achievementsCreate({ id, token });
-}
-
-
-function createPopupAttendance(arr) {
-  let positionAttendance = 0;
-  let positionText = 8;
-
-  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
-  const attendanceOverYearText = langConfig[`${lang}`].attendanceOverYear;
-
-  const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
-
-  const popup = createElement('div', {
-    classList: ['popup-attendance-wrapper'],
-    innerHTML: `
-      <div class="popup-attendance-content">
-        <div class="close-popup"></div>
-        <figure>
-          <figcaption>${attendanceOverYearText}</figcaption>
-          <svg class="full_graph">
-              <title id="title">A bart chart showing game attendance over the year</title>
-              ${arr
-        .map(({ year, allAttendance }) => {
-          positionAttendance += 20;
-          positionText += 20;
-          const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
-
-          return `
-                  <g class="bar">
-                    <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
-                    <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
-                    <text x="85%" y="${positionText}" dy=".35em">${year}</text>
-                  </g>
-                  `;
-        })
-        .join(' ')}
-          </svg>
-        </figure>
-      
-      </div>
-    `,
-    onclick: ({ target }) => {
-      if (target.classList.contains('popup-attendance-wrapper')) {
-        whileRaise(popup);
-      }
-      if (target.classList.contains('close-popup')) {
-        whileRaise(popup);
-      }
-    },
-  });
-
-  whileLoad(popup, '../assets/interface/modal-bg.png');
 }
 
 export default createStartPage;
