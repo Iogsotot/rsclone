@@ -50,7 +50,8 @@ export default {
   enemy: {
     littleOrc: 'маленький орк',
     wizardBlack: 'черный волшебник',
-    scorpio: 'скорпион'
+    scorpio: 'скорпион',
+    levendor: 'Левендор',
   },
   tower: {
     archers: 'БАШНЯ ЛУЧНИКОВ',
@@ -68,5 +69,7 @@ export default {
     { key: 'KEY N' , info: 'начать первйю волну' },
     { key: 'CTRL+SPACE' , info: 'приостановить игру' },
     { key: 'CTRL+LEFT/RIGHT' , info: 'соответсвующая кропка при выигрыше/проигрыше' },
-  ]
+  ],
+  price: 'стоимость',
+  damage: 'урон',
 }

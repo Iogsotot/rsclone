@@ -50,7 +50,8 @@ export default {
   enemy: {
     littleOrc: 'little orc',
     wizardBlack: 'wizard black',
-    scorpio: 'scorpio'
+    scorpio: 'scorpio',
+    levendor: 'Levendor',
   },
   tower: {
     archers: 'ARCHERS TOWER',
@@ -68,5 +69,7 @@ export default {
     { key: 'KEY N' , info: 'start first wave' },
     { key: 'CTRL+SPACE' , info: 'pause the game' },
     { key: 'CTRL+LEFT/RIGHT' , info: 'appropriate button when win/lose' },
-  ]
+  ],
+  price: 'price',
+  damage: 'damage',
 }

@@ -35,7 +35,9 @@ export default class GameScene extends Phaser.Scene {
   pointX: number;
   pointY: number;
   gate: Gate;
+  fakeGate: Gate;
   waveBtn: WaveButton;
+  waveBtnClone: WaveButton;
   gameObjStats: any;
   levelSettings: any;
   towers: Array<any>
@@ -86,6 +88,7 @@ export default class GameScene extends Phaser.Scene {
     if (!this.passedEnemies.includes(enemy)) {
       this.passedEnemies.push(enemy);
       this.playerLives -= 1;
+      this.sound.play('lose-life');
       this.gameStats.updateLives(this.playerLives)
       if (this.gameObjStats.gameObject === enemy) {
         this.gameObjStats.slideOut()
@@ -101,6 +104,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   defeat() {
+    this.sound.stopAll();
+    this.sound.play('defeat');
     this.isDefeat = true;
     this.updateGameStatsInLocalStorage('lose');
 
@@ -111,6 +116,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   win() {
+    this.sound.stopAll();
+    this.sound.play('win');
     this.updateGameStatsInLocalStorage('win');
     // попапы не видно, надо другую сцену прокидывать?
     this.scene.pause();
@@ -153,7 +160,7 @@ export default class GameScene extends Phaser.Scene {
     for (const [enemyType, enemiesNumber] of Object.entries(currentWaveEnemies)) {
       for (let i = 0; i < enemiesNumber; i++) {
         const enemy = factory.create(enemyType, this.map.createWay());
-        const delay = i * 300;
+        const delay = i * 600;
         enemy.startFollow({ delay: delay, duration: enemy.moveSpeed, rotateToPath: true })
         this.physics.add.existing(enemy);
         this.physics.add.overlap(enemy, this.gate, this.onEnemyCrossing, undefined, this);
@@ -180,7 +187,7 @@ export default class GameScene extends Phaser.Scene {
   createWaveTimer(factory: EnemyFactory, wavesCount: number) {
     let currentWave = 1;
     this.time.addEvent({
-      delay: 10000,
+      delay: 20000,
       callback: () => {
         currentWave += 1;
         if (currentWave <= wavesCount) {
@@ -196,6 +203,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   startBattle() {
+    this.sound.stopAll();
     const factory = new EnemyFactory(this, this.firstPointX, this.firstPointY);
     this.enemiesProducedCounter = 0;
     this.enemiesProducedCounter += this.produceWaveEnemies(factory, 1);
@@ -205,9 +213,8 @@ export default class GameScene extends Phaser.Scene {
   }
 
   createWaveBtn(data) {
-    
-    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     this.pointY = this.firstPointY + waveBtnConfigs[data.level].startPointY;
+    this.pointX = this.firstPointX + waveBtnConfigs[data.level].startPointX;
     const path = new Phaser.Curves.Path();
     path.add(new Phaser.Curves.Line([
       this.pointX,
@@ -216,6 +223,33 @@ export default class GameScene extends Phaser.Scene {
       this.pointY + waveBtnConfigs[data.level].endPointY
     ]));
     this.waveBtn = this.add.follower(path, this.pointX, this.pointY, 'waveButton');
+    if (data.level === 2) {
+      this.waveBtnClone = this.add.follower(path, this.pointX - 90, this.pointY - 900, 'waveButton');
+      this.waveBtnClone.startFollow({
+        positionOnPath: false,
+        duration: 500,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Ease',
+      });
+      this.waveBtnClone.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+        if (this.scene.isPaused()) {
+          return;
+        }
+        this.startBattle();
+        this.scene.scene.tweens.add({
+          targets: [this.waveBtn, this.waveBtnClone],
+          scale: 0,
+          ease: 'Linear',
+          duration: 300,
+        });
+        setTimeout(() => {
+          this.waveBtn.destroy();
+          this.waveBtnClone.destroy();
+        }, 310);
+        //звук начала волны
+      });
+    }
 
     // const graphics = this.add.graphics();
     // graphics.lineStyle(1, 0xffffff, 1);
@@ -233,6 +267,18 @@ export default class GameScene extends Phaser.Scene {
         return;
       }
       this.startBattle();
+      if (this.waveBtnClone) {
+        this.scene.scene.tweens.add({
+          targets: this.waveBtnClone,
+          scale: 0,
+          ease: 'Linear',
+          duration: 300,
+        });
+        setTimeout(() => {
+          this.waveBtnClone.destroy();
+        }, 310);
+      }
+
       this.scene.scene.tweens.add({
         targets: this.waveBtn,
         scale: 0,
@@ -242,7 +288,8 @@ export default class GameScene extends Phaser.Scene {
       setTimeout(() => {
         this.waveBtn.destroy();
       }, 310);
-      //звук начала волны
+      this.sound.play('start-battle');
+      this.sound.play('level-1-attack', {loop: true});
     });
     // hot key для начала волны
     this.input.keyboard.on('keyup-N', (event) => {
@@ -263,7 +310,13 @@ export default class GameScene extends Phaser.Scene {
     });
   }
 
+  soundsManager() {
+    this.sound.stopByKey('main-theme');
+    this.sound.play('level-1', {loop: true});
+  }
+
   create(data: any): void {
+    this.soundsManager();
     this.cameras.main.fadeIn(750, 0, 0, 0);
     this.scene.scene.registry.set('deathCounter', 0);
     this.gameStats = new GameStats(this)
@@ -295,10 +348,10 @@ export default class GameScene extends Phaser.Scene {
     ]
     pauseButton.setPosition(pauseBtnCoordinates[0], pauseBtnCoordinates[1])
     pauseButton.setInteractive().on('pointerup', () => {
+      this.sound.pauseAll();
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.run('pause-scene');
-
     });
 
     this.input.keyboard.on('keydown-SPACE', (event) => {
@@ -324,25 +377,26 @@ export default class GameScene extends Phaser.Scene {
     // устанавливает взаимодействие пуль и мобов
     this.towers.forEach((tower: Tower) => {
       tower.setEnemies(this.enemiesGroup);
-      this.physics.add.overlap(this.enemiesGroup, tower.getMissiles(), tower.fire);
-
     })
+
     const gateGroup = this.physics.add.existing(this.gate);
   }
 
   createGate() {
-    this.gate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
-    this.gate.alpha = 0.6;
+    this.gate = new Gate(this, this.gatePointX + 60, this.gatePointY + 60, 'gate').setScale(0.5);
+    this.fakeGate = new Gate(this, this.gatePointX - 55, this.gatePointY, 'gate').setScale(0.5);
+    this.fakeGate.alpha = 0.6;
+    this.gate.alpha = 0;
   }
 
   update(time) {
-    this.gate.rotation += 0.003;
-    this.towers.forEach((tower: any) => {
+    this.fakeGate.rotation += 0.003;
+    this.towers.forEach((tower: Tower) => {
       tower.update(time);
       tower.setGold(this.gold);
       this.gold = tower.getGold();
-      this.gameStats.updateGolds(this.gold)
     })
+    this.gameStats.updateGolds(this.gold)
     this.gameObjStats.updateEnemyHp()
   }
 }

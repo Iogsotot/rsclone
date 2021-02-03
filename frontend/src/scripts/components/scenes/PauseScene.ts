@@ -18,22 +18,14 @@ export default class PauseScene extends Phaser.Scene {
       this.modal.slideIn();
     });
 
-    this.modal.closeModalBtn.setInteractive().on('pointerup', () => {
-      this.cancel()
-    });
+    this.modal.closeModalBtn.setInteractive().on('pointerup', () => this.cancel());
 
-    this.input.keyboard.on('keydown-ESC', (event) => {
-      this.cancel()
-    });
+    this.input.keyboard.on('keydown-ESC', () => this.cancel());
 
-    this.modal.menuBtn.setInteractive().on('pointerup', () => {
-      this.toMenu()
-    });
+    this.modal.menuBtn.setInteractive().on('pointerup', () => this.toMenu());
 
     this.input.keyboard.on('keydown-M', (event) => {
-      if(event.ctrlKey) {
-        this.toMenu()
-      }
+      if(event.ctrlKey) this.toMenu()
     });
 
     this.modal.restartBtn.setInteractive().on('pointerup', () => {
@@ -46,9 +38,7 @@ export default class PauseScene extends Phaser.Scene {
       this.time.delayedCall(300, () => this.scene.start('game-scene'));
     });
 
-    this.modal.resumeBtn.setInteractive().on('pointerup', () => {
-      this.cancel()
-    });
+    this.modal.resumeBtn.setInteractive().on('pointerup', () => this.cancel());
   }
 
   toMenu() {
@@ -63,10 +53,11 @@ export default class PauseScene extends Phaser.Scene {
   }
   cancel() {
     this.modal.slideOut();
-      setTimeout(() => {
-        this.scene.pause();
-        this.scene.run('game-scene');
-        this.scene.moveBelow('game-scene');
-      }, 400);
+    setTimeout(() => {
+      this.sound.resumeAll();
+      this.scene.pause();
+      this.scene.run('game-scene');
+      this.scene.moveBelow('game-scene');
+    }, 400);
   }
 }

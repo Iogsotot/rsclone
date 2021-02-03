@@ -29,24 +29,29 @@ export default class PreloadScene extends Phaser.Scene {
 
     // towers
 
+    this.load.spritesheet('circle', './assets/towers/circle.png', {
+        frameWidth: 200,
+        frameHeight: 200
+      });
+
     this.load.spritesheet('sale', './assets/towers/sale.png', {
-      frameWidth: 45,
-      frameHeight: 45
-    });
+        frameWidth: 55,
+        frameHeight: 55
+      });
 
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
-      frameWidth: 108,
-      frameHeight: 104,
+      frameWidth: 75,
+      frameHeight: 75,
     });
 
     this.load.spritesheet('bomb', './assets/towers/bomb.png', {
-      frameWidth: 108,
-      frameHeight: 104,
+      frameWidth: 75,
+      frameHeight: 75,
     });
 
     this.load.spritesheet('magic', './assets/towers/magic.png', {
-      frameWidth: 108,
-      frameHeight: 104,
+      frameWidth: 75,
+      frameHeight: 75,
     });
 
     this.load.spritesheet('tower', './assets/towers/tower.png', {
@@ -115,6 +120,21 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 299,
     });
 
+    this.load.spritesheet('levendor', './assets/sprites/levendor_walk.png', {
+      frameWidth: 294,
+      frameHeight: 275,
+    });
+
+    this.load.spritesheet('levendor_die', './assets/sprites/levendor_die.png', {
+      frameWidth: 304,
+      frameHeight: 285,
+    });
+
+    this.load.spritesheet('levendor_hurt', './assets/sprites/levendor_hurt.png', {
+      frameWidth: 304,
+      frameHeight: 285,
+    });
+
     //other
     this.load.spritesheet('gate', './assets/imgs/gate-mini.png', {
       frameWidth: 300,
@@ -123,18 +143,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('map_1', map1.url);
     this.load.image('map_2', map2.url);
     this.load.image('map_3', map3.url);
-    this.load.spritesheet('level1Button', './assets/interface/icon_level_1.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
-    this.load.spritesheet('level2Button', './assets/interface/icon_level_2.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
-    this.load.spritesheet('level3Button', './assets/interface/icon_level_3.png', {
-      frameWidth: 176,
-      frameHeight: 176,
-    });
+    this.load.image('level1Button', './assets/interface/icon_level_1.png');
+    this.load.image('level2Button', './assets/interface/icon_level_2.png');
+    this.load.image('level3Button', './assets/interface/icon_level_3.png');
     this.load.image('levelsMap', './assets/main-bg.jpg');
     this.load.spritesheet('waveButton', './assets/icons/wave_button.png', {
       frameWidth: 168,
@@ -228,6 +239,25 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
+
+    //sounds
+    this.load.audio('main-theme', './assets/sounds/themes/Main_Theme.mp3');
+    this.load.audio('level-1', './assets/sounds/themes/level_1.mp3');
+    this.load.audio('level-1-attack', './assets/sounds/themes/Level_Under_Attack.mp3');
+    this.load.audio('start-battle', './assets/sounds/waveIncoming.wav');
+    this.load.audio('win', './assets/sounds/levelCompleted.wav');
+    this.load.audio('defeat', './assets/sounds/levelFailed.wav');
+    this.load.audio('lose-life', './assets/sounds/loseLife.wav');
+
+    this.load.audio('wizardBlack-die', './assets/sounds/enemy_wizard_die.wav');
+    this.load.audio('littleOrc-die', './assets/sounds/enemy_orc_die.wav');
+    this.load.audio('scorpio-die', './assets/sounds/enemy_scorpio_die.wav');
+    this.load.audio('levendor-die', './assets/sounds/enemy_levendor_die.wav');
+
+    this.load.audio('tower-sell', './assets/sounds/tower_sell.wav');
+    this.load.audio('tower-building', './assets/sounds/tower_building.wav');
+
+    this.load.audio('achievement-unlock', './assets/sounds/achievement_unlock.wav');
   }
 
   create() {

@@ -50,14 +50,15 @@ export default {
   enemy: {
     littleOrc: 'kichik ork',
     wizardBlack: 'qora sehrgar',
-    scorpio: 'chayon'
+    scorpio: 'chayon',
+    levendor: 'Levendor',
   },
   tower: {
     archers: 'KAMONCHILAR MINORASI',
     artillery: 'ARTILLERYA MINORASI',
     magic: 'SEHRGAR MINORASI'
   },
-  hotkeysTitle: 'Texkor Tugmalar',
+  hotkeysTitle: 'Tezkor Tugmalar',
   hotkeys: [
     { key: 'CTRL+Q' , info: 'bosqichlar sahifasidan o\'yinni tark eting' },
     { key: 'KEY NUMBERS' , info: 'tegishli bosqichni tanlash' },
@@ -68,5 +69,7 @@ export default {
     { key: 'KEY N' , info: 'birinchi to\'lqinni boshlash' },
     { key: 'CTRL+SPACE' , info: 'o\'yinni to\'xtatib turish' },
     { key: 'CTRL+LEFT/RIGHT' , info: 'g\'alaba/mag\'lubiyat paytidagi tegishli tugma' },
-  ]
+  ],
+  price: 'narx',
+  damage: 'zarar',
 }

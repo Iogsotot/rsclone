@@ -25,7 +25,6 @@ export async function startApp() {
   }
 }
 startApp.game = null;
-window['lang'] = 'ru';
 window.addEventListener('load', () => {
   runAuth(startApp);
 });
