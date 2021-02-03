@@ -170,27 +170,4 @@ async function signUp(user) {
 
 export { signIn, signUp };
 
-// {
-//   "UserID": {
-//     "gameProgress": 0,
-//     "gameLogInCount": 0,
-//     "killedEnemies": 0,
-//     "builtTowers": 0,
-//     "soldTowers": 0,
-//     "ironModeProgress": 0,
-
-//     "achievements": {
-//       "firstAsterisk": false,
-//       "completeWin": false,
-//       "firstBlood": false,
-//       "greatDefender": false,
-//       "ironDefender": false,
-//       "killer": false,
-//       "seller": false,
-//       "builder": false
-//     }
-//   }
-// }
-
-
-export { getCurrentPlayerStats, setCurrentPlayerStats }
+export { getCurrentPlayerStats, setCurrentPlayerStats };
