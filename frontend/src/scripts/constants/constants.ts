@@ -45,7 +45,7 @@ const levelsConfig = {
   },
   'level_2': {
     'map': map2,
-    'startingGold': 400,
+    'startingGold': 350,
     'waves': {
       'wave_1': {
         'enemies': {
@@ -94,7 +94,7 @@ const levelsConfig = {
   },
   'level_3': {
     'map': map3,
-    'startingGold': 500,
+    'startingGold': 400,
     'waves': {
       'wave_1': {
         'enemies': {

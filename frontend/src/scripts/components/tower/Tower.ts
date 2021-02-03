@@ -30,7 +30,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   magicTowerButton: Phaser.GameObjects.Sprite;
   artilleryTowerButton: Phaser.GameObjects.Sprite;
   towerSelectionCircle: Phaser.GameObjects.Sprite;
-  towersInfo: Array<Array<any>>;
+  towersInfo: Array<Array<Phaser.GameObjects.Sprite | number | string>>;
   mapData: MapType;
   cost: number;
   isTowerSold: boolean;
@@ -75,7 +75,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.costMagicTower = 100;
     this.costArtilleryTower = 125;
     this.canUpdateGold = false;
-    this.damageArchersTower = 15;
+    this.damageArchersTower = 10;
     this.damageArtilleryTower = 35;
     this.damageMagicTower = 20;
     this.speedFireArchersTower = 1000;
@@ -306,7 +306,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
-  public getGold() {
+  public getGold(): number {
     if (this.isTowerSold) {
       this.isTowerSold = false;
       this.scene.sound.play('tower-building');
@@ -319,7 +319,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
-  public setGold(gold) {
+  public setGold(gold: number): void {
     if (!this.canUpdateGold) {
       this.playerGold = gold;
     } else {
@@ -327,7 +327,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
-  public getType() {
+  public getType(): string {
     return this.type;
   }
 
@@ -353,7 +353,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.magicDamage = magicDamage;
   }
 
-  public setEnemies(enemies: any) {
+  public setEnemies(enemies: any): void {
     this.enemies = enemies.getChildren();
   }
 
@@ -361,7 +361,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     return this.missiles
   }
 
-  protected getEnemy(): any | void {
+  protected getEnemy(): Unit | void {
     for (let i = 0; i < this.enemies.length; i += 1) {
       this.isEnemyAlive = this.enemies[i].getAlive();
       const enemyDistance = Phaser.Math.Distance.Between(this.x, this.y, this.enemies[i].x, this.enemies[i].y);
@@ -392,7 +392,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     }
   }
 
-  public fire() {
+  public fire(): void {
     if (this.isTowerBuilt) {
       const enemy = this.getEnemy();
       if (enemy) {
