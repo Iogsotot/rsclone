@@ -5,6 +5,7 @@ function createBgGame() {
   document.querySelector('.attendance-per-year-game')?.remove()
   document.querySelector('.start-page')?.remove()
   document.querySelector('.achievements-icon')?.remove()
+  document.querySelector('.lang-switcher')?.remove()
 
   if(document.querySelector('.blur-bg')) return
 
