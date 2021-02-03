@@ -100,14 +100,14 @@ export default class LevelsScene extends Phaser.Scene {
       const token = localStorage.getItem(KEY_TOKEN);
       const id = localStorage.getItem(KEY_ID);
       this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.time.delayedCall(300, () => {
+        this.time.delayedCall(100, () => {
+          (document.querySelector('body') as HTMLBodyElement).style.height = '';
+          (document.querySelector('canvas') as HTMLElement).style.display = 'none';
           this.sound.stopAll()
           this.scene.sleep()
           this.game.loop.sleep()
           createStartPage({ id, token });
           document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
-          (document.querySelector('body') as HTMLBodyElement).style.height = '';
-          (document.querySelector('canvas') as HTMLElement).style.display = 'none';
         })
 	    })
   }
