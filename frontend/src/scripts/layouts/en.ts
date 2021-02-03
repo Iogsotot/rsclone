@@ -3,6 +3,8 @@ export default {
   signUp: 'sign up',
   name: 'name',
   password: 'password',
+  hasSignIn: 'has sign in',
+  hasSignUp: 'has sign up',
   keepMe: 'Keep Me Signed In',
   playerName: 'Player\'s name',
   gameProgress: 'game progress',

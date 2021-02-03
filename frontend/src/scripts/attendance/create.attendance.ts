@@ -2,9 +2,6 @@ import createElement from "../auth/utils/createElement";
 import { whileLoad, whileRaise } from "../auth/utils/wait.while.loading";
 
 function createPopupAttendance(arr) {
-    console.log('all:', arr)
-    let positionAttendance = 0;
-  
     const maxAttendance = Math.max(...arr.map((el) => el.attendance));
     const popup = createElement('div', {
       classList: ['popup-attendance-wrapper'],
@@ -12,17 +9,17 @@ function createPopupAttendance(arr) {
         <div class="popup-attendance-content">
           <div class="close-popup"></div>
           
-          <figure>
-            <figcaption>Game attendance over the day</figcaption>
+          <div class="title-attandence-popap">Game attendance over the day</div>
+          <div class="wrapper-attendance">
             <div class="day-attendance-content">
                 ${arr
                   .map(({ date, attendance }) => {
-                    positionAttendance += 20;
                     const precent = ((maxAttendance - attendance) / maxAttendance) * 100;
                     return `
                     <div class='day-attendance-info'>
-                      <svg>
+                      <svg class='bar'>
                         <rect width="${100 - precent}%" height="19"></rect>
+                        <text x="5px" y="11px" dy=".35em">${(100 - precent).toFixed(2)}%</text>
                       </svg>
                       <strong style='color: #352824;'>${attendance}</strong>
                       <span style='color: #a27448;'>${date}</span>
@@ -31,7 +28,7 @@ function createPopupAttendance(arr) {
                   })
                   .join(' ')}
             </div>
-          </figure>
+          </div>
         
         </div>
       `,

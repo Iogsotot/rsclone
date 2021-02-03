@@ -26,8 +26,7 @@ export default async function handlerAttendance() {
       },
       body: JSON.stringify({ id: stringId, attendance: 1, date: stringDate }),
     });
-    const result = await response.json();
-    console.log('POST result', result);
+    return response.json();
   } else {
     const response = await fetch(`${url}chart/${stringId}`, {
       method: 'PUT',
@@ -37,7 +36,6 @@ export default async function handlerAttendance() {
       },
       body: JSON.stringify({ ...data, attendance: data.attendance + 1 }),
     });
-    const result = await response.json();
-    console.log('PUT result', result);
+    return response.json();
   }
 }
