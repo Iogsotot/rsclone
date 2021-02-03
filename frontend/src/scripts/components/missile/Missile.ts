@@ -4,7 +4,7 @@ export default class Missile extends Phaser.GameObjects.Image {
     dx: number;
     dy: number;
     lifespan: number;
-    speed: any;
+    speed: number;
 
     constructor(scene: Phaser.Scene, x: number, y: number, type: string) {
         super(scene, 0, 0, type) 
@@ -26,7 +26,7 @@ export default class Missile extends Phaser.GameObjects.Image {
         this.lifespan = 300;
     }
 
-    update(time, delta: number) {
+    update(time: number, delta: number) {
         this.lifespan -= delta;
  
         this.x += this.dx * (this.speed * delta);

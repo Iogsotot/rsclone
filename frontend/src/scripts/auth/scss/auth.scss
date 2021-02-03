@@ -1,6 +1,5 @@
-@import "./popap.scss";
-@import "./graph.scss";
-@import "./loader.scss";
+@import '../../attendance/scss/create.attendance.scss';
+@import './loader.scss';
 
 
 * {
@@ -111,7 +110,7 @@ body {
   height: 70px;
   position: fixed;
   margin: 10px;
-  bottom: 0;
+  bottom: 50px;
   z-index: 2;
   cursor: pointer;
   &:hover {
@@ -404,8 +403,6 @@ footer {
     }
   }
 }
-
-
 
 .hide {
   display: none;
