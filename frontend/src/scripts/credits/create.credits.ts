@@ -5,11 +5,11 @@ function createCredits() {
   const popup = createElement('div', {
     classList: ['credits-wrapper'],
     innerHTML: `
+    <div class="close-credits-popup"></div>
     <div class="credits-bg">
 
     <div class="credits-content">
     
-      <div class="close-credits-popup"></div>
       <div class="credits-data">
         <h2 class="credits-title">Credits</h2>
         <h3 class="credits-subtitle">Our team</h3>
@@ -80,13 +80,11 @@ function createCredits() {
       if (target.classList.contains('credits-wrapper')) {
         whileRaise(popup);
       }
-      if (target.classList.contains('close-team-popup')) {
-        whileRaise(popup);
+      if (target.classList.contains('close-credits-popup')) {
+        target.parentNode.remove();
+        // whileRaise(popup);
       }
     },
-  }, {
-    height: `${window.innerHeight}`,
-    width: `${window.innerWidth}`,
   });
 
   whileLoad(popup, '../assets/credits/wood_2.png');
