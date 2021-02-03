@@ -57,6 +57,7 @@ async function signIn(user) {
         });
       }
       
+      document.body.textContent = '';
       createStartPage({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {

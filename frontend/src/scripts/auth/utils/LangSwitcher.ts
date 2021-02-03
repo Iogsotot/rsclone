@@ -17,13 +17,9 @@ export default class LangSwitcher {
     this.switcherContainer = createElement('div', { classList: ['lang-switcher'] })
     this.langCurrent = createElement('div', { classList: ['lang-current', 'lang-item'] })
     this.dropDown = createElement('div', { classList: ['lang-dropdown'] })
-    
-    this.init()
   }
 
   init() {
-    const body = document.querySelector('body');
-    
     if (localStorage.getItem('lang')) {
       window['lang'] = localStorage.getItem('lang');
     } else {
@@ -48,11 +44,9 @@ export default class LangSwitcher {
     this.switcherContainer.append(this.langCurrent)
     this.switcherContainer.append(this.dropDown)
 
-    // const main = document.querySelector('main');
-    
-    body?.append(this.switcherContainer);
-
     this.dropDown.addEventListener('click', this.clickHandler)
+
+    return this.switcherContainer
   }
 
   langItemInner(conf: LangConfig) {
