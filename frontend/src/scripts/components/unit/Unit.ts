@@ -4,6 +4,7 @@
 import 'phaser'
 import { isKiller, isFirstBlood } from '../../constants/achievements';
 import { PlayerStatsManager } from '../stats/PlayerStats';
+import GameScene from '../scenes/GameScene';
 
 export default class Unit extends Phaser.GameObjects.PathFollower {
   hp: number;
@@ -62,7 +63,7 @@ export default class Unit extends Phaser.GameObjects.PathFollower {
     if (this.isAlive) {
       this.isAlive = false;
       this.pauseFollow();
-      this.scene.sound.play(`${this.unitType}-die`);
+      (this.scene as GameScene).sounds[`${this.unitType}Die`].play();
       this.play({ key: `${this.unitType}_die`, repeat: 0 });
       this.on('animationcomplete', this.despawn, this)
     }
