@@ -3,10 +3,10 @@ import { whileLoad, whileRaise } from "../auth/utils/wait.while.loading";
 
 function createPopupAttendance(arr) {
     console.log('all:', arr)
-    let positionAttendance = 0;
-    let positionText = 8;
+    let positionAttendance = -20;
+    let positionText = 0;
   
-    const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
+    const maxAttendance = Math.max(...arr.map((el) => el.attendance));
   
     const popup = createElement('div', {
       classList: ['popup-attendance-wrapper'],
@@ -16,20 +16,19 @@ function createPopupAttendance(arr) {
           
           <figure>
             <figcaption>Game attendance over the year</figcaption>
-            <svg class="full_graph">
-                <title id="title">A bart chart showing game attendance over the year</title>
+            <svg width="420" height="150" role="img">
                 ${arr
-                  .map(({ year, allAttendance }) => {
+                  .map(({ date, attendance }) => {
                     positionAttendance += 20;
                     positionText += 20;
-                    const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
+                    const precent = ((maxAttendance - attendance) / maxAttendance) * 100;
   
                     return `
                     <g class="bar">
-                      <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
-                      <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
-                      <text x="85%" y="${positionText}" dy=".35em">${year}</text>
+                      <rect width="${100 - precent}%" height="20px" y="${positionAttendance}"></rect>
+                      <text x="0" y="${positionAttendance}" dy="${positionText}">${attendance}</text>
                     </g>
+                    <text x="85%" y="${positionAttendance}" dy="${positionText}">${date}</text>
                     `;
                   })
                   .join(' ')}
