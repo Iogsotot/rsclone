@@ -53,6 +53,7 @@ async function signIn(user) {
         });
       }
       
+      document.body.textContent = '';
       createStartPage({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
@@ -79,7 +80,6 @@ async function getCurrentPlayerStats({ id, token }) {
   }
 }
 
-// main function for update stat
 async function setCurrentPlayerStats({ id, token, body }) {
   try {
     const response = await fetch(`${SERVER}/users/${id}/stats/`, {
