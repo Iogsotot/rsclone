@@ -4,9 +4,14 @@ import createStartPage from '../../auth/utils/create.start';
 import LevelButton from '../../components/button/LevelButton';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
 import Button from '../button/Button';
+import HotKeysModal from '../modal/HotKeysModal';
 
 export default class LevelsScene extends Phaser.Scene {
   cancelBtn: Button
+
+  helpBtn: Button
+
+  hotKeysModal: HotKeysModal
 
   constructor() {
     super({ key: 'LevelsScene' });
@@ -31,6 +36,22 @@ export default class LevelsScene extends Phaser.Scene {
       if(event.ctrlKey) {
         this.cancel()
       }
+    });
+
+    this.helpBtn = new Button(this, 50, 50, 'help-btn')
+    this.helpBtn.setX(this.cameras.main.centerX * 2 - 50)
+    this.hotKeysModal = new HotKeysModal(this)
+    this.helpBtn.setInteractive().on('pointerup', () => {
+      if (window['lang'] === this.hotKeysModal.lang) {
+        this.hotKeysModal.slideIn()
+      } else {
+        this.hotKeysModal = new HotKeysModal(this)
+        this.hotKeysModal.slideIn()
+      }
+    })
+
+    this.input.keyboard.on('keydown-ESC', (event) => {
+      this.hotKeysModal.slideOut()
     });
   }
 
