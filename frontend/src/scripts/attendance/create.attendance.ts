@@ -45,8 +45,10 @@ function createPopupAttendance(arr) {
         }
       },
     });
-  
+    
     whileLoad(popup, '../assets/interface/modal-bg.png');
+    const content = document.querySelector('.day-attendance-content');
+    if (content) content.scrollTop = 999;
   }
 
 export default createPopupAttendance;
