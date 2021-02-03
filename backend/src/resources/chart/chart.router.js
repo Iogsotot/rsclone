@@ -4,34 +4,38 @@ const { handling } = require('../../common/handling');
 
 router.route('/').get(
   handling(async (req, res) => {
-    const attendances = await chartService.getAll();
-    res.send({ data: attendances, ok: true });
+    const response = await chartService.getAll();
+    res.send({ data: response, ok: true });
   })
 );
 
-router.route('/:year').get(
+router.route('/:id').get(
   handling(async (req, res) => {
-    const attendance = await chartService.get(req.params.year);
-    res.send({ data: attendance, ok: true }); // err if user = null
+    const response = await chartService.get(req.params.id);
+
+    if (response) {
+      res.send({ data: response, ok: true });
+    } else {
+      res.send({ data: 'No Content', ok: false });
+    }
   })
 );
 
 router.route('/').post(
   handling(async (req, res) => {
-    const attendance = await chartService.create(req.body);
-    res.send({ data: attendance, ok: true });
+    const response = await chartService.create(req.body);
+    res.send({ data: response, ok: true });
   })
 );
 
-router.route('/:year').put(
+router.route('/:id').put(
   handling(async (req, res) => {
-    const year = await chartService.update(req.params.year, req.body);
+    const response = await chartService.update(req.params.id, req.body);
 
-    if (!year.nModified) {
-      res.status(404).send({ data: 'Not found', ok: false });
+    if (!response.nModified) {
+      res.send({ data: 'No Content', ok: false });
     } else {
-      const attendance = await chartService.get(req.params.year);
-      res.send({ data: attendance, ok: true });
+      res.status(302).send({ data: 'Found', ok: true });
     }
   })
 );

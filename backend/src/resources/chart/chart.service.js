@@ -2,10 +2,10 @@ const usersRepo = require('./chart.mongo.repository');
 
 const getAll = () => usersRepo.getAll();
 
-const get = year => usersRepo.get(year);
+const get = id => usersRepo.get(id);
 
-const create = year => usersRepo.create(year);
+const create = id => usersRepo.create(id);
 
-const update = (year, body) => usersRepo.update(year, body);
+const update = (id, body) => usersRepo.update(id, body);
 
 module.exports = { getAll, create, get, update };

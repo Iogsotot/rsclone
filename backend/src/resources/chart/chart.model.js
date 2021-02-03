@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const chartScheme = new mongoose.Schema(
   {
-    year: Number,
-    allAttendance: Number
+    id: String,
+    attendance: Number,
+    date: String
   },
   { versionKey: false }
 );

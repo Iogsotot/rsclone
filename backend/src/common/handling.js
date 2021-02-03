@@ -21,12 +21,14 @@ function handling(fn) {
 
       const logging = `${timeDate}\n${url}\n${method}\n${query}\n${params}\n${body}\n\n`;
 
-      fs.appendFile('./src/common/logging.log', logging, err => {
-        if (err) {
-          console.error('Error:', 'logging record');
-          throw new Error('logging record');
-        }
-      });
+      // fs.appendFile('./src/common/logging.log', logging, err => {
+      //   if (err) {
+      //     console.error('Error:', 'logging record');
+      //     throw new Error('logging record');
+      //   }
+      // });
+
+      console.log('______here --==>', logging);
 
       await fn.call(this, req, res);
     } catch (e) {
@@ -34,7 +36,7 @@ function handling(fn) {
 
       recordError(template);
 
-      res.status(404).send({ data: 'Not Found', ok: false });
+      res.status(404).send({ data: 'Not Found: [handling]', ok: false });
     }
   };
 }
