@@ -53,7 +53,7 @@ async function signIn(user) {
           body: { ...isStats.data, gameLogInCount: isStats.data.gameLogInCount + 1 },
         });
       }
-
+      (document.querySelector('body') as HTMLBodyElement).textContent = ''
       createStartPage();
       achievementsCreate({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);

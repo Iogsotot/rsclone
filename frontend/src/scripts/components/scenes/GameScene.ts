@@ -291,6 +291,23 @@ export default class GameScene extends Phaser.Scene {
       this.sound.play('start-battle');
       this.sound.play('level-1-attack', {loop: true});
     });
+    // hot key для начала волны
+    this.input.keyboard.on('keyup-N', (event) => {
+      if (this.scene.isPaused()) {
+        return;
+      }
+      this.startBattle();
+      this.scene.scene.tweens.add({
+        targets: this.waveBtn,
+        scale: 0,
+        ease: 'Linear',
+        duration: 300,
+      });
+      setTimeout(() => {
+        this.waveBtn.destroy();
+      }, 310);
+      //звук начала волны
+    });
   }
 
   soundsManager() {
@@ -335,6 +352,14 @@ export default class GameScene extends Phaser.Scene {
       this.scene.pause();
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.run('pause-scene');
+    });
+
+    this.input.keyboard.on('keydown-SPACE', (event) => {
+      if(event.ctrlKey) {
+        this.scene.pause();
+        this.scene.moveAbove('game-scene', 'pause-scene');
+        this.scene.run('pause-scene');
+      }
     });
 
     const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');

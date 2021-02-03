@@ -37,13 +37,11 @@ export default {
   sorry: 'UZUR :(/MUVAFFAQIYATSIZ/YAKUN',
   win: 'g\'alaba!',
   congrats: 'TABRIKLAR!/MUVAFFAQIYATLI/YAKUN',
-  verySlow: 'juda sekin',
   slow: 'sekin',
   medium: 'o\'rtacha',
   fast: 'tez',
-  veryFast: 'juda tez',
   small: 'kichik',
-  long: 'uzoq',
+  long: 'katta',
   levelTheme: {
     1: 'Sizga salom beraman va sizning olijanobligingiz va jasoratingiz oldida bosh egaman! Ulug\'vor podshoh Denas o\'z generalini xizmatga chaqiradi. Poytaxt yaqinida orklar to\'dasi ko\'rindi! Bu jonzotlar faqat o\'z yo\'llaridagi hamma narsani talon-taroj qilishni va yoqishni biladilar. Ushbu jinoyatlar o\'sishdan oldin ularni to\'xtatish kerak.',
     2: 'General, orklar to\'dasi bizning eng katta muammoimiz emas bo\'lib chiqdi! Janubiy port aholisi Taqiqlangan Yerlardan Qora Sehrgarlar tomonidan qilingan hujumlar haqida xabar berishdi. Siz va sizning batalyoningiz shahar xavfsizligini ta\'minlash uchun u yerga safarbar qilindingiz. Omad tilaymiz, general!',
@@ -60,6 +58,18 @@ export default {
     artillery: 'ARTILLERYA MINORASI',
     magic: 'SEHRGAR MINORASI'
   },
+  hotkeysTitle: 'Tezkor Tugmalar',
+  hotkeys: [
+    { key: 'CTRL+Q' , info: 'bosqichlar sahifasidan o\'yinni tark eting' },
+    { key: 'KEY NUMBERS' , info: 'tegishli bosqichni tanlash' },
+    { key: 'KEY D' , info: 'o\'yin qiyinligini o\'zgartirish' },
+    { key: 'ENTER' , info: 'o\'yinni boshlash(bosqichni tanlayotganda)' },
+    { key: 'CTRL+M' , info: 'bosqichlar sahifasiga o\'tish(o\'yin to\'xtagan vaqtda)' },
+    { key: 'ESC' , info: 'oynani yopish' },
+    { key: 'KEY N' , info: 'birinchi to\'lqinni boshlash' },
+    { key: 'CTRL+SPACE' , info: 'o\'yinni to\'xtatib turish' },
+    { key: 'CTRL+LEFT/RIGHT' , info: 'g\'alaba/mag\'lubiyat paytidagi tegishli tugma' },
+  ],
   price: 'narx',
   damage: 'zarar',
 }

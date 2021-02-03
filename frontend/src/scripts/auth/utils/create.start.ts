@@ -58,6 +58,7 @@ function createStartPage() {
   credits?.addEventListener('click', () => createCredits());
 }
 
+
 function createPopupAttendance(arr) {
   let positionAttendance = 0;
   let positionText = 8;
