@@ -156,6 +156,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('table', './assets/modal-bg/table.png');
     this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
     this.load.image('win-bg', './assets/modal-bg/win-bg.png');
+    this.load.image('hotkeys-modal', './assets/modal-bg/hotkeys-modal.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -167,6 +168,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
+    this.load.image('help-btn', './assets/interface/help.png');
     // icons    
     this.load.image('armor-icon', './assets/icons/armor.png');
     this.load.image('arrow-icon', './assets/icons/arrows.png');
