@@ -15,7 +15,7 @@ function createPopupAttendance(arr) {
           <div class="close-popup"></div>
           
           <figure>
-            <figcaption>Game attendance over the year</figcaption>
+            <figcaption>Game attendance over the day</figcaption>
             <svg width="420" height="150" role="img">
                 ${arr
                   .map(({ date, attendance }) => {
