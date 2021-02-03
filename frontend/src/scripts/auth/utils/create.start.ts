@@ -15,10 +15,8 @@ const langConfigs: LangConfig[] = [
 
 function createStartPage({ id, token }) {
   const body = document.querySelector('body') as HTMLBodyElement;
-  body.innerText = '';
+  // body.innerText = '';
   const main = createElement('main');
-
-  new LangSwitcher(langConfigs);
 
   const lang = window['lang'] || localStorage.getItem('lang') || 'en';
   const startText = langConfig[`${lang}`].start.toUpperCase();
@@ -98,7 +96,7 @@ function createStartPage({ id, token }) {
     `
   });
 
-  main.append(logout, attendance, startPage);
+  main.append(new LangSwitcher(langConfigs).init(), logout, attendance, startPage);
 
   body.append(main, footer);
 
