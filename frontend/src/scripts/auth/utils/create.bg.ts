@@ -1,11 +1,8 @@
 import createElement from './createElement';
 
 function createBgGame() {
-  document.querySelector('.logout-game')?.remove()
-  document.querySelector('.attendance-per-year-game')?.remove()
-  document.querySelector('.start-page')?.remove()
-  document.querySelector('.achievements-icon')?.remove()
-  document.querySelector('.lang-switcher')?.remove()
+  document.querySelector('main')?.remove()
+  document.querySelector('footer')?.remove()
 
   if(document.querySelector('.blur-bg')) return
 
@@ -21,7 +18,7 @@ function createBgGame() {
   );
 
   // document.body.textContent = '';
-  document.body.prepend(blurBg);
+  document.body.append(blurBg);
 }
 
 export default createBgGame;

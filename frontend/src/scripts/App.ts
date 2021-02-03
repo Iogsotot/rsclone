@@ -20,6 +20,8 @@ export async function startApp() {
   if(!startApp.game) {
     startApp.game = new Phaser.Game(config)
   } else {
+    (document.querySelector('body') as HTMLElement).style.height = '100%';
+    (document.querySelector('#phaser-game') as HTMLElement).style.display = '';
     startApp.game.loop.wake()
     startApp.game.scene.wake('LevelsScene')
   }
@@ -27,4 +29,5 @@ export async function startApp() {
 startApp.game = null;
 window.addEventListener('load', () => {
   runAuth(startApp);
+  document.querySelector('.fontPreload')?.remove()
 });
