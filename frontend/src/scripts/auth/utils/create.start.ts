@@ -23,7 +23,7 @@ function createStartPage({ id, token }) {
   const lang = window['lang'] || localStorage.getItem('lang') || 'en';
   const startText = langConfig[`${lang}`].start.toUpperCase();
   const creditsText = langConfig[`${lang}`].credits.toUpperCase();
-  
+
   const startPage = createElement(
     'div',
     {

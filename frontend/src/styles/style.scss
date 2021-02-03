@@ -12,4 +12,10 @@
   position: absolute;
   left:  -300px;
 }
+
+canvas {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
 // @import './levels-map.scss';
