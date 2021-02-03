@@ -68,14 +68,16 @@ export default class PauseModal extends CustomModal {
       scene,
       -bgImage.width * 0.45,
       -bgImage.height *0.45,
-      langConfig[`${window['lang']}`].music
+      langConfig[`${window['lang']}`].music,
+      'music'
     );
 
     const soundSlider = new AudioSlider(
       scene,
       -bgImage.width * 0.45,
       0,
-      langConfig[`${window['lang']}`].sound
+      langConfig[`${window['lang']}`].sound,
+      'sounds'
     );
 
     this.options.add(musicSlider);

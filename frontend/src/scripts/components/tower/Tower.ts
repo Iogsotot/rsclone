@@ -8,7 +8,7 @@ import { PlayerStatsManager } from '../stats/PlayerStats';
 import Unit from '../unit/Unit';
 import GameObjStats from '../interface/GameRoundStats';
 import langConfig from '../../layouts/langConfig'
-
+import GameScene from '../scenes/GameScene'
 
 
 export default class Tower extends Phaser.GameObjects.Sprite {
@@ -130,11 +130,11 @@ export default class Tower extends Phaser.GameObjects.Sprite {
       this.magicTowerButton.on('pointerdown', () => this.placeTowerMagic(), this.magicTowerButton);
       this.isTowerBuilt = true;
       this.canBuyTower();
-      this.scene.sound.play('tower-choice');
+      (this.scene as GameScene).sounds.towerChoice.play();
       this.closeButton.on('pointerdown', () => {
         this.isTowerBuilt = false;
         this.hideChoiceTower();
-        this.scene.sound.play('tower-choice');
+        (this.scene as GameScene).sounds.towerChoice.play();
       })
       this.closeButton.on('pointermove', () => this.closeButton.setScale(1.2));
       this.closeButton.on('pointerout', () => this.closeButton.setScale(1)); 
@@ -221,7 +221,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
     this.saleMark.setVisible(false);
     this.saleMark.setActive(false);
     this.tower.on('pointerdown', () => this.choiceTower());
-    this.scene.sound.play('tower-sell');
+    (this.scene as GameScene).sounds.towerSell.play()
   }
 
   protected placeTowerArrow(): void {
@@ -309,7 +309,7 @@ export default class Tower extends Phaser.GameObjects.Sprite {
   public getGold(): number {
     if (this.isTowerSold) {
       this.isTowerSold = false;
-      this.scene.sound.play('tower-building');
+      (this.scene as GameScene).sounds.towerBuilding.play()
       return this.playerGold -= this.cost;
     } else if (this.isEnemyDead) {
       this.isEnemyDead = false;
@@ -403,13 +403,13 @@ export default class Tower extends Phaser.GameObjects.Sprite {
         enemy.takeDamage(this.damage, this.physicalDamage, this.magicDamage);
         switch (this.type) {
             case this.typeArchersTower:
-                this.scene.sound.play('missile-arrow');
+                (this.scene as GameScene).sounds.missileArrow.play()
                 break;
             case this.typeMagicTower:
-                this.scene.sound.play('missile-magic');
-                break;
+              (this.scene as GameScene).sounds.missileMagic.play()
+              break;
             case this.typeArtilleryTower:
-                this.scene.sound.play('missile-bomb');
+              (this.scene as GameScene).sounds.missileBomb.play()
                 break;
         }
       }
