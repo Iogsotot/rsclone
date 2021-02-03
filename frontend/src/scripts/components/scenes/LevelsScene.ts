@@ -100,7 +100,7 @@ export default class LevelsScene extends Phaser.Scene {
           this.game.loop.sleep()
           createStartPage({ id, token });
           document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
-          // (document.querySelector('body') as HTMLBodyElement).style.height = '';
+          (document.querySelector('body') as HTMLBodyElement).style.height = '';
           (document.querySelector('canvas') as HTMLElement).style.display = 'none';
         })
 	    })
