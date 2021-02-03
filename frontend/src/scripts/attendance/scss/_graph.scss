@@ -1,6 +1,4 @@
-figure {
-  height: 237px;
-  width: 540px;
+.wrapper-attendance {
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
@@ -15,16 +13,13 @@ figure {
   }
 }
 
-figcaption {
+.title-attandence-popap {
   font-size: xx-large;
   color: #352824;
-  position: absolute;
-  top: 65px;
-  left: 157px;
+  margin-bottom: 30px;
 }
 
 .day-attendance-content {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,30 +28,24 @@ figcaption {
 svg {
   overflow: visible;
   height: 20px;
-  fill: #a27448;
 }
 
 .day-attendance-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 440px;
+  width: 500px;
 }
 
 .bar {
   fill: #a27448;
-  height: 19px;
+  height: 20px;
   transition: fill .3s ease;
   cursor: pointer;
   
   text {
     fill: #352824;
   }
-}
-
-.bar-info {
-  width: 30%;
-  height: 21px;
 }
 
 .chart:hover,
