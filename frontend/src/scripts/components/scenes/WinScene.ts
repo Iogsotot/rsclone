@@ -33,18 +33,33 @@ export default class WinScene extends Phaser.Scene {
     
     modal.continueBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       modal.disappearance()
-      this.cameras.main.fadeOut(500, 0, 0, 0)
-	    this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.time.delayedCall(500, () => {
-          this.scene.start('LevelsScene');
-          this.scene.stop('game-scene');
-        })
-	    })
+      this.continue()
+    });
+    
+    this.input.keyboard.on('keydown-RIGHT', (event) => {
+      if(event.ctrlKey) {
+        this.continue()
+      }
     });
 
     modal.restartBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
       modal.disappearance()
       this.time.delayedCall(300, () => this.scene.start('game-scene'))
     });
+
+    this.input.keyboard.on('keydown-R', (event) => {
+      modal.disappearance()
+      this.time.delayedCall(300, () => this.scene.start('game-scene'))
+    });
+  }
+
+  continue() {
+    this.cameras.main.fadeOut(500, 0, 0, 0)
+    this.cameras.main.once('camerafadeoutcomplete', () => {
+      this.time.delayedCall(500, () => {
+        this.scene.start('LevelsScene');
+        this.scene.stop('game-scene');
+      })
+    })
   }
 }

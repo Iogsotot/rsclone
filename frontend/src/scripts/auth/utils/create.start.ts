@@ -99,6 +99,7 @@ function createStartPage({ id, token }) {
   achievementsCreate({ id, token });
 }
 
+
 function createPopupAttendance(arr) {
   let positionAttendance = 0;
   let positionText = 8;
