@@ -288,6 +288,18 @@ export default class GameScene extends Phaser.Scene {
         return;
       }
       this.startBattle();
+      if (this.waveBtnClone) {
+        this.scene.scene.tweens.add({
+          targets: this.waveBtnClone,
+          scale: 0,
+          ease: 'Linear',
+          duration: 300,
+        });
+        setTimeout(() => {
+          this.waveBtnClone.destroy();
+        }, 310);
+      }
+
       this.scene.scene.tweens.add({
         targets: this.waveBtn,
         scale: 0,
@@ -297,7 +309,8 @@ export default class GameScene extends Phaser.Scene {
       setTimeout(() => {
         this.waveBtn.destroy();
       }, 310);
-      //звук начала волны
+      this.sounds.startBattle.play();
+      this.music.levelAttack.play();
     });
   }
 
@@ -361,9 +374,10 @@ export default class GameScene extends Phaser.Scene {
       this.scene.moveAbove('game-scene', 'pause-scene');
       this.scene.run('pause-scene');
     });
-
+    
     this.input.keyboard.on('keydown-SPACE', (event) => {
       if(event.ctrlKey) {
+        this.sound.pauseAll();
         this.scene.pause();
         this.scene.moveAbove('game-scene', 'pause-scene');
         this.scene.run('pause-scene');
