@@ -16,6 +16,7 @@ function popapProfileCreate(stats) {
   const achievementsOutOfText = langConfig[`${lang}`].achievementsOutOf;
   const allText = langConfig[`${lang}`].all;
   const { achievs } = langConfig[`${lang}`];
+  let isAdd: boolean = false;
 
   const popup = createElement('div', {
     classList: ['popup-profile-wrapper'],
@@ -39,7 +40,7 @@ function popapProfileCreate(stats) {
         <div class="icons-profile-achievements">
           <div class="icons-profile">
           ${arrayStats
-            .map(([key, value], index) => {
+            .map(([key, value]) => {
               let info;
               switch (key) {
                 case 'completeWin':
@@ -71,12 +72,13 @@ function popapProfileCreate(stats) {
               if (value) {
                 achievement.push(
                   `
-                  <div class="wrapper-icon-achievements-info ${index === 0 ? 'flex-for-achevements' : 'hide'}">
+                  <div class="wrapper-icon-achievements-info ${!isAdd ? 'flex-for-achevements' : 'hide'}">
                     <div class="icon-achievements-info ${key}"></div>
                     <div class='icon-achievements-info-descriptions'>${info}</div>
                   </div>
                   `
                 );
+                isAdd = true;
   
                 return `
                   <div class="icon-achievements ${key}"></div>
