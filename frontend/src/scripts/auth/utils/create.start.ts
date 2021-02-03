@@ -105,6 +105,8 @@ function createStartPage({ id, token }) {
   credits?.addEventListener('click', createCredits);
 
   achievementsCreate({ id, token });
+
+  document.querySelector('.sign-kingdom-rush')?.remove()
 }
 
 
