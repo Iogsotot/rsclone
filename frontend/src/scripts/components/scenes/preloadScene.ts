@@ -54,6 +54,11 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 75,
     });
 
+    this.load.spritesheet('close_tower_button', './assets/towers/close_button_tower.png', {
+        frameWidth: 75,
+        frameHeight: 75,
+      });
+
     this.load.spritesheet('tower', './assets/towers/tower.png', {
       frameWidth: 120,
       frameHeight: 80,
@@ -256,6 +261,10 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.audio('tower-sell', './assets/sounds/tower_sell.wav');
     this.load.audio('tower-building', './assets/sounds/tower_building.wav');
+    this.load.audio('tower-choice', './assets/sounds/GUI_MouseOverTowerIcon.wav');
+    this.load.audio('missile-arrow', './assets/sounds/tower_arrow_attack.wav');
+    this.load.audio('missile-bomb', './assets/sounds/tower_bomb_attack.wav');
+    this.load.audio('missile-magic', './assets/sounds/tower_wizard_attack.wav');
 
     this.load.audio('achievement-unlock', './assets/sounds/achievement_unlock.wav');
   }
