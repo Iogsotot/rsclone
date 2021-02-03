@@ -167,6 +167,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('table', './assets/modal-bg/table.png');
     this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
     this.load.image('win-bg', './assets/modal-bg/win-bg.png');
+    this.load.image('hotkeys-modal', './assets/modal-bg/hotkeys-modal.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -178,6 +179,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
+    this.load.image('help-btn', './assets/interface/help.png');
     // icons    
     this.load.image('armor-icon', './assets/icons/armor.png');
     this.load.image('arrow-icon', './assets/icons/arrows.png');
@@ -185,8 +187,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('damage-icon', './assets/icons/damage.png');
     this.load.image('heart-icon', './assets/icons/heart.png');
     this.load.image('magic-icon', './assets/icons/magic.png');
-    this.load.image('speed-icon', './assets/icons/speed.png');
-    this.load.image('speed2-icon', './assets/icons/speed2.png');
+    this.load.image('shoes-icon', './assets/icons/shoes.png');
+    this.load.image('hour-glass-icon', './assets/icons/hour-glass.png');
     this.load.image('target-icon', './assets/icons/target.png');
     this.load.image('coins-icon', './assets/icons/coins.png');
     this.load.image('wave-icon', './assets/icons/skull.png');

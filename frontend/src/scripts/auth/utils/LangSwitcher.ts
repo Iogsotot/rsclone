@@ -1,4 +1,5 @@
 import createElement from './createElement';
+import switchStartPageLang from './switch.start-page.lang';
 
 export interface LangConfig {
   lang: string;
@@ -21,10 +22,10 @@ export default class LangSwitcher {
   }
 
   init() {
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
     
     if (localStorage.getItem('lang')) {
-      window['lang'] = localStorage.getItem('lang')
+      window['lang'] = localStorage.getItem('lang');
     } else {
       window['lang'] = 'en'
       localStorage.setItem('lang', window['lang'])
@@ -46,7 +47,10 @@ export default class LangSwitcher {
 
     this.switcherContainer.append(this.langCurrent)
     this.switcherContainer.append(this.dropDown)
-    body?.prepend(this.switcherContainer)
+
+    // const main = document.querySelector('main');
+    
+    body?.append(this.switcherContainer);
 
     this.dropDown.addEventListener('click', this.clickHandler)
   }
@@ -76,6 +80,8 @@ export default class LangSwitcher {
 
     window['lang'] = this.langCurrent.dataset.lang
     localStorage.setItem('lang', window['lang'])
+
+    switchStartPageLang(window['lang']);
     
     this.switcherContainer.prepend(this.langCurrent)
     this.dropDown.append(selectingLang)
