@@ -1,6 +1,7 @@
 import createSignPage from './utils/create.sign';
 import createStartPage from './utils/create.start';
-import handleAttendent from './backend/handleAttendent';
+import handleAttendent from '../attendance/backend/handleAttendent';
+
 import { KEY_TOKEN, KEY_ID } from '../constants/constants';
 
 const url = 'https://rs-clone.herokuapp.com/';
@@ -8,11 +9,8 @@ const url = 'https://rs-clone.herokuapp.com/';
 function runAuth(fn) {
   const token = localStorage.getItem(KEY_TOKEN);
   const id = localStorage.getItem(KEY_ID);
-  const year = new Date().getFullYear();
-
-  fetch(`${url}chart/${year}`)
-    .then((res) => res.json())
-    .then(handleAttendent);
+  
+  handleAttendent();
   
   if (id) {
     fetch(`${url}users/${id}`, {

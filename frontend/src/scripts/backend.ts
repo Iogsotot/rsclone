@@ -1,10 +1,14 @@
 import { startApp } from './App';
 import createStartPage from './auth/utils/create.start';
 import { KEY_TOKEN, KEY_ID } from './constants/constants';
+import langConfig from './layouts/langConfig';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
 async function signIn(user) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const hasSignInText = langConfig[`${lang}`].hasSignIn;
+
   const responseInfo = document.querySelector('.response-info') as HTMLElement;
 
   const url = `${SERVER}/login`;
@@ -29,7 +33,7 @@ async function signIn(user) {
     const { data, token, login, ok, id } = await response.json();
 
     if (ok) {
-      responseInfo.innerHTML = `${login} has sign in`;
+      responseInfo.innerHTML = `${login} ${hasSignInText}`;
 
       localStorage.setItem(KEY_ID, id);
       localStorage.setItem(KEY_TOKEN, token);
@@ -53,6 +57,7 @@ async function signIn(user) {
         });
       }
       
+      document.body.textContent = '';
       createStartPage({ id, token });
       document.querySelector('.logo-start-button')?.addEventListener('click', startApp);
     } else {
@@ -79,7 +84,6 @@ async function getCurrentPlayerStats({ id, token }) {
   }
 }
 
-// main function for update stat
 async function setCurrentPlayerStats({ id, token, body }) {
   try {
     const response = await fetch(`${SERVER}/users/${id}/stats/`, {
@@ -118,6 +122,11 @@ async function createStats({ id, token, login }) {
 }
 
 async function signUp(user) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const hasSignUpText = langConfig[`${lang}`].hasSignUp;
+  const signInText = langConfig[`${lang}`].signIn.toUpperCase();
+  const signUpText = langConfig[`${lang}`].signUp.toUpperCase();
+
   const url = `${SERVER}/logup`;
   const options = {
     method: 'POST',
@@ -142,13 +151,13 @@ async function signUp(user) {
     const { data, ok } = await response.json();
 
     if (ok) {
-      responseInfo.innerHTML = `${data.login} has sign up`;
+      responseInfo.innerHTML = `${data.login} ${hasSignUpText}`;
       form.reset();
 
       setTimeout(() => {
         signInfoIn?.classList.add('active-sign-info');
         signInfoUp?.classList.remove('active-sign-info');
-        signSubmit.value = 'SIGN IN';
+        signSubmit.value = signInText;
       }, 300);
     } else {
       responseInfo.textContent = data;
