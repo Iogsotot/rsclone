@@ -41,7 +41,16 @@
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+
+    bottom: 100%;
+    transition: all .5s ease-out;
+    position: relative;
   }
+
+  .show-top {
+    bottom: 0;
+  }
+
   .credits-data {
     * {
       margin: 0;
@@ -197,10 +206,6 @@
       flex-direction: column;
     }
   }
-}
-
-.show-top {
-  bottom: 0;
 }
 
 @media (min-height: 950px) {

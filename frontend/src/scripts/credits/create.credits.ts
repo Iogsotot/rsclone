@@ -5,7 +5,6 @@ function createCredits() {
   const popup = createElement('div', {
     classList: ['credits-wrapper'],
     innerHTML: `
-    <div class="close-credits-popup"></div>
     <div class="credits-bg">
 
     <div class="credits-content">
@@ -75,14 +74,11 @@ function createCredits() {
     </div>
     </div>
   </div>
+  <div class="close-credits-popup"></div>
     `,
     onclick: ({ target }) => {
-      if (target.classList.contains('credits-wrapper')) {
-        whileRaise(popup);
-      }
       if (target.classList.contains('close-credits-popup')) {
-        target.parentNode.remove();
-        // whileRaise(popup);
+        whileRaise(popup);
       }
     },
   });
