@@ -22,10 +22,10 @@ export default class LangSwitcher {
   }
 
   init() {
-    const body = document.querySelector('body')
+    const body = document.querySelector('body');
     
     if (localStorage.getItem('lang')) {
-      window['lang'] = localStorage.getItem('lang')
+      window['lang'] = localStorage.getItem('lang');
     } else {
       window['lang'] = 'en'
       localStorage.setItem('lang', window['lang'])
@@ -47,7 +47,10 @@ export default class LangSwitcher {
 
     this.switcherContainer.append(this.langCurrent)
     this.switcherContainer.append(this.dropDown)
-    body?.append(this.switcherContainer)
+
+    // const main = document.querySelector('main');
+    
+    body?.append(this.switcherContainer);
 
     this.dropDown.addEventListener('click', this.clickHandler)
   }
