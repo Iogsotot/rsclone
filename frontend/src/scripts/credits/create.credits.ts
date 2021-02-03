@@ -14,22 +14,22 @@ function createCredits() {
         <h2 class="credits-title">Credits</h2>
         <h3 class="credits-subtitle">Our team</h3>
         <div class="team">
-          <div class="team-people">
+          <a class="team-people" href="https://github.com/Iogsotot">
             <div class="avatar Iogsotot"></div>
-            <a class="credits-link" href="https://github.com/Iogsotot">Iogsotot</a>
-          </div>
-          <div class="team-people">
+            <div class="team-member">Iogsotot</div>
+          </a>
+          <a class="team-people" href="https://github.com/DenisAfa">
             <div class="avatar DenisAfa"></div>
-            <a class="credits-link" href="https://github.com/DenisAfa">DenisAfa</a>
-          </div>
-          <div class="team-people">
+            <div class="team-member" >DenisAfa</div>
+          </a>
+          <a class="team-people"  href="https://github.com/Abdulloh76">
             <div class="avatar Abdulloh76"></div>
-            <a class="credits-link" href="https://github.com/Abdulloh76">Abdulloh76</a>
-          </div>
-          <div class="team-people">
+            <div class="team-member">Abdulloh76</div>
+          </a>
+          <a class="team-people" href="https://github.com/mrINEX">
             <div class="avatar mrINEX"></div>
-            <a class="credits-link" href="https://github.com/mrINEX">mrINEX</a>
-          </div>
+            <div class="team-member" >mrINEX</div>
+          </a>
         </div>
         <h3 class="credits-subtitle">Gratitude</h3>
         <ul>

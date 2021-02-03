@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: default;
 
   .close-credits-popup {
     background-image: url("../assets/interface/button_close.png");
@@ -35,7 +35,7 @@
     height: 100vh;
     width: 100vw;
 
-    padding: 9vh 0 15vh;
+    padding: 12vh 0 15vh;
 
     background-image: url("../assets/credits/paper_3.png");
     background-size: contain;
@@ -62,14 +62,13 @@
       border-radius: 0.25vw;
     }
 
-    height: 76vh;
+    height: 73vh;
     width: fit-content;
     margin: auto;
     padding: 5px 10px 5px 5px;
 
     font-family: "Dimbo", sans-serif;
     font-size: 16px;
-    // color: #ffc107;
     color: #c43c1c;
     text-align: center;
 
@@ -116,7 +115,9 @@
       background-color: #e3b872;
 
       font-size: 20px;
-      
+      text-decoration: none;
+
+      transition: all 250ms linear;
       &:nth-of-type(1) {
         border-top-left-radius: 20px;
       }
@@ -129,7 +130,7 @@
       &:nth-of-type(4) {
         border-bottom-right-radius: 20px;
       }
-      
+
       .avatar {
         height: 80px;
         width: 80px;
@@ -151,10 +152,20 @@
         }
       }
 
-      .credits-link {
+      .team-member {
         color: antiquewhite;
         letter-spacing: 1px;
         margin: auto;
+        transition: all 350ms linear;
+      }
+
+      &:hover {
+        transition: all 350ms linear;
+        background-color: #f5d4a0;
+        .team-member {
+          transition: all 350ms linear;
+          color: #a1814c;
+        }
       }
     }
 
@@ -168,7 +179,6 @@
       }
       & li {
         font-size: 18px;
-        // padding: 0px 0 10px;
       }
       & li:nth-child(odd) {
         font-size: 14px;
@@ -189,92 +199,53 @@
   }
 }
 
-// .title-credits {
-
-//   background-image: url('../assets/auth/title.png');
-//   background-size: contain;
-//   background-position: center;
-//   background-repeat: no-repeat;
-// }
-
-// .credits-data {
-
-//   overflow-y: scroll;
-
-//   &::-webkit-scrollbar {
-//     width: 5px;
-//   }
-//   &::-webkit-scrollbar-track {
-//     box-shadow: inset 0 0 1px rgb(212, 232, 37);
-//   }
-//   &::-webkit-scrollbar-thumb {
-//     background: #c43c1c;
-//     border-radius: 0.25vw;
-//   }
-
-//   & .credits-title {
-//   }
-
-//   & .wrapper-credits-people {
-
-//     & .credits-people {
-
-//       & .avatar {
-//       }
-
-//       & .credits-link {
-//         color: inherit;
-
-//       }
-
-//       & .Iogsotot {
-//         background-image: url('https://avatars.githubusercontent.com/u/50149163?s=400&u=9a763fefd25839d62bec939ad7302d8a29948cb4&v=4');
-//       }
-//       & .DenisAfa {
-//         background-image: url('https://avatars.githubusercontent.com/u/64201928?s=400&u=b33f2c5f182a021649e8ac548259a05dc3ed792e&v=4');
-//       }
-//       & .Abdulloh76 {
-//         background-image: url('https://avatars.githubusercontent.com/u/59783836?s=400&v=4');
-//       }
-//       & .mrINEX {
-//         background-image: url('https://avatars.githubusercontent.com/u/35580404?s=400&u=742a3a17f24933ff191b620cf949e6f1b872e20a&v=4')
-//       }
-
-//     }
-//   }
-
-//   & .wrapper-gratitude {
-//     & .gratitude-from {
-
-//       & ul {
-//         list-style: none;
-//         text-align: center;
-
-//         font-size: 16px;
-//         font-weight: bold;
-
-//         & li {
-//           font-weight: normal;
-//         }
-
-//         & li:nth-child(odd) {
-//           font-size: 18px;
-//           padding: 15px 0 0;
-//         }
-//         & a {
-//           text-decoration: none;
-//           font-weight: 700;
-//           color: inherit;
-//         }
-
-//         & a:hover {
-//           text-decoration: underline;
-//         }
-//       }
-//     }
-//   }
-// }
-
 .show-top {
   bottom: 0;
+}
+
+@media (min-height: 950px) {
+  .credits-wrapper {
+    .credits-data {
+      .team-people {
+        font-size: 22px;
+      }
+      .credits-subtitle {
+        font-size: 26px;
+      }
+
+      ul {
+        li {
+          font-size: 20px;
+          &:nth-child(odd) {
+            font-size: 16px;
+          }
+        }
+        .gratitude-title {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-height: 1100px) {
+  .credits-wrapper {
+    .credits-data {
+      .credits-subtitle {
+        font-size: 28px;
+      }
+
+      ul {
+        li {
+          font-size: 22px;
+          &:nth-child(odd) {
+            font-size: 18px;
+          }
+        }
+        .gratitude-title {
+          font-size: 22px;
+        }
+      }
+    }
+  }
 }
