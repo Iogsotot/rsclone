@@ -384,17 +384,17 @@ export default class GameScene extends Phaser.Scene {
       }
     });
 
-    const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
-    loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
-      this.defeat();
-    });
+    // const loseBtn = new Button(this, pauseBtnCoordinates[0] * 0.9, pauseBtnCoordinates[1], 'pause-btn');
+    // loseBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    //   if (this.scene.isPaused()) return;
+    //   this.defeat();
+    // });
 
-    const winBtn = new Button(this, pauseBtnCoordinates[0] * 0.8, pauseBtnCoordinates[1], 'pause-btn');
-    winBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
-      if (this.scene.isPaused()) return;
-      this.win()
-    });
+    // const winBtn = new Button(this, pauseBtnCoordinates[0] * 0.8, pauseBtnCoordinates[1], 'pause-btn');
+    // winBtn.setInteractive().on(Phaser.Input.Events.GAMEOBJECT_POINTER_UP, () => {
+    //   if (this.scene.isPaused()) return;
+    //   this.win()
+    // });
 
     // устанавливает взаимодействие пуль и мобов
     this.towers.forEach((tower: Tower) => {
