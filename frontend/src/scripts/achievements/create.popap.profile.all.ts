@@ -15,43 +15,44 @@ function popapProfileAllCreate(arrayStats) {
         <div class="close-profile-all-popup"></div>
         <div class="progress-profile-achievements-all">
         ${arrayStats
-          .map(([key, value]) => {
-            const opacity = value ? 1 : .4;
-            let info;
-            switch (key) {
-              case 'completeWin':
-                info = achievs['completeWin'];
-                break;
-              case 'firstBlood':
-                info = achievs['firstBlood'];
-                break;
-              case 'greatDefender':
-                info = achievs['greatDefender'];
-                break;
-              case 'ironDefender':
-                info = achievs['ironDefender'];
-                break;
-              case 'killer':
-                info = achievs['killer'];
-                break;
-              case 'seller':
-                info = achievs['seller'];
-                break;
-              case 'builder':
-                info = achievs['builder'];
-                break;
-              case 'firstAsterisk':
-                info = achievs['firstAsterisk'];
-              default:
-            }
-          
-            return `
+        .map(([key, value]) => {
+          const opacity = value ? 1 : .4;
+          let info;
+          switch (key) {
+            case 'completeWin':
+              info = achievs['completeWin'];
+              break;
+            case 'firstBlood':
+              info = achievs['firstBlood'];
+              break;
+            case 'greatDefender':
+              info = achievs['greatDefender'];
+              break;
+            case 'ironDefender':
+              info = achievs['ironDefender'];
+              break;
+            case 'killer':
+              info = achievs['killer'];
+              break;
+            case 'seller':
+              info = achievs['seller'];
+              break;
+            case 'builder':
+              info = achievs['builder'];
+              break;
+            case 'firstAsterisk':
+              info = achievs['firstAsterisk'];
+              break;
+            default:
+          }
+
+          return `
               <div class="wrapper-icon-achievements-info" style="opacity: ${opacity};">
                 <div class="icon-achievements-info ${key}"></div>
                 <div class='icon-achievements-info-descriptions'>${info}</div>
               </div>
               `;
-          }).join(' ')}
+        }).join(' ')}
         </div>
       </div>
     `,

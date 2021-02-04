@@ -34,9 +34,9 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '80px',
-      color: '#dbc899'
-    }
-    this.title = scene.add.text(0, 0, titleTexture, styles)
+      color: '#dbc899',
+    };
+    this.title = scene.add.text(0, 0, titleTexture, styles);
     this.add(this.title);
 
     this.initCheckbox(scene);
@@ -47,7 +47,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   initCheckbox(scene: Phaser.Scene) {
-    this.checkbox = scene.add.image(this.title.width*1.2, this.title.height, 'on').setOrigin(0,1);
+    this.checkbox = scene.add.image(this.title.width * 1.2, this.title.height, 'on').setOrigin(0,1);
     this.add(this.checkbox);
     this.checkbox
       .setInteractive({ useHandCursor: true })
@@ -57,37 +57,37 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   handleCheckboxClick() {
     if (this.checkbox.texture.key === 'on') {
       this.checkbox.setTexture('off');
-      this.drawProgressBar(-10)
+      this.drawProgressBar(-10);
     } else {
       this.checkbox.setTexture('on');
-      this.drawProgressBar(1)
+      this.drawProgressBar(1);
     }
   }
 
   initProgressBar(scene: Phaser.Scene) {
-    this.decrease = new Button(scene, 0, this.title.height*1.5, 'minus')
-    this.decrease.setX(this.decrease.width/2)
-    
-    this.barContainer = scene.add.image(0, this.title.height*1.5, 'slider-bar-bg')
+    this.decrease = new Button(scene, 0, this.title.height * 1.5, 'minus');
+    this.decrease.setX(this.decrease.width / 2);
 
-    this.barContainer.setX(this.barContainer.width / 2 + this.decrease.x*2);
+    this.barContainer = scene.add.image(0, this.title.height * 1.5, 'slider-bar-bg');
+
+    this.barContainer.setX(this.barContainer.width / 2 + this.decrease.x * 2);
 
     this.progressBar = scene.add.graphics();
     this.initBarConfigs();
 
-    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`]
-    const audioKeys = Object.keys(audios)
-    const  volume = audios[`${audioKeys[0]}`].volume
-    for(let i=0; i<audioKeys.length; i++) {
-      audios[`${audioKeys[i]}`].setVolume(volume)
+    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`];
+    const audioKeys = Object.keys(audios);
+    const  volume = audios[`${audioKeys[0]}`].volume;
+    for(let i = 0; i < audioKeys.length; i++) {
+      audios[`${audioKeys[i]}`].setVolume(volume);
     }
     this.drawProgressBar(volume * 10);
 
     this.increase = new Button(
       scene,
-      this.barContainer.width + this.decrease.width*1.5,
-      this.title.height*1.5,
-      'plus'
+      this.barContainer.width + this.decrease.width * 1.5,
+      this.title.height * 1.5,
+      'plus',
     );
 
     this.add(this.decrease);
@@ -132,11 +132,11 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       this.barConfigs.barSizes[0] = this.barConfigs.maxValue;
     }
 
-    if (this.barConfigs.barSizes[0] > 20) this.checkbox.setTexture('on')
-    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`]
-    const audioKeys = Object.keys(audios)
-    for(let i=0; i<audioKeys.length; i++) {
-      audios[`${audioKeys[i]}`].setVolume(this.barConfigs.barSizes[0]/this.barConfigs.maxValue)
+    if (this.barConfigs.barSizes[0] > 20) this.checkbox.setTexture('on');
+    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`];
+    const audioKeys = Object.keys(audios);
+    for (let i = 0; i < audioKeys.length; i++) {
+      audios[`${audioKeys[i]}`].setVolume(this.barConfigs.barSizes[0] / this.barConfigs.maxValue);
     }
 
     this.progressBar.clear();
@@ -148,7 +148,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       this.barConfigs.containerCoordinates[1],
       this.barConfigs.barSizes[0],
       this.barConfigs.barSizes[1],
-      this.barConfigs.borderRadius
+      this.barConfigs.borderRadius,
     );
     // shadow
     color = this.barConfigs.barSizes[0] > this.barConfigs.maxValue * 0.8 ? 0xc63f31 : 0xde9b26;
@@ -163,7 +163,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
         tr: 0,
         bl: this.barConfigs.borderRadius,
         br: this.barConfigs.borderRadius,
-      }
+      },
     );
 
     // yellow

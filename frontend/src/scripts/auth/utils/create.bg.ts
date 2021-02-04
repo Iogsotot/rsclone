@@ -1,10 +1,10 @@
 import createElement from './createElement';
 
 function createBgGame() {
-  document.querySelector('main')?.remove()
-  document.querySelector('footer')?.remove()
+  document.querySelector('main')?.remove();
+  document.querySelector('footer')?.remove();
 
-  if(document.querySelector('.blur-bg')) return
+  if (document.querySelector('.blur-bg')) { return; }
 
   const blurBg = createElement(
     'div',
@@ -14,7 +14,7 @@ function createBgGame() {
     {
       height: `${window.innerHeight}`,
       width: `${window.innerWidth}`,
-    }
+    },
   );
 
   // document.body.textContent = '';

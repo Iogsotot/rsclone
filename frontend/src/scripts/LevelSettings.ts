@@ -1,9 +1,11 @@
-import { levelsConfig } from "./constants/constants"
+import { levelsConfig } from './constants/constants';
 
 export default class LevelSettings {
   level: number;
+
   // мб переделать на enum ?
   gameDifficulty: number;
+
   config: object;
 
   constructor(level: number, gameDifficulty: number) {

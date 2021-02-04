@@ -11,21 +11,21 @@ export default class CustomModal extends Modal {
   constructor(scene: Phaser.Scene, bgTexture: string, title: string) {
     super(scene, bgTexture, title);
 
-    this.addRopes(scene)
+    this.addRopes(scene);
     this.initializeCloseBtn(scene);
-    
+
     this.add(this.ropeLeft);
     this.add(this.ropeRight);
   }
 
   initializeCloseBtn(scene: Phaser.Scene) {
-    this.closeModalBtn = new Button(scene, 0, 0, 'modal-close-btn')
+    this.closeModalBtn = new Button(scene, 0, 0, 'modal-close-btn');
     const closeBtnCoordinates = [
       this.bgImage.width / 2 - this.closeModalBtn.btnImage.width / 4,
       -this.bgImage.height / 2 + this.closeModalBtn.btnImage.height / 4,
-    ]
-    this.closeModalBtn.setPosition(closeBtnCoordinates[0], closeBtnCoordinates[1])
-    this.add(this.closeModalBtn)
+    ];
+    this.closeModalBtn.setPosition(closeBtnCoordinates[0], closeBtnCoordinates[1]);
+    this.add(this.closeModalBtn);
   }
 
   addRopes(scene: Phaser.Scene) {
@@ -52,7 +52,7 @@ export default class CustomModal extends Modal {
       duration: 500,
     });
   }
-  
+
   slideOut() {
     this.scene.tweens.add({
       targets: this,

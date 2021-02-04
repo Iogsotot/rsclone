@@ -30,14 +30,14 @@ export default class PreloadScene extends Phaser.Scene {
     // towers
 
     this.load.spritesheet('circle', './assets/towers/circle.png', {
-        frameWidth: 200,
-        frameHeight: 200
-      });
+      frameWidth: 200,
+      frameHeight: 200,
+    });
 
     this.load.spritesheet('sale', './assets/towers/sale.png', {
-        frameWidth: 55,
-        frameHeight: 55
-      });
+      frameWidth: 55,
+      frameHeight: 55,
+    });
 
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 75,
@@ -55,9 +55,9 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.spritesheet('close_tower_button', './assets/towers/close_button_tower.png', {
-        frameWidth: 75,
-        frameHeight: 75,
-      });
+      frameWidth: 75,
+      frameHeight: 75,
+    });
 
     this.load.spritesheet('tower', './assets/towers/tower.png', {
       frameWidth: 120,
@@ -243,7 +243,7 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 256,
     });
 
-    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
 
     //sounds
     this.load.audio('main-theme', './assets/sounds/themes/Main_Theme.mp3');
@@ -295,7 +295,7 @@ export default class PreloadScene extends Phaser.Scene {
       this.cameras.main.centerX,
       containerCoordinates[1] - containerSizes[1],
       `${loading} 0%`,
-      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
+      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' },
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
 
@@ -306,7 +306,7 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.containerCoordinates[1],
       barConfig.containerSizes[0],
       barConfig.containerSizes[1],
-      barConfig.containerBorderRadius
+      barConfig.containerBorderRadius,
     )
 
     this.barContainer.lineStyle(10, 0x593517)
@@ -315,7 +315,7 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.containerCoordinates[1],
       barConfig.containerSizes[0],
       barConfig.containerSizes[1],
-      barConfig.containerBorderRadius
+      barConfig.containerBorderRadius,
     )
 
     this.load.on('filecomplete-image-kingdom-rush-bg', () => {
@@ -358,7 +358,7 @@ export default class PreloadScene extends Phaser.Scene {
         tr: 0,
         bl: barConfig.barBorderRadius,
         br: barConfig.barBorderRadius,
-      }
+      },
     )
     const loading = langConfig[`${window['lang']}`].loading
     this.loaderText.setText(`${loading} ${(coefficient * 100).toFixed()}%`)

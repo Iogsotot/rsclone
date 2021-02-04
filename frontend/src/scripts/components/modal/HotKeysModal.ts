@@ -7,14 +7,14 @@ export default class HotKeysModal extends CustomModal {
   constructor(scene: Phaser.Scene) {
     super(scene, 'hotkeys-modal', `${langConfig[`${window['lang']}`].hotkeysTitle}`);
 
-    this.slideOut()
-    this.closeModalBtn.setInteractive().on('pointerup', () => this.slideOut())
+    this.slideOut();
+    this.closeModalBtn.setInteractive().on('pointerup', () => this.slideOut());
 
     this.generateTexts();
   }
 
   generateTexts() {
-    this.lang = window['lang']
+    this.lang = window['lang'];
     const keysConfigs = langConfig[`${window['lang']}`].hotkeys;
 
     const xStart = this.bgImage.x / 2 - this.bgImage.width / 2 + 85;

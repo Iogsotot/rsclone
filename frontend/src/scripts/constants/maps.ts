@@ -51,11 +51,11 @@ const map2: MapType = {
   level: 2,
   url: '../assets/imgs/forest_scene1.jpg',
   scalePointsWay: [
-    [{x: -102.4, y: 4.48}, {x: -102.4, y: 2.12}],
-    [{ x: 5.12, y: 4.84 }, { x: 10.24, y: 2.12 }], 
-    [{ x: 2.92, y: 6.05 }, { x: 5.12, y: 2.33 }], 
-    [{ x: 2.04, y: 5.26 }, { x: 3.41, y: 2.57 }], 
-    [{ x: 1.74, y: 4.03 }, { x: 2.56, y: 2.69 }], 
+    [{ x: -102.4, y: 4.48 }, { x: -102.4, y: 2.12 }],
+    [{ x: 5.12, y: 4.84 }, { x: 10.24, y: 2.12 }],
+    [{ x: 2.92, y: 6.05 }, { x: 5.12, y: 2.33 }],
+    [{ x: 2.04, y: 5.26 }, { x: 3.41, y: 2.57 }],
+    [{ x: 1.74, y: 4.03 }, { x: 2.56, y: 2.69 }],
     [{ x: 1.64, y: 2.57 }, { x: 2.09, y: 2.37 }],
     { x: 2.15, y: 1.83 },
     { x: 2.73, y: 1.59 },
@@ -70,7 +70,7 @@ const map2: MapType = {
     { x: 0.95, y: 1.59 },
   ],
   scaleStartPointX: -250,
-  scaleStartPointY: 3.2, 
+  scaleStartPointY: 3.2,
   scaleFinishPointX: 1,
   scaleFinishPointY: 1.57,
   scaleCoordinateTowers: [
@@ -85,7 +85,7 @@ const map2: MapType = {
     { x: 2.27, y: 3.36 },
     { x: 2.8, y: 3.46 },
     { x: 1.7, y: 6.37 },
-    ],
+  ],
 };
 
 const map3: MapType = {
@@ -93,8 +93,8 @@ const map3: MapType = {
   url: '../assets/imgs/desert_scene3.jpg',
   scalePointsWay: [
     { x: 10.24, y: 1.75 },
-    [{ x: 7.87, y: 1.86 }, { x: 5.69, y: 1.51 }],  
-    [{ x: 6.83, y: 2.2 }, { x: 4.87, y: 1.42 }], 
+    [{ x: 7.87, y: 1.86 }, { x: 5.69, y: 1.51 }],
+    [{ x: 6.83, y: 2.2 }, { x: 4.87, y: 1.42 }],
     [{ x: 4.87, y: 2.69 }, { x: 4.1, y: 1.37 }],
     [{ x: 3.94, y: 3.61 }, { x: 3.47, y: 1.36 }],
     [{ x: 3.25, y: 4.24 }, { x: 3.1, y: 1.37 }],
