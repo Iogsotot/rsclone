@@ -1,72 +1,74 @@
 # Kingdom Rush clone
+Для проверки приложения можно воспользоваться нашим готовым деплоем - [netlify](https://kingdom-rush-rsclone.netlify.app/), либо развернуть весь бэк и фронт локально по инструкции ниже.
+# RS School REST service
 
-## Задание
-https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md
+## Prerequisites
 
-## Команда
-[<img alt="Iogsotot" src="https://avatars.githubusercontent.com/u/50149163?v=4&s=117 width=117">](https://github.com/Iogsotot) |[<img alt="mrINEX" src="https://avatars.githubusercontent.com/u/35580404?v=4&s=117 width=117">](https://github.com/mrINEX) |[<img alt="Abdulloh76" src="https://avatars.githubusercontent.com/u/59783836?v=4&s=117 width=117">](https://github.com/Abdulloh76) |[<img alt="DenisAfa" src="https://avatars.githubusercontent.com/u/64201928?v=4&s=117 width=117">](https://github.com/DenisAfa) |
-:---:|:---:|:---:|:---:|
-[Iogsotot](https://github.com/Iogsotot)|[mrINEX](https://github.com/mrINEX)|[Abdulloh76](https://github.com/Abdulloh76)|[DenisAfa](https://github.com/DenisAfa)|
+- Git - [Download & Install Git](https://git-scm.com/downloads).
+- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-## Описание
-В качестве финального задания мы выбрали сделать подобие игры Kingdom Rush - это tower defence. Главной игровой механикой стала защита определённого места на карте - “ворот” от прохождения через них врагов, для защиты игрок может строить башни на заранее отведенных участках карты. Подробнее о самой игре и ходе разработке можно почитат в статье - (ссылка на медиум) или посмотреть ниже в списке "Реализованные особенности"
+## Downloading
 
-## Реализованные особенности
+```
+git clone {repository URL}
+```
 
-### UI:
-- [x] Есть возможность управление приложением/игрой с клавиатуры или наличие более пяти hot keys (20 баллов) 
-`скрин таблички hotkeys, видео с работой(?)`
-- [x] Есть возможность переключения 2 и более языков (10 баллов за каждый дополнительный язык, но не более 20 баллов) 
-`скрин нашего свитчера, видео с его работой`
-- [x] Есть хотя бы один модальный диалог (10 баллов) 
-`скриншоты наших модалок, видео/гифка работы модалок` 
-- [x] Возможность кастомизации приложения, настроек пользователя (20 баллов)  
-`громкость звука и музыки, сложность игры - скрин сеттингов, скрин модалки с выбором сложности, видео работы`
-- [x] Реализовано 3+ анимации, для создания которых используются ключевые кадры или svg-анимация (20 баллов)
-`гифки с врагами, модалками, микро видео и работой всего этого`
-- [x] Приложение выполнено в едином стиле, для стилизации используется Bootstrap/Material UI/Ant design/etc (20 баллов) 
-`скрин интерфейса, скрин папки с AI, скрин макета`
+## Installing NPM modules
 
-### Работа игры:
-- [x] Действие игры происходит на разных уровнях, картах, локациях, используются анимированные переходы между уровнями, анимации победы, поражения (30 баллов) 
-`скрин карт, видео загрузки уровня и выхода с него`
-- [x] Расширенные настройки звука/видео/графики. Уровни громкости, язык озвучивания, вкл/выкл отображение теней, частиц (20 баллов)
-`скрин сеттингов звука, видео (есть выше)`
-- [x] Есть статистика, которая отображает прогресс игры, нанесенный урон, потраченное на игру время, процент выполнения задания или уровня etc (20 баллов) 
-`скрин графика, интерфейска, ачивок, мини видео-демонстация всей это фигни`
-- [x] Написание логики для компьютерного противника (40 баллов) 
-`волны, пути, разные статы, разные особенности врагов - скрин стат врага(в игре), мини видео, где я показываю код и поясняю немного про волны, про врагов и тд (кратко)`
+```
+npm install
+```
 
-## Технический стек:
-- [x] Использован Canvas/WebGL/etc (20 баллов)
-`скрин из девтулов, где видно canvas и из консоли - где видно Phaser с WebGL`
-- [x] Использован webpack (10 баллов)
-`скрин вебпак конфига, опционально - видео билда из cmder`
-- [x] Сохранение и загрузка чего-либо с использованием Local storage (10 баллов) 
-`скрин LS, видео с обновлением LS`
-- [x] Приложение/игра написанны на TypeScript (40 баллов) 
-`скрин файлов TS (выделить их), мб скрин вкусного куска с интерфейсами`
+## Running application
 
-## Работа с кодом:
-- [x] Использован eslint, eslint-config-airbnb-base (10 баллов)  
-`скрин конфигов eslint`
-- [x] Понятный, читаемый код. Имена переменных и функций отражают то что в них содержится/то что они делают. Функция выполняет одно действие. Повторение логики сведено к минимуму. (20 баллов) 
-`да, мы старались и перепроверяли друг за другом - скрин рефач-комитов, скрин дискуссий`
-## Back-end:
-`скрин папочки backend`
-- [x] Использован RESTful API (30 баллов)
-`скрин из девтулов`
-- [x] Подключение и работа с БД (30 баллов)
-`скрин БД и ещё что-нибудь`
-- [x] Аутентификация (20 баллов)
-`скрин входа и какая-нибудь внутрянка кода, где видно, что мы используем аутентификацию`
-- [x] Приложение отображает какую-либо статистику/графики/таблицы, данные для которых получает от бекенда (20 баллов)
-`скрин всех наших табличек и тд + скрин бэкенда, где видно, что эти данные приходят с бэка`
-- [x] Реализован nodejs и express, отдаёт корректные ответы, отдаёт HTTP ошибки с нормальными body, по которым можно понять, что произошло, пишет читаемые логи (40 балов)
-`какой-то скрин или несколько`
+```
+npm start
+```
 
-## Пункты из таблички, которые нам тоже подходят:
-- [x] Использован RESTful API (30 баллов)
-`скрин из девтулов`
-- [x] Подключение и работа с БД (30 баллов)
-## Итого: 470 баллов (по изначальному ТЗ) + 100500 баллов (за пункты из таблички)
+After starting the app on port (4000 as default) you can open
+in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
+For more information about OpenAPI/Swagger please visit https://swagger.io/.
+
+## Testing
+
+After application running open new terminal and enter:
+
+To run all tests without authorization
+
+```
+npm test
+```
+
+To run only one of all test suites (users, boards or tasks)
+
+```
+npm test <suite name>
+```
+
+To run all test with authorization
+
+```
+npm run test:auth
+```
+
+To run only specific test suite with authorization (users, boards or tasks)
+
+```
+npm run test:auth <suite name>
+```
+
+## Development
+
+If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
+
+### Auto-fix and format
+
+```
+npm run lint
+```
+
+### Debugging in VSCode
+
+Press <kbd>F5</kbd> to debug.
+
+For more information, visit: https://code.visualstudio.com/docs/editor/debugging
