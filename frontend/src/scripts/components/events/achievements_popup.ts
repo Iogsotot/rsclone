@@ -21,7 +21,7 @@ export default class Popup extends Phaser.GameObjects.Container {
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '60px',
-      color: '#d2a2521',
+      color: '#d2a252',
     };
     switch (type) {
       case 'builder':
@@ -57,7 +57,7 @@ export default class Popup extends Phaser.GameObjects.Container {
         iconTexture = 'icon-seller';
         break;
       default:
-        text = 'Лучший наш защитник!';
+        text = 'Great defender';
         iconTexture = 'icon-first_asterisk';
     }
     const icon = this.scene.add.sprite(this.x, -this.popupHeight, iconTexture).setOrigin(0.5, 0.8).setScale(0.7);
@@ -68,13 +68,11 @@ export default class Popup extends Phaser.GameObjects.Container {
   startAnimation() {
     this.scene.sound.play('achievement-unlock');
     this.slideIn();
-    // звук появления анимации
 
     setTimeout(() => {
       this.slideOut();
     }, 3000);
   }
-
 
   slideIn() {
     this.scene.tweens.add({

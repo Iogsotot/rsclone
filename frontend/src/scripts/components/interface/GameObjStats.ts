@@ -4,16 +4,27 @@ import langConfig from '../../layouts/langConfig';
 
 export default class GameObjStats extends Phaser.GameObjects.Container {
   gameObject: Tower | Unit;
+
   objNameContainer: Phaser.GameObjects.Graphics;
+
   objInfoContainer: Phaser.GameObjects.Graphics;
+
   modalConfigs: any;
+
   objImg: Phaser.GameObjects.Image;
+
   nameText: Phaser.GameObjects.Text;
+
   infoText_1: Phaser.GameObjects.Text;
+
   infoText_2: Phaser.GameObjects.Text;
+
   infoText_3: Phaser.GameObjects.Text;
+
   infoImg_1: Phaser.GameObjects.Image;
+
   infoImg_2: Phaser.GameObjects.Image;
+
   infoImg_3: Phaser.GameObjects.Image;
 
   constructor(scene: Phaser.Scene) {
@@ -25,17 +36,17 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     this.setSize(+scene.sys.game.config.width / 2, 60);
     this.setPosition(
       scene.cameras.main.centerX - this.width / 2,
-      +scene.sys.game.config.height - this.height * 0.7
+      +scene.sys.game.config.height - this.height * 0.7,
     );
 
     this.drawContainers();
     this.generate();
-    this.depth = 1000
+    this.depth = 1000;
   }
 
   drawContainers() {
     this.objNameContainer.setPosition(0, -this.height * 0.7);
-    const nameContainerWidth = this.width * 0.35;
+    const nameContainerWidth = this.width * 0.38;
     const borderColor = 0x593517;
     const bgColor = 0x42250f;
     this.objNameContainer.fillStyle(bgColor);
@@ -54,8 +65,8 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     circles.fillCircle(0, 0, this.height * 0.62);
     circles.setAlpha(0.9);
 
-    const infoContainerWidth = this.width * 0.68;
-    this.objInfoContainer.setPosition(this.width * 0.38, -this.height * 0.7);
+    const infoContainerWidth = this.width * 0.58;
+    this.objInfoContainer.setPosition(this.width * 0.4, -this.height * 0.7);
 
     this.objInfoContainer.fillStyle(bgColor);
     this.objInfoContainer.fillRoundedRect(0, 0, infoContainerWidth, this.height, 10);
@@ -76,10 +87,14 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
   }
 
   generate() {
-    const fontStyles = { fontFamily: 'Dimbo', fontSize: '40px' };
+    const fontStyles = {
+      fontFamily: 'Dimbo',
+      fontSize: '40px',
+      align: 'center',
+    };
 
     this.objImg = this.scene.add.image(0, 0, '').setOrigin(0.5);
-    this.nameText = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0.5);
+    this.nameText = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0.44, 0.5);
 
     this.infoImg_1 = this.scene.add.image(0, 0, '').setOrigin(0.5, 0.5);
     this.infoText_1 = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0, 0.5);
@@ -88,7 +103,7 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     this.infoText_2 = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0, 0.5);
 
     this.infoImg_3 = this.scene.add.image(0, 0, '').setOrigin(0, 0.5);
-    this.infoText_3 = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0.5);
+    this.infoText_3 = this.scene.add.text(0, 0, '', fontStyles).setOrigin(0, 0.5);
 
     this.add(this.objImg);
     this.add(this.nameText);
@@ -110,42 +125,39 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
         name: textConfig.enemy[obj.unitType].toUpperCase(),
         img1: 'heart-icon',
         text1: `${obj.hp}/${obj.maxHp}`,
-        img2: 'speed-icon',
+        img2: 'shoes-icon',
         text2:
-          obj.moveSpeed < 2000
-            ? textConfig.veryFast
-            : obj.moveSpeed < 3500
+          obj.moveSpeed < 30000
             ? textConfig.fast
-            : obj.moveSpeed < 6000
-            ? textConfig.slow
-            : textConfig.verySlow,
+            : obj.moveSpeed < 45000
+              ? textConfig.medium
+              : textConfig.slow,
         img3: 'coins-icon',
         text3: `${obj.killReward}`,
       };
     } else if (obj instanceof Tower) {
       if (!obj.isTowerBuilt || !obj.type) return null;
-      obj.canSale(this.slideOut, this)
-      const missile =
-        obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
+      obj.canSale(this.slideOut, this);
+      const missile =        obj.getType() === 'archers' ? 'arrow' : obj.getType() === 'artillery' ? 'bomb' : 'magic';
       return {
         avaTexture: `${missile}-icon`,
         name: `${textConfig.tower[obj.getType()]}`,
         img1: 'damage-icon',
         text1: `${obj.damage}`,
-        img2: 'speed-icon',
+        img2: 'hour-glass-icon',
         text2:
           obj.timeForNextShot > 2400
             ? textConfig.slow
             : obj.timeForNextShot > 1400
-            ? textConfig.medium
-            : textConfig.fast,
+              ? textConfig.medium
+              : textConfig.fast,
         img3: 'target-icon',
         text3:
           obj.attackArea < 350
             ? textConfig.small
             : obj.attackArea < 400
-            ? textConfig.medium
-            : textConfig.long,
+              ? textConfig.medium
+              : textConfig.long,
       };
     }
   }
@@ -167,23 +179,21 @@ export default class GameObjStats extends Phaser.GameObjects.Container {
     this.infoImg_1.setTexture(infoConfig.img1);
     this.infoText_1.setText(infoConfig.text1);
     this.infoImg_1.setPosition(this.objInfoContainer.x + this.infoImg_1.width / 2, textsY);
-    this.infoText_1.setPosition(this.infoImg_1.x + this.infoImg_1.width / 2, textsY);
+    this.infoText_1.setPosition(this.infoImg_1.x + this.infoImg_1.width/2, textsY);
 
     this.infoImg_2.setTexture(infoConfig.img2);
     this.infoText_2.setText(infoConfig.text2);
-    const info2_xStart =
-      this.objInfoContainer.x +
-      this.modalConfigs.infoContainerWidth / 2 -
-      this.infoText_2.width / 2;
-    this.infoImg_2.setPosition(info2_xStart - this.infoImg_2.width / 2, textsY);
-    this.infoText_2.setPosition(info2_xStart + this.infoImg_2.width / 2, textsY);
+    const info2_xStart =      this.objInfoContainer.x
+      + this.modalConfigs.infoContainerWidth / 2
+      - this.infoText_2.width/2;
+    this.infoImg_2.setPosition(info2_xStart - this.infoImg_2.width, textsY);
+    this.infoText_2.setPosition(info2_xStart, textsY);
 
     this.infoImg_3.setTexture(infoConfig.img3);
     this.infoText_3.setText(infoConfig.text3);
-    const info3_xStart =
-      this.objInfoContainer.x + this.modalConfigs.infoContainerWidth - this.infoText_3.width;
-    this.infoImg_3.setPosition(info3_xStart - this.infoImg_3.width * 1.5 - 10, textsY);
-    this.infoText_3.setPosition(info3_xStart + this.infoImg_3.width / 4 - 10, textsY);
+    const info3_xStart =      this.objInfoContainer.x + this.modalConfigs.infoContainerWidth - this.infoText_3.width-10;
+    this.infoImg_3.setPosition(info3_xStart - this.infoImg_3.width, textsY);
+    this.infoText_3.setPosition(info3_xStart, textsY);
   }
 
   slideIn() {

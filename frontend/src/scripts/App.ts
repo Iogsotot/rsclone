@@ -16,9 +16,18 @@ export async function startApp() {
   } catch {
     console.log('Something gone wrong with getting stats from backend');
   }
-  new Phaser.Game(config);
+  
+  if(!startApp.game) {
+    startApp.game = new Phaser.Game(config)
+  } else {
+    (document.querySelector('body') as HTMLBodyElement).style.height = '100%';
+    (document.querySelector('canvas') as HTMLElement).style.display = '';
+    startApp.game.loop.wake()
+    startApp.game.scene.wake('LevelsScene')
+  }
 }
-
+startApp.game = null;
 window.addEventListener('load', () => {
   runAuth(startApp);
+  document.querySelector('.fontPreload')?.remove()
 });

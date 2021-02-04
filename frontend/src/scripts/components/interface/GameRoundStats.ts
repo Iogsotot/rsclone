@@ -14,9 +14,4 @@ export default class GameObjStats extends Phaser.Scene {
       weight: 'bold',
     });
   }
-
-  updateText() {
-    console.log(this.state);
-    // this.text.setText(`Lives ${state.lives} gold ${state.gold}`);
-  }
 }

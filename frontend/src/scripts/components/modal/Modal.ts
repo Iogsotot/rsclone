@@ -13,16 +13,16 @@ export default class Modal extends Phaser.GameObjects.Container {
 
     this.bgImage = scene.add.image(0,0, bgTexture);
 
-    this.header = scene.add.container()
-    this.headerBg = scene.add.image(0, 0, 'header-bg').setOrigin(0.5)
+    this.header = scene.add.container();
+    this.headerBg = scene.add.image(0, 0, 'header-bg').setOrigin(0.5);
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '60px',
-    }
-    this.headerText = scene.add.text(0, 0, title, styles).setOrigin(0.5, 0.65)
-    this.headerText.setShadow(3, 3, '#000')
-    this.headerText.setTint(0xFAE90F, 0xFAE90F, 0xF7BB1F, 0xF7BB1F)
-    
+    };
+    this.headerText = scene.add.text(0, 0, title, styles).setOrigin(0.5, 0.65);
+    this.headerText.setShadow(3, 3, '#000');
+    this.headerText.setTint(0xFAE90F, 0xFAE90F, 0xF7BB1F, 0xF7BB1F);
+
     this.init();
   }
 
@@ -32,8 +32,8 @@ export default class Modal extends Phaser.GameObjects.Container {
       -this.bgImage.height / 2 + (2 * this.headerBg.height) / 5,
     ];
     this.header.setPosition(headerCoordinates[0], headerCoordinates[1]);
-    this.header.add(this.headerBg)
-    this.header.add(this.headerText)
+    this.header.add(this.headerBg);
+    this.header.add(this.headerText);
 
     this.add(this.bgImage);
     this.add(this.header);

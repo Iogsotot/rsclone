@@ -30,14 +30,14 @@ export default class PreloadScene extends Phaser.Scene {
     // towers
 
     this.load.spritesheet('circle', './assets/towers/circle.png', {
-        frameWidth: 200,
-        frameHeight: 200
-      });
+      frameWidth: 200,
+      frameHeight: 200,
+    });
 
     this.load.spritesheet('sale', './assets/towers/sale.png', {
-        frameWidth: 55,
-        frameHeight: 55
-      });
+      frameWidth: 55,
+      frameHeight: 55,
+    });
 
     this.load.spritesheet('arrow', './assets/towers/arrow.png', {
       frameWidth: 75,
@@ -50,6 +50,11 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     this.load.spritesheet('magic', './assets/towers/magic.png', {
+      frameWidth: 75,
+      frameHeight: 75,
+    });
+
+    this.load.spritesheet('close_tower_button', './assets/towers/close_button_tower.png', {
       frameWidth: 75,
       frameHeight: 75,
     });
@@ -167,6 +172,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('table', './assets/modal-bg/table.png');
     this.load.image('fail-bg', './assets/modal-bg/fail-bg.png');
     this.load.image('win-bg', './assets/modal-bg/win-bg.png');
+    this.load.image('hotkeys-modal', './assets/modal-bg/hotkeys-modal.png');
     // ropes
     this.load.image('rope-small', './assets/interface/rope_small.png');
     this.load.image('rope-big', './assets/interface/rope_big.png');
@@ -178,6 +184,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('button-right', './assets/interface/button_right.png');
     this.load.image('button-left', './assets/interface/button_left.png');
     this.load.image('pause-btn', './assets/interface/button_pause.png');
+    this.load.image('help-btn', './assets/interface/help.png');
     // icons    
     this.load.image('armor-icon', './assets/icons/armor.png');
     this.load.image('arrow-icon', './assets/icons/arrows.png');
@@ -185,18 +192,18 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('damage-icon', './assets/icons/damage.png');
     this.load.image('heart-icon', './assets/icons/heart.png');
     this.load.image('magic-icon', './assets/icons/magic.png');
-    this.load.image('speed-icon', './assets/icons/speed.png');
-    this.load.image('speed2-icon', './assets/icons/speed2.png');
+    this.load.image('shoes-icon', './assets/icons/shoes.png');
+    this.load.image('hour-glass-icon', './assets/icons/hour-glass.png');
     this.load.image('target-icon', './assets/icons/target.png');
     this.load.image('coins-icon', './assets/icons/coins.png');
     this.load.image('wave-icon', './assets/icons/skull.png');
     this.load.image('easy-btn-bg', './assets/interface/easy-btn-bg.png');
     this.load.image('normal-btn-bg', './assets/interface/normal-btn-bg.png');
     this.load.image('hard-btn-bg', './assets/interface/hard-btn-bg.png');
-    this.load.image('plus', './assets/interface/plus.png');
-    this.load.image('minus', './assets/interface/minus.png');
-    this.load.image('on', './assets/interface/on.png');
-    this.load.image('off', './assets/interface/off.png');
+    this.load.image('plus', './assets/interface/button_plus.png');
+    this.load.image('minus', './assets/interface/button_minus.png');
+    this.load.image('on', './assets/sign/onNoText.png');
+    this.load.image('off', './assets/sign/offNoText.png');
 
     //ahievements icons
     this.load.spritesheet('icon-builder', './assets/achievements/builder.png', {
@@ -236,7 +243,7 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 256,
     });
 
-    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png',);
+    this.load.image('slider-bar-bg', './assets/interface/slider-bar-bg.png');
 
     //sounds
     this.load.audio('main-theme', './assets/sounds/themes/Main_Theme.mp3');
@@ -254,6 +261,10 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.audio('tower-sell', './assets/sounds/tower_sell.wav');
     this.load.audio('tower-building', './assets/sounds/tower_building.wav');
+    this.load.audio('tower-choice', './assets/sounds/GUI_MouseOverTowerIcon.wav');
+    this.load.audio('missile-arrow', './assets/sounds/tower_arrow_attack.wav');
+    this.load.audio('missile-bomb', './assets/sounds/tower_bomb_attack.wav');
+    this.load.audio('missile-magic', './assets/sounds/tower_wizard_attack.wav');
 
     this.load.audio('achievement-unlock', './assets/sounds/achievement_unlock.wav');
   }
@@ -284,7 +295,7 @@ export default class PreloadScene extends Phaser.Scene {
       this.cameras.main.centerX,
       containerCoordinates[1] - containerSizes[1],
       `${loading} 0%`,
-      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' }
+      { fontFamily: 'Dimbo', fontSize: '100px', color: '#42250F' },
     ).setOrigin(0.5)
     this.add.existing(this.loaderText)
 
@@ -295,7 +306,7 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.containerCoordinates[1],
       barConfig.containerSizes[0],
       barConfig.containerSizes[1],
-      barConfig.containerBorderRadius
+      barConfig.containerBorderRadius,
     )
 
     this.barContainer.lineStyle(10, 0x593517)
@@ -304,7 +315,7 @@ export default class PreloadScene extends Phaser.Scene {
       barConfig.containerCoordinates[1],
       barConfig.containerSizes[0],
       barConfig.containerSizes[1],
-      barConfig.containerBorderRadius
+      barConfig.containerBorderRadius,
     )
 
     this.load.on('filecomplete-image-kingdom-rush-bg', () => {
@@ -347,7 +358,7 @@ export default class PreloadScene extends Phaser.Scene {
         tr: 0,
         bl: barConfig.barBorderRadius,
         br: barConfig.barBorderRadius,
-      }
+      },
     )
     const loading = langConfig[`${window['lang']}`].loading
     this.loaderText.setText(`${loading} ${(coefficient * 100).toFixed()}%`)

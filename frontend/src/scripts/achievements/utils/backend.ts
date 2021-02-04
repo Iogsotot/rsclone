@@ -25,8 +25,6 @@ async function sendDataToBackend() {
   };
 
   const update = await setCurrentPlayerStats(objectWillSend);
-  console.log('object will send [send   >]:', objectWillSend);
-  console.log('object will send [result <]:', update);
   return update;
 }
 

@@ -1,5 +1,6 @@
 import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
+import langConfig from '../layouts/langConfig';
 
 function popapRatingCreate(stats, players) {
   const forSort = stats.map((node) => {
@@ -47,23 +48,29 @@ function popapRatingCreate(stats, players) {
     `
   });
 
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const overallRatingText = langConfig[`${lang}`].overallRating;
+  const playerNameText = langConfig[`${lang}`].playerName;
+  const gameProgressText = langConfig[`${lang}`].gameProgress;
+  const achievementsText = langConfig[`${lang}`].achievements;
+
   const popup = createElement('div', {
     classList: ['popup-rating-wrapper'],
     innerHTML: `
       <div class="popup-rating-content">
-        <div class="title-rating">Overall rating</div>
+        <div class="title-rating">${overallRatingText}</div>
         <div class="close-rating-popup"></div>
 
         <div class="wrapper-table-rating">
           <div class="title-rating-property">
             <input type="checkbox" id="name" name="name" checked>
-            <label for="name" class="rating-property-name">Player's name</label>
+            <label for="name" class="rating-property-name">${playerNameText}</label>
 
             <input type="checkbox" id="progress" name="progress" checked>
-            <label for="progress" class="rating-property-progress">game progress</label>
+            <label for="progress" class="rating-property-progress">${gameProgressText}</label>
 
             <input type="checkbox" id="achievements" name="achievements" checked>
-            <label for="achievements" class="rating-property-achievements">achievements</label>
+            <label for="achievements" class="rating-property-achievements">${achievementsText}</label>
           </div>
         </div>
 
@@ -84,7 +91,7 @@ function popapRatingCreate(stats, players) {
       const wrapper = document.querySelector('.wrapper-data-table-rating');
       const players = Array.from(document.querySelectorAll('.data-rating-player'));
       const [name, progress, achievements] = Array.from(document.querySelectorAll('input[type="checkbox"]'));
-      
+
       if (target.classList.contains('rating-property-name')) {
         const sortHandler = (a, b) => a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
 

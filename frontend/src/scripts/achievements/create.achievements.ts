@@ -2,6 +2,7 @@ import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
 import popapProfileCreate from './create.popap.profile';
 import popapRatingCreate from './create.popap.rating';
+import langConfig from '../layouts/langConfig';
 
 const SERVER = 'https://rs-clone.herokuapp.com';
 
@@ -28,11 +29,16 @@ async function getPlayers({ token }) {
 }
 
 function popapSelectCreate({ stats, players, id }) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const statisticsText = langConfig[`${lang}`].statistics;
+  const profileText = langConfig[`${lang}`].profile;
+  const overallRatingText = langConfig[`${lang}`].overallRating;
+
   const popup = createElement('div', {
     classList: ['popup-achievements-wrapper'],
     innerHTML: `
       <div class="popup-achievements-content">
-        <div class="title-rating">Statistics</div>
+        <div class="title-rating">${statisticsText}</div>
         <div class="close-achievements-popup"></div>
       </div>
     `,
@@ -48,21 +54,21 @@ function popapSelectCreate({ stats, players, id }) {
 
   const profile = createElement('div', {
     classList: ['achievements-content-profile-button'],
-    textContent: 'Profile',
+    textContent: profileText,
     onclick: () => {
       popup.remove();
       const [ userStat ] = stats.data.filter(({ userId }) => userId === id );
       popapProfileCreate(userStat);
-    }
+    },
   });
 
   const rating = createElement('div', {
     classList: ['achievements-content-rating-button'],
-    textContent: 'Overall rating',
+    textContent: overallRatingText,
     onclick: () => {
       popup.remove();
       popapRatingCreate(stats.data, players.data);
-    }
+    },
   });
 
   whileLoad(popup, '../assets/auth/achievement_board.png');
@@ -71,17 +77,22 @@ function popapSelectCreate({ stats, players, id }) {
 }
 
 function achievementsCreate({ id, token }) {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const achievementsText = langConfig[`${lang}`].achievements;
 
   const achievementsIcon = createElement('div', {
     classList: ['achievements-icon'],
+    textContent: `${achievementsText}`,
     onclick: async () => {
       const stats = await getCurrentPlayerStats({ id, token });
       const players = await getPlayers({ token });
       popapSelectCreate({ stats, players, id });
-    }
+    },
   });
-  
-  document.body.append(achievementsIcon);
+
+
+  const main = document.querySelector('main');
+  main?.append(achievementsIcon);
 }
 
 export default achievementsCreate;

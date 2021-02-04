@@ -11,17 +11,17 @@ export default class CustomButton extends Button {
     y: number,
     text: string,
     upTexture: string,
-    downTexture: string
+    downTexture: string,
   ) {
     super(scene, x, y, upTexture);
     scene.add.existing(this);
 
     this.btnDownImage = scene.add.image(0, 0, downTexture);
-    this.btnDownImage.setPosition(0, this.btnImage.height - this.btnDownImage.height)
-    const styles = { fontFamily: 'Dimbo', fontSize: '60px'}
+    this.btnDownImage.setPosition(0, this.btnImage.height - this.btnDownImage.height);
+    const styles = { fontFamily: 'Dimbo', fontSize: '60px' };
     this.btnText = scene.add.text(0, 0, text, styles).setOrigin(0.5);
-    this.btnText.setShadow(3, 3, '#000000')
-    this.btnText.setTint(0xfafafa, 0xfafafa, 0x8f8f8f, 0x8f8f8f)
+    this.btnText.setShadow(3, 3, '#000000');
+    this.btnText.setTint(0xfafafa, 0xfafafa, 0x8f8f8f, 0x8f8f8f);
     this.btnDownImage.setVisible(false);
 
     this.add(this.btnDownImage);
@@ -39,18 +39,21 @@ export default class CustomButton extends Button {
   }
 
   handleOver() {
-    this.btnText.setTint(0x8f8f8f, 0x8f8f8f, 0xfafafa, 0xfafafa)
+    this.btnText.setTint(0x8f8f8f, 0x8f8f8f, 0xfafafa, 0xfafafa);
   }
+
   handleOut() {
     this.btnDownImage.setVisible(false);
     this.btnImage.setVisible(true);
-    this.btnText.setTint(0xfafafa, 0xfafafa, 0x8f8f8f, 0x8f8f8f)
+    this.btnText.setTint(0xfafafa, 0xfafafa, 0x8f8f8f, 0x8f8f8f);
   }
+
   handleDown() {
     this.handleOver();
     this.btnDownImage.setVisible(true);
     this.btnImage.setVisible(false);
   }
+
   handleUp() {
     this.handleOut();
   }

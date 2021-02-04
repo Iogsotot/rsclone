@@ -1,0 +1,64 @@
+.title-attandence-popap {
+  font-size: xx-large;
+  color: #352824;
+  margin-bottom: 30px;
+}
+
+.day-attendance-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 200px;
+  padding-right: 10px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 1px rgb(212, 232, 37);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: goldenrod;
+    border-radius: 10px;
+  }
+}
+
+svg {
+  overflow: visible;
+  height: 20px;
+}
+
+.day-attendance-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 500px;
+}
+
+.bar {
+  fill: #a27448;
+  height: 20px;
+  transition: fill .3s ease;
+  cursor: pointer;
+  
+  text {
+    fill: #352824;
+  }
+}
+
+.chart:hover,
+.chart:focus {
+  .bar {
+    fill: #aaa;
+  }
+}
+
+.bar:hover,
+.bar:focus {
+  fill: #352824 !important;
+  
+  text {
+    fill: whitesmoke;
+  }
+}

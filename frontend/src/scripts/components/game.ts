@@ -17,12 +17,12 @@ const config: Phaser.Types.Core.GameConfig = {
     height: 1210,
   },
   scene: [
-    PreloadScene, 
+    PreloadScene,
     LevelsScene,
-    PauseScene, 
-    WinScene, 
-    LoseScene, 
-    GameScene
+    PauseScene,
+    WinScene,
+    LoseScene,
+    GameScene,
   ],
   physics: {
     default: 'arcade',

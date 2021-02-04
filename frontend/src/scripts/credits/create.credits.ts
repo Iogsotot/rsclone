@@ -1,87 +1,102 @@
 import createElement from '../auth/utils/createElement';
 import { whileLoad, whileRaise } from '../auth/utils/wait.while.loading';
+import langConfig from '../layouts/langConfig';
 
 function createCredits() {
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const creditsText = langConfig[`${lang}`].credits;
+  const ourTeamText = langConfig[`${lang}`].ourTeam;
+  const gratitudeText = langConfig[`${lang}`].gratitude;
+  const specialThanksFromText = langConfig[`${lang}`].specialThanksFrom;
+  const myTeamText = langConfig[`${lang}`].myTeam;
+  const perText = langConfig[`${lang}`].per;
+  const andEnduranceText = langConfig[`${lang}`].andEndurance;
+  const andPeopleFromChatsText = langConfig[`${lang}`].andPeopleFromChats;
+  const myTurtleText = langConfig[`${lang}`].myTurtle;
+  const forStressReliefAndBuoyancyText = langConfig[`${lang}`].forStressReliefAndBuoyancy;
+  const forMentoringAndStrongShoulderText = langConfig[`${lang}`].forMentoringAndStrongShoulder;
+  const forJokesCommunicationAndHelpText = langConfig[`${lang}`].forJokesCommunicationAndHelp;
+  const forEverythingAndEvenMoreText = langConfig[`${lang}`].forEverythingAndEvenMore;
+
   const popup = createElement('div', {
     classList: ['credits-wrapper'],
     innerHTML: `
-      <div class="credits-content">
-        <div class="title-credits">Credits</div>
-        <div class="close-credits-popup"></div>
-        <div class="credits-data">
-          <h2 class="credits-title">Our team</h2>
-          <div class="wrapper-credits-people">
-            <div class="credits-people">
-              <div class="avatar Iogsotot"></div>
-              <a href="https://github.com/Iogsotot">Iogsotot</a>
-            </div>
-            <div class="credits-people">
-              <div class="avatar DenisAfa"></div>
-              <a href="https://github.com/DenisAfa">DenisAfa</a>
-            </div>
-            <div class="credits-people">
-              <div class="avatar Abdulloh76"></div>
-              <a href="https://github.com/Abdulloh76">Abdulloh76</a>
-            </div>
-            <div class="credits-people">
-              <div class="avatar mrINEX"></div>
-              <a href="https://github.com/mrINEX">mrINEX</a>
-            </div>
-          </div>
-          <h2 class="credits-title">Gratitude</h2>
-          <div class="wrapper-gratitude">
-            <div class="gratitude-from">
-              <ul>
-                Особая благодарность от IogSotot:
-                <li>моей команде</li>
-                <li>за Kingdom Rush и выдежрку!</li>
-                <li>моей черепахе</li>
-                <li>за снятие стресса и плавучесть</li>
-                <li>Артёму <a href="https://github.com/cardamo">Cardamo</a></li>
-                <li>за менторство и крепкое плечо</li>
-                <li><a href="https://rs.school/">RSS и людям из чатов</a></li>
-                <li>за шутки, общение и помощь</li>
-                <li>Алексею <a href="https://github.com/lexlem">Lexlem</a></li>
-                <li>за всё и даже больше</li>
-              </ul>
-            </div>
-            <div class="gratitude-from">
-              <ul>
-                Особая благодарность от DenisAfa:
-                <li>моей команде</li>
-                <li>за Kingdom Rush и выдежрку!</li>
-              </ul>
-            </div>
-            <div class="gratitude-from">
-              <ul>
-                Особая благодарность от Abdulloh76:
-                <li>моей команде</li>
-                <li>за Kingdom Rush и выдежрку!</li>
-              </ul>
-            </div>
-            <div class="gratitude-from">
-              <ul>
-                Особая благодарность от mrINEX:
-                <li>моей команде</li>
-                <li>за Kingdom Rush и выдежрку!</li>
-                <li><a href="https://rs.school/">RSS и людям из чатов</a></li>
-              </ul>
-            </div>
-          </div>
+    <div class="credits-bg">
+
+    <div class="credits-content">
+    
+      <div class="credits-data">
+        <h2 class="credits-title">${creditsText[0].toUpperCase() + creditsText.slice(1)}</h2>
+        <h3 class="credits-subtitle">${ourTeamText}</h3>
+        <div class="team">
+          <a class="team-people" href="https://github.com/Iogsotot">
+            <div class="avatar Iogsotot"></div>
+            <div class="team-member">Iogsotot</div>
+          </a>
+          <a class="team-people" href="https://github.com/DenisAfa">
+            <div class="avatar DenisAfa"></div>
+            <div class="team-member" >DenisAfa</div>
+          </a>
+          <a class="team-people"  href="https://github.com/Abdulloh76">
+            <div class="avatar Abdulloh76"></div>
+            <div class="team-member">Abdulloh76</div>
+          </a>
+          <a class="team-people" href="https://github.com/mrINEX">
+            <div class="avatar mrINEX"></div>
+            <div class="team-member" >mrINEX</div>
+          </a>
         </div>
+        <h3 class="credits-subtitle">${gratitudeText}</h3>
+        <ul>
+          <div class="gratitude-title">
+          ${specialThanksFromText} IogSotot:
+          </div>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+          <li>${myTurtleText}</li>
+          <li>${forStressReliefAndBuoyancyText}</li>
+          <li>Артёму <a class="credits-link" href="https://github.com/cardamo">Cardamo</a></li>
+          <li>${forMentoringAndStrongShoulderText}</li>
+          <li><a class="credits-link" href="https://rs.school/">RSS ${andPeopleFromChatsText}</a></li>
+          <li>${forJokesCommunicationAndHelpText}</li>
+          <li>Алексею <a class="credits-link" href="https://github.com/lexlem">Lexlem</a></li>
+          <li>${forEverythingAndEvenMoreText}</li>
+        </ul>
+        <ul>
+          <div class="gratitude-title">
+          ${specialThanksFromText} DenisAfa:
+          </div>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+        </ul>
+        <ul>
+          <div class="gratitude-title">
+          ${specialThanksFromText} Abdulloh76:
+          </div>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+        </ul>
+    
+        <ul>
+          <div class="gratitude-title">
+          ${specialThanksFromText} mrINEX:
+          </div>
+          <li>${myTeamText}</li>
+          <li>${perText} Kingdom Rush ${andEnduranceText}</li>
+          <li><a class="credits-link" href="https://rs.school/">RSS ${andPeopleFromChatsText}</a></li>
+        </ul>
+    
       </div>
+    </div>
+    </div>
+  </div>
+  <div class="close-credits-popup"></div>
     `,
     onclick: ({ target }) => {
-      if (target.classList.contains('credits-wrapper')) {
-        whileRaise(popup);
-      }
       if (target.classList.contains('close-credits-popup')) {
         whileRaise(popup);
       }
     },
-  }, {
-    height: `${window.innerHeight}`,
-    width: `${window.innerWidth}`,
   });
 
   whileLoad(popup, '../assets/credits/wood_2.png');

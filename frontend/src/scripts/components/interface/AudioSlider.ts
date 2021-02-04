@@ -1,4 +1,5 @@
 import Button from '../button/Button';
+import GameScene from '../scenes/GameScene';
 
 interface BarConfigs {
   border: number;
@@ -22,23 +23,21 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
 
   progressBar: Phaser.GameObjects.Graphics;
 
-  audioValue: number;
+  type: string;
 
   barConfigs: BarConfigs;
 
-  constructor(scene: Phaser.Scene, x: number, y: number, titleTexture: string) {
+  constructor(scene: Phaser.Scene, x: number, y: number, titleTexture: string, type:string) {
     super(scene, x, y);
 
-    // this.title = scene.add.image(0, 0, titleTexture);
+    this.type = type;
     const styles = {
       fontFamily: 'Dimbo',
       fontSize: '80px',
-      color: '#dbc899'
-    }
-    this.title = scene.add.text(0, 0, titleTexture, styles).setOrigin(0.4, 0.5)
+      color: '#dbc899',
+    };
+    this.title = scene.add.text(0, 0, titleTexture, styles);
     this.add(this.title);
-
-    this.audioValue = 0;
 
     this.initCheckbox(scene);
     this.initProgressBar(scene);
@@ -48,8 +47,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   initCheckbox(scene: Phaser.Scene) {
-    this.checkbox = scene.add.image(0, 0, 'on').setOrigin(0.5);
-    this.checkbox.setX(this.title.width+this.checkbox.width/4);
+    this.checkbox = scene.add.image(this.title.width * 1.2, this.title.height, 'on').setOrigin(0,1);
     this.add(this.checkbox);
     this.checkbox
       .setInteractive({ useHandCursor: true })
@@ -57,26 +55,39 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
   }
 
   handleCheckboxClick() {
-    if (this.checkbox.texture.key === 'on') this.checkbox.setTexture('off');
-    else this.checkbox.setTexture('on');
+    if (this.checkbox.texture.key === 'on') {
+      this.checkbox.setTexture('off');
+      this.drawProgressBar(-10);
+    } else {
+      this.checkbox.setTexture('on');
+      this.drawProgressBar(1);
+    }
   }
 
   initProgressBar(scene: Phaser.Scene) {
-    this.decrease = new Button(scene, -this.title.width / 4, this.title.height, 'minus');
+    this.decrease = new Button(scene, 0, this.title.height * 1.5, 'minus');
+    this.decrease.setX(this.decrease.width / 2);
 
-    this.barContainer = scene.add.image(0, this.title.height, 'slider-bar-bg');
+    this.barContainer = scene.add.image(0, this.title.height * 1.5, 'slider-bar-bg');
 
-    this.barContainer.setX(this.barContainer.width / 2);
+    this.barContainer.setX(this.barContainer.width / 2 + this.decrease.x * 2);
 
     this.progressBar = scene.add.graphics();
     this.initBarConfigs();
-    this.drawProgressBar(0);
+
+    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`];
+    const audioKeys = Object.keys(audios);
+    const  volume = audios[`${audioKeys[0]}`].volume;
+    for(let i = 0; i < audioKeys.length; i++) {
+      audios[`${audioKeys[i]}`].setVolume(volume);
+    }
+    this.drawProgressBar(volume * 10);
 
     this.increase = new Button(
       scene,
-      -this.title.width / 4 + this.barContainer.width + this.decrease.width,
-      this.title.height,
-      'plus'
+      this.barContainer.width + this.decrease.width * 1.5,
+      this.title.height * 1.5,
+      'plus',
     );
 
     this.add(this.decrease);
@@ -106,10 +117,10 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       borderRadius,
       maxValue: barSizes[0],
     };
-    this.barConfigs.barSizes[0] -= 50;
+    this.barConfigs.barSizes[0] = 0;
   }
 
-  drawProgressBar(change: -1 | 0 | 1) {
+  drawProgressBar(change: number) {
     if (this.barConfigs.barSizes[0] === 20 && change === -1) return;
     else if (this.barConfigs.barSizes[0] === this.barConfigs.maxValue && change === 1) return;
 
@@ -121,6 +132,13 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       this.barConfigs.barSizes[0] = this.barConfigs.maxValue;
     }
 
+    if (this.barConfigs.barSizes[0] > 20) this.checkbox.setTexture('on');
+    const audios = (this.scene.scene.get('game-scene') as GameScene)[`${this.type}`];
+    const audioKeys = Object.keys(audios);
+    for (let i = 0; i < audioKeys.length; i++) {
+      audios[`${audioKeys[i]}`].setVolume(this.barConfigs.barSizes[0] / this.barConfigs.maxValue);
+    }
+
     this.progressBar.clear();
     // bar
     let color = this.barConfigs.barSizes[0] > this.barConfigs.maxValue * 0.8 ? 0xe65540 : 0xf4d133;
@@ -130,7 +148,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
       this.barConfigs.containerCoordinates[1],
       this.barConfigs.barSizes[0],
       this.barConfigs.barSizes[1],
-      this.barConfigs.borderRadius
+      this.barConfigs.borderRadius,
     );
     // shadow
     color = this.barConfigs.barSizes[0] > this.barConfigs.maxValue * 0.8 ? 0xc63f31 : 0xde9b26;
@@ -145,7 +163,7 @@ export default class AudioSlider extends Phaser.GameObjects.Container {
         tr: 0,
         bl: this.barConfigs.borderRadius,
         br: this.barConfigs.borderRadius,
-      }
+      },
     );
 
     // yellow

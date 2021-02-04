@@ -34,7 +34,7 @@ export default class PauseModal extends CustomModal {
       scene,
       restartBtnCoordinates[0],
       restartBtnCoordinates[1],
-      'button-restart'
+      'button-restart',
     );
 
     const resumeBtnCoordinates = [
@@ -45,37 +45,39 @@ export default class PauseModal extends CustomModal {
       scene,
       resumeBtnCoordinates[0],
       resumeBtnCoordinates[1],
-      'button-right'
+      'button-right',
     );
 
-    this.add(this.restartBtn)
-    this.add(this.resumeBtn)
-    this.add(this.menuBtn)
+    this.add(this.restartBtn);
+    this.add(this.resumeBtn);
+    this.add(this.menuBtn);
   }
 
   initOptionsContainer(scene: Phaser.Scene) {
     this.options = new Phaser.GameObjects.Container(
       scene,
       0,
-      25
+      25,
     );
 
     const bgImage = scene.add.image(0, 0, 'audio-set-bg');
-        this.options.add(bgImage);
+    this.options.add(bgImage);
     this.options.setSize(bgImage.width, bgImage.height);
 
     const musicSlider = new AudioSlider(
       scene,
-      -bgImage.width / 3,
-      -bgImage.height / 3,
-      langConfig[`${window['lang']}`].music
+      -bgImage.width * 0.45,
+      -bgImage.height *0.45,
+      langConfig[`${window['lang']}`].music,
+      'music',
     );
 
     const soundSlider = new AudioSlider(
       scene,
-      -bgImage.width / 3,
-      bgImage.height / 9,
-      langConfig[`${window['lang']}`].sound
+      -bgImage.width * 0.45,
+      0,
+      langConfig[`${window['lang']}`].sound,
+      'sounds',
     );
 
     this.options.add(musicSlider);

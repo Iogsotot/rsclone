@@ -1,10 +1,11 @@
 import createElement from './createElement';
-import getAttendance from '../backend/getAttendance';
+import getAttendance from '../../attendance/backend/getAttendance';
 import createCredits from '../../credits/create.credits';
 import { KEY_ID, KEY_TOKEN } from '../../constants/constants';
-import { whileLoad, whileRaise } from '../utils/wait.while.loading';
 import LangSwitcher, { LangConfig } from './LangSwitcher';
-
+import createPopupAttendance from '../../attendance/create.attendance';
+import achievementsCreate from '../../achievements/create.achievements';
+import langConfig from '../../layouts/langConfig';
 
 const langConfigs: LangConfig[] = [
   { lang: 'en', text: 'English' },
@@ -12,7 +13,15 @@ const langConfigs: LangConfig[] = [
   { lang: 'uz', text: 'O\'zbekcha' },
 ]
 
-function createStartPage() {
+function createStartPage({ id, token }) {
+  const body = document.querySelector('body') as HTMLBodyElement;
+  // body.innerText = '';
+  const main = createElement('main');
+
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const startText = langConfig[`${lang}`].start.toUpperCase();
+  const creditsText = langConfig[`${lang}`].credits.toUpperCase();
+
   const startPage = createElement(
     'div',
     {
@@ -20,8 +29,8 @@ function createStartPage() {
       innerHTML: `
     <div class="wrapper-logo-start-page">
       <div class="logo-start-page"></div>
-      <div class="logo-start-button">START</div>
-      <div class="logo-credits-button">CREDITS</div>
+      <div class="logo-start-button">${startText}</div>
+      <div class="logo-credits-button">${creditsText}</div>
     </div>
     `,
     },
@@ -49,66 +58,52 @@ function createStartPage() {
     },
   });
 
-  const body = document.querySelector('body') as HTMLBodyElement;
-  body.innerText = '';
-  body.append(logout, attendance, startPage);
-  new LangSwitcher(langConfigs)
-
-  const credits = document.querySelector('.logo-credits-button');
-  credits?.addEventListener('click', () => createCredits());
-}
-
-function createPopupAttendance(arr) {
-  let positionAttendance = 0;
-  let positionText = 8;
-
-  const maxAttendance = Math.max(...arr.map((el) => el.allAttendance));
-
-  const popup = createElement('div', {
-    classList: ['popup-attendance-wrapper'],
+  const footer = createElement('footer', {
+    classList: ['kingdom-rush-footer'],
     innerHTML: `
-      <div class="popup-attendance-content">
-
-        <div class="rope-popup-left"></div>
-        <div class="rope-popup-right"></div>
-
-        <div class="close-popup"></div>
-        
-        <figure>
-          <figcaption>Game attendance over the year</figcaption>
-          <svg class="full_graph">
-              <title id="title">A bart chart showing game attendance over the year</title>
-              ${arr
-                .map(({ year, allAttendance }) => {
-                  positionAttendance += 20;
-                  positionText += 20;
-                  const precent = ((maxAttendance - allAttendance) / maxAttendance) * 100;
-
-                  return `
-                  <g class="bar">
-                    <rect width="${100 - precent}%" height="19" y="${positionAttendance}"></rect>
-                    <text x="0" y="${positionText}" dy=".35em">${allAttendance}</text>
-                    <text x="85%" y="${positionText}" dy=".35em">${year}</text>
-                  </g>
-                  `;
-                })
-                .join(' ')}
-          </svg>
-        </figure>
-      
+      <div class="the-rolling-scopes">
+        <a href="https://rs.school/js/" class="rss"></a>
       </div>
-    `,
-    onclick: ({ target }) => {
-      if (target.classList.contains('popup-attendance-wrapper')) {
-        whileRaise(popup);
-      }
-      if (target.classList.contains('close-popup')) {
-        whileRaise(popup);
-      }
-    },
+
+      <div class="wrapper-team-people">
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/Iogsotot">
+            <div class="avatar Iogsotot"></div>
+            <div>IogSotot</div>
+          </a>
+        </div>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/DenisAfa">
+            <div class="avatar DenisAfa"></div>
+            <div>DenisAfa</div>
+          </a>
+        </div>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/Abdulloh76">
+            <div class="avatar Abdulloh76"></div>
+            <div>Abdulloh76</div>
+          </a>
+        </div>
+        <div class="team-people">
+          <a class="team-link"href="https://github.com/mrINEX">
+            <div class="avatar mrINEX"></div>
+            <div>mrINEX</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="year-create">2021</div>
+    `
   });
 
-  whileLoad(popup, '../assets/interface/modal-bg.png');
+  main.append(new LangSwitcher(langConfigs).init(), logout, attendance, startPage);
+
+  body.append(main, footer);
+
+  const credits = document.querySelector('.logo-credits-button');
+  credits?.addEventListener('click', createCredits);
+
+  achievementsCreate({ id, token });
 }
 
 export default createStartPage;

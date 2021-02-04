@@ -1,8 +1,17 @@
 import createElement from './createElement';
 import { signUp, signIn } from '../../backend';
+import langConfig from '../../layouts/langConfig';
 
 function createSignPage() {
   // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_])[a-zA-Z0-9_\W]{8,}$"
+  const lang = window['lang'] || localStorage.getItem('lang') || 'en';
+  const signInText = langConfig[`${lang}`].signIn.toUpperCase();
+  const signUpText = langConfig[`${lang}`].signUp.toUpperCase();
+  const nameText = langConfig[`${lang}`].name;
+  const passwordText = langConfig[`${lang}`].password;
+  const upperNameText = nameText[0].toUpperCase() + nameText.slice(1);
+  const upperPasswordText = passwordText[0].toUpperCase() + passwordText.slice(1);
+  const keepMeText = langConfig[`${lang}`].keepMe;
 
   const signPage = createElement(
     'div',
@@ -12,14 +21,14 @@ function createSignPage() {
       <div class="sign-window">
 
         <div class="sign-info">
-          <span class="sign-info-in active-sign-info">SIGN IN</span>
-          <span class="sign-info-up">SIGN UP</span>
+          <span class="sign-info-in active-sign-info">${signInText}</span>
+          <span class="sign-info-up">${signUpText}</span>
         </div>
 
         <form class="sign-form" name="signForm">
           <div class="wrapper-username">
             <input
-              placeholder="Name"
+              placeholder="${upperNameText}"
               class="sign-username"
               id="email" name="username"
               required=""
@@ -29,7 +38,7 @@ function createSignPage() {
           <div class="wrapper-password">
             <input
               class="sign-password"
-              placeholder="Password"
+              placeholder="${upperPasswordText}"
               id="password"
               type="password"
               autocomplete="on"
@@ -42,10 +51,10 @@ function createSignPage() {
                   checked>
             <label for="scales">
               <div class="checkbox-image"></div>
-              <div class="checkbox-text">Keep Me Signed In</div>
+              <div class="checkbox-text">${keepMeText}</div>
             </label>
           </div>
-          <input class="sign-in-submit" type="submit" value="SIGN IN">
+          <input class="sign-in-submit" type="submit" value="${signInText}">
         </form>
       </div>
     `,
@@ -83,20 +92,18 @@ function createSignPage() {
 
   signSubmit.onclick = (e) => {
     const { elements } = document.forms.namedItem('signForm') as HTMLFormElement;
-    const { value } = e.target as HTMLInputElement;
-
     const username = (elements.namedItem('username') as HTMLInputElement).value;
     const password = (elements.namedItem('password') as HTMLInputElement).value;
+
+    const active = document.querySelector('.active-sign-info') as HTMLSpanElement;
+    const isIn = active.classList.contains('sign-info-in');
+    const isUp = active.classList.contains('sign-info-up');
 
     if (username && password) {
       e.preventDefault();
 
-      if (value === 'SIGN UP') {
-        signUp({ login: username, password });
-      }
-      if (value === 'SIGN IN') {
-        signIn({ login: username, password });
-      }
+      isIn && signIn({ login: username, password });
+      isUp && signUp({ login: username, password });
     }
   };
 }
