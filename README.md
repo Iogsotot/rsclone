@@ -1,45 +1,74 @@
 # Kingdom Rush clone
+Для проверки приложения можно воспользоваться нашим готовым деплоем - [netlify](https://kingdom-rush-rsclone.netlify.app/), либо развернуть весь бэк и фронт локально по инструкции ниже.
+# RS School REST service
 
-## Task 
-https://github.com/rolling-scopes-school/tasks/blob/master/tasks/rsclone/rsclone.md
+## Prerequisites
 
-## Team 
+- Git - [Download & Install Git](https://git-scm.com/downloads).
+- Node.js - [Download & Install Node.js](https://nodejs.org/en/download/) and the npm package manager.
 
-## Description
+## Downloading
 
-## Implemented features
+```
+git clone {repository URL}
+```
 
-### UI:
-- [ ] Есть возможность управление приложением/игрой с клавиатуры или наличие более пяти hot keys (20 баллов) `пауза, выход, след. волна, выбор башни и тд`
-- [x] Есть возможность переключения 2 и более языков (10 баллов за каждый дополнительный язык, но не более 20 баллов) `на финальной стадии реализации`
-- [x] Есть хотя бы один модальный диалог (10 баллов) 
-- [ ] Реализован routing (без перезагрузки страницы приложения) (20 баллов)
-- [ ] Возможность кастомизации приложения, настроек пользователя (20 баллов)  ```в нашем случае это должна быть громкость звука, сложности игры, можно добавить аватарку для отображения в статистике```
-- [x] Реализовано 3+ анимации, для создания которых используются ключевые кадры или svg-анимация (20 баллов)
-- [x] Приложение выполнено в едином стиле, для стилизации используется Bootstrap/Material UI/Ant design/etc (20 баллов) ```всё ок, можно ещё раз просмотреть всё и поправить немного (+оформить футер)```
-- [ ] Приложение работает на телефоне/планшете/PC (10 баллов за каждое дополнительное устройство)
+## Installing NPM modules
 
-### Работа игры:
-- [x] Действие игры происходит на разных уровнях, картах, локациях, используются анимированные переходы между уровнями, анимации победы, поражения (30 баллов) 
-- [ ] Расширенные настройки звука/видео/графики. Уровни громкости, язык озвучивания, вкл/выкл отображение теней, частиц (20 баллов)
-- [x] Есть статистика, которая отображает прогресс игры, нанесенный урон, потраченное на игру время, процент выполнения задания или уровня etc (20 баллов) ```в финальной стадии доделки, можно ещё прогресс-бар для врагов доделать наконец```
-- [x] Написание логики для компьютерного противника (40 баллов) ```волны, пути, разные статы, разные особенности врагов```
-- [ ] *можно реализовать обучение на первом уровне*
+```
+npm install
+```
 
-## Технический стек:
-- [x] Использован Canvas/WebGL/etc (20 баллов)
-- [ ] Работа с Audio API (10 баллов)
-- [ ] Есть не меньше двадцати Unit test (20 баллов)
-- [x] Использован webpack (10 баллов)
-- [x] Сохранение и загрузка чего-либо с использованием Local storage (10 баллов) ```у нас там сейчас всякий state, можно туда же уровень громкости добавить```
-- [x] Приложение/игра написанны на TypeScript (40 баллов) ```финально проверить код```
+## Running application
 
-## Работа с кодом:
-- [x] Использован eslint, eslint-config-airbnb-base (10 баллов)  ```надо доделать конфиги и проверить всё ли корректно отрабатывает```
-- [x] Понятный, читаемый код. Имена переменных и функций отражают то что в них содержится/то что они делают. Функция выполняет одно действие. Повторение логики сведено к минимуму. (20 баллов) ```мы столько всё это рефачили, тч да - этот пункт есть```
-## Back-end:
-- [x] Использован RESTful API (30 баллов)
-- [x] Подключение и работа с БД (30 баллов)
-- [x] Аутентификация (20 баллов)
-- [x] Приложение отображает какую-либо статистику/графики/таблицы, данные для которых получает от бекенда (20 баллов)
-- [x] Реализован nodejs и express, отдаёт корректные ответы, отдаёт HTTP ошибки с нормальными body, по которым можно понять, что произошло, пишет читаемые логи (40 балов)
+```
+npm start
+```
+
+After starting the app on port (4000 as default) you can open
+in your browser OpenAPI documentation by typing http://localhost:4000/doc/.
+For more information about OpenAPI/Swagger please visit https://swagger.io/.
+
+## Testing
+
+After application running open new terminal and enter:
+
+To run all tests without authorization
+
+```
+npm test
+```
+
+To run only one of all test suites (users, boards or tasks)
+
+```
+npm test <suite name>
+```
+
+To run all test with authorization
+
+```
+npm run test:auth
+```
+
+To run only specific test suite with authorization (users, boards or tasks)
+
+```
+npm run test:auth <suite name>
+```
+
+## Development
+
+If you're using VSCode, you can get a better developer experience from integration with [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extensions.
+
+### Auto-fix and format
+
+```
+npm run lint
+```
+
+### Debugging in VSCode
+
+Press <kbd>F5</kbd> to debug.
+
+For more information, visit: https://code.visualstudio.com/docs/editor/debugging
