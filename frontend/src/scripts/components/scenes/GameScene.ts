@@ -110,6 +110,7 @@ export default class GameScene extends Phaser.Scene {
         this.gameObjStats.gameObject = null;
       }
       setTimeout(() => {
+        // enemy.texture = this.renderer.setBlendMode;
         enemy.destroy();
       }, 3000);
       if (this.playerLives <= 0) {
