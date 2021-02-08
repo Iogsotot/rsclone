@@ -7,7 +7,7 @@ import LoseScene from './scenes/LoseScene';
 import WinScene from './scenes/WinScene';
 
 const config: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   backgroundColor: '#000000',
   scale: {
     parent: 'phaser-game',
