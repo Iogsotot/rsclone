@@ -8,7 +8,7 @@ router.route('/').post(
     const user = await loginService.getUser(login);
 
     if (!user) {
-      res.send({ data: 'Forbidden', ok: false });
+      res.send({ data: 'No Content', ok: false });
     } else if (password !== user.password) {
       res.send({ data: 'Invalid password', ok: false });
     } else {

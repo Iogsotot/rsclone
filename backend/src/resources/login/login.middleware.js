@@ -3,16 +3,31 @@ const { JWT_SECRET_KEY } = require('../../common/config');
 
 function middlewareAuth(req, res, next) {
   try {
-    const [type, token] = req.header('Authorization').split(' ');
+    const auth = req.header('Authorization');
+    if (!auth) {
+      return res.status(401).send({
+        data: 'Wrong authenticate scheme!',
+        ok: false
+      });
+    }
+
+    const [type, token] = auth.split(' ');
     if (type !== 'Bearer') {
-      res.status(401).send({ data: 'Unauthorized error', ok: false });
-      return;
+      return res.status(401).send({
+        data: 'Wrong authenticate scheme!',
+        ok: false
+      });
     }
 
     jwt.verify(token, JWT_SECRET_KEY);
+
     return next();
   } catch (err) {
-    res.status(401).send({ data: 'Unauthorized error', ok: false });
+    console.log('Error: ', err.message);
+    res.status(500).send({
+      data: 'Invalid Token',
+      ok: false
+    });
   }
 }
 
