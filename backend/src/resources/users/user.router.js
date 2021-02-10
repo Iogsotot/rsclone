@@ -13,8 +13,11 @@ router.route('/').get(
 router.route('/:id').get(
   handling(async (req, res) => {
     const user = await usersService.get(req.params.id);
-
-    res.send({ data: User.toResponse(user), ok: true }); // err if user = null
+    if (user) {
+      res.send({ data: User.toResponse(user), ok: true });
+    } else {
+      res.send({ data: 'No Content', ok: false });
+    }
   })
 );
 
